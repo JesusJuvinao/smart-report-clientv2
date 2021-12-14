@@ -9,9 +9,6 @@ services:
       - 3000:3000
     volumes:
       - .:/next-app
-    env_file:
-      - .env
-
   # nginx:
   #   build: ./nginx
   #   ports:
