@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  next-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/next-app
+    env_file:
+      - .env
+
+  # nginx:
+  #   build: ./nginx
+  #   ports:
+  #   - 80:80
+  #   links:
+  #     - next-app
+  #   restart:  always
