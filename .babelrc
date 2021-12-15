@@ -1,11 +1,3 @@
-  {
-    "extends": "next",
-    "presets": [
-      "next/babel"
-    ],
-    "rules": {
-      "react/no-unescaped-entities": "off",
-      "@next/next/no-page-custom-font": "off"
-    },
-    "plugins": [ [  "styled-components",  { "ssr": true } ] ]
+{
+    "presets": ["next/babel"]
   }
