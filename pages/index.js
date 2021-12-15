@@ -2,6 +2,6 @@ import { IndexC } from '../container/Home/'
 
 export default function Home() {
   return (
-    <IndexC />
+    <h1>Hola</h1>
   )
 }
