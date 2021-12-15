@@ -4,14 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-<<<<<<< HEAD
-
-# testing
-=======
 package-lock.json
-ckag
-ng
->>>>>>> 2296d3146d817d8ad571e254bff4dffebb7e1bdc
+# testing
 /coverage
 
 # next.js
