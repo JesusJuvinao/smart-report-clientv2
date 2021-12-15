@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { PVColor, PColor, BGColor, SECColor } from '../../public/colors'
 import { FadeOup } from '../../components/animations'
 export const Container = styled.div`
-
+background: red;
 
     `
 
