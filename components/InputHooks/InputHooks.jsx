@@ -103,7 +103,7 @@ const InputHooks = ({
       } else {
         const errorMessage = simpleVerifyEmail(email)
         if (errorMessage) {
-          console.log(errorMessage)
+          // console.log(errorMessage)
         }
       }
     }
