@@ -1,14 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-<<<<<<< HEAD
-=======
-import { IndexC } from '../container/Home/'
->>>>>>> 2296d3146d817d8ad571e254bff4dffebb7e1bdc
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
-<<<<<<< HEAD
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -70,8 +65,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-=======
-    <IndexC />
->>>>>>> 2296d3146d817d8ad571e254bff4dffebb7e1bdc
   )
 }
