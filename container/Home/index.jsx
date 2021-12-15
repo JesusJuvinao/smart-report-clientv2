@@ -18,8 +18,7 @@ export const IndexC = () => {
       <PQR />
       <Item />
       <OnBanner height='18.25rem' title='See what QuickBooks can do for your business.' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Buy now' />
-
-    </Container>
+      </Container>
 
   )
 }
