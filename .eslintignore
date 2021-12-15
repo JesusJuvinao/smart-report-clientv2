@@ -1,5 +1,0 @@
-next.config.js
-**/node_modules/*
-**/out/*
-**/.next/*
-# **/pages*
