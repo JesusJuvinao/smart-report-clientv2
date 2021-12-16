@@ -1,32 +1,29 @@
-import connectDb from './lib/db'
-import typeDefs from '../api/lib/typeDefs'
-import httpHeadersPlugin from 'apollo-server-plugin-http-headers'
-import resolvers from '../api/lib/resolvers/index'
-import { PubSub } from 'graphql-subscriptions'
-import jwt from 'jsonwebtoken'
-import withSession from '../../apollo/session'
+/* eslint-disable no-void */
 import Cors from 'micro-cors'
+import micro from 'micro';
+import { ApolloServer } from 'apollo-server-micro'
+import httpHeadersPlugin from 'apollo-server-plugin-http-headers'
+import typeDefs from '../api/lib/typeDefs'
+import resolvers from '../api/lib/resolvers/index'
+import connectDb from './lib/db'
+import withSession from '../../apollo/session'
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-import { ApolloServer, gql  } from 'apollo-server-micro'
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+import jwt from 'jsonwebtoken'
+import { PubSub } from 'graphql-subscriptions'
+import { CountriesAPI } from './lib/resolvers/Countries/countries'
 
-const cors = Cors();
+const cors = Cors()
 
-// const typeDefs = gql`
-//   type Query {
-//     sayHello: String
-//   }
-// `
-
-const server = new ApolloServer({
-  resolvers,
-  typeDefs,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground(), httpHeadersPlugin],
-  context: withSession(async ({ req, next }) => {
+const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    dataSources: () => {
+        return {
+            countriesAPI: new CountriesAPI()
+        }
+    },
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground(), httpHeadersPlugin],
+    context: withSession(async ({ req, next }) => {
     //  Initialize as empty arrays - resolvers will add items if required
         const setCookies = []
         const setHeaders = []
@@ -42,17 +39,35 @@ const server = new ApolloServer({
         }
         return { req, setCookies: [], setHeaders: [], User: null || {}, pubsub, idComp: null || {} }
     }),
-});
-
-const startServer = server.start();
+    subscriptions: {
+        path: '/api/graphqlSubscriptions',
+        keepAlive: 9000,
+        // eslint-disable-next-line no-unused-vars
+        // onConnect: (connectionParams, webSocket, context) => console.log('connected'),
+        // onDisconnect: (webSocket, context) => console.log('disconnected')
+    },
+    playground: {
+        subscriptionEndpoint: '/api/graphqlSubscriptions',
+        settings: {
+            'request.credentials': 'same-origin'
+        }
+    }
+})
+const startServer = apolloServer.start();
 
 export default cors(async (req, res) => {
-  if (req.method === "OPTIONS") {
-    res.end();
-    return false;
-  }
-
-  await startServer;
-  // const handler = connectDb(apolloServer.createHandler({ path: '/api/graphql' }))
-  await connectDb(server.createHandler({ path: "/api/graphql" })(req, res));
-});
+    cors()
+    if (req.method === 'OPTIONS') {
+        res.end()
+        return
+    }    
+    await startServer;
+    const handler = connectDb(apolloServer.createHandler({ path: '/api/graphql' }))
+    return handler(req, res)
+})
+export const config = {
+        api: {
+            bodyParser: false,
+            playground: true,
+        }
+}

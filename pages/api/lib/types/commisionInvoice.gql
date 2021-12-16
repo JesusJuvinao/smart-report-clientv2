@@ -1,0 +1,81 @@
+type CommissionLineItems {
+    _id: ID
+    subtotal_tickets_sold: Float
+    tickettype: String
+    subtotal_sales_received: Float
+    subinvoice_total: Float
+    subtotal_comm_due: Float
+    ticketcategorytotaldue: Float
+    totalcategorydiscount: Float
+    subtotalforticketypelessDiscount: Float
+    ticketPrice: Float
+}
+type CommissionInvoice {
+    _id: ID
+    idUser: ID
+    idComp: ID
+    uploaded: DateTime
+    eventCommences: DateTime
+    invoiceTo: String
+    isPaid: Boolean
+    isRedo: Boolean
+    invoice_total: Float
+    total_sales_received: Float
+    total_comm_due: Float
+    totalDiscounts: Float
+    invoiceFrom: String
+    eventName: String
+    lineItemsArray: [CommissionLineItems]
+}
+input ICommissionInvoice {
+    _id: ID
+    idUser: ID
+    idComp: ID
+    uploaded: DateTime
+    eventCommences: DateTime
+    invoiceTo: String
+    isPaid: Boolean
+    isRedo: Boolean
+    invoice_total: Float
+    total_sales_received: Float
+    total_comm_due: Float
+    totalDiscounts: Float
+    invoiceFrom: String
+    eventName: String
+}
+type CommissionLineItems {
+    _id: ID
+    subtotal_tickets_sold: Float
+    tickettype: String
+    subtotal_sales_received: Float
+    subinvoice_total: Float
+    subtotal_comm_due: Float
+    ticketcategorytotaldue: Float
+    totalcategorydiscount: Float
+    subtotalforticketypelessDiscount: Float
+    ticketPrice: Float
+}
+input InputCommissionLineItems {
+    _id: ID
+    subtotal_tickets_sold: Float
+    tickettype: String
+    subtotal_sales_received: Float
+    subinvoice_total: Float
+    subtotal_comm_due: Float
+    ticketcategorytotaldue: Float
+    totalcategorydiscount: Float
+    subtotalforticketypelessDiscount: Float
+    ticketPrice: Float
+}
+
+type Query {
+  getAllCommissionInvoice(idComp: ID, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
+  getOneCommissionInvoice(idInvoice: ID, idUser: ID): CommissionInvoice
+}
+
+type Mutation {
+  createCommissionInvoiceMutation(input: ICommissionInvoice): CommissionInvoice
+  sendEmailPaymentInvoice(ToEmail: String!, uEmail: String!, idInvoice: ID!): Response
+  isPaidStateInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+  isRedoStateInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+}
