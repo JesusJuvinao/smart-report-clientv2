@@ -2,6 +2,7 @@ import React from 'react'
 import '../public/styles/App.css'
 import PropTypes from 'prop-types'
 import { Maintenance } from '../components/Maintenance'
+import { LayoutC as Layout } from '../container/Layout'
 import Context from '../context'
 import { GlobalStyle } from '../public/styles/GlobalStyle'
 import {
@@ -16,7 +17,9 @@ function MyApp({ Component, pageProps }) {
     <Context>
        <ApolloProvider client={apolloClient}>
     <GlobalStyle />
+    <Layout>
     {<Component {...pageProps} /> }
+    </Layout>
        </ApolloProvider>
     </Context>
      )
