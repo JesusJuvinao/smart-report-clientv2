@@ -210,7 +210,7 @@ export const useUser = () => {
   const router = useRouter()
   const { data, loading, error } = useQuery(GET_USER, {
     onCompleted: () => {
-      const dataUser = data.getUser
+      const dataUser = data?.getUser
       setSessionActive(true)
       setSessionActive({ data: dataUser })
     },
