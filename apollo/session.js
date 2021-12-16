@@ -7,6 +7,8 @@ export default function withSession (handler) {
         // Session Name
         cookieName: process.env.SESSION_NAME,
         cookieOptions: {
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
             maxAge: ttl
         }
     })
