@@ -292,6 +292,7 @@ export const BillsC = () => {
             isEdit.setState(true)
             setShowLateral(true)
         }
+        console.log(item?.tags?.map(x => { return { id: x._id, tName: x.TName } }), 'HELLO ')
         // const Tags = item?.tags?.map(x => x)
         // setTags([Tags.TName])
         setDataValue({
