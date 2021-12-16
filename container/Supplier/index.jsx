@@ -6,7 +6,7 @@ import { ALL_CURRENCY, CREATE_ONE_SUPPLIER_FOR_COMPANY, GET_SUPPLIERS_SALES, SUP
 import { useFormTools } from '../../components/hooks/useForm'
 import { useSetState } from '../../components/hooks/useState'
 import { updateCache } from '../../utils'
-import { Context } from '../../context'
+import { Context } from'../../context'
 
 export const SupplierC = ({ dataUser, company }) => {
   const { setAlertBox, handleMenu } = useContext(Context)

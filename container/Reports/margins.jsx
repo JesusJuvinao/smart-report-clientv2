@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { useUser } from '../Profile'
 import { Margins } from '../../components/Reports/margins'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import { GET_ALL_BILL } from './queries'
 
 export const MarginsC = props => {

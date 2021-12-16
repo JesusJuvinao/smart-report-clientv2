@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import { ALL_COMPANIES_BY_USER, DELETE_ONE_COMPANY, GET_ALL_TEAM_COMPANY } from '../Company/queries'
 import { CHANGE_STATE_COMPANY, CREATE_ONE_TEAM, LEAVE_TEAM_COMPANY } from './queries'
 import { useRouter } from 'next/dist/client/router'

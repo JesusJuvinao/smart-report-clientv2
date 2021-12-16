@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Loading } from '../../components/Loading/index'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import { Button, Card, Container, ContainerCard, Content, FooterModal, Header, Text } from './styled'
 import EmailEditor from 'react-email-editor'
 import { AwesomeModal } from '../../components/AwesomeModal'

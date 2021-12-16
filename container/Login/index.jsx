@@ -12,9 +12,9 @@ import { IconLogo } from '../../public/icons'
 import { BGColor, SCColor } from '../../public/colors'
 import Link from 'next/link'
 import { LoadEllipsis } from '../../components/Loading'
-import { Context } from 'context'
-import { Loading } from '@/components/Loading'
-import ActiveLink from '@/components/common/Link'
+import { Context } from '../../context'
+import { Loading } from '../../components/Loading'
+import ActiveLink from '../../components/common/Link'
 import { Container, Figure, Form, Logo, Text, FooterComponent, Anchor } from './styled'
 
 export const LoginC = ({ setAlertBox }) => {

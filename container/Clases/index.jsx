@@ -4,7 +4,7 @@ import { Container, Content, Text, ContentTableItem, TableButton } from './style
 import { Table } from '../../components/Table'
 import Link from 'next/link'
 import { Section } from '../../components/Table/styled'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import { ALL_CLASS_FOR_COMPANY, DELETE_ONE_CLASS } from './queries'
 import { APColor, EColor, SEGColor } from '../../public/colors'
 

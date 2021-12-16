@@ -5,7 +5,7 @@ import { ForgotPassword } from '../../components/ForgotPassword'
 import { useFormTools } from '../../components/hooks/useForm'
 import CountdownApp from '../../components/hooks/useSetInterval'
 import { useSetState } from '../../components/hooks/useState'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import { CHANGE_PASSWORD, RECOVER_ACCOUNT, VALIDATE_TOKEN } from './queries'
 
 export const ForgotPasswordC = () => {

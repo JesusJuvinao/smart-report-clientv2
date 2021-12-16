@@ -6,7 +6,7 @@ import { ALL_COMPANIES, ALL_COMPANIES_BY_USER, ALL_COMPANIES_USER, CREATE_ONE_CO
 import { LoadEllipsis } from '../../components/Loading'
 import { RippleButton } from '../../components/Ripple'
 import { Form, Card } from './styled'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import styled from 'styled-components'
 
 export const NewCompany = () => {

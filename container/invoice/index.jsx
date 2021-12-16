@@ -1,5 +1,5 @@
 import { AwesomeModal } from '@/components/AwesomeModal';
-import { Loading } from '@/components/Loading';
+import { Loading } from '../../components/Loading';
 import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react';

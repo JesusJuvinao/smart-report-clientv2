@@ -1,6 +1,6 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
 import React, { useContext, useEffect } from 'react'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import { Button, Container, Content, Text } from './styled'
 import { Loading } from '../Loading'
 import { Table } from '../Table'

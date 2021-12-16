@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Table } from '../../components/Table'
 import { Section } from '../../components/Table/styled'
-import { Context } from '../../context'
+import { Context } from'../../context'
 import Link from 'next/link'
 import ReactExport from 'react-data-export'
 import { Button, Container, Content, Text } from './styled'

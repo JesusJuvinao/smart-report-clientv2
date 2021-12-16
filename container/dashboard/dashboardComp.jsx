@@ -36,7 +36,7 @@ import {
     ButtonPagination,
     PageA4Format
 } from './styled'
-import { Context } from 'context'
+import { Context } from '../../context'
 import { useContext } from 'react'
 
 export const DashboardComp = ({ idComp }) => {

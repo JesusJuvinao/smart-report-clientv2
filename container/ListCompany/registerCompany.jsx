@@ -6,10 +6,10 @@ import { useMutation } from '@apollo/client'
 import { ALL_COMPANIES_BY_USER, CREATE_ONE_COMPANY } from 'container/Company/queries'
 import { updateCacheMod } from '@/utils/index'
 import { useRouter } from 'next/router'
-import { Loading, LoadEllipsis } from '@/components/Loading'
+import { Loading, LoadEllipsis } from '../../components/Loading'
 import { useSetState } from '@/components/hooks/useState'
 import { RippleButton } from '@/components/Ripple'
-import { Context } from 'context'
+import { Context } from '../../context'
 
 export const RegisterCompanyModal = () => {
   // STATE

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { Context } from 'context'
+import { Context } from '../../context'
 import { useRouter } from 'next/router'
 import { decodeToken, getTokenState } from '@/utils/index'
 import { useQuery } from '@apollo/client'
