@@ -15,50 +15,129 @@ const CommissionInvoice = new mongoose.Schema({
         required: true,
         ref: 'Companies'
     },
+    agentDetails: {
+        legalName: String,
+        agentContact: String,
+        agentTradingName: String,
+        agentEmail: String,
+        agentAddress1: String,
+        agentAddress2: String,
+        agentAddress3: String,
+        agentCity: String,
+        agentCounty: String,
+        agentCountry: String,
+        agentPostCode: String,
+        VATRegNo: String,
+        agentVATRegistered: Boolean,
+        agentCompanyNumber: String
+    },
     lineItemsArray: [{
-        subtotal_tickets_sold: Number,
-        tickettype: String,
-        subtotal_sales_received: Number,
-        subinvoice_total: Number,
-        subtotal_comm_due: Number,
-        ticketcategorytotaldue: Number,
-        totalcategorydiscount: Number,
-        subtotalforticketypelessDiscount: Number,
-        ticketPrice: Number
+        subtotalTicketsSold: Number,
+        ticketType: String,
+        lineSalesReceived: Number,
+        lineSubtotal: Number,
+        lineCommSubtotal: Number,
+        lineItemVATOnComm: Number,
+        ticketCategoryTotalDue: Number,
+        totalTicketTypeDiscount: Number,
+        subtotalTicketTypeLessDiscount: Number,
+        ticketPrice: Number,
+        newArray: [{
+            id: String,
+            bookingRef: String,
+            bookedOn: Date,
+            client: String,
+            ticketoption: String,
+            ticketquantity: Number,
+            ticketprice: Number,
+            totaldue: Number,
+            totaldueCalc: Number,
+            totalpaid: Number,
+            balancedue: Number,
+            commissionRatePercent: String,
+            commissionpayable: String,
+            agentCode: String,
+            clientOwnerAtPurchaseDate: String,
+            bookingStatus: String,
+            eventName: String,
+            eventOwner: String,
+            eventCommences: Date,
+            discountRate: Number,
+            discountTotal: String,
+            discountedTotalDue: String,
+            eventRef: String,
+            eventType: String
+        }]
     }],
     uploaded: {
         type: Date,
         required: true,
         default: Date.now()
     },
+    invoiceDate: {
+        type: Date
+    },
+    datePaid: {
+        type: Date
+    },
     isPaid: {
         type: Boolean,
         required: false,
         default: false
+    },
+    hasBeenReceived: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    isOnStatement: {
+        type: Boolean
+    },
+    statementId: {
+        type: Boolean
     },
     isRedo: {
         type: Boolean,
         required: true,
         default: false
     },
+    isVATRegistered: {
+        type: Boolean,
+        required: false
+    },
     eventCommences: {
         type: Date,
-        required: true,
-        default: Date.now()
+        required: true
+    },
+    invoiceRef: {
+        type: String,
+        required: false
+    },
+    eventType: {
+        type: String,
+        required: false
+    },
+    eventRef: {
+        type: String,
+        required: false
     },
     invoiceTo: {
         type: String,
         required: true
     },
-    invoice_total: {
+    invoiceTotal: {
         type: Number,
         required: true
     },
-    total_sales_received: {
+    totalSalesReceived: {
         type: Number,
         required: true
     },
-    total_comm_due: {
+    totalCommDue: {
+        type: Number,
+        required: true
+    },
+    vatOnComms: {
         type: Number,
         required: true
     },

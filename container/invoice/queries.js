@@ -3,31 +3,86 @@ import { gql } from '@apollo/client'
 export const GET_ONE_INVOICE = gql`
     query getOneCommissionInvoice($idInvoice: ID, $idUser: ID) {
       	getOneCommissionInvoice(idInvoice: $idInvoice, idUser: $idUser ) {
-         _id
+        _id
         idUser
         idComp
         uploaded
-        eventCommences
+        invoiceDate
+        invoiceRef
+        isOnStatement
         invoiceTo
-        isPaid
-        invoice_total
-        total_sales_received
-        total_comm_due
-        totalDiscounts
         invoiceFrom
+        statementId
+        eventRef
         eventName
+        hasBeenReceived
+        datePaid
+        eventCommences
+        eventType
+        invoiceTotal
+        totalCommDue
+        totalSalesReceived
+        totalDiscounts
+        vatOnComms
+        isVATRegistered
+        isPaid
+        isRedo
         __typename
+    
+        agentDetails{
+            legalName
+            agentContact
+            agentTradingName
+            agentEmail
+            agentAddress1
+            agentAddress2
+            agentAddress3
+            agentCity
+            agentCounty
+            agentCountry
+            agentPostCode
+            VATRegNo
+            agentVATRegistered
+            agentCompanyNumber
+        }
         lineItemsArray {
-          _id
-          subtotal_tickets_sold
-          tickettype
-          subtotal_sales_received
-          subinvoice_total
-          subtotal_comm_due
-          ticketcategorytotaldue
-          totalcategorydiscount
-          subtotalforticketypelessDiscount
-          ticketPrice
+            _id
+            subtotalTicketsSold
+            ticketType
+            lineSalesReceived
+            lineSubtotal
+            lineCommSubtotal
+            lineItemVATOnComm
+            ticketCategoryTotalDue
+            totalTicketTypeDiscount
+            subtotalTicketTypeLessDiscount
+            ticketPrice
+              newArray{
+          		id
+              bookingRef
+              bookedOn
+              client
+              ticketoption
+              ticketquantity
+              ticketprice
+              totaldue
+              totaldueCalc
+              totalpaid
+              balancedue
+              commissionRatePercent
+              commissionpayable
+              agentCode
+              clientOwnerAtPurchaseDate
+              bookingStatus
+              eventName
+              eventOwner
+              eventCommences
+              discountRate
+              discountTotal
+              discountedTotalDue
+              eventRef
+              eventType
+       	 		}	
         }
       }
 }

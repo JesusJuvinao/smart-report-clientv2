@@ -28,7 +28,6 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
   const arrowUpPressed = useKeyPress('ArrowUp')
   const arrowDownPressed = useKeyPress('ArrowDown')
   const [state, dispatch] = useReducer(reducer, initialState)
-  console.log(state)
   useEffect(() => {
     if (arrowUpPressed) {
       dispatch({ type: 'arrowUp' })

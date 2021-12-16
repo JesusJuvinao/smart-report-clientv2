@@ -9,11 +9,9 @@ import { BGColor, BColor, SECColor } from '../../public/colors'
 import { IconPDF, IconShowEye } from '../../public/icons'
 export const DocumentPdf = ({ invoice }) => {
   const Menu = () => (
-    <Container>
       <PDFDownloadLink document={<PDF pdfMode={true} invoice={invoice} />} fileName={invoice ? invoice.eventName : 'PDF'} >
-        {({ url, loading }) => (loading ? 'Loading document...' : <div> <Link href={url}><IconShowEye size='80px' color='' /></Link> <Button type="button"><IconPDF size='80px' /></Button></div>)}
+        {({ url }) => (<Container><Button type="button"><Link href={url}><IconShowEye size='40px' color='' /></Link></Button> <Button type="button"><IconPDF size='40px' /></Button></Container>)}
       </PDFDownloadLink>
-    </Container>
   )
 
   return (
@@ -70,107 +68,112 @@ const PDF = ({ pdfMode, invoice }) => {
       fontSize: '25px'
     }
   })
+  console.log(invoice?.isPaid)
   return (
     <Document pdfMode={pdfMode}>
       <Page style={styles.page}>
         <View pdfMode={pdfMode}>
-          <View pdfMode={pdfMode} >
-            <Text className="fs-20 bold" pdfMode={pdfMode} size="30px">INVOICE</Text>
+          <View pdfMode={pdfMode}>
+          {!pdfMode && (
+            <Line></Line>
+          )}
+        <View pdfMode={pdfMode} height={'4px'} bgColor={'#cb1d6c'} ></View>
+            <Text className="fs-20 bold" pdfMode={pdfMode} size="30px">INVOICE  STATEMENT</Text>
             <Text className="fs-20 bold" pdfMode={pdfMode} size="30px">{invoice?.isPaid === true ? 'PAYMENT' : ' NO PAYMENT' }</Text>
           </View>
           <View margin='10px 0' pdfMode={pdfMode} >
-            <Text className="fs-15 mb-5" pdfMode={pdfMode} color={BColor} size="14px">Event Name: {invoice?.eventName}</Text>
+            <Text className="fs-15 mb-5" pdfMode={pdfMode} color={BColor} size="11px">Event Name: {invoice?.eventName}</Text>
           </View>
           <View margin='10px 0' pdfMode={pdfMode} >
-            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="14px">Event commences: {dateFormat(invoice?.eventCommences)}</Text>
+            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="11px">Event commences: {dateFormat(invoice?.eventCommences)}</Text>
           </View>
           <View margin='10px 0' pdfMode={pdfMode} >
-            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="14px">Invoice From: {invoice?.invoiceFrom}</Text>
+            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="11px">Invoice From: {invoice?.invoiceFrom}</Text>
           </View>
           <View margin='10px 0' pdfMode={pdfMode} >
-            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="14px">Invoice To: {invoice?.invoiceTo}</Text>
+            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="11px">Invoice To: {invoice?.invoiceTo}</Text>
           </View>
           <View margin='10px 0' pdfMode={pdfMode} >
-            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="14px">Invoice Date: {dateFormat(invoice?.uploaded)}</Text>
+            <Text className="fs-15 mb-5" style={styles.text} pdfMode={pdfMode} color={BColor} size="11px">Invoice Date: {dateFormat(invoice?.uploaded)}</Text>
           </View>
         </View>
-        <View direction="row" className="bg-dark flex" bgColor={SECColor} alignItems='center' justifyContent='center' display='flex' margin='10px 0' pdfMode={pdfMode} style={styles.header}>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
-            <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">TICKET TYPE</Text>
+        <View direction="row" className="bg-dark flex" bgColor={'#cb1d6c'} alignItems='center' justifyContent='center' display='flex' margin='0' pdfMode={pdfMode} style={styles.header}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
+            <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">Ticket type</Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">TICKET PRICE</Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">TICKET CATEGORY TOTAL DUE </Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">TOTAL CATEGORY DISCOUNT </Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">SUBTOTAL FOR TICKET  DISCOUNT </Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">SUBTOTAL TICKET SOLD </Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">SUBTOTAL SALES RECEIVED </Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">SUBTOTAL COMMISSION DUE </Text>
           </View>
-          <View className="w-17 p-4-8" pdfMode={pdfMode}>
+          <View className="w-17 p-4-8" pdfMode={pdfMode} display='block'>
             <Text className="fs-10 white bold" width="11%" pdfMode={pdfMode} color={BGColor} size="11px">SUBTOTAL INVOICE </Text>
           </View>
         </View>
         {invoice && invoice?.lineItemsArray?.map(x => (
-          <View margin='10px 0' className="row flex" padding='10px 0' borderButton='1px solid' direction="row" pdfMode={pdfMode} key={x._id}>
+          <View margin='10px 0' className="row flex" padding='10px 0' borderButton='1px dotted rgb(199, 199, 199)' direction="row" pdfMode={pdfMode} key={x._id}>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.tickettype}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">{x.ticketType}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.ticketPrice}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.ticketPrice}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.ticketcategorytotaldue}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.ticketCategoryTotalDue}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.totalcategorydiscount}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.totalTicketTypeDiscount}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.subtotalforticketypelessDiscount}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.subtotalTicketTypeLessDiscount}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.subtotal_tickets_sold}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.subtotalTicketsSold}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.subtotal_sales_received}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.lineSalesReceived}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.subtotal_comm_due}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.lineCommSubtotal}</Text>
             </View>
             <View className="w-48 p-4-8 pb-10" pdfMode={pdfMode}>
-              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="14px">{x.subinvoice_total}</Text>
+              <Text className="fs-10 bold" width="11%" pdfMode={pdfMode} color={BColor} size="11px">£ {x.lineSubtotal}</Text>
             </View>
           </View>
         ))}
         <View direction="column" alignItems='flex-end' justifyContent='flex-end' display='flex' margin='20px 0' pdfMode={pdfMode} style={styles.cardInfo}>
-          <View className="bg-dark" padding='20px' direction="column" width="300px" bgColor={SECColor} alignItems='flex-end' justifyContent='space-between' display='flex' margin='20px 0' pdfMode={pdfMode} style={styles.header}>
+          <View className="bg-dark" padding='20px' direction="column" width="300px" bgColor={'#cb1d6c'} alignItems='flex-end' justifyContent='space-between' display='flex' margin='20px 0' pdfMode={pdfMode} style={styles.header}>
             <View justifyContent='space-between' direction="row" pdfMode={pdfMode} >
-              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px" >INVOICE TOTAL: </Text>
-              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px" >{invoice?.invoice_total ? invoice?.invoice_total : 0}</Text>
+              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px" >Invoice total: </Text>
+              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px" > £ {invoice?.invoice_total ? invoice?.invoice_total : 0}</Text>
             </View>
             <View direction="row" pdfMode={pdfMode} >
-              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px">TOTAL DISCOUNT: </Text>
-              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px"> &nbsp;  &nbsp;{invoice?.totalDiscounts ? invoice?.totalDiscounts : 0}</Text>
+              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px">Total Discount: </Text>
+              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px"> £ {invoice?.totalDiscounts ? invoice?.totalDiscounts : 0}</Text>
             </View>
             <View direction="row" pdfMode={pdfMode} >
-              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px">TOTAL COMMISSION DUE: </Text>
-              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px"> &nbsp;  &nbsp;{invoice?.total_comm_due ? invoice?.total_comm_due : 0}</Text>
+              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px">Total Commission Due: </Text>
+              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px"> £ {invoice?.total_comm_due ? invoice?.total_comm_due : 0}</Text>
             </View>
             <View direction="row" pdfMode={pdfMode} >
-              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px">TOTAL SALES RECEIVED: </Text>
-              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="14px"> &nbsp;  &nbsp;{invoice?.total_sales_received ? invoice?.total_sales_received : 0}</Text>
+              <Text textAlign='start' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px">TOTAL SALES RECEIVED: </Text>
+              <Text textAlign='end' style={styles.text} pdfMode={pdfMode} color={BGColor} size="11px"> £ {invoice?.total_sales_received ? invoice?.total_sales_received : 0}</Text>
             </View>
           </View>
         </View>
@@ -233,16 +236,24 @@ const TextSpan = styled.span`
   font-size: ${({ size }) => size || '16px'};
 `
 const Container = styled.div`
-    position: fixed;
-    top: 100px;
-    width: 40px;
-    left: -200px;
-    height: 40px;
+    position: absolute;
+    top: 0px;
+    right: -100px;
+    width: min-content;
 `
 const Button = styled.button`
   background-color: transparent;
   position: relative;
-  border-radius: 20px;
+  border: 1px solid #ced4da;
+  margin: 5px 0;
+  border-radius: 5px;
+  `
+const Line = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 4px;
+  background-color: #cb1d6c;
   `
 const Link = styled.a`
   background-color: transparent;
