@@ -2,11 +2,12 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { LayoutOption } from '../LayoutOption'
-import { IconArrowBottom, IconLogo } from '../../../public/icons'
+import { IconArrowBottom } from '../../../public/icons'
 import { Container, NavLink, ContainerLink, Button, ContentLink, ContainerBurger } from './styled'
 import { Context } from '../../../context'
 import { AlertError } from '../AlertError/index'
 import { useRouter } from 'next/router'
+import { IconLogo } from '../../common/logo'
 
 export const Header = ({ props, data, handleClickMap, isSession, authData, modal, FullscreenIcon, closeSession, theme, show, setShow, location, keyTheme, handleTheme, activeSettings, handleClick, setShowModal, showModal }) => {
     const { setCollapsed, collapsed } = useContext(Context)
@@ -27,7 +28,7 @@ export const Header = ({ props, data, handleClickMap, isSession, authData, modal
 
                     <NavLink href="/">
                         <a>
-                            <IconLogo size='55px' />
+                            <IconLogo size='50px' />
                         </a>
                     </NavLink>
                     {!isSession && <>

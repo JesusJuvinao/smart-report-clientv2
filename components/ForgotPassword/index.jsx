@@ -8,7 +8,7 @@ import OTPInput from '../Otp/Otp'
 import { PColor, SCColor } from '../../public/colors'
 import { LoadEllipsis } from '../Loading'
 import Link from 'next/link'
-import { IconLogo } from '../../public/icons'
+import { IconLogo } from '../common/logo'
 
 export const ForgotPassword = ({ setState, handleSubmit, state, dataForm, onChange, handleFormValidation, setOtp, handleResetPassword, loadingValidate, loadingEmail, loadingChange }) => {
   return (

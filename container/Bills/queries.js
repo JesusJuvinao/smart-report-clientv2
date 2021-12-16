@@ -89,6 +89,7 @@ billTotal
     lineItems{
 _id
 lineItemsDescription
+      
 lineItemsQuantity
 lineItemsRate
 lineItemsTotalVAT
@@ -97,15 +98,7 @@ lineItemsIdVAT
 lineItemsIdClass
 lineItemsIdPro
 lineItemsIdAccount
-      iva {
-        _id
-        idRefIva
-        idUser
-        idComp
-        iPercentage
-        IName
-        
-      }
+lineItemsBillIva
     }
     idSupplier{
       _id
@@ -206,15 +199,7 @@ lineItemsIdVAT
 lineItemsIdClass
 lineItemsIdPro
 lineItemsIdAccount
-      iva {
-        _id
-        idRefIva
-        idUser
-        idComp
-        iPercentage
-        IName
-        
-      }
+lineItemsBillIva
     }
     idSupplier{
       _id

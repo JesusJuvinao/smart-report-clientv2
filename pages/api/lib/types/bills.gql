@@ -119,7 +119,7 @@ type ReBill {
       lineItemsIdClass: ID
       lineItemsIdPro: ID
       lineItemsIdAccount: ID
-      iva: [IVA]
+      lineItemsBillIva: Float
   }
   input ILineItems {
       _id: ID
@@ -132,7 +132,7 @@ type ReBill {
       lineItemsIdClass: ID
       lineItemsIdPro: ID
       lineItemsIdAccount: ID
-      setDataIva: [IIva]
+      lineItemsBillIva: Float
   }
   # "ARRAY OF LINE ITEMS INSIDE OF A BILL"
   input ILineItemsFinal {

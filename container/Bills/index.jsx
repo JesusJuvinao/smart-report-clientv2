@@ -65,6 +65,7 @@ export const BillsC = () => {
         })
     const [deleteOneTagLineItem] = useMutation(DELETE_ONE_TAG)
     const { data: dataBill } = useQuery(GET_ALL_BILL, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: navigator.onLine ? 'network-only' : 'cache-only' })
+    console.log(dataBill)
     // console.log(dataBill)
     // const [dataBills, setData] = useState([])
     //
@@ -108,7 +109,7 @@ export const BillsC = () => {
                 billNo: getDataOneBill?.billNo,
                 refCode: getDataOneBill?.bInvoiceRef,
                 bDueDate: getDataOneBill?.bDueDate,
-                items: getDataOneBill?.lineItems?.map(x => { return { id: x._id, bDescription: x.description, quantity: parseInt(x.quantity), idAccount: x.idAccount, idRef: x.idPro, rate: parseInt(x.rate), iPercentage: x.iva[0].iPercentage } })
+                items: getDataOneBill?.lineItems?.map(x => { return { id: x._id, bDescription: x.description, quantity: parseInt(x.quantity), idAccount: x.idAccount, idRef: x.idPro, rate: parseInt(x.rate), iPercentage: x.lineItemsBillIva } })
             })
         }
     }, [router.query.id, getDataOneBill])
@@ -177,7 +178,7 @@ export const BillsC = () => {
             return dataIvaCalculator
         }
     }, [dataForm])
-    const newData = dataForm?.items?.map(x => ({ _id: x.id, lineItemsDescription: x.bDescription, lineItemsQuantity: x.quantity ? parseFloat(x.quantity) : 0, lineItemsIdPro: x.idRef, lineItemsIdAccount: x.idAccount, lineItemsRate: x.rate ? parseFloat(x.rate) : 0, lineItemsIdClass: x.idClass, lineItemsIdVAT: x.idClass, lineItemsTotalVAT: dataForm.tax === 'NO_TAX' ? 0 : dataForm.tax === 'INCLUSIVE' ? (parseFloat(x.rate) * parseFloat(x.quantity)) / (100 + parseFloat(x.iPercentage && x.iPercentage)) * parseFloat(x.iPercentage) : dataForm.tax === 'EXCLUSIVE' ? ((parseFloat(x.rate) * parseFloat(x.quantity)) * parseFloat(x.iPercentage)) / 100 : 0, lineItemsSubTotal: (parseFloat(x.rate) * parseFloat(x.quantity)) ? (parseFloat(x.rate) * parseFloat(x.quantity)) : 0, setDataIva: [{ iPercentage: x.iPercentage }] }))
+    const newData = dataForm?.items?.map(x => ({ _id: x.id, lineItemsDescription: x.bDescription, lineItemsQuantity: x.quantity ? parseFloat(x.quantity) : 0, lineItemsIdPro: x.idRef, lineItemsIdAccount: x.idAccount, lineItemsRate: x.rate ? parseFloat(x.rate) : 0, lineItemsIdClass: x.idClass, lineItemsIdVAT: x.idClass, lineItemsTotalVAT: dataForm.tax === 'NO_TAX' ? 0 : dataForm.tax === 'INCLUSIVE' ? (parseFloat(x.rate) * parseFloat(x.quantity)) / (100 + parseFloat(x.iPercentage && x.iPercentage)) * parseFloat(x.iPercentage) : dataForm.tax === 'EXCLUSIVE' ? ((parseFloat(x.rate) * parseFloat(x.quantity)) * parseFloat(x.iPercentage)) / 100 : 0, lineItemsSubTotal: (parseFloat(x.rate) * parseFloat(x.quantity)) ? (parseFloat(x.rate) * parseFloat(x.quantity)) : 0, lineItemsBillIva: x.iPercentage  }))
     const sumTotalVat = arr => arr && arr?.reduce((sum, { lineItemsTotalVAT }) => sum + lineItemsTotalVAT, 0)
     const sumSubTotal = arr => arr && arr?.reduce((sum, { lineItemsRate, lineItemsQuantity }) => sum + parseFloat(lineItemsRate) * parseFloat(lineItemsQuantity), 0)
     const newTotalVat = sumTotalVat(newData)
@@ -304,7 +305,7 @@ export const BillsC = () => {
             bDueDate: item.bDueDate,
             bInvoiceDate: item.bInvoiceDate,
             _id: item?.idSupplier?._id,
-            items: item?.lineItems?.map(x => { return { id: x._id, bDescription: x.lineItemsDescription, quantity: parseInt(x.lineItemsQuantity), idAccount: x.lineItemsIdAccount, idClass: x.lineItemsIdClass, idRef: x.lineItemsIdPro, rate: parseInt(x.lineItemsRate), iPercentage: x.iva[0].iPercentage } }),
+            items: item?.lineItems?.map(x => { return { id: x._id, bDescription: x.lineItemsDescription, quantity: parseInt(x.lineItemsQuantity), idAccount: x.lineItemsIdAccount, idClass: x.lineItemsIdClass, idRef: x.lineItemsIdPro, rate: parseInt(x.lineItemsRate), iPercentage: x.lineItemsBillIva } }),
             tags: item?.tags?.map(x => { return { id: x._id, tName: x.TName } })
         })
     }
@@ -361,6 +362,7 @@ export const BillsC = () => {
             })
         }
     }
+    console.log(newData)
     // SUBMIT FUNC
     const handleForm = (e, show) => handleSubmit({
         event: e,
@@ -527,61 +529,17 @@ export const BillsC = () => {
         })
         if (DeleteItem) {
             deleteOneLineItem({
-                variables: { idLine: id, id: dataForm.idBill }
+                variables: { idLine: id, id: dataForm.idBill },
+                update (cache) {
+                    cache.modify({
+                        fields: {
+                            getAllBill (dataOld = []) {
+                                return cache.writeQuery({ query: GET_ALL_BILL, data: dataOld })
+                            }
+                        }
+                    })
+                }
             }).catch(err => console.log(err))
-            updateBill({
-                variables: {
-                    input: {
-                        _id: dataForm.idBill,
-                        bInvoiceRef: dataForm?.refCode,
-                        bDescription: dataForm.bDescription,
-                        idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany,
-                        bInvoiceDate: dataForm?.bInvoiceDate,
-                        idSupplier: dataForm._id,
-                        billNo: parseInt(dataForm.billNo),
-                        bDueDate: dataForm.bDueDate,
-                        billSubTotal: parseInt(billSubTotal),
-                        billTotal: total,
-                        idFiles: IdMongo.state,
-                        VatType: dataForm.tax,
-                        currencyBill: dataOneSupplier?.getOneSuppliers?.sCurrency?.cName
-                    },
-                    // Array
-                    inputLineItems: {
-                        setData: newData
-                    },
-                    //  Array Tags
-                    setTagsInput: {
-                        setTags: newTags
-                    },
-                    setFilesInput: {
-                        idFiles: IdMongo.state,
-                        filesData: newFiles
-                    }
-                },
-                update: (cache, { data: { getDataAllById } }) => updateCacheMod({
-                    cache,
-                    query: GET_ALL_BILL,
-                    nameFun: 'getAllBill',
-                    dataNew: getDataAllById,
-                    type: 2
-                },
-                cache.modify({
-                    fields: {
-                        getAllFilesToBills (dataOld = []) {
-                            return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld })
-                        }
-                    }
-                },
-                cache.modify({
-                    fields: {
-                        getAllFilesToBills (dataOld = []) {
-                            return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld })
-                        }
-                    }
-                }))
-                )
-            })
         } else if (Delete) {
             await deleteOneTagLineItem({
                 variables: { idLine: id, id: dataForm.idBill },
@@ -610,7 +568,7 @@ export const BillsC = () => {
                 dataForm={dataForm}
                 LinkMinio={dataLink?.getAllFilesLinkToBills?.message || ''}
                 ProgressUpload={ProgressUpload}
-                loading={loading || loadingUpdate || loadingDeleteBill}
+                loading={false}
                 error={error}
                 handleDelete={handleDelete}
                 setsize={setsize}

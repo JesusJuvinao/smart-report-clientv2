@@ -69,7 +69,7 @@ export const CompanyC = () => {
             refCode: item.bInvoiceRef,
             bDueDate: item.bDueDate,
             _id: item?.idSupplier?._id,
-            items: item?.lineItems?.map(x => { return { id: x._id, bDescription: x.description, quantity: parseInt(x.quantity), idAccount: x.idAccount, idRef: x.idPro, rate: parseInt(x.rate), iPercentage: x.iva[0].iPercentage } })
+            items: item?.lineItems?.map(x => { return { id: x._id, bDescription: x.description, quantity: parseInt(x.quantity), idAccount: x.idAccount, idRef: x.idPro, rate: parseInt(x.rate), iPercentage: x.lineItemsBillIva } })
         })
     }
     const handleDelete = async elem => {

@@ -61,10 +61,7 @@ const BillSchema = new Schema({
         lineItemsRate: Number,
         lineItemsTotalVAT: Number,
         lineItemsSubTotal: Number,
-        iva: [{
-            IName: String,
-            iPercentage: Number
-        }],
+        lineItemsBillIva: Number,
         lineItemsIdVAT: {
             type: Schema.Types.ObjectId,
             required: false,

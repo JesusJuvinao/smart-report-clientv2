@@ -12,6 +12,7 @@ import { TemplateSendCodeAccess } from '../../templates/TemplateConfirm'
 
 export const createBillMutation = async (_, { input, inputLineItems, setTagsInput, setFilesInput }, ctx) => {
     // const idComp = ctx.idComp
+    console.log(input, inputLineItems, setTagsInput, setFilesInput)
     const { setData } = inputLineItems || {}
     const { setTags } = setTagsInput || {}
     // Files Data
@@ -24,13 +25,13 @@ export const createBillMutation = async (_, { input, inputLineItems, setTagsInpu
         const bill = new BillSchema({ ...input, idUser: id, currencyBill: input.currencyBill })
         await bill.save(bill)
         for (let i = 0; i < setData.length; i++) {
-            const { lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal } = setData[i]
+            const { lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal, lineItemsBillIva } = setData[i]
             await BillSchema.findOneAndUpdate(
                 { _id: bill._id },
                 {
                     $addToSet: {
                         lineItems: {
-                            $each: [{ lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal, iva: [{ iPercentage: data.setDataIva[0].iPercentage }] }]
+                            $each: [{ lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal, lineItemsBillIva }]
                         }
                     }
                 }
@@ -55,6 +56,7 @@ export const createBillMutation = async (_, { input, inputLineItems, setTagsInpu
         setFiles(false, { bId: bill._id, input: filesData, idUser: id, idComp: input.idComp, bInvoiceRef: input.bInvoiceRef, idFiles })
         return bill
     } catch (error) {
+        console.log(error)
         throw new ApolloError(error)
     }
 }
@@ -79,26 +81,31 @@ export const updateBill = async (_, { input, inputLineItems, setTagsInput, setFi
     const { filesData } = setFilesInput || {}
     try {
         const data = await BillSchema.findOneAndUpdate(_id, { idUser, idComp, VatType, idSupplier, bInvoiceDate, bDueDate, currencyBill, billSubTotal, billTotal, billNo, bDescription })
+        console.log(_id)
         // Edit Files
         setFiles(false, { bId: _id, input: filesData, idUser, idComp: input.idComp, bInvoiceRef: input.bInvoiceRef })
         // Edit Dynamic SubDocument
         for (let i = 0; i < setData.length; i++) {
+            console.log(setData)
             const mongoose = require('mongoose')
+            const { _id: validId } = setData[i]
             const valid = mongoose.Types.ObjectId.isValid(data._id)
-            if (valid === true) {
-                const { lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal } = setData[i]
-                await BillSchema.findOneAndUpdate({ _id, 'lineItems._id': data._id },
+            const isValidId = mongoose.Types.ObjectId.isValid(validId)
+            console.log(isValidId)
+            if (valid === true && isValidId === true) {
+                const { _id: idArray, lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal, lineItemsBillIva } = setData[i]
+                await BillSchema.findOneAndUpdate({ 'lineItems._id': idArray },
                     {
-                        $set: { 'lineItems.$.lineItemsDescription': lineItemsDescription, 'lineItems.$.lineItemsQuantity': lineItemsQuantity, 'lineItems.$.lineItemsTotalVAT': lineItemsTotalVAT, 'lineItems.$.lineItemsIdVAT': lineItemsIdVAT, 'lineItems.$.lineItemsRate': lineItemsRate, 'lineItems.$.lineItemsIdClass': lineItemsIdClass, 'lineItems.$.lineItemsIdPro': lineItemsIdPro, 'lineItems.$.lineItemsIdAccount': lineItemsIdAccount, 'lineItems.$.lineItemsSubTotal': lineItemsSubTotal, 'lineItems.$.iva': [{ iPercentage: data.setDataIva[0].iPercentage }] }
+                        $set: { 'lineItems.$.lineItemsDescription': lineItemsDescription, 'lineItems.$.lineItemsQuantity': lineItemsQuantity, 'lineItems.$.lineItemsTotalVAT': lineItemsTotalVAT, 'lineItems.$.lineItemsIdVAT': lineItemsIdVAT, 'lineItems.$.lineItemsRate': lineItemsRate, 'lineItems.$.lineItemsIdClass': lineItemsIdClass, 'lineItems.$.lineItemsIdPro': lineItemsIdPro, 'lineItems.$.lineItemsIdAccount': lineItemsIdAccount, 'lineItems.$.lineItemsSubTotal': lineItemsSubTotal, 'lineItems.$.lineItemsBillIva': lineItemsBillIva }
                     })
             } else {
-                const { lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal } = setData[i]
+                const { lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal, lineItemsBillIva } = setData[i]
                 await BillSchema.findOneAndUpdate(
                     { _id },
                     {
                         $addToSet: {
                             lineItems: {
-                                $each: [{ lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal, iva: [{ iPercentage: data.setDataIva[0].iPercentage }] }]
+                                $each: [{ lineItemsQuantity, lineItemsDescription, lineItemsRate, lineItemsTotalVAT, lineItemsIdVAT, lineItemsIdClass, lineItemsIdPro, lineItemsIdAccount, lineItemsSubTotal, lineItemsBillIva }]
                             }
                         }
                     }
