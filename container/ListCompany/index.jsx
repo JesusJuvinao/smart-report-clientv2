@@ -11,14 +11,14 @@ import { useFormTools } from '../../components/hooks/useForm'
 import { dateFormat, updateCacheMod } from '../../utils'
 import { useContextMenu } from '../../components/hooks/usePosition'
 import InputHook from '../../components/InputHooks/InputHooks'
-import { BColor, BGColor, PColor } from '@/public/colors'
-import { IconDelete, IconEdit, IconPromo, IconSearch } from '@/public/icons'
+import { BColor, BGColor, PColor } from '../../public/colors'
+import { IconDelete, IconEdit, IconPromo, IconSearch } from '../../public/icons'
 import Link from 'next/link'
 import { Card, Container, Menu, Option, Text, WrapInfo, Button, ButtonCard, ActionName, Title, NameCompany, Content, Active, ContainerFilter, SearchButton, ContentSearch, SearchFilterOption, CtnSearch } from './styled'
-import { RippleButton } from '@/components/Ripple'
+import { RippleButton } from '../../components/Ripple'
 import styled from '@emotion/styled'
 import { css, keyframes } from 'styled-components'
-import { useUser } from 'container/Profile'
+import { useUser } from '../../container/Profile'
 
 export const ListCompanyC = ({ isCompany, useCompany }) => {
     const { handleMenu } = useContext(Context)

@@ -1,4 +1,4 @@
-import { BGColor } from '@/public/colors'
+import { BGColor } from '../../../public/colors'
 import styled, { css, keyframes } from 'styled-components'
 
 export const Container = styled.div`

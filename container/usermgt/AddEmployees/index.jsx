@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
-import { useFormTools } from "@/components/hooks/useForm"
-import { Context } from "context"
-import { updateCache } from "@/utils/index"
-import { useCompanyHook } from "container/dashboard"
-import { CREATE_ONE_TEAM } from "container/ListCompany/queries"
-import { useUser } from "container/Profile"
+import { useFormTools } from "../../../components/hooks/useForm"
+import { Context } from "../../../context"
+import { updateCache } from "../../../utils/index"
+import { useCompanyHook } from "../../../container/dashboard"
+import { CREATE_ONE_TEAM } from "../../../container/ListCompany/queries"
+import { useUser } from "../../../container/Profile"
 import { useContext, useEffect, useState } from "react"
 import { useMutation } from '@apollo/client'
-import { AwesomeModal } from '@/components/AwesomeModal'
-import InputHooks from '@/components/InputHooks/InputHooks'
-import { IconArrowBottom } from '@/public/icons'
+import { AwesomeModal } from '../../../components/AwesomeModal'
+import InputHooks from '../../../components/InputHooks/InputHooks'
+import { IconArrowBottom } from '../../../public/icons'
 import { Container, Footer, Text, Card, Button, FeatureItem, BtnItem } from '../styled'
 
 export const AddEmployee = ({ modal, setModal }) => {

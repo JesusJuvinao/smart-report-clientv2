@@ -3,8 +3,8 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { BColor, BGColor, EColor } from '../../../public/colors'
-import { Context } from '../../context'
 import { useRouter } from 'next/router'
+import { Context } from '../../../context'
 
 export const AlertError = () => {
   const { alert, authData } = useContext(Context)

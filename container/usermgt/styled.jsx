@@ -1,4 +1,4 @@
-import { APColor, BGColor, SECColor, SEGColor } from '@/public/colors'
+import { APColor, BGColor, SECColor, SEGColor } from '../../public/colors'
 import styled, { css } from 'styled-components'
 
 

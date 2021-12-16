@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable indent */
-import { compose } from '@/components/common/Document'
-import { dateFormat } from '@/utils/index'
+import { compose } from '../../components/common/Document'
+import { dateFormat } from '../../utils'
 import { Document as PdfDocument, Page, PDFDownloadLink, Text as PdfText, View as PdfView, StyleSheet, Font } from '@react-pdf/renderer'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'

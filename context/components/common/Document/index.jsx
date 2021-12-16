@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Document as PdfDocument, View as PdfView, Text as PdfText } from '@react-pdf/renderer'
 import styled from 'styled-components'
-import { BColor } from '@/public/colors'
+import { BColor } from '../../../public/colors'
 import styles from './styles'
 
 export const Document = ({ pdfMode, children }) => {

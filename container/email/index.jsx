@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { CONFIRM_EMAIL } from 'container/Profile/queries'
+import { CONFIRM_EMAIL } from '../../container/Profile/queries'
 import { useMutation } from '@apollo/client'
 import { Context } from '../../context'
-import { decodeToken, getTokenState } from '@/utils/index'
+import { decodeToken, getTokenState } from '../../utils'
 import { SpinnerColorJust } from '../../components/Loading'
 import styled from 'styled-components'
-import { BGColor } from '@/public/colors'
+import { BGColor } from '../../public/colors'
 
 export const EmailConfirm = () => {
     const router = useRouter()

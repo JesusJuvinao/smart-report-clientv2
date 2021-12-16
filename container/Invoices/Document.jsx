@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable indent */
-import { compose } from '@/components/common/Document'
+import { compose } from '../../components/common/Document'
 import { Document as PdfDocument, Page, PDFDownloadLink, Text as PdfText, View as PdfView, StyleSheet } from '@react-pdf/renderer'
 
 import PropTypes from 'prop-types'

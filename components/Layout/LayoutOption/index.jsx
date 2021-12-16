@@ -7,7 +7,7 @@ import styled, { css } from 'styled-components'
 import { BGColor, PColor } from '../../../public/colors'
 import { IconConfig, IconGridLayout, IconLocationMap, IconLogout } from '../../../public/icons'
 import { Content, Button, FloatingBoxTwo, Overline, CtnIcon } from './styled'
-import { Context } from '../../context'
+import { Context } from '../../../context'
 
 export const LayoutOption = ({ handleClickMap, closeSession, modal, FullscreenIcon, show, setShow, location, theme, keyTheme, handleTheme, activeSettings, handleClick, setShowModal, showModal }) => {
     const { isSession, authData } = useContext(Context)

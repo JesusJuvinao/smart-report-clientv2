@@ -1,8 +1,8 @@
-import { Table } from '@/components/Table'
+import { Table } from '../../../components/Table'
 import PropTypes from 'prop-types'
-import { Section } from '@/components/Table/styled'
+import { Section } from '../../../components/Table/styled'
 import { useQuery } from '@apollo/client'
-import { ALL_COMPANIES_BY_USER } from 'container/Company/queries'
+import { ALL_COMPANIES_BY_USER } from '../../../container/Company/queries'
 import { Container, Footer, Text, Card } from '../styled'
 
 export const ListEmployee = ({ modal, setModal }) => {
