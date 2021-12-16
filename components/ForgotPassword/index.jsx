@@ -16,7 +16,7 @@ export const ForgotPassword = ({ setState, handleSubmit, state, dataForm, onChan
       <Container>
         {state === 1 ? <From width='380px' onSubmit={(e) => handleSubmit(e)}>
           <Text margin='0px auto  30px auto' size='24px'><span>Write your email</span></Text>
-          <Text align='center' margin='0' size='12px'><span>Let's get you signed in Enter your phone number, email, or user ID and we'll find your account.</span></Text> &nbsp;
+          <Text align='center' margin='0' size='12px'><span>Let's get you signed in Enter your phone number, email, or user ID and we'll find your account.</span></Text>
           <Text align='start' margin='0 0 20px 0 ' size='12px'><span>Phone number, email or user ID</span></Text>
           <InputHooks width='100%' title='Enter Your Email' required errors={dataForm?.uEmail} value={dataForm?.uEmail} onChange={onChange} name='uEmail' />
           <RippleButton bgColor={SCColor} margin='20px 0px' type='submit'>{loadingEmail ? <LoadEllipsis /> : 'Send Email'}</RippleButton>
