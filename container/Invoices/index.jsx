@@ -602,7 +602,7 @@ const ContentPdf = styled.div`
    position: relative;
     padding: 15px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    width: 21cm;
+    width: 22cm;
     padding: 1.5cm;
     width: 100%;
     margin: 1cm auto;

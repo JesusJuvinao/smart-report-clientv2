@@ -13,7 +13,7 @@ export const WrapperPdf = styled.div`
 
 `
 export const DocumentFormatA4 = styled.div`
-    width: 21cm;    
+    width: 22cm;    
     /* min-height: 29.7cm; */
     min-height: 29.7cm;
     position: relative;

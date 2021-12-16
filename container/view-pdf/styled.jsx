@@ -107,7 +107,7 @@ export const Content = styled.div`
     padding: 15px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
-    width: 21cm;
+    width: 22cm;
     min-height: 29.7cm;
     padding: 1.5cm;
     margin: 1cm auto;
