@@ -2,50 +2,66 @@ import styled, { css } from 'styled-components'
 import { BGColor, SFVColor } from '../../../public/colors'
 
 export const ContainerAside = styled.div`
-    display: none;
+    transition: 300ms ease;
+    background-color: #393a3d;
     height: min-content;
     margin-bottom: 20px;
-    @media (min-width: 768px){ 
-        display: block;
+    @media (max-width: 768px){ 
+        z-index: 999;
+        height: 100%;
+        width: 80%;
+        position: absolute;
+        ${ ({ collapsed }) => collapsed
+            ? css`
+            transform: translate(0px, 0px);
+            `
+            : css`
+            transform: translate(-800px, 0px);
+              ` }
     }
 `
 export const LeftNav = styled.div`
-    position: absolute;
-    padding: 1%;
     display: grid;
     grid-template-columns: 30% repeat(auto-fill, 30%);
-    z-index: 1;
-    z-index: 99;
-    position: fixed;
-    width: 400px;
+    position: absolute;
     background-color: ${BGColor};
     transition: all 200ms ease 0s;
-    height: auto;
-    top: 90.988px;
-    left: 12px;
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-    border-radius: 8px;
+    z-index: 999;
+    border-radius: 5px;
     overflow: hidden;
+    width: 400px;
     place-content: center;
     gap: 10px;
+    height: 120px;
     h2 {
         font-size: 13px;
         font-weight: 500;
+        margin: 5% 0;
+    }
+    top: 50px;
+    left: 12px;
+    @media (max-width: 768px){ 
+        left: 0;
+        top: 40.988px;
+        width: 100%;
+        right: 0;
+        margin: auto;
     }
     ${({ show }) => show
         ? css`
-                  visibility: visible;
-                  opacity: 1;
-                  transform: translateY(0);
-              `
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+                `
         : css`
                 
-                  margin: 0;
-                  visibility: hidden;
-                  opacity: 0;
-                  transform: translateY(-50px);
-              `}
+            margin: 0;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-50px);
+    `}
 `
 export const ButtonGlobalCreate = styled.button`
     border-radius: 20px;
@@ -82,24 +98,20 @@ export const ContentOption = styled.div`
     min-height: 150px;
 `
 export const Anchor = styled.a`
-    &.active {
-        border-bottom: 2px solid #61d2b4;
-    }
-  padding: 0px;
-  color: #3e3e3e;
-  cursor: pointer;
-  font-weight: 300;
-  display: flex;
-  font-size: ${({ size }) => size}px;
-  transition: .5s ease;
-    color: #a6b0cf;
+    padding: 0px;
+    display: flex;
+    font-family: PFont-Regular;
     align-items: center;
     justify-content: flex-start;
-    padding: 3px 10px;
+    cursor: pointer;    
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.2em;
     margin: 0;
-  &:hover {
-      background-color: ${`${SFVColor}69`};
-  }
+    font-size: 13px;
 `
 
 // export const Anchor = styled.a`
@@ -110,8 +122,5 @@ export const Card = styled.div`
     flex-direction: column;
     align-items: center;
     transition: 300ms ease;
-    min-width: ${({ collapsed }) => collapsed ? '0px' : '150px'};
-    max-width: ${({ collapsed }) => collapsed ? '0px' : '150px'};
-    background-color: ${({ collapsed }) => collapsed ? 'transparent' : '#393a3d'};
     height: 100vw;
 `

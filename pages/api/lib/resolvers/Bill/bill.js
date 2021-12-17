@@ -11,7 +11,6 @@ import { generateToken, transporter } from '../../../utils'
 import { TemplateSendCodeAccess } from '../../templates/TemplateConfirm'
 
 export const createBillMutation = async (_, { input, inputLineItems, setTagsInput, setFilesInput }, ctx) => {
-    // const idComp = ctx.idComp
     const { setData } = inputLineItems || {}
     const { setTags } = setTagsInput || {}
     // Files Data

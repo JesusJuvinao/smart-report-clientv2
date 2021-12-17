@@ -96,23 +96,6 @@ export const Products = ({
   )
 }
 
-/**
- *  pName: router.query.pName,
-      pServiceCode: router.query.pServiceCode,
-      pCategory: router.query.pCategory,
-      pClass: router.query.pClass,
-      pDescription: router.query.pDescription,
-      pSellToOthers: router.query.state,
-      pSalesPrice: router.query.pSalesPrice,
-      pIncVAT: router.query.pIncVAT,
-      idRef: router.query.idRef,
-      pIncomeAccount: router.query.pIncomeAccount,
-      pPurchasedOthers: router.query.pPurchasedOthers,
-      pType: router.query.pType,
-      pVATCode: router.query.pVATCode,
-      pPhoto: router.query.pPhoto
- */
-
 Products.propTypes = {
   data: PropTypes.array
 }

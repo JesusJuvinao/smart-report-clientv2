@@ -5,6 +5,7 @@ import { client } from '../../../presignedUrl'
 
 export const uploadFile = async (_, { file, input }, ctx) => {
     // Upload the files
+    console.log(file, input)
     const idUser = ctx.User.id
     const idComp = ctx.idComp
     try {
@@ -121,10 +122,9 @@ export const getAllFilesLinkToBills = async (_, args) => {
     const data = await client.presignedUrl('GET', `smartreportzuploads${ idComp }`, fileName, 15 * 60)
     return { success: true, message: data }
 }
-export const deleteOneFileMinio = async (_, { fileName }, ctx) => {
-    const idComp = ctx.idComp
+export const deleteOneFileMinio = async (_, { fileName, idComp }, ctx) => {
     const data = client.removeObject(`smartreportzuploads${ idComp }`, fileName)
-    return { success: true, message: data }
+    return { success: true, message: `${fileName} deleted` }
 }
 export const getAllAttachment = async (_, { idComp }, ctx) => {
     const idUser = ctx.User.id

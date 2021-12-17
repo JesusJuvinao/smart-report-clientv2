@@ -49,8 +49,8 @@ query getAllFilesToBills($IdBills: ID) {
 }
 `
 export const DELETE_ONE_FILE_MINIO_CLIENT = gql`
-mutation deleteOneFileMinio($fileName: String) {
-  deleteOneFileMinio(fileName: $fileName) {
+mutation deleteOneFileMinio($fileName: String, $idComp: ID) {
+  deleteOneFileMinio(fileName: $fileName, idComp: $idComp) {
     success
     message
   }

@@ -3,7 +3,7 @@ export const orderColumn = (prev, post, currentColumn = { key: '' }) => {
     const { key } = currentColumn
     const keys = key?.split('.')
 
-    const firstElem = keys?.length === 20
+    const firstElem = keys?.length === 100
         ? prev?.[keys[0]]?.[keys[1]]?.[keys[2]]?.[keys[3]]?.[keys[4]]
         : keys?.length === 4
             ? prev?.[keys[0]]?.[keys[1]]?.[keys[2]]?.[keys[3]]
@@ -13,7 +13,7 @@ export const orderColumn = (prev, post, currentColumn = { key: '' }) => {
                     ? prev?.[keys[0]]?.[keys[1]]
                     : keys?.length === 1 && prev?.[keys[0]]
 
-    const secondElem = keys?.length === 20
+    const secondElem = keys?.length === 100
         ? post?.[keys[0]]?.[keys[1]]?.[keys[2]]?.[keys[3]]?.[keys[4]]
         : keys?.length === 4
             ? post?.[keys[0]]?.[keys[1]]?.[keys[2]]?.[keys[3]]

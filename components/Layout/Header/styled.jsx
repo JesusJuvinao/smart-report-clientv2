@@ -6,10 +6,18 @@ export const ContentLink = styled.div`
     display: grid;
     place-content: center;
     align-items: center;
+    `
+export const ContentLogo = styled.div`
+  @media (max-width: 769px) {
+  display: none;
+  }
 `
 export const ContainerBurger = styled.div`
     .BurgerMenu__container {
-    display: flex;
+      @media (min-width: 769px) {
+      display: none;
+      }
+      display: flex;
     flex-direction: column;    
     span {
       background-color: ${PColor};
@@ -57,6 +65,7 @@ export const NavLink = styled(Link)`
     `
 export const ContainerLink = styled.div`
     width: min-content;
+    display: grid;
     `
 export const Button = styled.button`
     border: 2px solid transparent;

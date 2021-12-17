@@ -9,7 +9,7 @@ export const Footer = () => {
     <>
       <FooterComponent>
         <>
-          <ActiveLink activeClassName="active" href="/">
+          <ActiveLink activeClassName="active" href="/dashboard">
             <Anchor><IconHome color={PColor} size='20px' />&nbsp;<Text>Home</Text></Anchor>
           </ActiveLink>
           <ActiveLink activeClassName="active" href="/search">

@@ -72,7 +72,6 @@ export const Circle = styled.div`
     animation: ${pulse} 2s infinite;
   `
     : css`
-  /* margin-left: -30px; */
   ` }
   ${props => props.active
     ? css`
@@ -80,7 +79,24 @@ export const Circle = styled.div`
     `
     : css`
     box-shadow: 0 0 0 10px #ebeef3, 0 0 0 22px #f3f4f6;
-  /* margin-left: -30px; */
+  ` }
+`
+export const CircleCompany = styled.div` 
+  border: 2px solid #12d4aaef;
+  border-radius: 50%;
+  height: 50px;
+  background-color: ${BGColor};
+  width: 50px;
+  min-height: 50px;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  min-width: 50px;
+  ${props => props.pulse
+    ? css`
+    animation: ${pulse} 2s infinite;
+  `
+    : css`
   ` }
 `
 
@@ -90,7 +106,6 @@ export const OptionsFunction = styled.div`
     background: ${BGColor};
     height: 200px;
     width: 200px;
-    z-index: 999;
     right: 20px;
     grid-template-columns: auto;
     padding: 10px 0;
@@ -173,7 +188,6 @@ export const LineItems = styled.div`
     width: 100%;
     position: absolute;
     bottom: -134px;
-    z-index: 99;
     background-color: red;
     height: ${({ height }) => height || 'auto'}px;
     margin: ${({ margin }) => margin || ' 1% auto'};
@@ -219,7 +233,6 @@ export const BoxArrow = styled.div`
 export const InputHide = styled.input`
   display: block;
   opacity: 0;
-  z-index: 99;
   top: 0;
   bottom: 0;
   position: absolute;
@@ -260,6 +273,9 @@ export const Container = styled.div`
   flex-wrap: wrap;
   display: flex;
   width: 100%;
+  @media (max-width: 769px) {
+    flex-direction: ${({ direction }) => direction || 'column'};
+  }
 `
 export const Avatar = styled.img`
     height: 4rem;
@@ -284,6 +300,9 @@ export const Content = styled.div`
   margin: 0 auto;
   flex-direction: ${({ direction }) => direction || 'column'};
   width: ${({ width }) => width || '100%'};
+  @media only screen and (max-width: 769px){
+    width: ${({ widthMovil }) => widthMovil || '100%'};
+  }
 
 `
 export const WrapperRow = styled.div`
@@ -303,6 +322,7 @@ export const Card = styled.div`
   padding: ${({ padding }) => padding || ' 1%'};
   position: relative;
   ${({ radius }) => radius && css`border-radius: ${radius};`}
+  ${({ overflow }) => overflow && css`overflow: ${overflow};`}
   transition: .5s ease;
   align-items: center;
   margin: ${({ margin }) => margin || ' 1% auto'};

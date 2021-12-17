@@ -64,7 +64,7 @@ type Mutation {
     EditOneFile(input: IFile): File
     "Delete one file"
     DeleteOneFile(id: ID): Boolean
-    deleteOneFileMinio(fileName: String): AuthPayload
+    deleteOneFileMinio(fileName: String, idComp: ID): AuthPayload
     deleteMultipleAttachment(fileName: String): AuthPayload
 
 }

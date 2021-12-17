@@ -62,6 +62,7 @@ export const Bills = ({
   addMore,
   DeleteAll,
   handleFileChange,
+  deleteOneFile,
   Disable,
   handleMenu,
   refs,
@@ -143,7 +144,7 @@ export const Bills = ({
   return (
     <Container>
       {loading && <Loading />}
-      <AwesomeModal zIndex='99999' padding='20px' height='200px' show={openConfirm.state} onHide={() => { openConfirm.setState(!openConfirm.state); showTooltip.setState(!showTooltip.state) }} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
+      <AwesomeModal zIndex='0' padding='20px' height='200px' show={openConfirm.state} onHide={() => { openConfirm.setState(!openConfirm.state); showTooltip.setState(!showTooltip.state) }} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
         <Text lineHeight='1.2rem' margin='0' size='1rem'>This invoice may be linked to others. Are you sure you want to delete it?</Text>
         <FooterModal style={{ display: 'flex', backgroundColor: 'transparent', width: '100%' }}>
           <Button bgColor={BGColor} disabled={Disable} border height='min-content' onClick={() => handleDeleteOption({ _id: dataForm.idBill })}>{isEdit.state ? 'Delete' : 'Save'}</Button>
@@ -285,8 +286,9 @@ export const Bills = ({
                       <ComponentLinkMinio >
                         <a className='link' target="_blank" onClick={() => getFileUrl({ BillLink: x.BillLink })} >{x.BillLink}</a>
                         &nbsp;&nbsp; &nbsp;
+                        &nbsp;&nbsp; &nbsp;
                       </ComponentLinkMinio>
-                      {dataFiles && <Button bgColor={'#ffffff'} type="button" display='inline-grid' onClick={() => getFileUrl({ BillLink: x.BillLink, Delete: true, idFile: x._id })} >
+                      {dataFiles && <Button bgColor={'#59595931'} type="button" display='inline-grid' onClick={() => deleteOneFile({ BillLink: x.BillLink, Delete: true, idFile: x._id })} >
                         <IconDelete color={EColor} size='15px' />
                       </Button>}
                     </div>

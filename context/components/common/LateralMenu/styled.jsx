@@ -38,14 +38,10 @@ export const Container = styled.div`
     border-left: 1px solid #d4d7dc;
     ${({ show }) => show
         ? css`
-                 animation-name: ${SideIn};
-                  visibility: visible;
-                  opacity: 1;
-                  transform: translateY(0);
+                animation-name: ${SideIn};
               `
         : css`
                 
-                  margin: 0;
                   visibility: hidden;
                   opacity: 0;
               `}

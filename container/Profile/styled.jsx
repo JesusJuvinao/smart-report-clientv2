@@ -29,10 +29,14 @@ export const Card = styled.div`
     top: 0px;
     
     @media(min-width: 768px){
+        position: relative;
         width: 100%;
     }
     @media(max-width: 960px){
+        position: relative;
         width: 100%;
+        margin: 2% auto;
+        margin-bottom: 5%;
     } 
 `
 export const Form = styled.form`

@@ -201,7 +201,7 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                             location={location}
                         />
                     )}
-                    <div style={{ gridArea: 'main' }}>
+                    <div style={{ gridArea: 'main', overflowY: 'auto' }}>
                         {/* {!['/', '/login', '/register', '/forgotpassword', '/terms_and_conditions', '/upload/bills', '/autho', '/contact-us', '/switch-options', '/bills', '/companies/dashboard']
           .find(x => x === location.pathname) && <TopNavigation
           />} */}
@@ -210,7 +210,6 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
           />} */}
                         {children}
                     </div>
-                    {/* <Overline zIndex = {'800'} show={menu} bgColor={'red'} onClick={() => handleMenu(false)} /> */}
                     <LateralMenu
                         show={menu}
                         title={
@@ -282,6 +281,8 @@ const App = styled.div`
 const Main = styled.main`
     display: grid;
     width: 100%;
+    overflow: hidden;
+    height: 100vh;
     grid-template-rows: 50px 1fr;
     grid-template-columns: min-content 1fr;
     grid-template-areas:

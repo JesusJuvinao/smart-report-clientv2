@@ -43,7 +43,7 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
   const [currentColumn, setCurrentColumn] = useState({})
   const [properties, setProperties] = useState({
     currentPage: 1,
-    entriesValue: 10,
+    entriesValue: 100,
     pages: [],
     indexFirstElem: '',
     indexLastElem: ''
@@ -81,7 +81,7 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
       <EntryPerViewC>
         {(entryPerView && data?.length > 0) && <EntryLabel>
           Mostrar
-          <EntryInput step={10} max={data?.length?.toString()} onChange={handleEntries} value={properties.entriesValue} type="number" />
+          <EntryInput step={100} max={data?.length?.toString()} onChange={handleEntries} value={properties.entriesValue} type="number" />
           elementos
         </EntryLabel>}
         {buttonAdd && <TableButton onClick={handleAdd} type={4} label={`Add ${labelBtn}`} />}

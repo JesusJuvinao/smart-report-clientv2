@@ -80,7 +80,7 @@ export const getOneLinkMinio = async ({ fileName }) => {
     return { success: true, message: data }
 }
 // CREATE ONE FILE
-export const deleteOneFileMinio = async ({ fileName }) => {
+export const deleteOneFileMinio = async ({ fileName, idComp }) => {
     client.removeObject('uploads', fileName, function (err) {
         if (err) {
             return {

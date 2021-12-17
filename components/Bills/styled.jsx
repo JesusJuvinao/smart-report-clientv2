@@ -245,7 +245,9 @@ export const Button = styled.button`
 `
 export const ComponentLinkMinio = styled.div`
     color: ${PVColor};
-    font-size: 12px;
+    font-size: 13px;
+    width: 100%;
+    background: #dfdfdf;
     .link:hover {
     }
     &:hover{

@@ -11,7 +11,7 @@ export const FooterComponent = styled.footer`
     right: 0;
     width: 100%;
     box-shadow: 0px 1px 3px rgb(0 0 0 / 24%);
-    z-index: 80;
+    z-index: 9999;
     justify-content: space-between;
     display: none;
     grid-area: foot;

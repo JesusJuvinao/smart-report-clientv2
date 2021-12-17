@@ -50,7 +50,7 @@ export const BoxSideBar = styled.aside`
 export const MenuLeft = styled.button`
     width: 100%;
     white-space: nowrap;
-    height: ${({ height }) => height || 'auto'}px;
+    height: ${({ height }) => height || '80px'}px;
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -59,7 +59,6 @@ export const MenuLeft = styled.button`
     position: relative;
     font-family: Poppins;
     background-color: transparent;
-    /* background: ${SVColor}; */
     align-self: ${({ alignSelf }) => alignSelf || 'auto'};
     & > div:first-child { pointer-events: none; }
     transition: .4s;
@@ -68,17 +67,25 @@ export const MenuLeft = styled.button`
     & a {
         color: ${props => props.active ? '#a6b0cf' : '#a6b0cf'};
     }
+    @media(max-width: 768px){
+        height: 120px;
+        padding: 0px 5px;
+    }
 `
 export const Row = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     height: 40px;
-    padding: 8px 30px;
-    background-color: transparent;
+    padding: 8px 5px;
     position: relative;
     z-index: 10;
+    @media(max-width: 768px){
+        padding: 0px 5px;
+        height: 80px;
+    }
 `
 export const OptionMenu = styled.div`
     width: 100%;

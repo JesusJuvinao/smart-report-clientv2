@@ -36,9 +36,9 @@ export const AttachmentsC = () => {
   const [getAllFilesLinkToBills, { data: dataLink }] = useLazyQuery(GET_ALL_LINKS_FILES, { variables: { fileName: FileNameLink.state ? FileNameLink.state : null }, fetchPolicy: 'cache-and-network' })
   const [deleteOneFileMinio] = useMutation(DELETE_ONE_FILE_MINIO_CLIENT)
   const [DeleteOneFile] = useMutation(DELETE_ONE_FILE)
-  const [uploadFileMultiple] = useMutation(UPLOAD_FILE, {
+  const [uploadFileMultiple, { error: Error}] = useMutation(UPLOAD_FILE, {
     onCompleted: (data) => setAlertBox({ message: 'Files uploaded successfully', duration: 8000 }),
-    onError: (data) => setAlertBox({ message: 'Error uploading files', duration: 8000 }),
+    onError: (error) => setAlertBox({ message: 'Error uploading files', duration: 8000 }),
     update(cache) {
       cache.modify({
         fields: {
@@ -49,6 +49,7 @@ export const AttachmentsC = () => {
       })
     }
   })
+  console.log(Error)
   const [setAttachment] = useMutation(UPDATE_ONE_ATTACHMENTS, {
     onError: () => setAlertBox({ message: 'Error show files', duration: 8000 }),
     update(cache) {

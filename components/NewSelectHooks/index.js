@@ -218,11 +218,8 @@ const IconSel = styled.div`
   position: absolute;
   right: 8px;
   top: 30%;
-  padding: 0 7px 0 10px ;
   width: min-content;
   pointer-events: none;
-  border-left: 1px solid ${ SFVColor }; 
-  z-index: 80;
 `
 // Select
 const MainButton = styled.button`

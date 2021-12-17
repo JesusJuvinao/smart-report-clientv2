@@ -53,7 +53,9 @@ export const BillsC = () => {
     const [createBillMutation, { loading, error }] = useMutation(CREATE_BILL)
     const [deleteOneLineItem] = useMutation(DELETE_ONE_LINE_ITEMS)
     const [DeleteOneBill, { loading: loadingDeleteBill }] = useMutation(DELETE_ONE_BILL)
-    const [deleteOneFileMinio] = useMutation(DELETE_ONE_FILE_MINIO_CLIENT)
+    const [deleteOneFileMinio] = useMutation(DELETE_ONE_FILE_MINIO_CLIENT, {
+        onCompleted: (data) => setAlertBox({ message: `${data.deleteOneFileMinio.message}`, color: 'success' })
+    })
     const { data: dataClass } = useQuery(ALL_CLASS_FOR_COMPANY, { variables: { idComp: company.idLasComp ? company.idLasComp : null }, fetchPolicy: 'cache-and-network' })
     const [DeleteOneFile] = useMutation(DELETE_ONE_FILE, { update (cache) { cache.modify({ fields: { getAllFilesToBills (dataOld = []) { return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld }) } } }) } })
     const [updateBill, { loading: loadingUpdate, error: errorUpdate }] = useMutation(EDIT_BILL, { update (cache) { cache.modify({ fields: { getAllFilesToBills (dataOld = []) { return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld }) } } }) } })
@@ -325,8 +327,36 @@ export const BillsC = () => {
             w.location = url
         }
     }
+    const deleteOneFile = async fileName => {
+        const { BillLink, idFile } = fileName
+        await deleteOneFileMinio({
+            variables: { fileName: BillLink, idComp: company?.idLasComp },
+            update (cache) {
+                cache.modify({
+                    fields: {
+                        getAllFilesToBills (dataOld = []) {
+                            return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld })
+                        }
+                    }
+                })
+            }
+        })
+        await DeleteOneFile({
+            variables: { id: idFile },
+            update (cache) {
+                cache.modify({
+                    fields: {
+                        getAllFilesToBills (dataOld = []) {
+                            return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld })
+                        }
+                    }
+                })
+            }
+        })
+    }
     const getFileUrl = async fileName => {
         const { BillLink, Delete, idFile } = fileName
+        console.log(BillLink, Delete)
         FileNameLink.setState(BillLink)
         LinkMinio.setState(BillLink)
         getAllFilesLinkToBills()
@@ -334,31 +364,6 @@ export const BillsC = () => {
             FileNameLink.setState(BillLink)
             const link = !loadLink && dataLink?.getAllFilesLinkToBills?.message
             openLink(link)
-        } else {
-            await deleteOneFileMinio({
-                variables: { fileName: BillLink },
-                update (cache) {
-                    cache.modify({
-                        fields: {
-                            getAllFilesToBills (dataOld = []) {
-                                return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld })
-                            }
-                        }
-                    })
-                }
-            })
-            await DeleteOneFile({
-                variables: { id: idFile },
-                update (cache) {
-                    cache.modify({
-                        fields: {
-                            getAllFilesToBills (dataOld = []) {
-                                return cache.writeQuery({ query: GET_ALL_FILE_MINIO, data: dataOld })
-                            }
-                        }
-                    })
-                }
-            })
         }
     }
     // SUBMIT FUNC
@@ -383,7 +388,7 @@ export const BillsC = () => {
                             billTotal: total,
                             idFiles: IdMongo.state,
                             VatType: dataForm.tax,
-                            currencyBill: dataOneSupplier.getOneSuppliers.sCurrency?.cName
+                            currencyBill: dataOneSupplier?.getOneSuppliers?.sCurrency?.cName
                         },
                         //  Array
                         inputLineItems: {
@@ -426,7 +431,7 @@ export const BillsC = () => {
                             billTotal: total,
                             idFiles: IdMongo.state,
                             VatType: dataForm.tax,
-                            currencyBill: dataOneSupplier.getOneSuppliers.sCurrency?.cName
+                            currencyBill: dataOneSupplier?.getOneSuppliers?.sCurrency?.cName
                         },
                         // Array
                         inputLineItems: {
@@ -580,6 +585,7 @@ export const BillsC = () => {
                 HandleClickEdit={HandleClickEdit}
                 size={size}
                 dataClass={dataClass || []}
+                deleteOneFile={deleteOneFile}
                 setModal={setModal}
                 isEdit={isEdit}
                 setShowLateral={setShowLateral}

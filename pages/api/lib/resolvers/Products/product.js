@@ -1,10 +1,6 @@
 'use strict'
 import { ApolloError } from 'apollo-server-errors'
-// import { isCompositeType } from 'graphql'
 import Product from '../../../models/Products/ProductsSchema'
-// import UserSchema from '../../../models/users/userLogin'
-// import CompanySchema from '../../../models/Companies/CompanySchema'
-
 export const newProductForCompany = async (_, { input }, ctx) => {
     const idUser = ctx.User.id
     try {

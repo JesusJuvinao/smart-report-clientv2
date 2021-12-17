@@ -3,11 +3,11 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { LayoutOption } from '../LayoutOption'
 import { IconArrowBottom } from '../../../public/icons'
-import { Container, NavLink, ContainerLink, Button, ContentLink, ContainerBurger } from './styled'
 import { Context } from '../../../context'
 import { AlertError } from '../AlertError/index'
 import { useRouter } from 'next/router'
 import { IconLogo } from '../../common/logo'
+import { Container, NavLink, ContainerLink, Button, ContentLink, ContainerBurger, ContentLogo } from './styled'
 
 export const Header = ({ props, data, handleClickMap, isSession, authData, modal, FullscreenIcon, closeSession, theme, show, setShow, location, keyTheme, handleTheme, activeSettings, handleClick, setShowModal, showModal }) => {
     const { setCollapsed, collapsed } = useContext(Context)
@@ -19,18 +19,19 @@ export const Header = ({ props, data, handleClickMap, isSession, authData, modal
                 <ContentLink style={{ display: 'flex' }}>
                     {!['/login', '/', '/register', '/forgotpassword', '/terms_and_conditions', '/switch-options']
                         .find(x => x === router.pathname) && <ContainerBurger onClick={() => setCollapsed(!collapsed)}>
-                        <div className="BurgerMenu__container" role="button" >
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </ContainerBurger>}
-
-                    <NavLink href="/">
-                        <a>
-                            <IconLogo size='50px' />
-                        </a>
-                    </NavLink>
+                            <div className="BurgerMenu__container" role="button" >
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </ContainerBurger>}
+                    <ContentLogo>
+                        <NavLink href="/">
+                            <a>
+                                <IconLogo size='50px' />
+                            </a>
+                        </NavLink>
+                    </ContentLogo>
                     {!isSession && <>
                         <NavLink href='/'>
                             <a>
@@ -61,7 +62,7 @@ export const Header = ({ props, data, handleClickMap, isSession, authData, modal
                 </ContentLink>
             </ContainerLink>
             <LayoutOption data={data} isSession={isSession} authData={authData} theme={theme} closeSession={closeSession} handleClickMap={handleClickMap} modal={modal} FullscreenIcon={FullscreenIcon} location={location} activeSettings={activeSettings} handleClick={handleClick} setShowModal={setShowModal} showModal={showModal} props={props} handleTheme={handleTheme} keyTheme={keyTheme} show={show} setShow={setShow} />
-        </Container>
+        </Container >
     )
 }
 

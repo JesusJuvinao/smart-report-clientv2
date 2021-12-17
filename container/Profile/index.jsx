@@ -127,18 +127,6 @@ export const ProfileC = ({ login, token }) => {
                 <InputHooks width='100%' title='currentPassword' required error={dataForm?.newPassword} value={dataForm?.newPassword} onChange={handleChange} name='newPassword' />
                 <RippleButton widthButton='100%' type='submit'>Save</RippleButton>
               </form>
-              <form onSubmit={e => (handleForm(e))}>
-                <Text>Change LastName  </Text>
-                <InputHooks width='100%' title='lastName' required error={errorForm?.lastName} value={dataForm?.lastName} onChange={handleChange} name='lastName' />
-                <InputHooks width='100%' title='Address' required error={dataForm?.uAddress} defaultValue={`${data?.uEmail}`} value={data?.uAddress || dataForm?.uAddress} onChange={handleChange} name='uAddress' />
-                <RippleButton widthButton='100%' type='submit' onClick={() => setStep(3)}>Save</RippleButton>
-              </form>
-              <form onSubmit={e => (handleForm(e))}>
-                <Text>Change Number </Text>
-                <InputHooks width='100%' type='date' title='uBirthday' required error={errorForm?.uBirthday} value={dataForm?.uBirthday} onChange={handleChange} name='uBirthday' defaultValue={data?.uBirthday} />
-                <RippleButton widthButton='100%' type='submit' onClick={() => setStep(4)}>Save</RippleButton>
-              </form>
-              <HorizontalBarChart />
             </CardPrimary>
           </ShadowCard>
         </Card>
@@ -146,29 +134,20 @@ export const ProfileC = ({ login, token }) => {
             <ContentInfo gap={'10px'}>
               <ShadowCard>
                 <CardPrimary direction='row' padding='0.5rem'>
-                  <Text size='12px'>Last 30 Days Total Bills </Text>
-                  <Text size='12px'>Number of bills entered: </Text>
                   <Text size='12px'>Total Amount of Bills entered: £</Text>
-                  <CtnIcon></CtnIcon>
                 </CardPrimary>
               </ShadowCard>
               <ShadowCard>
                 <CardPrimary direction='row' padding='0.5rem'>
-                  <Text size='12px'>Last 30 Days Total Sales </Text>
-                  <Text size='12px'>Number of sales entered: </Text>
                   <Text size='12px'>Total Amount of Sales entered: £</Text>
-                  <CtnIcon></CtnIcon>
                 </CardPrimary>
               </ShadowCard>
               <ShadowCard>
                 <CardPrimary direction='row' padding='0.5rem'>
-                  <Text size='12px'>Top 10 Customers </Text>
                   <Text size='12px'>Top 10 Suppliers</Text>
-                  <CtnIcon></CtnIcon>
                 </CardPrimary>
               </ShadowCard>
             </ContentInfo>
-            {/* <TableBilling /> */}
           </Card>
           <LateralMenu show={state} title={'Change photo'} onCancel={() => setState(false)} onHide={() => setState(false)} backdrop btnConfirm={false} header={false} footer={false} padding='20px'>
             <Form onSubmit={e => (handleForm(e))}>

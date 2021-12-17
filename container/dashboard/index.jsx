@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import { GET_ONE_COMPANY_BY_ID } from './queries'
-import { Context } from'../../context'
+import { Context } from '../../context'
 import { useUser } from '../Profile'
 import { CHANGE_COMPANY_STATE } from '../Profile/queries'
 import { BColor, PColor, TBGBColor } from '../../public/colors'
@@ -16,9 +16,10 @@ import { Section } from '../../components/Table/styled'
 import { Table } from '../../components/Table'
 import { GET_ALL_BILL } from '../Bills/queries'
 import { SUPPLIER_FOR_COMPANY } from '../Supplier/queries'
+import { IconPromo } from '../../public/icons'
 import { GET_ALL_ATTACHMENTS } from '../Attachments/queries'
 import { ALL_COMPANIES_BY_USER } from '../Company/queries'
-import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, Circle } from './styled'
+import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CircleCompany } from './styled'
 import router, { useRouter } from 'next/router'
 // import { LineChart } from '@/components/Chart/multiAxis'
 
@@ -36,12 +37,11 @@ export const CompanyC = () => {
         fetchPolicy: 'cache-and-network'
     })
     const [dataComp, dataTeam, { loading }] = useCompanyHook()
-    console.log(dataComp)
     const [lastCompanyMutation] = useMutation(CHANGE_COMPANY_STATE)
     const handleCompany = async index => {
         const { _id } = index
         const id = _id
-        await lastCompanyMutation({ variables: { lastCompany: _id } }).catch(err => setAlertBox({ message: `${ err }`, duration: 300000 }))
+        await lastCompanyMutation({ variables: { lastCompany: _id } }).catch(err => setAlertBox({ message: `${err}`, duration: 300000 }))
         useCompany(id)
     }
     useEffect(() => {
@@ -51,7 +51,7 @@ export const CompanyC = () => {
     useEffect(() => getAllAttachment(), [company.idLasComp])
 
     const HandleClickEdit = item => {
-    // create func
+        // create func
         if (item.view === 1) {
             // setModal(true)
             // setDisable(true)
@@ -85,10 +85,9 @@ export const CompanyC = () => {
                     }
                 })
             }
-        }).catch(err => setAlertBox({ message: `${ err }`, duration: 8000 }))
+        }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
         if (results) setAlertBox({ message: 'successfully removed', duration: 8000, color: 'success' })
     }
-    // const employees = dataComp && dataComp?.lineItemsTeam?.map(x => { return { lineItemsTeam: x.lineItemsTeam } })
     // EFFECT
     return (<>
         <Wrapper>
@@ -124,15 +123,15 @@ export const CompanyC = () => {
                         </CardPrimary>
                     </Card>
                     <Card wrap='no-wrap' width='97%' direction="row">
-                        <Link activeClassName="active" href={`/companies/${ encodeURIComponent(dataComp?.companyName.split(' ').join('')) }/${ encodeURIComponent(dataComp?._id) }`}>
+                        <Link activeClassName="active" href={`/companies/${encodeURIComponent(dataComp?.companyName.split(' ').join(''))}/${encodeURIComponent(dataComp?._id)}`}>
                             <a>
-                                <RippleButton bgColor='transparent' color={BColor} widthButton='100px' minHeight='50px' border='5px' borderSolid={`.5px solid ${ PColor }`} size='10px' padding='5px'>Commission invoice</RippleButton>
+                                <RippleButton borderSolid={`.5px solid ${PColor}`}  bgColor='transparent' color={BColor} widthButton='150px' size='9px' padding='5px'> <IconPromo color={PColor} size='30px' />Commission invoice</RippleButton>
                             </a>
                         </Link>
                     </Card>
-                    <Card wrap='no-wrap' width='97%' direction="row">
+                    <Card overflow='auto' wrap='no-wrap' width='97%' direction="row">
                         {allCompany && allCompany?.getAllCompanyById?.map((x, i) => (
-                            <div key={x._id} style={{ zIndex: '200', width: 'min-content' }}> <Circle style={{ zIndex: i + 3 }} pulse={x._id === dataComp?._id} onClick={() => handleCompany({ ...x })} >{x.companyName.slice(0, 2).toUpperCase()}</Circle> </div>
+                            <div key={x._id} style={{ zIndex: '200', width: 'min-content' }}> <CircleCompany pulse={x._id === dataComp?._id} onClick={() => handleCompany({ ...x })} >{x.companyName.slice(0, 2).toUpperCase()}</CircleCompany> </div>
                         ))}
                     </Card>
                 </Content>
@@ -157,62 +156,22 @@ export const CompanyC = () => {
                 </Content>
                 <Content width="20%" direction="row">
                     <Card width='97%'>
-            Lorem
+                        Lorem
                     </Card>
                     <Card width='97%'>
-            Lorem
+                        Lorem
                     </Card>
                 </Content>
                 <Content width="80%">
                     <Content direction="row">
                         <Card width='30%'>
-              Lorem
+                            Lorem
                         </Card>
                         <Card width='30%'>
-              Lorem
+                            Lorem
                         </Card>
                     </Content>
                     <Card width='97%'>
-                        <Table
-                            titles={[
-                                { name: '#', width: '5%' },
-                                { name: '', width: '22%' },
-                                { name: 'bDueDate', width: '22%', arrow: true, key: 'bDescription' },
-                                { name: 'bInvoiceRef', width: '22%', arrow: true, key: 'bDescription' },
-                                { name: 'Action', width: '22%', arrow: true, key: 'bDescription' }
-                            ]}
-                            bgRow={2}
-                            pointer
-                            labelBtn='Reports'
-                            entryPerView
-                            buttonAdd={true}
-                            // handleAdd={() => isSettingModal()}
-                            data={[1, 2, 3]}
-                            renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section columnWidth={titles} key={i}>
-                                <Content>
-                                    <Text>{i + 1}</Text>
-                                </Content>
-                                <Content>
-                                    <Text> {dateFormat(elem.bDueDate)}</Text>
-                                </Content>
-                                <Content>
-                                    <Text> {elem.bInvoiceRef}</Text>
-                                </Content>
-                                <Content>
-                                    <Text>{dateFormat(elem.bInvoiceDate)}</Text>
-                                </Content>
-                                <Content>
-                                    <div padding='0px' direction='row'>
-                                        <RippleButton onClick={e => HandleClickEdit({ ...elem, view: 1 })}>
-                      View Details
-                                        </RippleButton>
-                                        <RippleButton onClick={() => handleDelete({ ...elem })}>
-                      Delete
-                                        </RippleButton>
-                                    </div>
-                                </Content>
-                            </Section>)}
-                        />
                     </Card>
                 </Content>
 
@@ -231,7 +190,7 @@ export const useCompanyHook = initialState => {
     useEffect(async () => {
         useCompany(id)
         if (id) {
-            await lastCompanyMutation({ variables: { lastCompany: company.idLasComp !== undefined ? company.idLasComp : dataUser?.lastCompany } }).catch(err => setAlertBox({ message: `${ err }`, duration: 300000 }))
+            await lastCompanyMutation({ variables: { lastCompany: company.idLasComp !== undefined ? company.idLasComp : dataUser?.lastCompany } }).catch(err => setAlertBox({ message: `${err}`, duration: 300000 }))
         }
     }, [id, dataUser])
 
@@ -239,8 +198,8 @@ export const useCompanyHook = initialState => {
         variables: { idC: company.idLasComp ? company.idLasComp : dataUser?.lastCompany },
         fetchPolicy: 'cache-and-network',
         notifyOnNetworkStatusChange: true
-    // onCompleted: data => {
-    // }
+        // onCompleted: data => {
+        // }
     })
     useEffect(() => getOneCompanyById(), [isCompany, useCompany, id, initialState])
     return [data?.getOneCompanyById, data, { loading }]
