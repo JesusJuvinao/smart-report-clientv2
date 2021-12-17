@@ -17,7 +17,7 @@ export const CompaniesDashboard = () => {
   }
 
   return (<Container>
-        <ContainerCard direction='row' wrap='no-wrap' justify='space-between' width='100%'>
+        {/* <ContainerCard direction='row' wrap='no-wrap' justify='space-between' width='100%'>
             <div>
                 <RippleButton margin='0px 10px 0px 0px' border='60px' color={BColor} widthButton='150px' bgColor={'#e2e8f0'} family='PFont-Regular' onClick={() => active.state !== 1 && handleClick(1)}>
                     ViewInfo
@@ -38,7 +38,7 @@ export const CompaniesDashboard = () => {
                     Generate Report
                 </RippleButton>
             </div>
-        </ContainerCard>
+        </ContainerCard> */}
         {active.state === 1 ? <ViewReportsByCompany /> : active.state === 2 ? <InviteUsers /> : active.state === 3 ? <UpdateInfo /> : active.state === 4 ? <ViewLitsCompany /> : active.state === 5 ? <div>5</div> : <div>6</div>}
     </Container>
   )

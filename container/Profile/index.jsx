@@ -189,9 +189,8 @@ export const useUser = () => {
   const router = useRouter()
   const { data, loading, error } = useQuery(GET_USER, {
     onCompleted: () => {
-      const dataUser = data?.getUser
-      setSessionActive(true)
-      setSessionActive({ data: dataUser })
+      const dataUser = data && data.getUser
+      setSessionActive({ data: dataUser && dataUser })
     },
     onError: (err) => setAlertBox({ message: `${err}`, duration: 8000 })
   })

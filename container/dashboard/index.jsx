@@ -19,8 +19,9 @@ import { SUPPLIER_FOR_COMPANY } from '../Supplier/queries'
 import { IconPromo } from '../../public/icons'
 import { GET_ALL_ATTACHMENTS } from '../Attachments/queries'
 import { ALL_COMPANIES_BY_USER } from '../Company/queries'
-import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CircleCompany } from './styled'
+import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CircleCompany, ButtonTheme, SwitchButton, ContentToggle } from './styled'
 import router, { useRouter } from 'next/router'
+import { useSetState } from '../../components/hooks/useState'
 // import { LineChart } from '@/components/Chart/multiAxis'
 
 export const CompanyC = () => {
@@ -89,8 +90,17 @@ export const CompanyC = () => {
         if (results) setAlertBox({ message: 'successfully removed', duration: 8000, color: 'success' })
     }
     // EFFECT
+    const Switch = useSetState(0)
     return (<>
         <Wrapper>
+            <ContentToggle>
+                <div>
+                    <Text style={{ margin: '0' }} size='13px' >PRIVACY</Text>
+                    <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
+                        <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
+                    </ButtonTheme>
+                </div>
+            </ContentToggle>
             <Container>
                 {(loading || loadingBills) && <Loading />}
                 <Content width="30%" direction="row">
@@ -125,7 +135,7 @@ export const CompanyC = () => {
                     <Card wrap='no-wrap' width='97%' direction="row">
                         <Link activeClassName="active" href={`/companies/${encodeURIComponent(dataComp?.companyName.split(' ').join(''))}/${encodeURIComponent(dataComp?._id)}`}>
                             <a>
-                                <RippleButton borderSolid={`.5px solid ${PColor}`}  bgColor='transparent' color={BColor} widthButton='150px' size='9px' padding='5px'> <IconPromo color={PColor} size='30px' />Commission invoice</RippleButton>
+                                <RippleButton borderSolid={`.5px solid ${PColor}`} bgColor='transparent' color={BColor} widthButton='150px' size='9px' padding='5px'> <IconPromo color={PColor} size='30px' />Commission invoice</RippleButton>
                             </a>
                         </Link>
                     </Card>

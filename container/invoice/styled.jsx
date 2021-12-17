@@ -1,6 +1,34 @@
 import styled, { keyframes, css } from 'styled-components';
-import { BColor, PColor } from '../../public/colors';
+import { BColor, PColor, SECColor } from '../../public/colors';
 
+export const Content = styled.div`
+  padding: 30px;
+`
+export const Text = styled.span`
+  font-size: 12px;
+  font-family: PFont-Regular;
+`
+export const ButtonTheme = styled.div`
+    width: 65px;
+    min-width: 65px;
+    cursor: pointer;
+    height: 24px;
+    background-color: ${SECColor};
+    border-radius: 30px;
+    position: relative;
+    transition: .3s ease;
+`
+export const SwitchButton = styled.button`
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: 2px;
+    position: absolute;
+    ${({ active }) => active && css`left: ${active};`}
+    transition: .3s ease;
+`
+export const ContentToggle = styled.div`
+`
 export const WrapperPdf = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -32,19 +60,19 @@ export const WrapperControls = styled.div`
 `
 export const bounce = keyframes`
   0% {
-    width: 216px;
-    height: 72px;
+    width: 70px;
+    height: 40px;
   }
 
   50% {
-    width: 204px;
-    height: 68px;
+    width: 70px;
+    height: 40px;
     font-size: 22px;
   }
 
   100% {
-    width: 216px;
-    height: 72px;
+    width: 70px;
+    height: 40px;
   }
 `;
 

@@ -121,6 +121,8 @@ export const Card = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+
     transition: 300ms ease;
     height: 100vw;
 `

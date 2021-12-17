@@ -24,6 +24,4 @@ function MyApp({ Component, pageProps }) {
     </Context>
      )
 }
-// vamos 
-
 export default MyApp

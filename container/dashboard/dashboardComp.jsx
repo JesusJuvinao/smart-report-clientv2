@@ -8,7 +8,7 @@ import { GET_ALL_INVOICES } from './queries'
 import { useQuery, useMutation } from '@apollo/client'
 import { orderColumn } from '../../components/Table/orderColumn'
 import { useKeyPress } from '../../components/Table'
-import { ContentHead } from './styled'
+import { ContentHead, ContentListInvoice } from './styled'
 import { IS_PAY_INVOICE, IS_REDO_INVOICE } from '../../container/invoice/queries'
 import { dateFormat, updateCache } from '../../utils'
 import { AwesomeModal } from '../../components/AwesomeModal'
@@ -47,7 +47,7 @@ export const DashboardComp = ({ idComp }) => {
     const handleClick = index => setActive(index === active ? false : index)
     const { data } = useQuery(GET_ALL_INVOICES, { fetchPolicy: 'network-only', variables: { search: '' } })
     return (
-        <Container>
+        <ContentListInvoice>
             <Text margin='0 0 30px 0' size='30px'>Hello {name}</Text>
             <WrapperFilter>
                 <Button shadow={true} active={active === 1} onClick={() => active !== 1 && handleClick(1)}>Invoice received: ({data ? data?.getAllCommissionInvoice?.length : 0})</Button>
@@ -81,8 +81,7 @@ export const DashboardComp = ({ idComp }) => {
                     </>
                 </Tabs.Panel>
             </Tabs>
-
-        </Container>
+        </ContentListInvoice>
     )
 }
 
@@ -186,7 +185,7 @@ export const InvoiceReceivedComponent = () => {
         setHeightMenu(refMenu?.current?.clientHeight)
     }, [])
     return (
-        <div>
+        <Container>
             <InputHooks title='Filter.' width='50%' required disabled={false} value={search} onChange={handleChangeFilter} name='search' />
             <AwesomeModal useScroll={true} height='100vh' padding='10px' show={open} hideOnConfirm={false} title={` Invoice Name ${dataInvoice.eventName}`} onHide={() => setOpen(!open)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                 <PageA4Format>
@@ -261,7 +260,7 @@ export const InvoiceReceivedComponent = () => {
                     </WrapperButtonAction>
                 </Section>)}
             />
-        </div>
+        </Container>
     )
 }
 export const SentBillComponent = () => {

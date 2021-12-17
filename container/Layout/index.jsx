@@ -30,6 +30,7 @@ import { Categories } from '../shared/Categories'
 import { TopNavigation } from '../../components/Layout/TopNavigation'
 import { RouterCrumbs } from '../../components/Breadcrumb'
 import { useSetState } from '../../components/hooks/useState'
+import { HeaderPublic } from '../../components/Layout/HeaderPublic'
 
 export const LayoutC = ({ keyTheme, handleTheme, children }) => {
     // STATES
@@ -77,17 +78,19 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
     const [loadingLogout, setLoadingLogout] = useState(false)
     const closeSession = useCallback(async () => {
         setLoadingLogout(true)
+        setSessionActive({})
         await window
-            .fetch(`${ URL_BASE }auth/logout/`, {})
-            .then(res => res.json())
-            .catch(() => {
-                setAlertBox({
-                    message: 'Se ha producido un error.',
-                    duration: 30000,
-                    color: 'error'
-                })
-            }).finally(() => {
+        .fetch(`${ URL_BASE }auth/logout/`, {})
+        .then(res => res.json())
+        .catch(() => {
+            setAlertBox({
+                message: 'Se ha producido un error.',
+                duration: 30000,
+                color: 'error'
+            })
+        }).finally(() => {
                 location.push('/')
+                window.localStorage.clear();
                 setSessionActive(null)
                 client.cache.reset()
             })
@@ -200,6 +203,9 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                             keyTheme={keyTheme}
                             location={location}
                         />
+                    )}
+                    {!['/login', '/register', '/forgotpassword', '/teams/invite/[id]', '/terms_and_conditions', '/email/confirm/[code]', '/autho', '/contact'].find(x => x === location.pathname) &&  (
+                        <HeaderPublic />
                     )}
                     <div style={{ gridArea: 'main', overflowY: 'auto' }}>
                         {/* {!['/', '/login', '/register', '/forgotpassword', '/terms_and_conditions', '/upload/bills', '/autho', '/contact-us', '/switch-options', '/bills', '/companies/dashboard']

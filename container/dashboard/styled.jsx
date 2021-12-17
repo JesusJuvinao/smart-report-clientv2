@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components'
 import { StyleSheet } from '@react-pdf/renderer'
-import { BColor, BGColor, EColor, ESFColor, PColor } from '../../public/colors'
+import { BColor, BGColor, EColor, ESFColor, PColor, SECColor } from '../../public/colors'
 
 const pulse = keyframes`
   0% {
@@ -18,7 +18,7 @@ export const WrapperButtonAction = styled.div`
   right: 0;
 `
 export const Wrapper = styled.div`
-  padding: 1%;
+  padding: 30px;
 `
 export const Button = styled.button`
   border-bottom: 3px solid transparent;
@@ -269,8 +269,8 @@ export const Container = styled.div`
   overflow: hidden;
   position: relative;
   background-color: ${BGColor};
-  padding: 30px;
   flex-wrap: wrap;
+  margin-top: 30px;
   display: flex;
   width: 100%;
   @media (max-width: 769px) {
@@ -349,11 +349,14 @@ export const CardPrimary = styled.div`
     width: 100%;
     
     `
+export const ContentListInvoice = styled.div`
+  padding: 30px;
+`
 export const Text = styled.span`
     font-weight: ${({ bold }) => bold || 'initial'};
     font-size: ${({ size }) => size || '12px'};
     text-align:  ${({ align }) => align || 'start'};
-    margin: ${({ margin }) => margin || 'auto'};
+    margin: ${({ margin }) => margin || '0'};
     justify-content: ${({ justify }) => justify || 'flex-start'};
     display: ${({ display }) => display || 'flex'};
     font-family: ${({ font }) => font || 'PFont-Regular'};
@@ -385,3 +388,29 @@ export const styles = StyleSheet.create({
 
   }
 })
+
+export const ButtonTheme = styled.div`
+    width: 65px;
+    min-width: 65px;
+    cursor: pointer;
+    height: 24px;
+    background-color: ${SECColor};
+    border-radius: 30px;
+    position: relative;
+    transition: .3s ease;
+`
+export const SwitchButton = styled.button`
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: 2px;
+    position: absolute;
+    ${({ active }) => active && css`left: ${active};`}
+    transition: .3s ease;
+`
+export const ContentToggle = styled.div`
+    align-items: center;
+    display: flex;
+    width: min-;
+    justify-content: center;
+`

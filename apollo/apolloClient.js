@@ -3,6 +3,7 @@ import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { concatPagination } from '@apollo/client/utilities'
 import merge from 'deepmerge'
+import { createUploadLink } from 'apollo-upload-client'
 import isEqual from 'lodash/isEqual'
 import { URL_BASE } from './urls'
 
@@ -20,7 +21,7 @@ const authLink = setContext((_, { headers }) => {
     }
 })
 
-const httpLink = new HttpLink({
+const httpLink =  createUploadLink({
     uri: `${ URL_BASE }graphql`, // Server URL (must be absolute)
     credentials: 'same-origin' // Additional fetch() options like `credentials` or `headers`
 })
@@ -29,10 +30,7 @@ function createApolloClient() {
     return new ApolloClient({
         connectToDevTools: true,
         ssrMode: typeof window === 'undefined',
-        link: from([
-            authLink,
-            httpLink
-        ]),
+        link: authLink.concat(httpLink),
         cache: new InMemoryCache({
             typePolicies: {
                 Query: {

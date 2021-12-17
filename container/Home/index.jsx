@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Container, Text, Banner } from './styled'
 import { RippleButton } from '../../components/Ripple'
 import PropTypes from 'prop-types'
 import { Hero, HeroCard, Item, Modules, PQR, PricingCard, TabList } from './main'
 import { BGColor, SECColor } from '../../public/colors'
+import { useScrollIntoView } from '../../components/hooks/useScrollIntoView'
 
 export const IndexC = () => {
   return (
