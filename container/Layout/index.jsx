@@ -204,16 +204,10 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                             location={location}
                         />
                     )}
-                    {!['/login', '/register', '/forgotpassword', '/teams/invite/[id]', '/terms_and_conditions', '/email/confirm/[code]', '/autho', '/contact'].find(x => x === location.pathname) &&  (
+                    {['/'].find(x => x === location.pathname) &&  (
                         <HeaderPublic />
                     )}
                     <div style={{ gridArea: 'main', overflowY: 'auto' }}>
-                        {/* {!['/', '/login', '/register', '/forgotpassword', '/terms_and_conditions', '/upload/bills', '/autho', '/contact-us', '/switch-options', '/bills', '/companies/dashboard']
-          .find(x => x === location.pathname) && <TopNavigation
-          />} */}
-                        {/* {!['/', '/login', '/register', '/forgotpassword', '/terms_and_conditions', '/upload/bills', '/autho', '/contact-us', '/switch-options', '/bills']
-          .find(x => x === location.pathname) && <RouterCrumbs
-          />} */}
                         {children}
                     </div>
                     <LateralMenu
