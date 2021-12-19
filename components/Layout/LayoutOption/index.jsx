@@ -11,8 +11,6 @@ import { Context } from '../../../context'
 
 export const LayoutOption = ({ handleClickMap, closeSession, modal, FullscreenIcon, show, setShow, location, theme, keyTheme, handleTheme, activeSettings, handleClick, setShowModal, showModal }) => {
     const { isSession, authData } = useContext(Context)
-    console.log(isSession)
-    console.log(authData, 'auth')
     return (
         <>
             <Overline onClick={() => setShow(!true)} show={show} />

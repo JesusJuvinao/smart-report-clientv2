@@ -16,6 +16,8 @@
     "@fingerprintjs/fingerprintjs": "^3.3.0",
     "@graphql-tools/load-files": "^6.5.2",
     "@graphql-tools/merge": "^8.2.1",
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "@paypal/react-paypal-js": "^7.5.0",
     "@react-google-maps/api": "^2.4.0",
     "@react-pdf/renderer": "^1.6.17",
     "apollo-client": "^2.6.10",
@@ -58,7 +60,8 @@
     "react-recoil-form": "^0.1.4",
     "react-scripts": "3.0.1",
     "recoil": "^0.5.2",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.1",
+    "twilio": "^3.72.0"
   },
   "devDependencies": {
     "eslint": "^8.4.1",

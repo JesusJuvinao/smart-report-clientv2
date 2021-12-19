@@ -79,13 +79,14 @@ type AuthPayload {
     admin: Boolean
     success: Boolean
     message: String
-    userId: ID!
+    userId: ID
     refreshToken: String,
     newRefreshToken: String
 }
   type Mutation {
     """"registra user data"""
     newRegisterUser(userName: String!, uEmail: String!, uPassword: String! uAvatar: String): AuthPayload!
+    RegisterUserAdmin(userName: String!, uEmail: String!, uPassword: String! uAvatar: String): AuthPayload
     login(input: LoginInput): Token
     loginUser(uEmail: String!, uPassword: String!): AuthPayload
     refreshUserToken(userId: ID!, refreshToken: String!): AuthPayload

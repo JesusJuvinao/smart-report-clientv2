@@ -145,6 +145,7 @@ export const Banner = styled.div`
     justify-content: center;
     align-content: flex-start;
     height: ${({ height }) => height};
+    padding: ${({ padding }) => padding || 'auto'};
     flex-direction: ${({ direction }) => direction || 'column'};
 
 `

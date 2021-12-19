@@ -68,7 +68,6 @@ const PDF = ({ pdfMode, invoice }) => {
       fontSize: '25px'
     }
   })
-  console.log(invoice?.isPaid)
   return (
     <Document pdfMode={pdfMode}>
       <Page style={styles.page}>

@@ -49,6 +49,34 @@ export const createRoleMutation = async (_, input, context) => {
             }
         }
     } catch (e) {
+        console.log(e)
+        const error = new Error('Your request could not be processed')
+        return error
+    }
+}
+export const getAllRoles = async  (_, __, context) => {
+    try {
+        const idUser = context.User.id
+        // Can only register the administrator
+        const user = await UserSchema.findById({ _id: idUser })
+        const roles = await Roles.find({ _id: { $in: user.roles } })
+        for (let i = 0; i < roles.length; i++) {
+            if (roles[i].name === 'admin') {
+                const Dataroles = await Roles.find()
+                console.log(Dataroles)
+                return Dataroles
+            }
+        }
+    } catch (e) {
+        const error = new Error('Your request could not be processed')
+        return error
+    }
+}
+export const removeOneRole = async  (_, { id }, context) => {
+    try {
+        await Roles.deleteOne({ _id: id })
+        return true
+    } catch (e) {
         const error = new Error('Your request could not be processed')
         return error
     }
@@ -74,9 +102,11 @@ export default {
     TYPES: {},
     QUERIES: {
         getRoles,
-        bucketExistsQuery
+        bucketExistsQuery,
+        getAllRoles
     },
     MUTATIONS: {
+        removeOneRole,
         createRoleMutation,
         createOneBucket,
         removeBucketMinio

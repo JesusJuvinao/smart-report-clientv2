@@ -4,12 +4,12 @@ import { RippleButton } from '../../components/Ripple'
 import PropTypes from 'prop-types'
 import { Hero, HeroCard, Item, Modules, PQR, PricingCard, TabList } from './main'
 import { BGColor, SECColor } from '../../public/colors'
-import { useScrollIntoView } from '../../components/hooks/useScrollIntoView'
+import { Offers } from '../../components/Offers'
 
 export const IndexC = () => {
   return (
     <Container>
-      <OnBanner height='80px' />
+      <OnBanner height='100px' direction='row' title='GET A OFFERS' padding='0 50px' offers />
       <Hero />
       <HeroCard />
       <OnBanner height='18.25rem' title='Ready to run your business better with Quickbooks Online?' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Buy now and save' />
@@ -24,10 +24,11 @@ export const IndexC = () => {
   )
 }
 
-const OnBanner = ({ height, children, color, bgColor, TextBtn, title, Button, size, width }) => {
+const OnBanner = ({ height, children, color, bgColor, TextBtn, title, Button, size, width, direction, padding, offers }) => {
   return (
-    <Banner height={height}>
-      <Text lineHeight={'1.25'} font='PFont-Bold' bold='bold' justify='center' color={color} size={size} margin='30px auto' align='center'>{title}</Text>
+    <Banner height={height} direction={direction} padding={padding}>
+     {offers && <Offers />}
+     {title && <Text lineHeight={'1.25'} font='PFont-Bold' bold='bold' justify='center' color={color} size={size} margin='30px auto' align='center'>{title}</Text>}
       {Button && <RippleButton padding='0 15px' size='15px' family='PFont-Regular' bgColor={bgColor} minHeight='3em' widthButton={width} border='624.9375rem' height='calc(100% + .625rem)' >{TextBtn}</RippleButton>}
     </Banner>
   )

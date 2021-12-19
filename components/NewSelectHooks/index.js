@@ -140,7 +140,7 @@ const LabelInput = styled.label`
     transition: .2s ease;
     text-align: left;
     font-size: ${ ({ value }) => value ? '1rem' : '16px' };
-    top: ${ ({ value }) => value ? '-4px' : '30px' };
+    top: ${ ({ value }) => value ? '-4px' : '15px' };
     left: ${ ({ value }) => value ? '-8px' : '10px' };
     color: ${ ({ value, error }) => value ? SFColor : (error ? BGColor : SFVColor) };
     pointer-events: none;

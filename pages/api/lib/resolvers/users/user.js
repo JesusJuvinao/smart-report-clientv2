@@ -118,6 +118,63 @@ export const newRegisterUser = async (_, { uEmail, userName, uPassword }) => {
         throw new ApolloError(error)
     }
 }
+export const RegisterUserAdmin = async (_, { uEmail, userName, uPassword }) => {
+    console.log( uEmail, userName, uPassword)
+    const existEmail = await UserSchema.findOne({ uEmail })
+    if (existEmail) {
+        return {
+            success: false,
+            message: `The uEmail '${ uEmail }' is already registered.`
+        }
+    }
+    // we check if the user exists
+    const UserName = await UserSchema.findOne({ userName })
+    if (UserName) {
+        return {
+            success: false,
+            message: `The user '${ userName }' is already registered.`
+        }
+    }
+    try {
+        const passwordSalt = await bcrypt.genSalt(10)
+        const passwordHash = await bcrypt.hash(uPassword, passwordSalt)
+        if (!existEmail && !UserName) {
+            const newUserRegister = await UserSchema.create({
+                userName,
+                uEmail,
+                userConfirmEmail: 0,
+                uPassword: passwordHash
+            })
+            const dataUser = {
+                id: newUserRegister.id,
+                firstName: newUserRegister.firstName,
+                lastName: newUserRegister.lastName,
+                userName: newUserRegister.userName,
+                uEmail: newUserRegister.uEmail,
+                uAddress: newUserRegister.uAddress,
+                uBirthday: newUserRegister.uBirthday,
+                roles: newUserRegister.roles,
+                companiesOwn: newUserRegister.idComp,
+                companiesMemberOf: newUserRegister.idTeamComp,
+            }
+            const token = await generateToken(dataUser)
+            return {
+                success: true,
+                token,
+                userId: newUserRegister._id,
+                message: 'User created.',
+                roles: newUserRegister.roles
+            }
+        } else {
+            return   {
+                success: false,
+                message: 'Usuarios ya existen'
+            }
+        }
+    } catch (error) {
+        throw new ApolloError(error)
+    }
+}
 
 export const getUser = async (_, args, context) => {
     try {
@@ -242,7 +299,7 @@ export const ResetPassword = async (_, { input }) => {
     }
 }
 
-export const getListBuckets = async (_, input, ctx) => {
+export const getListBuckets = async (_, __, ctx) => {
     const idUser = ctx.User.id
     const user = await UserSchema.findById({ _id: idUser })
     const roles = await Roles.find({ _id: { $in: user.roles } })
@@ -504,6 +561,7 @@ export default {
         refreshUserToken,
         confirmEmail,
         newRegisterUser,
+        RegisterUserAdmin,
         registerUser,
         loginUser,
         ResetPassword,

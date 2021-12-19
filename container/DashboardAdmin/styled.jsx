@@ -45,6 +45,7 @@ export const FolderText = styled.p`
 
 export const Container = styled.div`
     width: 100%;
+    padding: 30px;
     overflow: hidden;
     background-color: ${BGColor};
     position: relative;
@@ -52,12 +53,13 @@ export const Container = styled.div`
 `
 export const ContainerCard = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
     padding: 0;
+    gap: 15px;
     margin: 0 auto;
 `
 export const Card = styled.div`
-    width: 50%;
+    width: 100%;
     transition: 400ms ease;
     height: auto;
     max-width: 100%;

@@ -28,3 +28,35 @@ mutation registerModule($input: IModules, $inputLineItemsMod: InputLineItemsSubM
   }
 }
 `
+export const CREATE_ONE_USER_ADMIN = gql`
+mutation RegisterUserAdmin( $userName: String! $uEmail: String! $uPassword: String! ) {
+  RegisterUserAdmin(userName: $userName, uEmail: $uEmail, uPassword: $uPassword) {
+    token
+    refreshToken
+    userId
+    success
+    message
+  }
+}
+`
+export const CREATE_ONE_ROLE = gql`
+mutation createRoleMutation($input: IRole!) {
+  createRoleMutation(input: $input){
+    id
+    name
+  }
+}
+`
+export const GET_ALL_ROLES = gql`
+query getAllRoles {
+  getAllRoles {
+    id
+    name
+  }
+}
+`
+export const DELETE_ONE_ROLE = gql`
+mutation removeOneRole($id: ID) {
+  removeOneRole(id: $id)
+}
+`

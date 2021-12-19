@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Context } from'../../context'
+import { Context } from '../../context'
 import { useMutation, useQuery } from '@apollo/client'
 import { CHANGE_INFO_USER, GET_USER, SEND_EMAIL_CONFIRMATION } from './queries'
 import { useSetState } from '../../components/hooks/useState'
@@ -33,15 +33,17 @@ export const ProfileC = ({ login, token }) => {
   const [data, { loading }] = useUser()
   const [openModal, setOpenModal] = useState(data?.userConfirmEmail === 0)
   // EFFECT
-  useEffect(() => {
-    for (let i = 0; i < data?.role?.length; i++) {
-      // eslint-disable-next-line no-constant-condition
-      if (data?.role[i].name === 'admin') {
-        router.push('/dashboard/admin')
-        console.log(data?.role[i].name)
-      }
-    }
-  }, [data])
+  // useEffect(() => {
+  //   console.log(data)
+  //   for (let i = 0; i < data?.role?.length; i++) {
+  //     // eslint-disable-next-line no-constant-condition
+  //     if (data?.role[i].name === 'admin') {
+  //       console.log(data?.role[i].name, 'heloo')
+  //       router.push('/dashboard/admin')
+  //       console.log(data?.role[i].name)
+  //     }
+  //   }
+  // }, [data])
   // useEffect(() => data?.role?.name !== 1 && router.push('/dashboard/admin'), [data])
   const [sendEmailConfirmation, { loading: loadingSendEmail }] = useMutation(SEND_EMAIL_CONFIRMATION)
 
@@ -185,12 +187,14 @@ export const ProfileC = ({ login, token }) => {
 }
 
 export const useUser = () => {
-  const { setAlertBox, setSessionActive } = useContext(Context)
+  const { setAlertBox, setSessionActive, isSession } = useContext(Context)
   const router = useRouter()
   const { data, loading, error } = useQuery(GET_USER, {
     onCompleted: () => {
-      const dataUser = data && data.getUser
-      setSessionActive({ data: dataUser && dataUser })
+      if (!isSession?.data) {
+        const dataUser = data?.getUser
+        setSessionActive({ data: dataUser })
+      }
     },
     onError: (err) => setAlertBox({ message: `${err}`, duration: 8000 })
   })

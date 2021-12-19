@@ -56,11 +56,7 @@ const Provider = ({ children }) => {
     []
   )
   useEffect(() => {
-    if (!isSession) {
-      setIsSession(null)
-    } else {
-      setIsSession(isSession)
-    }
+    setIsSession(isSession)
   }, [isSession])
 
   const authData = useMemo(

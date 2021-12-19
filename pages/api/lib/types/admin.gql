@@ -25,6 +25,7 @@ type Admin {
 }
   type Query {
     bucketExistsQuery(idUser: ID, BucketName: String!): AuthPayload
+    getAllRoles: [Roles]
   }
 
 # Mutations
@@ -33,4 +34,5 @@ type Mutation {
   createRoleMutation(input: IRole!): Roles
   createOneBucket(BucketName: String!): Boolean
   removeBucketMinio(idUser: ID!, BucketName: String!): Roles
+  removeOneRole(id: ID): Boolean
 }

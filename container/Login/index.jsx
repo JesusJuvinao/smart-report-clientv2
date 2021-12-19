@@ -18,8 +18,7 @@ import ActiveLink from '../../components/common/Link'
 import { Container, Figure, Form, Logo, Text, FooterComponent, Anchor } from './styled'
 
 export const LoginC = ({ setAlertBox }) => {
-    const { error, authData, menu, handleMenu, isSession, setIsSession, company, setSessionActive } = useContext(Context)
-
+    const { error, authData, menu, handleMenu, isSession, company, setSessionActive } = useContext(Context)
     const [loginUser, { loading }] = useMutation(CREATE_CURRENT_SESSION, {
         onError: error => {
             console.log(error)
@@ -66,41 +65,38 @@ export const LoginC = ({ setAlertBox }) => {
             uPassword: values.uPassword
         }
         if (!errorSubmit) {
-            setSessionActive(true)
-            await fetchJson(`${ URL_BASE }auth`, {
+            await fetchJson(`${URL_BASE}auth`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
-            })
-                .then(res => {
-                    if (res.success) {
-                        loginUser({ variables: { uEmail: values.uEmail, uPassword: values.uPassword } })
-                            .then(res => {
-                                const data = res && res.data.loginUser.user
-                                setSessionActive({ data })
-                                // if (!data.uPhone) {
-                                //   setConfirmPhone(true)
-                                // } else {
-                                //   router.push('/switch-options')
-                                // }
-                            })
-                    }
-                    if (res.success === 0) {
-                        setAlertBox({
-                            message: 'Usuario o contraseña incorrectas',
-                            duration: 300000,
-                            color: 'error'
+            }).then(res => {
+                if (res.success) {
+                    loginUser({ variables: { uEmail: values.uEmail, uPassword: values.uPassword } })
+                        .then(res => {
+                            router.push('/switch-options')
+                            setSessionActive({ data: res.data.loginUser.user })
+                            // console.log(data, 'data')
+                            // if (!data.uPhone) {
+                            //   setConfirmPhone(true)
+                            // } else {
+                            //   router.push('/switch-options')
+                            // }
                         })
-                    }
-                })
-                .catch(e => {
+                }
+                if (res.success === 0) {
                     setAlertBox({
-                        message: `${ e }`,
+                        message: 'Usuario o contraseña incorrectas',
                         duration: 300000,
                         color: 'error'
                     })
-                }).finally(() => {
-                    router.push('/switch-options')
+                }
+            })
+                .catch(e => {
+                    setAlertBox({
+                        message: `${e}`,
+                        duration: 300000,
+                        color: 'error'
+                    })
                 })
         }
     }

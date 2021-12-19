@@ -169,9 +169,9 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
             <App>
                 <Main
                     aside={
-                        !['/', '/login', '/contact', '/register', '/terms_and_conditions', '/email/confirm/[code]', '/forgotpassword', '/teams/invite/[id]', '/autho', '/contact-us', '/switch-options'].find(x => x === location.pathname)}
+                        !['/', '/login', '/contact', '/add-payment-method', '/register', '/terms_and_conditions', '/email/confirm/[code]', '/forgotpassword', '/teams/invite/[id]', '/autho', '/contact-us', '/switch-options'].find(x => x === location.pathname)}
                 >
-                    {!['/', '/login', '/register', '/terms_and_conditions', '/teams/invite/[id]', '/forgotpassword', '/autho', '/contact-us', '/email/confirm/[code]', '/switch-options', '/contact', '/teams/invite/[id]'].find(x => x === location.pathname) && (
+                    {!['/', '/login', '/register', '/terms_and_conditions', '/add-payment-method', '/teams/invite/[id]', '/forgotpassword', '/autho', '/contact-us', '/email/confirm/[code]', '/switch-options', '/contact', '/teams/invite/[id]'].find(x => x === location.pathname) && (
                         <Aside
                             handleClickMenu={handleClickMenu}
                             active={active}
