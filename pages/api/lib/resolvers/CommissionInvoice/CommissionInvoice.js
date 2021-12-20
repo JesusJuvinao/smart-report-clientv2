@@ -195,6 +195,44 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
     }
 
 }
+export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log(idInvoice, ToEmail, uEmail)
+    const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
+    try {
+        if (!InvoiceData) {
+            return { success: false, message: 'The Invoice no exist' }
+        }
+        await CommissionSchema.findOneAndUpdate(
+            { _id: idInvoice },
+            {
+                $set: {
+                    isApprovedByInvoiceSender: InvoiceData.isApprovedByInvoiceSender !== true,
+                }
+            }
+        )
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        if (InvoiceData) {
+            mailer.sendMail({
+                from: uEmail,
+                to: ToEmail,
+                text: 'Hello world?',
+                subject: 'Notification De Invoice Change.',
+                html: TemplateInvoicePaid({
+                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                })
+            })
+        }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
 export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
@@ -234,11 +272,30 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
     }
 
 }
-export const getAllCommissionInvoice = async (_, { search }, ctx) => {
+export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName }, ctx) => {
     const idUser = ctx.User.id
     try {
-        const data = await CommissionSchema.find({ eventName: { $regex: search, $options: 'i' } })
-        return data
+        const Array = await UserSchema.findOne({ _id: idUser })
+        const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
+        if (dataComp && dataComp.length) {
+            const dataCompany = await CompanySchema.findOne({ _id: idComp });
+            const data = await CommissionSchema.find({ invoiceFrom: dataCompany.companyName })
+            return data
+        }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
+export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName }, ctx) => {
+    const idUser = ctx.User.id
+    try {
+        const Array = await UserSchema.findOne({ _id: idUser })
+        const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
+        if (dataComp && dataComp.length) {
+            const dataCompany = await CompanySchema.findOne({ _id: idComp });
+            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
+            return data
+        }
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }
@@ -248,11 +305,13 @@ export default {
     TYPES: {
     },
     QUERIES: {
-        getAllCommissionInvoice,
+        getAllCommissionInvoiceReceived,
+        getAllCommissionInvoiceSent,
         getOneCommissionInvoice
     },
     MUTATIONS: {
         isPaidStateInvoice,
+        isApprovedByInvoiceSenderMutation,
         isRedoStateInvoice
     }
 }

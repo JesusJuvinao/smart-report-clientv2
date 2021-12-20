@@ -1,20 +1,22 @@
 import React, { useContext, useRef } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { LoadEllipsis, Loading } from '../../components/Loading'
-import { CREATE_ONE_MODULE, CREATE_ONE_ROLE, CREATE_ONE_USER_ADMIN, GET_ALL_ROLES, GET_MODULES } from './queries'
+import { CREATE_ONE_MODULE, CREATE_ONE_ROLE, CREATE_ONE_USER_ADMIN, GET_ALL_ROLES, GET_MODULES, GET_USER_INFO } from './queries'
 import { Context } from '../../context'
 import { useUser } from '../Profile'
 import { useFormTools } from '../../components/hooks/useForm'
 import InputHooks from '../../components/InputHooks/InputHooks'
-import { Card, Container, ContainerCard } from './styled'
+import { Card, Container, ContainerCard, Form, Row } from './styled'
 import { RippleButton } from '../../components/Ripple'
-import { SCColor } from '../../public/colors'
+import { BGColor, SCColor } from '../../public/colors'
 import NewSelect from '../../components/NewSelectHooks'
+import ViewUsers from './viewUsers'
 export const DashboardAmin = () => {
   const { setAlertBox, company } = useContext(Context)
   const [handleChange, handleSubmit, setDataValue, { dataForm, errorForm }] = useFormTools()
 
   const [dataUser] = useUser()
+  const { data: dataAllUser } = useQuery(GET_USER_INFO)
   const { data: dataHtml } = useQuery(GET_MODULES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' })
   const [RegisterUserAdmin] = useMutation(CREATE_ONE_USER_ADMIN)
   const [registerModule, { loading, data }] = useMutation(CREATE_ONE_MODULE, {
@@ -118,13 +120,13 @@ export const DashboardAmin = () => {
   const handleFormUserCreate = (e, show) => handleSubmit({
     event: e,
     action: () => {
-        return RegisterUserAdmin({
-          variables: {
-            userName: dataForm.Username,
-            uEmail: dataForm.Email,
-            uPassword: dataForm.PassWord
-          }
-        })
+      return RegisterUserAdmin({
+        variables: {
+          userName: dataForm.Username,
+          uEmail: dataForm.Email,
+          uPassword: dataForm.PassWord
+        }
+      })
     },
     actionAfterSuccess: () => {
       setDataValue({})
@@ -160,6 +162,16 @@ export const DashboardAmin = () => {
           <RippleButton bgColor={SCColor} margin='20px 0px' widthButton='100%' type='submit'>{loading ? <LoadEllipsis /> : 'Submit'}</RippleButton>
         </form>
       </Card>
+    </ContainerCard>
+    <ContainerCard>
+      <Row>
+        <Form>
+          <InputHooks title='Name' width='33%' required errors={errorForm?.Name} value={dataForm?.Name} disabled={false} onChange={handleChange} name='Name' />
+          <InputHooks title='Location' width='33%' required errors={errorForm?.Location} value={dataForm?.Location} disabled={false} onChange={handleChange} name='Location' />
+          <RippleButton bgColor={BGColor} margin='20px 0px' widthButton='33%' type='submit'>{'Search'}</RippleButton>
+        </Form>
+      </Row>
+     {dataAllUser && dataAllUser?.getAlUserLocation?.map(x => <div key={x._id}><ViewUsers data={x} /></div> )}
     </ContainerCard>
   </Container>
   )

@@ -85,6 +85,11 @@ const CommissionInvoice = new mongoose.Schema({
         required: false,
         default: false
     },
+    isApprovedByInvoiceSender: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
     hasBeenReceived: {
         type: Boolean,
         required: false,

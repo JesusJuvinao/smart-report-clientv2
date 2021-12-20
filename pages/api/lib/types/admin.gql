@@ -25,6 +25,7 @@ type Admin {
 }
   type Query {
     bucketExistsQuery(idUser: ID, BucketName: String!): AuthPayload
+    getAlUserLocation(country: String): [User]
     getAllRoles: [Roles]
   }
 

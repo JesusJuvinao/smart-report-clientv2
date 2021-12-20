@@ -1,17 +1,13 @@
-/* eslint-disable no-tabs */
-/* eslint-disable react/no-children-prop */
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
-// import jwt from 'jsonwebtoken'
 import { useApolloClient, useQuery } from '@apollo/client'
-import { Header } from '../../components/Layout/Header'
+import { Header, HeaderPublic, Footer } from '../../components/Layout'
 import { useRouter } from 'next/router'
 import { AlertBox } from '../../components/AlertBox'
 import useFullscreenMode from '../../components/hooks/useFullScreenMode'
-import { Context /* useAuth */ } from'../../context'
+import { Context } from '../../context'
 import Aside from '../../components/Layout/Aside'
-import { Footer } from '../../components/Layout/Footer'
 import { BGColor } from '../../public/colors'
 import { URL_BASE } from '../../apollo/urls'
 import { useUser } from '../Profile'
@@ -20,21 +16,17 @@ import { ALL_COMPANIES_BY_USER } from '../Company/queries'
 import { useFormTools } from '../../components/hooks/useForm'
 import { Loading } from '../../components/Loading'
 import { LateralMenu } from '../../components/common/LateralMenu'
-import { Product } from '../shared/productos'
-import { Iva } from '../shared/Iva'
-import { Accounts } from '../shared/Accounts'
-import { Supplier } from '../shared/Suppier'
-import { Class } from '../shared/Class'
-import { NewCompany } from '../shared/newCompany'
-import { Categories } from '../shared/Categories'
+import { Product, Iva, Accounts, Supplier, Class, NewCompany, Categories } from '../shared'
 import { TopNavigation } from '../../components/Layout/TopNavigation'
 import { RouterCrumbs } from '../../components/Breadcrumb'
 import { useSetState } from '../../components/hooks/useState'
-import { HeaderPublic } from '../../components/Layout/HeaderPublic'
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 export const LayoutC = ({ keyTheme, handleTheme, children }) => {
     // STATES
     const { error, setAlertBox, authData, menu, handleMenu, isSession, setIsSession, company, setSessionActive } = useContext(Context)
+    const BROWSER_API_KEY = "k6mBs3JggSu0q48OS7yz";
+    const [visitorId, setVisitorId] = useState("");
     const [handleChange, handleSubmit, setDataValue, { dataForm }] = useFormTools()
     const [show, setShow] = useState(false)
     const [activeLogin, setActive] = useState(false)
@@ -46,6 +38,15 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
     const [data, { loading, error: errorUser }] = useUser()
     const { data: allCompany } = useQuery(ALL_COMPANIES_BY_USER)
     const client = useApolloClient()
+    useEffect(() => {
+        FingerprintJS.load({
+            token: BROWSER_API_KEY,
+        })
+            .then((fp) => fp.get())
+            .then((result) => {
+                setVisitorId(result.visitorId);
+            });
+    }, []);
     // HANDLES
     const handleClick = index => {
         setShow(index === show ? false : index)
@@ -80,15 +81,15 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
         setLoadingLogout(true)
         setSessionActive({})
         await window
-        .fetch(`${ URL_BASE }auth/logout/`, {})
-        .then(res => res.json())
-        .catch(() => {
-            setAlertBox({
-                message: 'Se ha producido un error.',
-                duration: 30000,
-                color: 'error'
-            })
-        }).finally(() => {
+            .fetch(`${URL_BASE}auth/logout/`, {})
+            .then(res => res.json())
+            .catch(() => {
+                setAlertBox({
+                    message: 'Se ha producido un error.',
+                    duration: 30000,
+                    color: 'error'
+                })
+            }).finally(() => {
                 location.push('/')
                 window.localStorage.clear();
                 setSessionActive(null)
@@ -125,6 +126,7 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
             window.removeEventListener('blur', () => { })
         }
     }, [authData, isOn])
+
     // const { authState, setAuthToken } = useAuth()
     // useEffect(() => {
     //   if (typeof window !== 'undefined') {
@@ -169,20 +171,12 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
             <App>
                 <Main
                     aside={
-                        !['/', '/login', '/contact', '/add-payment-method', '/register', '/terms_and_conditions', '/email/confirm/[code]', '/forgotpassword', '/teams/invite/[id]', '/autho', '/contact-us', '/switch-options'].find(x => x === location.pathname)}
+                        !['/', '/login', '/contact', '/varify-email', '/add-payment-method', '/register', '/terms_and_conditions', '/email/confirm/[code]', '/forgotpassword', '/teams/invite/[id]', '/autho', '/contact-us', '/switch-options'].find(x => x === location.pathname)}
                 >
-                    {!['/', '/login', '/register', '/terms_and_conditions', '/add-payment-method', '/teams/invite/[id]', '/forgotpassword', '/autho', '/contact-us', '/email/confirm/[code]', '/switch-options', '/contact', '/teams/invite/[id]'].find(x => x === location.pathname) && (
-                        <Aside
-                            handleClickMenu={handleClickMenu}
-                            active={active}
-                            allCompany={allCompany?.getAllCompanyById}
-                            dataCompany={dataCompany}
-                            handleMenu={handleMenu}
-                            onChange={handleChange}
-                            dataForm={dataForm}
-                        />
+                    {!['/', '/login', '/register', '/terms_and_conditions',  '/varify-email', '/add-payment-method', '/teams/invite/[id]', '/forgotpassword', '/autho', '/contact-us', '/email/confirm/[code]', '/switch-options', '/contact', '/teams/invite/[id]'].find(x => x === location.pathname) && (
+                        <Aside handleClickMenu={handleClickMenu} active={active} allCompany={allCompany?.getAllCompanyById} dataCompany={dataCompany} handleMenu={handleMenu} onChange={handleChange} dataForm={dataForm} />
                     )}
-                    {!['/login', '/', '/register', '/forgotpassword', '/teams/invite/[id]', '/terms_and_conditions', '/email/confirm/[code]', '/autho', '/contact'].find(x => x === location.pathname) && (
+                    {!['/login', '/', '/register', '/forgotpassword', '/teams/invite/[id]', '/varify-email',  '/terms_and_conditions', '/email/confirm/[code]', '/autho', '/contact'].find(x => x === location.pathname) && (
                         <Header
                             activeSettings={activeSettings}
                             setShowModal={setShowModal}
@@ -204,7 +198,7 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                             location={location}
                         />
                     )}
-                    {['/'].find(x => x === location.pathname) &&  (
+                    {['/', ].find(x => x === location.pathname) && (
                         <HeaderPublic />
                     )}
                     <div style={{ gridArea: 'main', overflowY: 'auto' }}>
@@ -268,7 +262,7 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                                                     )
                                                     : null}
                     </LateralMenu>
-                    {!['/login', '/register', '/forgotpassword', '/terms_and_conditions', '/email/confirm/[code]', '/switch-options', '/teams/invite/[id]', '/contact'].find(x => x === location.pathname) && <Footer />}
+                    {!['/login', '/register', '/varify-email',  '/forgotpassword', '/terms_and_conditions', '/email/confirm/[code]', '/switch-options', '/teams/invite/[id]', '/contact'].find(x => x === location.pathname) && <Footer />}
                 </Main>
             </App>
         </div>
@@ -293,8 +287,8 @@ const Main = styled.main`
     grid-gap: 0.25rem;
     /* grid-gap: 10px; */
     @media (min-width: 960px) {
-        ${ props => !props.aside &&
-    css`
+        ${props => !props.aside &&
+        css`
                 grid-template-columns: 1fr;
                 display: flex;
                 flex-direction: column;

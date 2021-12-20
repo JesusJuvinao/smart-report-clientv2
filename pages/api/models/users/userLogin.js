@@ -38,6 +38,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    browserId:{
+        type: String,
+        required: false,
+        trim: true
+    },
     userConfirmEmail: {
         type: Number,
         default: '0'
@@ -86,7 +91,7 @@ const UserSchema = new mongoose.Schema({
     // date of birth
     uBirthday: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     uToken: {
         type: String,

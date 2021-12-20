@@ -47,35 +47,123 @@ query getOneCompanyById($idC: ID){
 `
 
 // Just Spice
-export const GET_ALL_INVOICES = gql`
-    query getAllCommissionInvoice($idUser: ID, $search: String, $min: Int, $max: Int) {
-      	getAllCommissionInvoice(idUser: $idUser, search: $search, min: $min, max: $max) {
+export const GET_ALL_INVOICES_SENT = gql`
+query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max: Int, $idComp: ID, $CompName: String) {
+  getAllCommissionInvoiceSent(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, CompName: $CompName ) {
           _id
           idUser
-          isRedo
-          isPaid
           idComp
           uploaded
-          eventCommences
+          invoiceDate
+          invoiceRef
           invoiceTo
-          invoice_total
-          total_sales_received
-          total_comm_due
-          totalDiscounts
           invoiceFrom
+          eventRef
           eventName
+          eventCommences
+          eventType
+          invoiceTotal
+          totalCommDue
+          totalSalesReceived
+          totalDiscounts
+          vatOnComms
+          isVATRegistered
+          isPaid
+          isRedo
+    
+          datePaid
+          hasBeenReceived
+          isOnStatement
+          statementId
           __typename
         lineItemsArray {
+            _id
+            subtotal_tickets_sold
+            tickettype
+            subtotal_sales_received
+            subinvoice_total
+            subtotal_comm_due
+            ticketcategorytotaldue
+            totalcategorydiscount
+            subtotalforticketypelessDiscount
+            ticketPrice
+        }
+        agentDetails {
+          legalName
+          agentContact
+          agentTradingName
+          agentEmail
+          agentAddress1
+          agentAddress2
+          agentAddress3
+          agentCity
+          agentCounty
+          agentCountry
+          agentPostCode
+          VATRegNo
+          agentVATRegistered
+          agentCompanyNumber
+        }
+      }
+}
+`
+// Just Spice
+export const GET_ALL_INVOICES_RECEIVED = gql`
+query getAllCommissionInvoiceReceived($idUser: ID, $search: String, $min: Int, $max: Int, $idComp: ID, $CompName: String) {
+  getAllCommissionInvoiceReceived(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, CompName: $CompName ) {
           _id
-          subtotal_tickets_sold
-          tickettype
-          subtotal_sales_received
-          subinvoice_total
-          subtotal_comm_due
-          ticketcategorytotaldue
-          totalcategorydiscount
-          subtotalforticketypelessDiscount
-          ticketPrice
+          idUser
+          idComp
+          uploaded
+          invoiceDate
+          invoiceRef
+          invoiceTo
+          invoiceFrom
+          eventRef
+          eventName
+          eventCommences
+          eventType
+          invoiceTotal
+          totalCommDue
+          totalSalesReceived
+          totalDiscounts
+          vatOnComms
+          isVATRegistered
+          isPaid
+          isRedo
+    
+          datePaid
+          hasBeenReceived
+          isOnStatement
+          statementId
+          __typename
+        lineItemsArray {
+            _id
+            subtotal_tickets_sold
+            tickettype
+            subtotal_sales_received
+            subinvoice_total
+            subtotal_comm_due
+            ticketcategorytotaldue
+            totalcategorydiscount
+            subtotalforticketypelessDiscount
+            ticketPrice
+        }
+        agentDetails {
+          legalName
+          agentContact
+          agentTradingName
+          agentEmail
+          agentAddress1
+          agentAddress2
+          agentAddress3
+          agentCity
+          agentCounty
+          agentCountry
+          agentPostCode
+          VATRegNo
+          agentVATRegistered
+          agentCompanyNumber
         }
       }
 }

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const CREATE_CURRENT_SESSION = gql`
-mutation loginUser($uEmail: String!, $uPassword: String!) {
-  loginUser(uEmail: $uEmail, uPassword: $uPassword){
+mutation loginUser($uEmail: String!, $uPassword: String!, $idBrowser: String ) {
+  loginUser(uEmail: $uEmail, uPassword: $uPassword, idBrowser: $idBrowser){
     user{
       id
       firstName
@@ -23,6 +23,7 @@ mutation loginUser($uEmail: String!, $uPassword: String!) {
     refreshToken
     admin
     success
+    isVerifyEmail
     userId
     message
   }

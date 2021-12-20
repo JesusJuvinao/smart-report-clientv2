@@ -14,11 +14,24 @@ import Link from 'next/link'
 import { LoadEllipsis } from '../../components/Loading'
 import { Context } from '../../context'
 import { Loading } from '../../components/Loading'
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import ActiveLink from '../../components/common/Link'
 import { Container, Figure, Form, Logo, Text, FooterComponent, Anchor } from './styled'
 
 export const LoginC = ({ setAlertBox }) => {
     const { error, authData, menu, handleMenu, isSession, company, setSessionActive } = useContext(Context)
+    const BROWSER_API_KEY = "k6mBs3JggSu0q48OS7yz";
+    const [visitorId, setVisitorId] = useState("");
+    useEffect(() => {
+        FingerprintJS.load({
+            token: BROWSER_API_KEY,
+        })
+            .then((fp) => fp.get())
+            .then((result) => {
+                setVisitorId(result.visitorId);
+            });
+    }, []);
+    console.log(visitorId)
     const [loginUser, { loading }] = useMutation(CREATE_CURRENT_SESSION, {
         onError: error => {
             console.log(error)
@@ -62,7 +75,8 @@ export const LoginC = ({ setAlertBox }) => {
         }
         const body = {
             uEmail: values.uEmail,
-            uPassword: values.uPassword
+            uPassword: values.uPassword,
+            idBrowser: visitorId
         }
         if (!errorSubmit) {
             await fetchJson(`${URL_BASE}auth`, {
@@ -71,10 +85,15 @@ export const LoginC = ({ setAlertBox }) => {
                 body: JSON.stringify(body)
             }).then(res => {
                 if (res.success) {
-                    loginUser({ variables: { uEmail: values.uEmail, uPassword: values.uPassword } })
+                    loginUser({ variables: { uEmail: values.uEmail, uPassword: values.uPassword, idBrowser: visitorId } })
                         .then(res => {
-                            router.push('/switch-options')
+                            console.log(res.data)
                             setSessionActive({ data: res.data.loginUser.user })
+                            if (res.data.loginUser.isVerifyEmail === true ) {
+                                router.push('/switch-options')
+                            } else {
+                                router.push('/switch-options')
+                            }
                             // console.log(data, 'data')
                             // if (!data.uPhone) {
                             //   setConfirmPhone(true)

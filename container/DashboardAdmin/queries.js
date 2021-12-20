@@ -60,3 +60,23 @@ mutation removeOneRole($id: ID) {
   removeOneRole(id: $id)
 }
 `
+export const GET_USER_INFO = gql`
+query getAlUserLocation($country: String) {
+  getAlUserLocation(country: $country) {
+    id
+    idRoles
+    firstName
+    lastName
+    userName
+    uEmail
+    uAvatar
+    lat
+    long
+    role {
+      id
+      name
+    }
+    
+  }
+}
+`

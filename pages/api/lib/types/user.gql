@@ -16,8 +16,8 @@
     uPassword: String
     userConfirmEmail: Int
     uBirthday: String
-    lat: Int
-    long: Int
+    lat: Float
+    long: Float
     iP: Int
     # Get Company
     company: [Company]
@@ -48,8 +48,8 @@ input LoginInput {
     landLine: Int
     uPassword: String
     uBirthday: String
-    lat: Int
-    long: Int
+    lat: Float
+    long: Float
     iP: Int
     step: Int
     currentPassword: String 
@@ -78,6 +78,7 @@ type AuthPayload {
     token: String
     admin: Boolean
     success: Boolean
+    isVerifyEmail: Boolean
     message: String
     userId: ID
     refreshToken: String,
@@ -88,7 +89,8 @@ type AuthPayload {
     newRegisterUser(userName: String!, uEmail: String!, uPassword: String! uAvatar: String): AuthPayload!
     RegisterUserAdmin(userName: String!, uEmail: String!, uPassword: String! uAvatar: String): AuthPayload
     login(input: LoginInput): Token
-    loginUser(uEmail: String!, uPassword: String!): AuthPayload
+    loginUser(uEmail: String!, uPassword: String!, idBrowser: String): AuthPayload
+    saveLocation(country: String, lat: Float, long: Float): AuthPayload
     refreshUserToken(userId: ID!, refreshToken: String!): AuthPayload
     lastCompanyMutation(lastCompany: ID): AuthPayload
     # Actualiza user data
@@ -96,6 +98,7 @@ type AuthPayload {
     CreateRecoverAccount(input: IResetPassword) : AuthPayload
     confirmEmail(idUser: ID) : AuthPayload
     sendEmailConfirmation(uEmail: String!, userName: String) : AuthPayload!
+    sendEmailConfirmationBrowser(uEmail: String!, userName: String) : AuthPayload!
     ResetPassword(input: IResetPassword) : AuthPayload
     registerUser(name: String!, email: String!, password: String!): AuthPayload!
     signInUser(email: String!, password: String!): AuthPayload!

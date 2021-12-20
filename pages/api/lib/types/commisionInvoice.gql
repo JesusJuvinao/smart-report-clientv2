@@ -33,6 +33,7 @@ type CommissionInvoice {
     totalDiscounts: Float
     vatOnComms: Float
     isVATRegistered: Boolean
+    isApprovedByInvoiceSender: Boolean
     isPaid: Boolean
     isRedo: Boolean
     datePaid: DateTime
@@ -61,6 +62,7 @@ input ICommissionInvoice {
     totalDiscounts: Float
     vatOnComms: Float
     isVATRegistered: Boolean
+    isApprovedByInvoiceSender: Boolean
     isPaid: Boolean
     isRedo: Boolean
     datePaid: DateTime
@@ -136,7 +138,8 @@ input InputCommissionLineItems {
 }
 
 type Query {
-  getAllCommissionInvoice(idComp: ID, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
+  getAllCommissionInvoiceReceived(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
+  getAllCommissionInvoiceSent(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
   getOneCommissionInvoice(idInvoice: ID, idUser: ID): CommissionInvoice
 }
 
@@ -145,4 +148,5 @@ type Mutation {
   sendEmailPaymentInvoice(ToEmail: String!, uEmail: String!, idInvoice: ID!): Response
   isPaidStateInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
   isRedoStateInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+  isApprovedByInvoiceSenderMutation(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
 }

@@ -16,7 +16,7 @@ import { nanoid } from 'nanoid'
 import { CalculateAmount, dateNow, numberFormat, updateCache } from '../../utils'
 import currencyFormatter from 'currency-formatter'
 
-import { CREATE_INVOICES, GET_ALL_INVOICES } from './queries'
+import { CREATE_INVOICES, GET_ALL_INVOICES_SENT } from './queries'
 import InputHooks from '../../components/InputHooks/InputHooks'
 import { GET_ONE_CURRENCY, SUPPLIER_FOR_COMPANY } from '../Supplier/queries'
 import { InputFiles } from '../../components/InputFilesPrev'
@@ -144,7 +144,7 @@ export const List = ({ modal, setModal }) => {
                     },
                     update: (cache, { data: { getAllSalesInvoices } }) => updateCache({
                         cache,
-                        query: GET_ALL_INVOICES,
+                        query: GET_ALL_INVOICES_SENT,
                         nameFun: 'getAllSalesInvoices',
                         dataNew: getAllSalesInvoices,
                         type: 2

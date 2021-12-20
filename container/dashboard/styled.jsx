@@ -18,7 +18,14 @@ export const WrapperButtonAction = styled.div`
   right: 0;
 `
 export const Wrapper = styled.div`
-  padding: 30px;
+  border-left: 1px dotted #00000017;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 25px;
+  margin: auto;
+  align-items: center;
 `
 export const Button = styled.button`
   border-bottom: 3px solid transparent;
@@ -78,7 +85,7 @@ export const Circle = styled.div`
     box-shadow: 0 0 0 10px #12d4aaef, 0 0 0 22px #12d4aa9e;
     `
     : css`
-    box-shadow: 0 0 0 10px #ebeef3, 0 0 0 22px #f3f4f6;
+    box-shadow: 0 0 0 5px #ebeef3, 0 0 0 10px #f3f4f6;
   ` }
 `
 export const CircleCompany = styled.div` 
@@ -105,10 +112,12 @@ export const OptionsFunction = styled.div`
     position: absolute;
     background: ${BGColor};
     height: 200px;
+    z-index: 999;
     width: 200px;
     right: 20px;
     grid-template-columns: auto;
     padding: 10px 0;
+    top: 60px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   ${({ show }) => show
     ? css`
@@ -190,7 +199,7 @@ export const LineItems = styled.div`
     bottom: -134px;
     background-color: red;
     height: ${({ height }) => height || 'auto'}px;
-    margin: ${({ margin }) => margin || ' 1% auto'};
+    margin: ${({ margin }) => margin || ' .5% auto'};
     box-shadow: 0px 0px 14px #00000017;
     `
 export const Section = styled.div`
@@ -206,6 +215,7 @@ export const Section = styled.div`
     margin: ${({ margin }) => margin || ' 1% auto'};
     box-shadow: 0px 0px 14px #00000017;
     ${({ padding }) => padding && css`padding: ${padding};`}
+    ${({ height }) => height && css`height: ${height};`}
     ${({ radius }) => radius && css`border-radius: ${radius};`}
     &:hover {
     box-shadow: 0 9px 47px 11px rgb(51 51 51 / 18%);
@@ -272,7 +282,7 @@ export const Container = styled.div`
   flex-wrap: wrap;
   margin-top: 30px;
   display: flex;
-  width: 100%;
+  width: 95%;
   @media (max-width: 769px) {
     flex-direction: ${({ direction }) => direction || 'column'};
   }
@@ -365,9 +375,10 @@ export const Text = styled.span`
     word-break: break-word;
     max-width: ${({ width }) => width || '100%'};
     width: ${({ width }) => width || '100%'};
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
-    letter-spacing: 0.64px;
-    margin-left: 12px;
 `
 // Create styles
 export const styles = StyleSheet.create({

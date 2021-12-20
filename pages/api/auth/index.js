@@ -4,9 +4,9 @@ import withSession from '../../../apollo/session'
 import { loginUser } from '../lib/resolvers/users/user'
 
 export default withSession(async (req, res) => {
-    const { uEmail, uPassword } = req.body
+    const { uEmail, uPassword, idBrowser } = req.body
     try {
-        const { token, message, success, refreshToken, roles } = await loginUser(null, { uEmail, uPassword })
+        const { token, message, success, refreshToken, roles } = await loginUser(null, { uEmail, uPassword, idBrowser })
         if (success) {
             const user = { isLoggedIn: true, token, admin: roles, refreshToken }
             req.session.set('user', user)

@@ -216,7 +216,70 @@ export const sendEmailConfirmation = async (_, { uEmail, userName }, ctx) => {
     })
     return { success: true, message: 'Email sent check your inbox' }
 }
+export const sendEmailConfirmationBrowser = async (_, { uEmail, userName }, ctx) => {
+    let CodeInfo = null
+    try {
+        console.log(uEmail, userName)
+        const User = await UserSchema.findOne({ uEmail })
+        CodeInfo = User.uToken
+        console.log(CodeInfo)
+        const mailer = transporter()
+        const dataToken = {
+            idUser: ctx.User.id,
+            uEmail,
+            CodeInfo,
+            userName
+        }
+        const token = await generateToken(dataToken, '1d')
+        mailer.sendMail({
+            from: 'company invitation <no-reply@smartaccountingonline.com/>',
+            to: uEmail,
+            text: '',
+            subject: 'Confirm - Email.',
+            html: TemplateConfirm({
+                code: token,
+                username: userName,
+                CodeInfo
+            })
+        })
+        return { success: true, message: 'Email sent check your inbox' }
+        
+    } catch (error) {
+        return { success: false, message: 'Error' }
+    }
+}
 
+export const saveLocation = async (_, { country, lat, long }, ctx) => {
+    try {
+        console.log(country, lat, long)
+        const id = ctx.User.id && ctx.User.id
+        const dataUser = await UserSchema.findById({ _id: id })
+        if (!dataUser) {
+            return { success: false, message: 'error, user not found' }
+        } else {
+            await UserSchema.findOneAndUpdate(
+                { _id: id },
+                {
+                    $set: {
+                        lat,
+                        long
+                    }
+                }
+            )
+        }
+    } catch (error) {
+        return { success: false, message: 'No se pudo guardar, parametros incorrectos' }
+    }
+
+}
+export const getAlUserLocation = async (_, { country }, ctx) => {
+    try {
+        const dataUser = await UserSchema.find({})
+        return dataUser
+    } catch (error) {
+        throw new ApolloError('Error No se pudo procesar')
+    }
+}
 export const confirmEmail = async (_, { idUser }, ctx) => {
     const dataUser = await UserSchema.findById({ _id: idUser })
     try {
@@ -362,8 +425,8 @@ export const UpdateUser = async (_, input, ctx) => {
         throw new ApolloError(e)
     }
 }
-
-export const loginUser = async (_, { uEmail, uPassword }) => {
+export const loginUser = async (_, { uEmail, uPassword, idBrowser }) => {
+    console.log(uEmail, uPassword, idBrowser)
     try {
     //  Find the user
         const user = await UserSchema.findOne({ uEmail })
@@ -407,6 +470,20 @@ export const loginUser = async (_, { uEmail, uPassword }) => {
                 }
             }
         )
+        const uToken = await generateCode()
+        let isVerifyEmail = false
+        if (user.browserId !== idBrowser) {
+            isVerifyEmail = true
+            // Insert the token to the user
+            await UserSchema.findOneAndUpdate(
+                { _id: user.id },
+                {
+                    $set: {
+                        uToken
+                    }
+                }
+            )
+        }
         // setCookies.push({
         //   name: 'refreshToken',
         //   value: refreshToken,
@@ -423,10 +500,12 @@ export const loginUser = async (_, { uEmail, uPassword }) => {
             success: true,
             message: 'Session created.',
             token,
+            isVerifyEmail, 
             userId: user.id,
             refreshToken
         }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -554,6 +633,7 @@ export default {
     QUERIES: {
         getUser,
         getListBuckets,
+        getAlUserLocation,
         validateToken,
         verifyRegistration
     },
@@ -561,6 +641,7 @@ export default {
         refreshUserToken,
         confirmEmail,
         newRegisterUser,
+        saveLocation,
         RegisterUserAdmin,
         registerUser,
         loginUser,
@@ -568,6 +649,7 @@ export default {
         lastCompanyMutation,
         sendEmailConfirmation,
         UpdateUser,
+        sendEmailConfirmationBrowser,
         CreateRecoverAccount
     }
 }

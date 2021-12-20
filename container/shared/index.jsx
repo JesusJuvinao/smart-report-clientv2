@@ -1,0 +1,7 @@
+export { Accounts } from './Accounts'
+export { Categories } from './Categories'
+export { Class } from './Class'
+export { Iva } from './Iva'
+export { Product } from './productos'
+export { NewCompany } from './newCompany'
+export { Supplier } from './Suppier'

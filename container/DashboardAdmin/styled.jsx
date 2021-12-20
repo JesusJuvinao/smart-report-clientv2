@@ -26,6 +26,25 @@ export const WrapperTreeList = styled.div`
     }
     min-width: min-content;
 `
+export const Form = styled.form`
+    background-color: #4e63d7;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 16px;
+`
+export const Row = styled.div`
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px 0;
+`
 export const TreeList = styled.ul`
     height: auto;
     opacity: 1;
@@ -49,14 +68,13 @@ export const Container = styled.div`
     overflow: hidden;
     background-color: ${BGColor};
     position: relative;
-    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
 `
 export const ContainerCard = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
     padding: 0;
     gap: 15px;
-    margin: 0 auto;
+    width: 80%;
 `
 export const Card = styled.div`
     width: 100%;

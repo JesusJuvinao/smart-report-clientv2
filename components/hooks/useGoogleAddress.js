@@ -1,19 +1,17 @@
 import { useState, useEffect } from 'react'
 
-export const UseGoogleAddress = address => {
+const UseGoogleAddress = (address, city, province, country) => {
     const [map, setMap] = useState({})
-    const API = `https://maps.googleapis.com/maps/api/geocode/json?address=${ address }&key=AIzaSyAiX9HY2mo-a8fjdrFxbAA3SFuECY0r5SI`
-    // useEffect(async () => {
-    //     const response = await API.
-    // })
+    const API = `https://maps.googleapis.com/maps/api/geocode/json?$address=${address}&key=AIzaSyAy0SY1G3OFqesWSTQRHJvzyJzNgURPoN8`;
     useEffect(() => {
         fetch(API)
             .then(response => response.json())
             .then(response => {
+                console.log(response)
                 setMap(response?.data?.results)
             })
             .catch(() => {
             })
-    }, [])
-    return (map)
+    }, [API, address])
+    return map
 }

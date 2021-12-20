@@ -33,7 +33,7 @@ createSalesInvoicesMutation(input: $input, inputLineItems: $inputLineItems, setT
 }
 }
 `
-export const GET_ALL_INVOICES = gql`
+export const GET_ALL_INVOICES_SENT = gql`
 query getAllSalesInvoices($idComp: ID, $idUser: ID){
   getAllSalesInvoices(idComp: $idComp,  idUser: $idUser ){
     _id

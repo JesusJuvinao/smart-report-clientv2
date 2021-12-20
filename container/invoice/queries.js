@@ -103,3 +103,11 @@ mutation isRedoStateInvoice($idInvoice: ID, $ToEmail: String! $uEmail: String!) 
   }
 }		
 `
+export const IS_APPROVED_INVOICE_SENDER = gql`
+mutation isApprovedByInvoiceSenderMutation($idInvoice: ID, $ToEmail: String! $uEmail: String!) {
+  isApprovedByInvoiceSenderMutation(idInvoice: $idInvoice, ToEmail: $ToEmail, uEmail: $uEmail ) {
+    success
+    message
+  }
+}		
+`

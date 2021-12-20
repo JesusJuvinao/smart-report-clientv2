@@ -133,7 +133,7 @@ export const CompanyC = () => {
                         </CardPrimary>
                     </Card>
                     <Card wrap='no-wrap' width='97%' direction="row">
-                        <Link activeClassName="active" href={`/companies/${encodeURIComponent(dataComp?.companyName.split(' ').join(''))}/${encodeURIComponent(dataComp?._id)}`}>
+                        <Link activeClassName="active" href={`/companies/${encodeURIComponent(dataComp?.companyName)}/${encodeURIComponent(dataComp?._id)}`}>
                             <a>
                                 <RippleButton borderSolid={`.5px solid ${PColor}`} bgColor='transparent' color={BColor} widthButton='150px' size='9px' padding='5px'> <IconPromo color={PColor} size='30px' />Commission invoice</RippleButton>
                             </a>

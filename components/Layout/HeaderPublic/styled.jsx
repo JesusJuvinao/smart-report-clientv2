@@ -18,7 +18,15 @@ export const Container = styled.div`
     height: 45px;
     grid-area: head;
     box-shadow: 0 0.75rem 1.5rem rgb(18 38 63 / 3%);
-
+    align-items: center;
+    background-color: #fff;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 72px;
+    max-width: 1440px;
+    top: 40px;
+    width: 100vw;
+    z-index: 1000;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;

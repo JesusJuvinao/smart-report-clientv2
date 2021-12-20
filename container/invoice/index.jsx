@@ -7,7 +7,7 @@ import { GET_ONE_INVOICE, IS_PAY_INVOICE, IS_REDO_INVOICE } from './queries';
 import { DocumentPdf } from '../dashboard/Document';
 import { Button, DocumentFormatA4, WrapperControls, WrapperPdf, Content, ContentToggle, ButtonTheme, SwitchButton, Text } from './styled';
 import { updateCache } from '../../utils';
-import { GET_ALL_INVOICES } from '../dashboard/queries';
+import { GET_ALL_INVOICES_SENT } from '../dashboard/queries';
 import { Context } from '../../context';
 import { BColor } from '../../public/colors';
 import { RippleButton } from '../../components/Ripple';
@@ -25,22 +25,22 @@ export const Invoice = ({ idInvoice }) => {
     }, [])
     const [isRedoStateInvoice] = useMutation(IS_REDO_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isRedoStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
-        update: (cache, { data: { getAllCommissionInvoice } }) => updateCache({
+        update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
             cache,
-            query: GET_ALL_INVOICES,
-            nameFun: 'getAllCommissionInvoice',
-            dataNew: getAllCommissionInvoice,
+            query: GET_ALL_INVOICES_SENT,
+            nameFun: 'getAllCommissionInvoiceReceived',
+            dataNew: getAllCommissionInvoiceReceived,
             type: 2
 
         })
     })
     const [isPaidStateInvoice] = useMutation(IS_PAY_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
-        update: (cache, { data: { getAllCommissionInvoice } }) => updateCache({
+        update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
             cache,
-            query: GET_ALL_INVOICES,
-            nameFun: 'getAllCommissionInvoice',
-            dataNew: getAllCommissionInvoice,
+            query: GET_ALL_INVOICES_SENT,
+            nameFun: 'getAllCommissionInvoiceReceived',
+            dataNew: getAllCommissionInvoiceReceived,
             type: 2
 
         })

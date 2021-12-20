@@ -9,7 +9,7 @@ import { IconConfig, IconGridLayout, IconLocationMap, IconLogout } from '../../.
 import { Content, Button, FloatingBoxTwo, Overline, CtnIcon } from './styled'
 import { Context } from '../../../context'
 
-export const LayoutOption = ({ handleClickMap, closeSession, modal, FullscreenIcon, show, setShow, location, theme, keyTheme, handleTheme, activeSettings, handleClick, setShowModal, showModal }) => {
+export const LayoutOption = ({ handleClickMap, closeSession, data, modal, FullscreenIcon, show, setShow, location, theme, keyTheme, handleTheme, activeSettings, handleClick, setShowModal, showModal }) => {
     const { isSession, authData } = useContext(Context)
     return (
         <>
@@ -20,11 +20,8 @@ export const LayoutOption = ({ handleClickMap, closeSession, modal, FullscreenIc
                         <div>
                             {FullscreenIcon}
                         </div>
-                        <Button onClick={() => data && setShowModal(true)}>
+                        <Button onClick={() => setShowModal(true)}>
                             <IconLocationMap size='20px' color={PColor} />
-                        </Button>
-                        <Button>
-                            <IconGridLayout size='20px' color={PColor} />
                         </Button>
                         <Button onClick={closeSession}>
                             <IconLogout size='18px' color={PColor} />

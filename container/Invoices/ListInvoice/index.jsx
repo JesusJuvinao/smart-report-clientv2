@@ -6,14 +6,14 @@ import { Section } from '../../../components/Table/styled'
 import { dateFormat } from '../../../utils'
 import currencyFormatter from 'currency-formatter'
 import { useQuery } from '@apollo/client'
-import { GET_ALL_INVOICES } from '../queries'
+import { GET_ALL_INVOICES_SENT } from '../queries'
 import { Context } from '../../../context'
 import { useUser } from '../../Profile'
 
 export const ListInvoice = ({ setModal, modal }) => {
   const { setAlertBox, handleMenu, company } = useContext(Context)
   const [dataUser] = useUser()
-  const { data } = useQuery(GET_ALL_INVOICES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' })
+  const { data } = useQuery(GET_ALL_INVOICES_SENT, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' })
   return (
         <div>
             <Table
