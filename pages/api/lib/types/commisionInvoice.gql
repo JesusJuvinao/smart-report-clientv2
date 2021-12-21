@@ -11,7 +11,38 @@ type CommissionLineItems {
     totalTicketTypeDiscount: Float
     subtotalTicketTypeLessDiscount: Float
     ticketPrice: Float
+    agentDetails: AgentDetails
     newArray: [NewArray]
+}
+input InputCommissionLineItems {
+    _id: ID
+    subtotalTicketsSold: Float
+    ticketType: String
+    lineSalesReceived: Float
+    lineSubtotal: Float
+    hasBeenSent: Boolean
+    lineCommSubtotal: Float
+    lineItemVATOnComm: Float
+    ticketCategoryTotalDue: Float
+    totalTicketTypeDiscount: Float
+    subtotalTicketTypeLessDiscount: Float
+    ticketPrice: Float
+    newArray: [InputNewArray]
+}
+input ICommissionLineItems {
+    _id: ID
+    subtotalTicketsSold: Float
+    ticketType: String
+    lineSalesReceived: Float
+    lineSubtotal: Float
+    hasBeenSent: Boolean
+    lineCommSubtotal: Float
+    lineItemVATOnComm: Float
+    ticketCategoryTotalDue: Float
+    totalTicketTypeDiscount: Float
+    subtotalTicketTypeLessDiscount: Float
+    ticketPrice: Float
+    newArray: [InputNewArray]
 
 }
 type CommissionInvoice {
@@ -98,6 +129,22 @@ type AgentDetails {
     agentVATRegistered: Boolean
     agentCompanyNumber: String
 }
+input InputAgentDetails {
+    legalName: String
+    agentContact: String
+    agentTradingName: String
+    agentEmail: String
+    agentAddress1: String
+    agentAddress2: String
+    agentAddress3: String
+    agentCity: String
+    agentCounty: String
+    agentCountry: String
+    agentPostCode: String
+    VATRegNo: String
+    agentVATRegistered: Boolean
+    agentCompanyNumber: String
+}
 type NewArray {
         id: String,
         bookingRef: String,
@@ -124,19 +171,32 @@ type NewArray {
         eventRef: String,
         eventType: String
 }
-input InputCommissionLineItems {
-    _id: ID
-    subtotal_tickets_sold: Float
-    tickettype: String
-    subtotal_sales_received: Float
-    subinvoice_total: Float
-    subtotal_comm_due: Float
-    ticketcategorytotaldue: Float
-    totalcategorydiscount: Float
-    subtotalforticketypelessDiscount: Float
-    ticketPrice: Float
+input InputNewArray {
+        id: String,
+        bookingRef: String,
+        bookedOn: DateTime,
+        client: String,
+        ticketoption: String,
+        ticketquantity: Float,
+        ticketprice: Float,
+        totaldue: Float,
+        totaldueCalc: Float,
+        totalpaid: Float,
+        balancedue: Float,
+        commissionRatePercent: String,
+        commissionpayable: String,
+        agentCode: String,
+        clientOwnerAtPurchaseDate: String,
+        bookingStatus: String,
+        eventName: String,
+        eventOwner: String,
+        eventCommences: DateTime,
+        discountRate: Float,
+        discountTotal: String,
+        discountedTotalDue: String,
+        eventRef: String,
+        eventType: String
 }
-
 type Query {
   getAllCommissionInvoiceReceived(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
   getAllCommissionInvoiceSent(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
@@ -149,4 +209,6 @@ type Mutation {
   isPaidStateInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
   isRedoStateInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
   isApprovedByInvoiceSenderMutation(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+  hasBeenReceived(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+  hasBeenSent(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
 }

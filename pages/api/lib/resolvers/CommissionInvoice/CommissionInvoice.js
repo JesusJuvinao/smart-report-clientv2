@@ -196,7 +196,6 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
-    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -207,6 +206,80 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
             {
                 $set: {
                     isApprovedByInvoiceSender: InvoiceData.isApprovedByInvoiceSender !== true,
+                }
+            }
+        )
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        if (InvoiceData) {
+            mailer.sendMail({
+                from: uEmail,
+                to: ToEmail,
+                text: 'Hello world?',
+                subject: 'Notification De Invoice Change.',
+                html: TemplateInvoicePaid({
+                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                })
+            })
+        }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
+export const hasBeenReceived = async (_, { idInvoice, ToEmail, uEmail }) => {
+    const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
+    try {
+        if (!InvoiceData) {
+            return { success: false, message: 'The Invoice no exist' }
+        }
+        await CommissionSchema.findOneAndUpdate(
+            { _id: idInvoice },
+            {
+                $set: {
+                    hasBeenReceived: true,
+                }
+            }
+        )
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        if (InvoiceData) {
+            mailer.sendMail({
+                from: uEmail,
+                to: ToEmail,
+                text: 'Hello world?',
+                subject: 'Notification De Invoice Change.',
+                html: TemplateInvoicePaid({
+                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                })
+            })
+        }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
+export const hasBeenSent = async (_, { idInvoice, ToEmail, uEmail }) => {
+    const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
+    try {
+        if (!InvoiceData) {
+            return { success: false, message: 'The Invoice no exist' }
+        }
+        await CommissionSchema.findOneAndUpdate(
+            { _id: idInvoice },
+            {
+                $set: {
+                    hasBeenReceived: true,
                 }
             }
         )
@@ -311,6 +384,7 @@ export default {
     },
     MUTATIONS: {
         isPaidStateInvoice,
+        hasBeenReceived,
         isApprovedByInvoiceSenderMutation,
         isRedoStateInvoice
     }

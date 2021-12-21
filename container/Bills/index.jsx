@@ -557,7 +557,7 @@ export const BillsC = () => {
                 }
             }).catch(err => console.log(err))
         }
-    }, [dataForm])
+    }, [dataForm, deleteOneLineItem, deleteOneTagLineItem, setDataValue])
     return (
         <>
             <Bills

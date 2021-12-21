@@ -18,6 +18,14 @@ mutation loginUser($uEmail: String!, $uPassword: String!) {
   }
 }
 `
+export const HAS_BEEN_RECEIVED = gql`
+mutation hasBeenReceived($idInvoice: ID, $uEmail: String!, $ToEmail: String!) {
+  hasBeenReceived(idInvoice: $idInvoice, uEmail: $uEmail,  ToEmail: $ToEmail){
+    success
+    message
+  }
+}
+`
 export const GET_ONE_COMPANY_BY_ID = gql`
 query getOneCompanyById($idC: ID){
   getOneCompanyById(idC: $idC){

@@ -1,0 +1,59 @@
+  type Tags {
+  _id: ID
+  TName: String
+}
+# InvoicePay
+type SalesInvoicePay {
+  _id: ID
+  idUser: ID
+  idComp: ID
+  Date: DateTime
+  Idescription: String
+  totalInvoicePayment: Float
+  isPaymentConfirm: Boolean
+  lineItemsInvoiceIsPay: [CommissionLineItems]
+
+}
+input ISalesInvoicePay {
+  _id: ID
+  idUser: ID
+  idComp: ID
+  Date: DateTime
+  Idescription: String
+  totalInvoicePayment: Float
+  isPaymentConfirm: Boolean
+}
+
+type lineItemsInvoicePay {
+    _id: ID
+    lineItemsDescription: String
+    lineItemsQuantity: Float
+    lineItemsRate: Float
+    lineItemsTotalVAT: Float
+    lineItemsSubTotal: Float
+    lineItemsIdVAT: ID
+    lineItemsIdClass: ID
+    lineItemsIdPro: ID
+    lineItemsIdAccount: ID
+    lineItemsBillIva: Float
+    agentDetails: AgentDetails
+
+}
+input IlineItemsInvoicePay {
+    _id: ID
+    idUser: ID
+    idComp: ID
+    agentDetails: InputAgentDetails
+    lineItemsArray: [ICommissionLineItems]
+
+}
+input ILineItemsFinal {
+    setDataPay: [IlineItemsInvoicePay]
+}
+type Query {
+  getInvoicePay(idComp: ID, idUser: ID, search: String, min: Int, max: Int): [SalesInvoicePay]
+}
+
+type Mutation {
+  createInvoicePaymentMutation(input: ISalesInvoicePay, inputLineItems: ILineItemsFinal! ): SalesInvoicePay
+}

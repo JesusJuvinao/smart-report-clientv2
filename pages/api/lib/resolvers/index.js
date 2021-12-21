@@ -3,6 +3,7 @@ import BillsResolvers from './Bill'
 import adminResolver from './admin'
 import SupplierResolvers from './Supplier'
 import CompanyResolvers from './Company'
+import SalesInvoicePaymetResolver from './SalesInvoicePayments'
 import dateTimeScalar from './CustomScalar'
 import CurrencyResolvers from './Currency'
 import CountriesResolvers from './Countries'
@@ -32,6 +33,7 @@ export default {
     ...CompanyResolvers.TYPES,
     ...CurrencyResolvers.TYPES,
     ...CountriesResolvers.TYPES,
+    ...SalesInvoicePaymetResolver.TYPES,
     ...uploadFileResolver.TYPES,
     ...ClassResolver.TYPES,
     DateTime: dateTimeScalar,
@@ -39,6 +41,7 @@ export default {
     Query: {
         ...reportsResolver.QUERIES,
         ...CommissionInvoice.QUERIES,
+        ...SalesInvoicePaymetResolver.QUERIES,
         ...taxedResolver.QUERIES,
         ...ClassResolver.QUERIES,
         ...CommentsResolver.QUERIES,
@@ -71,6 +74,7 @@ export default {
         ...CommissionInvoice.MUTATIONS,
         ...taxedResolver.MUTATIONS,
         ...uploadFileResolver.MUTATIONS,
+        ...SalesInvoicePaymetResolver.MUTATIONS,
         ...accountResolver.MUTATIONS,
         ...IvaResolvers.MUTATIONS,
         ...reportsResolver.MUTATIONS,

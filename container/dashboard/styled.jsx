@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components'
 import { StyleSheet } from '@react-pdf/renderer'
-import { BColor, BGColor, EColor, ESFColor, PColor, SECColor } from '../../public/colors'
+import { BColor, BGColor, EColor, ESFColor, PColor, SECColor, PVColor } from '../../public/colors'
 
 const pulse = keyframes`
   0% {
@@ -14,18 +14,19 @@ const pulse = keyframes`
   }
 `
 export const WrapperButtonAction = styled.div`
-  position: absolute;
-  right: 0;
+`
+export const Options = styled.div`
+  display: flex;
+  padding: 20px;
+  flex-direction: ${({ direction }) => direction || 'column'};
+  justify-content: space-between;
+
 `
 export const Wrapper = styled.div`
   border-left: 1px dotted #00000017;
-  height: 100%;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  padding: 25px;
-  margin: auto;
+  padding: 10px;
   align-items: center;
+  position: relative;
 `
 export const Button = styled.button`
   border-bottom: 3px solid transparent;
@@ -163,6 +164,37 @@ export const Pagination = styled.div`
   
   }
 `
+export const ContentModal = styled.div`
+    padding: 30px;
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill,minmax(20.33%,1fr));
+    height: 50vh;
+    min-height: 50vh;
+    max-height: 50vh;
+    overflow: auto;
+    border-bottom: 1px solid ${PVColor};
+`
+export const HeaderModal = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+`
+export const CardInvoice = styled.div`
+    padding: 30px;
+    color: gray;
+    margin: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 5px;
+    height: 300px;
+    width: 100%;
+
+`
+
 export const ButtonPagination = styled.button`
     border-radius: 0.2rem;
     color: ${BGColor};
@@ -203,24 +235,15 @@ export const LineItems = styled.div`
     box-shadow: 0px 0px 14px #00000017;
     `
 export const Section = styled.div`
-    display: grid;
-    position: relative;
+     display: grid;
     grid-template-columns: ${({ columnWidth }) => columnWidth ? columnWidth?.map(x => `${x?.width} `) : '1fr'}; 
     height: auto;
+    align-items: center;
     margin: 0 auto;
     border-bottom: 1px solid #f0f0f0;
-    transition: .5s ease;
-    box-shadow: 0 5px 7px -1px rgb(51 51 51 / 23%);
-    align-items: center;
-    margin: ${({ margin }) => margin || ' 1% auto'};
-    box-shadow: 0px 0px 14px #00000017;
-    ${({ padding }) => padding && css`padding: ${padding};`}
-    ${({ height }) => height && css`height: ${height};`}
-    ${({ radius }) => radius && css`border-radius: ${radius};`}
-    &:hover {
-    box-shadow: 0 9px 47px 11px rgb(51 51 51 / 18%);
-    }
+    background-color: ${({ bgRow }) => bgRow === 1 ? `${TBGAColor}` : bgRow === 2 ? `${TBGVColor}` : bgRow === 3 ? `${TBGBColor}` : bgRow === 4 ? `${TBGSColor}` : bgRow === 5 ? TBGAColor : bgRow === 6 ? TBGEColor : bgRow === 7 ? TBGRColor : bgRow === 8 && TBGDColor};
     :hover {
+        background-color: rgba(0,0,0,.075);
         :first-child {
             background-color: #fff;
         }

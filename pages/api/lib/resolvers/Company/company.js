@@ -54,6 +54,8 @@ export const newCompany = async (_, { input }, ctx) => {
     const idUser = await UserSchema.findById({ _id: userId })
     if (!idUser) { throw new ApolloError('Your request could not be processed.', 500) }
     try {
+        const isRegisterCompany = await CompanySchema.findOne({ companyName: input.companyName })
+        if (isRegisterCompany) throw new ApolloError('the company is already registered.', 500) 
         const company = new CompanySchema({ ...input, idUser })
         const idCom = company._id
         await company.save(company)

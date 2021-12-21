@@ -217,8 +217,8 @@ const Container = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: ${ BGAColor };
-    /* background-color: ${ `${ BGAColor }69` }; */
+    /* background-color: ${ BGAColor }; */
+    background-color: ${ `${ BGAColor }69` };
     z-index: 99999999;
 `
 const LsRipple = styled.div`
