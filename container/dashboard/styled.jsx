@@ -17,7 +17,7 @@ export const WrapperButtonAction = styled.div`
 `
 export const Options = styled.div`
   display: flex;
-  padding: 20px;
+  padding:  20px 0;
   flex-direction: ${({ direction }) => direction || 'column'};
   justify-content: space-between;
 
@@ -29,7 +29,6 @@ export const Wrapper = styled.div`
   position: relative;
 `
 export const Button = styled.button`
-  border-bottom: 3px solid transparent;
   background-color: transparent;
   padding: ${({ padding }) => padding || '7px'};
   height: ${({ height }) => height || '50px'};
@@ -43,10 +42,10 @@ export const Button = styled.button`
   position: relative;
   overflow: hidden;
   color: ${BColor};
-  
   ${props => props.active && css`
-  border-bottom: 3px solid ${PColor};
-  font-weight: 400;
+    border-bottom: 3px solid ${PColor};
+    font-weight: 400;
+    border: 1px solid #ccc;
   ` }
   ${props => props.shadow && css`
     box-shadow: 0 2px 16px 0 rgb(0 0 0 / 10%);
@@ -108,6 +107,28 @@ export const CircleCompany = styled.div`
   ` }
 `
 
+export const ButtonLoadMore = styled.button`
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-family: 'WorkSans-Bold','Helvetica','san-serif';
+    font-size: 1em;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 16px 32px;
+    border-radius: 8px;
+    background-color: #0069ff;
+    border: 1px solid #0069ff;
+    color: #fff;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    margin-right: 24px;
+    width: 100%;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+`
 export const OptionsFunction = styled.div`
     display: flex;
     position: absolute;
@@ -140,41 +161,21 @@ export const Current = styled.div`
       background-color: ${BColor};
   ` }
 `
-export const Pagination = styled.div`
-  background: #fdfdfd;
-  padding: 1rem;
-  margin: 3rem auto;
-  display: flex;
-  border-radius: 0.2rem;
-  box-shadow: 0 4px 6px 0 rgb(0 0 0 / 30%);
-  counter-reset: pagination;
-  text-align: center;
-  overflow-x: auto;
-  & > div {
-    border: solid 1px #d7d7d7;
-    margin: 0px 5px;
-    border-radius: 0.2rem;
-    color: #7d7d7d;
-    text-decoration: none;
-    width: 60px;
-    text-transform: uppercase;
-    display: inline-block;
-    text-align: center;
-    padding: 0.5rem 0.9rem;
-  
-  }
+export const ContainerInfo = styled.div`
+
+  border-top: 5px solid ${PVColor};
+  padding: 40px;
 `
 export const ContentModal = styled.div`
-    padding: 30px;
     display: grid;
-    gap: 20px;
+    gap: 10px;
     width: 100%;
-    grid-template-columns: repeat(auto-fill,minmax(20.33%,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(15%, 1fr));
     height: 50vh;
     min-height: 50vh;
     max-height: 50vh;
-    overflow: auto;
-    border-bottom: 1px solid ${PVColor};
+    position: relative;
+    overflow-y: auto;
 `
 export const HeaderModal = styled.div`
   display: flex;
@@ -189,6 +190,7 @@ export const CardInvoice = styled.div`
     font-size: 12px;
     font-weight: 400;
     border: 1px solid rgb(206, 206, 206);
+    box-shadow: 0 4px 0 rgb(91 105 135 / 20%);
     border-radius: 5px;
     height: 300px;
     width: 100%;
@@ -398,7 +400,6 @@ export const Text = styled.span`
     word-break: break-word;
     max-width: ${({ width }) => width || '100%'};
     width: ${({ width }) => width || '100%'};
-    font-size: 1rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

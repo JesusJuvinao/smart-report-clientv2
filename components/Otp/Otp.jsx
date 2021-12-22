@@ -36,7 +36,7 @@ export function OTPInputComponent (props) {
       }
       return !changedValue || /\d/.test(changedValue) ? changedValue : ''
     },
-    [isNumberInput]
+    [isNumberInput, onChangeOTP, length]
   )
 
   // Change OTP value at focussing input
@@ -47,7 +47,7 @@ export function OTPInputComponent (props) {
       setOTPValues(updatedOTPValues)
       handleOtpChange(updatedOTPValues)
     },
-    [activeInput, handleOtpChange, otpValues]
+    [activeInput, handleOtpChange, otpValues, onChangeOTP, length]
   )
 
   // Focus `inputIndex` input
@@ -56,7 +56,7 @@ export function OTPInputComponent (props) {
       const selectedIndex = Math.max(Math.min(length - 1, inputIndex), 0)
       setActiveInput(selectedIndex)
     },
-    [length]
+    [length, otpValues, length]
   )
 
   const focusPrevInput = useCallback(() => {
@@ -72,13 +72,13 @@ export function OTPInputComponent (props) {
     (index) => () => {
       focusInput(index)
     },
-    [focusInput]
+    [focusInput, onChangeOTP, length]
   )
 
   // Handle onChange value for each input
   const handleOnChange = useCallback(
     (e) => {
-      const val = getRightValue(e.currentTarget.value)
+      const val = getRightValue(e.target.value)
       if (!val) {
         e.preventDefault()
         return
@@ -86,13 +86,13 @@ export function OTPInputComponent (props) {
       changeCodeAtFocus(val)
       focusNextInput()
     },
-    [changeCodeAtFocus, focusNextInput, getRightValue]
+    [changeCodeAtFocus, focusNextInput, getRightValue, otpValues]
   )
 
   // Hanlde onBlur input
   const onBlur = useCallback(() => {
     setActiveInput(-1)
-  }, [])
+  }, [length])
 
   // Handle onKeyDown input
   const handleOnKeyDown = useCallback(
@@ -153,7 +153,7 @@ export function OTPInputComponent (props) {
         setActiveInput(Math.min(nextFocusIndex + 1, length - 1))
       }
     },
-    [activeInput, getRightValue, length, otpValues]
+    [activeInput, getRightValue, length, otpValues, setOTPValues, changeCodeAtFocus, focusNextInput]
   )
 
   return (
@@ -170,7 +170,7 @@ export function OTPInputComponent (props) {
             onChange={handleOnChange}
             onKeyDown={handleOnKeyDown}
             onBlur={onBlur}
-            onPaste={handleOnPaste}
+            // onPaste={handleOnPaste}
             style={inputStyle}
             className={inputClassName}
             disabled={disabled}

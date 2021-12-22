@@ -10,7 +10,7 @@ import { LoadEllipsis } from '../Loading'
 import Link from 'next/link'
 import { IconLogo } from '../common/logo'
 
-export const ForgotPassword = ({ setState, handleSubmit, state, dataForm, onChange, handleFormValidation, setOtp, handleResetPassword, loadingValidate, loadingEmail, loadingChange }) => {
+export const ForgotPassword = ({ setState, handleSubmit, messageErr, state, dataForm, onChange, handleFormValidation, setOtp, handleResetPassword, loadingValidate, loadingEmail, loadingChange }) => {
   return (
     <>
       <Container>
@@ -27,6 +27,7 @@ export const ForgotPassword = ({ setState, handleSubmit, state, dataForm, onChan
               inputClassName="otpInput" // send css
               onChangeOTP={(otp) => setOtp(otp)}
             />
+            {messageErr !== ''  && messageErr}
             <RippleButton bgColor={SCColor} margin='20px 0px' type='submit'>{loadingValidate ? <LoadEllipsis /> : 'Validate Code'}</RippleButton>
             <Text onClick={() => setState(1)}>I did not receive my code</Text>
           </From> : state === 3 ? <From onSubmit={(e) => handleResetPassword(e)}>

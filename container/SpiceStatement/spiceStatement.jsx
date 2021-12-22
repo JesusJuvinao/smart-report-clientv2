@@ -296,14 +296,14 @@ const data = [
                 'totalDiscounts': 0,
                 'lineItemsArray': [
                     {
-                        'subtotal_tickets_sold': 1,
-                        'tickettype': 'Member',
-                        'subtotal_sales_received': 0,
-                        'subinvoice_total': '0.00',
-                        'subtotal_comm_due': '0.00',
-                        'ticketcategorytotaldue': 0,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 0,
+                        'subtotalTicketsSold': 1,
+                        'ticketType': 'Member',
+                        'lineSalesReceived': 0,
+                        'lineSubtotal': '0.00',
+                        'lineCommSubtotal': '0.00',
+                        'ticketCategoryTotalDue': 0,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 0,
                         'ticketPrice': '0.00'
                     }
                 ],
@@ -325,14 +325,14 @@ const data = [
                 'totalDiscounts': 0,
                 'lineItemsArray': [
                     {
-                        'subtotal_tickets_sold': 1,
-                        'tickettype': 'Member Best available Stalls Circle',
-                        'subtotal_sales_received': 56.5,
-                        'subinvoice_total': '53.67',
-                        'subtotal_comm_due': '2.83',
-                        'ticketcategorytotaldue': 56.5,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 56.5,
+                        'subtotalTicketsSold': 1,
+                        'ticketType': 'Member Best available Stalls Circle',
+                        'lineSalesReceived': 56.5,
+                        'lineSubtotal': '53.67',
+                        'lineCommSubtotal': '2.83',
+                        'ticketCategoryTotalDue': 56.5,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 56.5,
                         'ticketPrice': '56.50'
                     }
                 ],
@@ -354,36 +354,36 @@ const data = [
                 'totalDiscounts': 0,
                 'lineItemsArray': [
                     {
-                        'subtotal_tickets_sold': 2,
-                        'tickettype': 'Member 2 night Fri/Sat Double Sole Occ',
-                        'subtotal_sales_received': 596,
-                        'subinvoice_total': '566.20',
-                        'subtotal_comm_due': '29.80',
-                        'ticketcategorytotaldue': 596,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 596,
+                        'subtotalTicketsSold': 2,
+                        'ticketType': 'Member 2 night Fri/Sat Double Sole Occ',
+                        'lineSalesReceived': 596,
+                        'lineSubtotal': '566.20',
+                        'lineCommSubtotal': '29.80',
+                        'ticketCategoryTotalDue': 596,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 596,
                         'ticketPrice': '298.00'
                     },
                     {
-                        'subtotal_tickets_sold': 2,
-                        'tickettype': 'Member 2 night Fri/Sat Twin Share',
-                        'subtotal_sales_received': 396,
-                        'subinvoice_total': '376.20',
-                        'subtotal_comm_due': '19.80',
-                        'ticketcategorytotaldue': 396,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 396,
+                        'subtotalTicketsSold': 2,
+                        'ticketType': 'Member 2 night Fri/Sat Twin Share',
+                        'lineSalesReceived': 396,
+                        'lineSubtotal': '376.20',
+                        'lineCommSubtotal': '19.80',
+                        'ticketCategoryTotalDue': 396,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 396,
                         'ticketPrice': '198.00'
                     },
                     {
-                        'subtotal_tickets_sold': 1,
-                        'tickettype': 'Member 2 night River View Double sole Occ',
-                        'subtotal_sales_received': 313,
-                        'subinvoice_total': '297.35',
-                        'subtotal_comm_due': '15.65',
-                        'ticketcategorytotaldue': 313,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 313,
+                        'subtotalTicketsSold': 1,
+                        'ticketType': 'Member 2 night River View Double sole Occ',
+                        'lineSalesReceived': 313,
+                        'lineSubtotal': '297.35',
+                        'lineCommSubtotal': '15.65',
+                        'ticketCategoryTotalDue': 313,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 313,
                         'ticketPrice': '313.00'
                     }
                 ],
@@ -405,14 +405,14 @@ const data = [
                 'totalDiscounts': 0,
                 'lineItemsArray': [
                     {
-                        'subtotal_tickets_sold': 7,
-                        'tickettype': 'Three courses meal',
-                        'subtotal_sales_received': 174.65,
-                        'subinvoice_total': '165.92',
-                        'subtotal_comm_due': '8.73',
-                        'ticketcategorytotaldue': 174.65,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 174.65,
+                        'subtotalTicketsSold': 7,
+                        'ticketType': 'Three courses meal',
+                        'lineSalesReceived': 174.65,
+                        'lineSubtotal': '165.92',
+                        'lineCommSubtotal': '8.73',
+                        'ticketCategoryTotalDue': 174.65,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 174.65,
                         'ticketPrice': '24.95'
                     }
                 ],
@@ -434,14 +434,14 @@ const data = [
                 'totalDiscounts': 0,
                 'lineItemsArray': [
                     {
-                        'subtotal_tickets_sold': 3,
-                        'tickettype': 'Member',
-                        'subtotal_sales_received': 81,
-                        'subinvoice_total': '76.95',
-                        'subtotal_comm_due': '4.05',
-                        'ticketcategorytotaldue': 81,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 81,
+                        'subtotalTicketsSold': 3,
+                        'ticketType': 'Member',
+                        'lineSalesReceived': 81,
+                        'lineSubtotal': '76.95',
+                        'lineCommSubtotal': '4.05',
+                        'ticketCategoryTotalDue': 81,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 81,
                         'ticketPrice': '27.00'
                     }
                 ],
@@ -463,14 +463,14 @@ const data = [
                 'totalDiscounts': 0,
                 'lineItemsArray': [
                     {
-                        'subtotal_tickets_sold': 7,
-                        'tickettype': 'Three courses meal & 1/2 bottle wine or drinks',
-                        'subtotal_sales_received': 279.65,
-                        'subinvoice_total': '265.67',
-                        'subtotal_comm_due': '13.98',
-                        'ticketcategorytotaldue': 279.65,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 279.65,
+                        'subtotalTicketsSold': 7,
+                        'ticketType': 'Three courses meal & 1/2 bottle wine or drinks',
+                        'lineSalesReceived': 279.65,
+                        'lineSubtotal': '265.67',
+                        'lineCommSubtotal': '13.98',
+                        'ticketCategoryTotalDue': 279.65,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 279.65,
                         'ticketPrice': '39.95'
                     }
                 ],
@@ -492,14 +492,14 @@ const data = [
                 'totalDiscounts': 0,
                 'lineItemsArray': [
                     {
-                        'subtotal_tickets_sold': 1,
-                        'tickettype': 'Member',
-                        'subtotal_sales_received': 0,
-                        'subinvoice_total': '0.00',
-                        'subtotal_comm_due': '0.00',
-                        'ticketcategorytotaldue': 0,
-                        'totalcategorydiscount': 0,
-                        'subtotalforticketypelessDiscount': 0,
+                        'subtotalTicketsSold': 1,
+                        'ticketType': 'Member',
+                        'lineSalesReceived': 0,
+                        'lineSubtotal': '0.00',
+                        'lineCommSubtotal': '0.00',
+                        'ticketCategoryTotalDue': 0,
+                        'totalTicketTypeDiscount': 0,
+                        'subtotalTicketTypeLessDiscount': 0,
                         'ticketPrice': '0.00'
                     }
                 ],
@@ -585,25 +585,25 @@ export const SpiceStatement = () => {
                                         return (
                                             <div key={lineitem._id} style={Styles.lineitembox} >
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}>{lineitem.tickettype}</h4>
+                                                    <h4 style={Styles.TextCardBold}>{lineitem.ticketType}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}> {lineitem.subtotal_tickets_sold.toString()}</h4>
+                                                    <h4 style={Styles.TextCardBold}> {lineitem.subtotalTicketsSold.toString()}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}>£ {parseFloat(lineitem.subtotal_sales_received).toFixed(2)}</h4>
+                                                    <h4 style={Styles.TextCardBold}>£ {parseFloat(lineitem.lineSalesReceived).toFixed(2)}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}>£ {lineitem.subinvoice_total}</h4>
+                                                    <h4 style={Styles.TextCardBold}>£ {lineitem.lineSubtotal}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}>£ {lineitem.subtotal_comm_due}</h4>
+                                                    <h4 style={Styles.TextCardBold}>£ {lineitem.lineCommSubtotal}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}>£ {parseFloat(lineitem.totalcategorydiscount).toFixed(2)}</h4>
+                                                    <h4 style={Styles.TextCardBold}>£ {parseFloat(lineitem.totalTicketTypeDiscount).toFixed(2)}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}>£ {parseFloat(lineitem.subtotalforticketypelessDiscount).toFixed(2)}</h4>
+                                                    <h4 style={Styles.TextCardBold}>£ {parseFloat(lineitem.subtotalTicketTypeLessDiscount).toFixed(2)}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
                                                     <h4 style={Styles.TextCardBold}>£ {lineitem.ticketPrice}</h4>

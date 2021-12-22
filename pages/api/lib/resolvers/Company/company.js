@@ -50,26 +50,29 @@ export const deleteCompany = async (_, { id, companyName }, ctx) => {
     }// Delete One
 }
 export const newCompany = async (_, { input }, ctx) => {
-    const userId = ctx.User.id
-    const idUser = await UserSchema.findById({ _id: userId })
-    if (!idUser) { throw new ApolloError('Your request could not be processed.', 500) }
     try {
-        const isRegisterCompany = await CompanySchema.findOne({ companyName: input.companyName })
-        if (isRegisterCompany) throw new ApolloError('the company is already registered.', 500) 
-        const company = new CompanySchema({ ...input, idUser })
-        const idCom = company._id
-        await company.save(company)
-        const data = await UserSchema.findOneAndUpdate(
-            { _id: idUser },
-            { $push: { idComp: idCom } }
-        )
-        if (company) {
-            const BucketName = idCom.toString()
-            await createOneBucket(BucketName)
+        const { companyName } = input || {}
+        const isRegisterCompany = await CompanySchema.findOne({ companyName: companyName })
+        const userId = ctx.User.id
+        if (!isRegisterCompany) {
+            const idUser = await UserSchema.findById({ _id: userId })
+            if (!idUser) { throw new ApolloError('Your request could not be processed.', 500) }
+            const company = new CompanySchema({ ...input, idUser })
+            const idCom = company._id
+            await company.save(company)
+            const data = await UserSchema.findOneAndUpdate(
+                { _id: idUser },
+                { $push: { idComp: idCom } }
+            )
+            if (company) {
+                const BucketName = idCom.toString()
+                await createOneBucket(BucketName)
+            }
+            return data
+        } else {
+            throw new ApolloError('The company is already registered.', 500)
         }
-        return data
     } catch (error) {
-        throw new ApolloError('Your request could not be processed.', 500)
     }
 }
 export const ActiveCompany = async (_, { idComp }) => {
@@ -127,8 +130,12 @@ export const getAllCompanyUser = async (_, __, ctx) => {
 
 export const getOneCompanyById = async (_, { idC }) => {
     try {
-        const data = await CompanySchema.findById({ _id: idC })
-        return data
+        if (idC) {
+            const data = await CompanySchema.findById({ _id: idC })
+            return data
+        } else {
+            return []
+        }
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }

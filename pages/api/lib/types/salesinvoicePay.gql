@@ -43,6 +43,8 @@ input IlineItemsInvoicePay {
     _id: ID
     idUser: ID
     idComp: ID
+    idInvoice: ID
+    isPaid: Boolean
     agentDetails: InputAgentDetails
     lineItemsArray: [ICommissionLineItems]
 

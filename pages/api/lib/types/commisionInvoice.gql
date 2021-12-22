@@ -31,17 +31,42 @@ input InputCommissionLineItems {
 }
 input ICommissionLineItems {
     _id: ID
+    idInvoice: ID
     subtotalTicketsSold: Float
     ticketType: String
     lineSalesReceived: Float
     lineSubtotal: Float
+    eventName: String
     hasBeenSent: Boolean
+    hasBeenReceived: Boolean
     lineCommSubtotal: Float
     lineItemVATOnComm: Float
     ticketCategoryTotalDue: Float
     totalTicketTypeDiscount: Float
     subtotalTicketTypeLessDiscount: Float
     ticketPrice: Float
+    idUser: ID
+    idComp: ID
+    uploaded: DateTime
+    invoiceDate: DateTime
+    invoiceRef: String
+    invoiceTo: String
+    invoiceFrom: String
+    eventRef: String
+    eventCommences: DateTime
+    eventType: String
+    invoiceTotal: Float
+    totalCommDue: Float
+    totalSalesReceived: Float
+    totalDiscounts: Float
+    vatOnComms: Float
+    isVATRegistered: Boolean
+    isApprovedByInvoiceSender: Boolean
+    isPaid: Boolean
+    isRedo: Boolean
+    datePaid: DateTime
+    isOnStatement: Boolean
+    statementId: String
     newArray: [InputNewArray]
 
 }
@@ -103,14 +128,14 @@ input ICommissionInvoice {
 }
 type CommissionLineItems {
     _id: ID
-    subtotal_tickets_sold: Float
-    tickettype: String
-    subtotal_sales_received: Float
-    subinvoice_total: Float
-    subtotal_comm_due: Float
-    ticketcategorytotaldue: Float
-    totalcategorydiscount: Float
-    subtotalforticketypelessDiscount: Float
+    subtotalTicketsSold: Float
+    ticketType: String
+    lineSalesReceived: Float
+    lineSubtotal: Float
+    lineCommSubtotal: Float
+    ticketCategoryTotalDue: Float
+    totalTicketTypeDiscount: Float
+    subtotalTicketTypeLessDiscount: Float
     ticketPrice: Float
 }
 type AgentDetails {
@@ -130,6 +155,7 @@ type AgentDetails {
     agentCompanyNumber: String
 }
 input InputAgentDetails {
+    idInvoice: ID
     legalName: String
     agentContact: String
     agentTradingName: String

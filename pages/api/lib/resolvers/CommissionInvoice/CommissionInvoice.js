@@ -189,7 +189,7 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
                 })
             })
         }
-        return { success: true, message: `the invoice changed to ${ InvoiceData.isPaid === true ? 'Inactive' : 'Active' } status` }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Inactive' : 'Active'} status` }
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }
@@ -359,14 +359,17 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
-export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName }, ctx) => {
+export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max }, ctx) => {
     const idUser = ctx.User.id
+    // const idUser = '61adeb3c2256283be0cb5c2d'
+    console.log(idUser)
+    console.log(search, idComp, CompName, min, max)
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
+            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName }).sort({ age: -1 }).limit(max || 100)
             return data
         }
     } catch (error) {

@@ -15,16 +15,9 @@ export const AlertBox = ({ err }) => {
             }
         }
     }, [err])
-    useEffect(() => {
-        const body = document.body
-        body.addEventListener('keyup', e => e.code === 'Escape' && setClosed(true))
-        return () => body.removeEventListener('keyup', () => setClosed)
-    }, [closed])
-
     return (
         <React.Fragment>
             <ContainerToast onClick={setClosed} color={err?.color} closed={closed} error={!!err?.message}>
-                {/* <IconEdit size='40px' /> */}
                 <ContentToast>
                     <ContainerText >{(err?.message || '')}</ContainerText>
                     <div></div>

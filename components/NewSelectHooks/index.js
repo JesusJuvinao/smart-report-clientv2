@@ -140,7 +140,7 @@ const LabelInput = styled.label`
     transition: .2s ease;
     text-align: left;
     font-size: ${ ({ value }) => value ? '1rem' : '16px' };
-    top: ${ ({ value }) => value ? '-4px' : '15px' };
+    top: ${ ({ value, topTitle }) => value ? '-4px' : topTitle ? topTitle : '15px' };
     left: ${ ({ value }) => value ? '-8px' : '10px' };
     color: ${ ({ value, error }) => value ? SFColor : (error ? BGColor : SFVColor) };
     pointer-events: none;
@@ -154,10 +154,6 @@ const LabelInput = styled.label`
     @media only screen and (max-width: 960px) {
      top: 12px;
     }
-    ${ props => props.topTitle && css`
-      top: 15px;
-    ` }
-   
     ${ props => props.noLabel && css`
     top: 13px;
     font-size: 15px;

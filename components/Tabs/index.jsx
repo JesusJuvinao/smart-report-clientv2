@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { PVColor } from '../../public/colors';
 
 const TabPanel = ({ children }) => (
     <TabContent role="tabpanel" tabindex="0">
@@ -79,11 +80,11 @@ const TabButton = styled.button`
   outline: none;
   transition: border-color 0.2s ease-in;
   border: none;
-  border-bottom: 4px solid ${ props => (props.selected ? 'blue' : '#fff') };
+  border-bottom: 4px solid ${ props => (props.selected ? PVColor : '#fff') };
   &:hover,
   &:focus,
   &:active {
-    border-bottom: 4px solid ${ props => (props.selected ? 'blue' : '#eee') };
+    border-bottom: 4px solid ${ props => (props.selected ? PVColor : '#eee') };
   }
 `;
 

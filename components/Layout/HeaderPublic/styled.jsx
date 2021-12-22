@@ -23,7 +23,6 @@ export const Container = styled.div`
     display: flex;
     flex-flow: row nowrap;
     height: 72px;
-    max-width: 1440px;
     top: 40px;
     width: 100vw;
     z-index: 1000;

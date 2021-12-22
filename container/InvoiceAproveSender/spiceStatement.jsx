@@ -653,7 +653,7 @@ export const InvoiceApproveSender = () => {
                                         return (
                                             <div key={lineitem._id} style={Styles.lineitembox} >
                                                 <div style={Styles.Card}>
-                                                    <h4 style={Styles.TextCardBold}>{lineitem.tickettype}</h4>
+                                                    <h4 style={Styles.TextCardBold}>{lineitem.ticketType}</h4>
                                                 </div>
                                                 <div style={Styles.Card}>
                                                     <h4 style={Styles.TextCardBold}> {lineitem.agentCode}</h4>

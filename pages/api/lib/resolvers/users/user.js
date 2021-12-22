@@ -29,7 +29,7 @@ export const verifyRegistration = async (_, { uEmail, userName }) => {
     if (existEmail) {
         return {
             success: false,
-            message: `The uEmail '${ uEmail }' is already registered.`
+            message: `The uEmail '${uEmail}' is already registered.`
         }
     }
     // we check if the user exists
@@ -37,7 +37,7 @@ export const verifyRegistration = async (_, { uEmail, userName }) => {
     if (UserName) {
         return {
             success: false,
-            message: `The user '${ userName }' is already registered.`
+            message: `The user '${userName}' is already registered.`
         }
     }
 }
@@ -46,7 +46,7 @@ export const newRegisterUser = async (_, { uEmail, userName, uPassword }) => {
     if (existEmail) {
         return {
             success: false,
-            message: `The uEmail '${ uEmail }' is already registered.`
+            message: `The uEmail '${uEmail}' is already registered.`
         }
     }
     // we check if the user exists
@@ -54,13 +54,13 @@ export const newRegisterUser = async (_, { uEmail, userName, uPassword }) => {
     if (UserName) {
         return {
             success: false,
-            message: `The user '${ userName }' is already registered.`
+            message: `The user '${userName}' is already registered.`
         }
     }
     try {
-    // we check if the Email exists
-    // check for an existing admin user
-        const userMaster = await UserSchema.findOne({ uEmail: 'swilson@gmail.com' })
+        // we check if the Email exists
+        // check for an existing admin user
+        const userMaster = await UserSchema.findOne({ uEmail: 'swilson2006@gmail.com' })
         // get roles _id
         const roles = await Roles.find({
             name: { $in: ['admin', 'moderator', 'user'] }
@@ -91,21 +91,35 @@ export const newRegisterUser = async (_, { uEmail, userName, uPassword }) => {
                 uPassword: passwordHash,
                 refreshTokens: [{ hash: refreshTokenHash, expiry: refreshTokenExpiry }]
             })
+            // const dataUser = {
+            //     id: newUserRegister.id,
+            //     firstName: newUserRegister.firstName,
+            //     lastName: newUserRegister.lastName,
+            //     userName: newUserRegister.userName,
+            //     uEmail: newUserRegister.uEmail,
+            //     uAddress: newUserRegister.uAddress,
+            //     uBirthday: newUserRegister.uBirthday,
+            //     roles: newUserRegister.roles,
+            //     companiesOwn: newUserRegister.idComp,
+            //     companiesMemberOf: newUserRegister.idTeamComp,
+            //     refreshToken
+            // }
             const dataUser = {
                 id: newUserRegister.id,
                 firstName: newUserRegister.firstName,
                 lastName: newUserRegister.lastName,
                 userName: newUserRegister.userName,
                 uEmail: newUserRegister.uEmail,
+                uPhone: newUserRegister.uPhone,
                 uAddress: newUserRegister.uAddress,
                 uBirthday: newUserRegister.uBirthday,
                 roles: newUserRegister.roles,
                 companiesOwn: newUserRegister.idComp,
-                companiesMemberOf: newUserRegister.idTeamComp,
-                refreshToken
+                companiesMemberOf: newUserRegister.idTeamComp
             }
             const token = await generateToken(dataUser)
             return {
+                user: dataUser,
                 success: true,
                 token,
                 refreshToken,
@@ -119,12 +133,11 @@ export const newRegisterUser = async (_, { uEmail, userName, uPassword }) => {
     }
 }
 export const RegisterUserAdmin = async (_, { uEmail, userName, uPassword }) => {
-    console.log( uEmail, userName, uPassword)
     const existEmail = await UserSchema.findOne({ uEmail })
     if (existEmail) {
         return {
             success: false,
-            message: `The uEmail '${ uEmail }' is already registered.`
+            message: `The uEmail '${uEmail}' is already registered.`
         }
     }
     // we check if the user exists
@@ -132,7 +145,7 @@ export const RegisterUserAdmin = async (_, { uEmail, userName, uPassword }) => {
     if (UserName) {
         return {
             success: false,
-            message: `The user '${ userName }' is already registered.`
+            message: `The user '${userName}' is already registered.`
         }
     }
     try {
@@ -166,7 +179,7 @@ export const RegisterUserAdmin = async (_, { uEmail, userName, uPassword }) => {
                 roles: newUserRegister.roles
             }
         } else {
-            return   {
+            return {
                 success: false,
                 message: 'Usuarios ya existen'
             }
@@ -219,10 +232,8 @@ export const sendEmailConfirmation = async (_, { uEmail, userName }, ctx) => {
 export const sendEmailConfirmationBrowser = async (_, { uEmail, userName }, ctx) => {
     let CodeInfo = null
     try {
-        console.log(uEmail, userName)
         const User = await UserSchema.findOne({ uEmail })
         CodeInfo = User.uToken
-        console.log(CodeInfo)
         const mailer = transporter()
         const dataToken = {
             idUser: ctx.User.id,
@@ -243,7 +254,7 @@ export const sendEmailConfirmationBrowser = async (_, { uEmail, userName }, ctx)
             })
         })
         return { success: true, message: 'Email sent check your inbox' }
-        
+
     } catch (error) {
         return { success: false, message: 'Error' }
     }
@@ -251,7 +262,6 @@ export const sendEmailConfirmationBrowser = async (_, { uEmail, userName }, ctx)
 
 export const saveLocation = async (_, { country, lat, long }, ctx) => {
     try {
-        console.log(country, lat, long)
         const id = ctx.User.id && ctx.User.id
         const dataUser = await UserSchema.findById({ _id: id })
         if (!dataUser) {
@@ -293,72 +303,78 @@ export const confirmEmail = async (_, { idUser }, ctx) => {
 }
 
 export const CreateRecoverAccount = async (_, input) => {
-    const { uEmail } = input.input
-    const existEmail = await UserSchema.findOne({ uEmail })
-    if (!existEmail) return { success: false, message: 'User does not exist' }
-    // Create the recovery token or code
-    const uToken = await generateCode()
-    // Insert the token to the user
-    const id = existEmail._id
-    await UserSchema.findOneAndUpdate(
-        { _id: id },
-        {
-            $set: {
-                uToken
+    try {
+
+        const { uEmail } = input.input
+        const existEmail = await UserSchema.findOne({ uEmail })
+        if (!existEmail) return { success: false, message: 'User does not exist' }
+        // Create the recovery token or code
+        const uToken = await generateCode()
+        // Insert the token to the user
+        const id = existEmail._id
+        await UserSchema.findOneAndUpdate(
+            { _id: id },
+            {
+                $set: {
+                    uToken
+                }
+            }
+        )
+        const mailer = transporter()
+        if (existEmail) {
+            mailer.sendMail({
+                from: 'Account recovery <no-reply@smartaccountingonline.com/>',
+                to: uEmail,
+                text: 'Hello world?', // plain text body
+                subject: 'Code recuperation.',
+                html: RecoverAccountTemplate({
+                    code: uToken,
+                    username: existEmail.firstName
+                })
+            })
+            if (existEmail) {
+                return { success: true, message: 'We have sent a recovery email to your email' }
             }
         }
-    )
-
-    const mailer = transporter()
-    if (existEmail) {
-        mailer.sendMail({
-            from: 'Account recovery <no-reply@smartaccountingonline.com/>',
-            to: uEmail,
-            text: 'Hello world?', // plain text body
-            subject: 'Code recuperation.',
-            html: RecoverAccountTemplate({
-                code: uToken,
-                username: existEmail.firstName
-            })
-        })
-        if (existEmail) {
-            return { success: true, message: 'We have sent a recovery email to your email' }
-        }
+    } catch (error) {
+        return { success: false, message: error }
     }
 }
 
 export const validateToken = async (_, { uEmail, uToken }) => {
     // Search User
     const uData = await UserSchema.findOne({ uEmail })
-    if (!uData) return { success: false, message: 'Email is not registered' }
+    if (!uData) return { success: false, message: 'Email is not registered.' }
     if (uData.uToken === uToken) {
-        return { success: true, message: 'Verified code' }
+        return { success: true, message: 'Verified code.' }
     } else {
-        return { success: false, message: 'Find not code' }
+        return { success: false, message: 'Incorrect code.' }
     }
 }
 export const ResetPassword = async (_, { input }) => {
-    const { uEmail, uPassword, uToken } = input
-    // Search User
-    const uData = await UserSchema.findOne({ uEmail })
-    if (!uData) return { success: false, message: 'Email is not registered' }
-
-    const newPass = await bcryptjs.hashSync(uPassword, 10)
-    if (uData.uToken === uToken) {
-        const id = uData._id
-        // Update password and clear token
-        const data = await UserSchema.findOneAndUpdate(
-            { _id: id },
-            {
-                $set: {
-                    uToken: '',
-                    uPassword: newPass
+    try {
+        const { uEmail, uPassword, uToken } = input
+        const uData = await UserSchema.findOne({ uEmail })
+        if (!uData) return { success: false, message: 'Email is not registered' }
+        const newPass = await bcryptjs.hashSync(uPassword, 10)
+        if (uData.uToken === uToken) {
+            const id = uData._id
+            // Update password and clear token
+            const data = await UserSchema.findOneAndUpdate(
+                { _id: id },
+                {
+                    $set: {
+                        uToken: '',
+                        uPassword: newPass
+                    }
                 }
+            )
+            if (data) {
+                return { success: true, message: 'Your account has been successfully recovered' }
             }
-        )
-        if (data) {
-            return { success: true, message: 'Your account has been successfully recovered' }
         }
+    } catch (error) {
+        return { success: true, message: 'Your password could not be retrieved' }
     }
 }
 
@@ -402,7 +418,7 @@ export const UpdateUser = async (_, input, ctx) => {
                 return {
                     success: false,
                     message:
-            'La nueva contraseña no puede ser igual a la actual.'
+                        'La nueva contraseña no puede ser igual a la actual.'
                 }
             }
             const salt = await bcrypt.genSaltSync(10)
@@ -413,7 +429,7 @@ export const UpdateUser = async (_, input, ctx) => {
             // findByIdAndUpdate
         } else if (step === 2) {
             await UserSchema.findOneAndUpdate(id, { lastName })
-            return { success: true, message: `lastName to ${ lastName } success` }
+            return { success: true, message: `lastName to ${lastName} success` }
         } else if (step === 3) {
             await UserSchema.findOneAndUpdate(id, { uAddress })
             return { success: true, message: 'Address successfully updated' }
@@ -426,9 +442,8 @@ export const UpdateUser = async (_, input, ctx) => {
     }
 }
 export const loginUser = async (_, { uEmail, uPassword, idBrowser }) => {
-    console.log(uEmail, uPassword, idBrowser)
     try {
-    //  Find the user
+        //  Find the user
         const user = await UserSchema.findOne({ uEmail })
         if (!user) {
             return { success: false, message: 'Incorrect username or password' }
@@ -500,12 +515,11 @@ export const loginUser = async (_, { uEmail, uPassword, idBrowser }) => {
             success: true,
             message: 'Session created.',
             token,
-            isVerifyEmail, 
+            isVerifyEmail,
             userId: user.id,
             refreshToken
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

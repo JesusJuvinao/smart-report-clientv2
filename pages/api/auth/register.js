@@ -4,10 +4,10 @@ import { newRegisterUser } from '../lib/resolvers/users/user'
 export default withSession(async (req, res) => {
     const { uEmail, uPassword, userName } = req.body
     try {
-        const { success, token, refreshToken, userId, message, roles } = await newRegisterUser(null, { uEmail, uPassword, userName })
+        const { success, token, refreshToken, userId, message, roles, user } = await newRegisterUser(null, { uEmail, uPassword, userName })
         if (token) {
-            const user = { isLoggedIn: true, token, success, refreshToken, message, roles }
-            req.session.set('user', user)
+            const usersession = { isLoggedIn: true, token, success, refreshToken, message, roles, user }
+            req.session.set('user', usersession)
             await req.session.save()
             return res.json({ token, success, refreshToken, message, roles, userId })
         } else { res.json({ success: 0, message: 'Incorrect username and password' }) }

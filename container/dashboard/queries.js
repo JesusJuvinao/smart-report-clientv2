@@ -86,14 +86,14 @@ query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max:
           __typename
         lineItemsArray {
             _id
-            subtotal_tickets_sold
-            tickettype
-            subtotal_sales_received
-            subinvoice_total
-            subtotal_comm_due
-            ticketcategorytotaldue
-            totalcategorydiscount
-            subtotalforticketypelessDiscount
+            subtotalTicketsSold
+            ticketType
+            lineSalesReceived
+            lineSubtotal
+            lineCommSubtotal
+            ticketCategoryTotalDue
+            totalTicketTypeDiscount
+            subtotalTicketTypeLessDiscount
             ticketPrice
         }
         agentDetails {
@@ -147,14 +147,14 @@ query getAllCommissionInvoiceReceived($idUser: ID, $search: String, $min: Int, $
           __typename
         lineItemsArray {
             _id
-            subtotal_tickets_sold
-            tickettype
-            subtotal_sales_received
-            subinvoice_total
-            subtotal_comm_due
-            ticketcategorytotaldue
-            totalcategorydiscount
-            subtotalforticketypelessDiscount
+            subtotalTicketsSold
+            ticketType
+            lineSalesReceived
+            lineSubtotal
+            lineCommSubtotal
+            ticketCategoryTotalDue
+            totalTicketTypeDiscount
+            subtotalTicketTypeLessDiscount
             ticketPrice
         }
         agentDetails {
@@ -174,5 +174,93 @@ query getAllCommissionInvoiceReceived($idUser: ID, $search: String, $min: Int, $
           agentCompanyNumber
         }
       }
+}
+`
+
+export const CREATE_COMMISSION_PAY = gql`
+mutation createInvoicePaymentMutation($input: ISalesInvoicePay, $inputLineItems: ILineItemsFinal!) {
+createInvoicePaymentMutation(input: $input, inputLineItems: $inputLineItems) {
+      _id
+      idUser
+      idComp  
+  		Date
+  		Idescription
+  		totalInvoicePayment
+  		isPaymentConfirm
+  		lineItemsInvoiceIsPay {
+        _id
+        subtotalTicketsSold
+        ticketType
+        lineSalesReceived
+        lineSubtotal
+        hasBeenSent
+        lineCommSubtotal
+        lineItemVATOnComm
+        ticketCategoryTotalDue
+         totalTicketTypeDiscount
+        subtotalTicketTypeLessDiscount
+        ticketPrice
+        agentDetails {
+          legalName
+          agentContact
+          agentTradingName
+          agentEmail
+          agentAddress1
+          agentAddress2
+          agentAddress3
+          agentCity
+          agentCounty
+          agentCountry
+          agentPostCode
+          VATRegNo
+          agentVATRegistered
+          agentCompanyNumber
+        }
+      }
+	}
+}
+`
+export const GET_COMMISSION_PAY = gql`
+query getInvoicePay($idComp: ID, $idUser: ID,$search: String, $min: Int, $max: Int){
+  	getInvoicePay(idComp: $idComp,  idUser: $idUser, search: $search, min: $min, max: $max){
+      _id
+      idUser
+      idComp  
+  		Date
+  		Idescription
+  		totalInvoicePayment
+  		isPaymentConfirm
+  		lineItemsInvoiceIsPay {
+        _id
+        subtotalTicketsSold
+        ticketType
+        lineSalesReceived
+        lineSubtotal
+        hasBeenSent
+        lineCommSubtotal
+        lineItemVATOnComm
+        ticketCategoryTotalDue
+         totalTicketTypeDiscount
+        subtotalTicketTypeLessDiscount
+        ticketPrice
+        agentDetails {
+          legalName
+          agentContact
+          agentTradingName
+          agentEmail
+          
+          agentAddress1
+          agentAddress2
+          agentAddress3
+          agentCity
+          agentCounty
+          agentCountry
+          agentPostCode
+          VATRegNo
+          agentVATRegistered
+          agentCompanyNumber
+        }
+      }
+  }
 }
 `

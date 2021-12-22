@@ -31,7 +31,7 @@ export const LoginC = ({ setAlertBox }) => {
                 setVisitorId(result.visitorId);
             });
     }, []);
-    console.log(visitorId)
+   
     const [loginUser, { loading }] = useMutation(CREATE_CURRENT_SESSION, {
         onError: error => {
             console.log(error)

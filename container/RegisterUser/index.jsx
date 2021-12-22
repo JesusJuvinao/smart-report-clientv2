@@ -1,11 +1,11 @@
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import { useRouter } from 'next/dist/client/router'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { URL_BASE } from '../../apollo/urls'
 import { ButtonHook } from '../../components/ButtonHook'
 import InputHooks from '../../components/InputHooks/InputHooks'
 import Link from 'next/link'
-import { Context } from'../../context'
+import { Context } from '../../context'
 import fetchJson from '../../pages/api/lib/hooks/fetchJson'
 import { IconInfo } from '../../public/icons'
 import { IconLogo } from '../../components/common/logo'
@@ -13,6 +13,7 @@ import { VALIDATE_EXISTING } from './queries'
 import { Anchor, Container, ContentInfo, ContentTerms, Form, ImgTaken, Info, InputDate, Line, Logo, Text, Tooltip, FooterComponent, DivInputs } from './styled'
 import { BGColor, SCColor } from '../../public/colors'
 import { LoadEllipsis } from '../../components/Loading'
+import { CREATE_CURRENT_SESSION } from '../Login/queries'
 
 export const RegisterUserC = () => {
     // State
@@ -24,7 +25,7 @@ export const RegisterUserC = () => {
     const router = useRouter()
     const [baseImage, setBaseImage] = useState('')
     const [isChecked, setIsChecked] = useState(false)
-    const { setAlertBox } = useContext(Context)
+    const { setAlertBox, setSessionActive } = useContext(Context)
     //   Handles
     const handleChecked = event => {
         setIsChecked(event.target.checked)
@@ -70,6 +71,15 @@ export const RegisterUserC = () => {
         fileInputRef?.current?.click()
     }
     // const uAvatar = baseImage.trim()
+    const [loginUser, { loading: loadingLogin }] = useMutation(CREATE_CURRENT_SESSION, {
+        onError: error => {
+            setAlertBox({
+                message: 'an internal error occurred',
+                duration: 300000,
+                color: 'error'
+            })
+        }
+    })
     const body = {
         userName: values.userName,
         uEmail: values.uEmail,
@@ -78,17 +88,21 @@ export const RegisterUserC = () => {
     const handleRegister = async event => {
         event.preventDefault()
         try {
-            await fetchJson(`${ URL_BASE }auth/register`, {
+            await fetchJson(`${URL_BASE}auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             })
                 .then(res => {
-                    if (res) {
-                        router.push('/switch-options')
+                    if (res.success) {
+                        loginUser({ variables: { uEmail: values.uEmail, uPassword: values.uPassword, idBrowser: '' } })
+                            .then(res => {
+                                setSessionActive({ data: res.data.loginUser.user })
+                                router.push('/switch-options')
+                            })
                     }
                     setAlertBox({
-                        message: `${ res?.message }`,
+                        message: `${res?.message}`,
                         duration: 300000,
                         color: 'success'
                     })
@@ -109,7 +123,7 @@ export const RegisterUserC = () => {
                 })
         } catch (error) {
             setAlertBox({
-                message: `${ error }`,
+                message: `${error}`,
                 duration: 30000,
                 color: 'error'
             })
@@ -119,7 +133,7 @@ export const RegisterUserC = () => {
     const handleBlur = e => {
         e.target.value && verifyRegistration({ variables: { uEmail: e.target.value } })
     }
-    const loading = loadingValidate
+    const loading = loadingValidate  || loadingLogin
     return (
         <Container>
             <Form onSubmit={handleRegister}>
@@ -196,8 +210,8 @@ export const RegisterUserC = () => {
                     <span> <Text size='12px'> By selecting Login with email I accept the </Text>{<Link href='/terms_and_conditions'>
                         <Anchor>Terms and conditions of use </Anchor>
                     </Link>}<Text size='12px'> and has read our</Text> <Link href='/terms_and_conditions'>
-                        <Anchor>Global Privacy Statement. </Anchor>
-                    </Link> </span>
+                            <Anchor>Global Privacy Statement. </Anchor>
+                        </Link> </span>
                 </ContentTerms>
                 <ButtonHook bgColor={SCColor} disabled={!values?.ConfirmPassword} padding='10px' margin='15px 0px' width='100%' type='submit' >{loading ? <LoadEllipsis /> : 'Register'}</ButtonHook>
                 <Text size='12px'> you already have a Smart account ?</Text>
