@@ -11,6 +11,7 @@ export const TableResponsive = styled.div`
 `
 export const Button = styled.button`
     background-color: transparent;
+
 `
 export const Section = styled.th`
      display: grid;
@@ -30,23 +31,25 @@ export const Section = styled.th`
 
 export const Content = styled.div`
     display: flex;
-    align-items:center;
+    align-items: center;
     margin: 10px 0;
-    padding-right: 15px;
+    justify-content: space-around;
     ${({ column }) => column && css`
         flex-direction: column;
         justify-content:center;
-        align-items:flex-start};
+        align-items: flex-start};
     `}
     justify-content: ${({ justify }) => justify || 'start'};
 
 `
 export const Title = styled.span`
     cursor: ${({ pointer }) => pointer && 'pointer'};
-    font-size: 13px;
+    font-size: 1.1em;
     font-family: PFont-Regular;
     user-select: none;
     margin-right: 30px;
+    pointer-events: none;
+
 `
 export const Box = styled.div`
     display: flex;
@@ -210,10 +213,21 @@ export const CurrentPage = styled.span`
 export const ArrowsLabel = styled.label`
     display: flex;
     flex-direction: column;
+    user-select: none; 
+    position: relative;
+
+    /* pointer-events: none; */
+
 `
 export const ArrowsCheck = styled.input`
-    display: none;
+    /* display: none; */
     /* opacity: 0; */
+    top: 14%;
+    z-index: 999;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
 `
 export const A = styled.a`
     text-decoration:none;

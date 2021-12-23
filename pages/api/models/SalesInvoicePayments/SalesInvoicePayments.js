@@ -182,7 +182,11 @@ const SalesInvoicePayments = new Schema({
             type: String,
             required: true
         },
+        currency: {
+            type: String,
+            required: false
+        },
     }]
 })
 
-module.exports = mongoose.models.salesinvoicepayment || mongoose.model('salesinvoicepayment', SalesInvoicePayments)
+module.exports = mongoose.models.spicesalesinvoicepayment || mongoose.model('spicesalesinvoicepayment', SalesInvoicePayments)

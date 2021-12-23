@@ -23,7 +23,7 @@ export const Invoice = ({ idInvoice }) => {
         if (data) {
             setOpenModal(true)
         }
-    }, [])
+    }, [data])
     const [isRedoStateInvoice] = useMutation(IS_REDO_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isRedoStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({

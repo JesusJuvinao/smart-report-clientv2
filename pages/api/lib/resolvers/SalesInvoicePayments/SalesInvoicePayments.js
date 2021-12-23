@@ -8,17 +8,16 @@ import { transporter } from '../../../utils'
 import moment from 'moment'
 
 
-export const getInvoicePay = async (_root, _, ctx) => {
+export const getInvoicePay = async (_root, { idComp, search, max }, ctx) => {
     try {
-        console.log('Hola mundo')
-        const data = await SalesInvoicePayments.find({})
+        const idUser = ctx.User.id
+        const data = await SalesInvoicePayments.find({ idComp: idComp })
         return data
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
 export const createInvoicePaymentMutation = async (_, { input, inputLineItems }, ctx) => {
-
     try {
         const { setDataPay } = inputLineItems || {}
         const InvoiceData = await CommissionSchema.findOne({ _id: '61bea751746e9fa4a79ffca7' })
@@ -27,7 +26,6 @@ export const createInvoicePaymentMutation = async (_, { input, inputLineItems },
         const mailer = transporter()
         if (!InvoiceData) return;
         const idUser = ctx.User.id
-        console.log(ctx.User)
         // const user = await UserSchema.findById({ _id: idUser })
         for (let i = 0; i < setDataPay.length; i++) {
             console.log(setDataPay[i])
@@ -49,8 +47,6 @@ export const createInvoicePaymentMutation = async (_, { input, inputLineItems },
                 })
             })
         }
-
-
 
         const data = await SalesInvoicePayments.create({ ...input })
         for (let i = 0; i < setDataPay.length; i++) {

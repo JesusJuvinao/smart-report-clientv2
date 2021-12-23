@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components'
 import { StyleSheet } from '@react-pdf/renderer'
-import { BColor, BGColor, EColor, ESFColor, PColor, SECColor, PVColor } from '../../public/colors'
+import { BColor, BGColor, EColor, ESFColor, PColor, SECColor, PVColor, TBGSColor } from '../../public/colors'
 
 const pulse = keyframes`
   0% {
@@ -17,6 +17,7 @@ export const WrapperButtonAction = styled.div`
 `
 export const Options = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: ${({ direction }) => direction || 'column'};
   justify-content: space-between;
   ${props => props.justify && css`
@@ -35,7 +36,6 @@ export const Button = styled.button`
   padding: ${({ padding }) => padding || '7px'};
   height: ${({ height }) => height || '50px'};
   font-family: PFont-Light;
-  font-weight: 500;
   transition: 100ms;
   display: inline-flex;
   cursor: pointer;
@@ -44,11 +44,18 @@ export const Button = styled.button`
   position: relative;
   overflow: hidden;
   color: ${BColor};
+  font-size: ${({ size }) => size || '1.1em'};
   ${props => props.active && css`
     border-bottom: 3px solid ${PColor};
     font-weight: 400;
     border: 1px solid #ccc;
   ` }
+  ${props => props.border && css`
+  border-bottom: 1px solid #ccc;
+  &:last-child {
+    border-bottom: none;
+  }
+  `}
   ${props => props.shadow && css`
     box-shadow: 0 2px 16px 0 rgb(0 0 0 / 10%);
     margin-right: 24px;
@@ -90,17 +97,238 @@ export const Circle = styled.div`
     box-shadow: 0 0 0 5px #ebeef3, 0 0 0 10px #f3f4f6;
   ` }
 `
+export const CheckAnimation = styled.div`
+ .success-checkmark {
+    width: 50px;
+    height: 40px;
+    margin: 0 auto;
+    
+    .check-icon {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        border-radius: 50%;
+        box-sizing: content-box;
+        border: 4px solid #4CAF50;
+        
+        &::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+        
+        &::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+        
+        &::before, &::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            transform: rotate(-45deg);
+        }
+        
+        .icon-line {
+            height: 5px;
+            background-color: #4CAF50;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+            
+            &.line-tip {
+                top: 46px;
+                left: 14px;
+                width: 25px;
+                transform: rotate(45deg);
+                animation: icon-line-tip 0.75s;
+            }
+            
+            &.line-long {
+                top: 38px;
+                right: 8px;
+                width: 47px;
+                transform: rotate(-45deg);
+                animation: icon-line-long 0.75s;
+            }
+        }
+        
+        .icon-circle {
+            top: -4px;
+            left: -4px;
+            z-index: 10;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            box-sizing: content-box;
+            border: 4px solid rgba(76, 175, 80, .5);
+        }
+        
+        .icon-fix {
+            top: 8px;
+            width: 5px;
+            left: 26px;
+            z-index: 1;
+            height: 85px;
+            position: absolute;
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+@keyframes rotate-circle {
+    0% {
+        transform: rotate(-45deg);
+    }
+    5% {
+        transform: rotate(-45deg);
+    }
+    12% {
+        transform: rotate(-405deg);
+    }
+    100% {
+        transform: rotate(-405deg);
+    }
+}
+
+@keyframes icon-line-tip {
+    0% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+    54% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+    70% {
+        width: 50px;
+        left: -8px;
+        top: 37px;
+    }
+    84% {
+        width: 17px;
+        left: 21px;
+        top: 48px;
+    }
+    100% {
+        width: 25px;
+        left: 14px;
+        top: 45px;
+    }
+}
+
+@keyframes icon-line-long {
+    0% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+    65% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+    84% {
+        width: 55px;
+        right: 0px;
+        top: 35px;
+    }
+    100% {
+        width: 47px;
+        right: 8px;
+        top: 38px;
+    }
+}
+`
+export const Clip = styled.div`
+  .chip{
+    display: inline-flex;
+    flex-direction: row;
+    background-color: #e5e5e5;
+    border: none;
+    cursor: default;
+    height: 30px;
+    outline: none;
+    padding: 0;
+    font-size: 14px;
+    font-color: #333333;
+    font-family:"Open Sans", sans-serif;
+    white-space: nowrap;
+    align-items: center;
+    border-radius: 16px;
+    vertical-align: middle;
+    text-decoration: none;
+    justify-content: center;
+}
+.chip-head{
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    ${props => props.active ? css`
+      background-color: ${PColor};
+      ` : css`
+      background-color: ${EColor};
+    `}
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    align-items: center;
+    user-select: none;
+    border-radius: 50%;
+    justify-content: center;
+    width: 36px;
+    color: #fff;
+    height: 36px;
+    font-size: 20px;
+    margin-right: -4px;
+}
+.chip-content{
+    cursor: inherit;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    white-space: nowrap;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.chip-svg{
+        color: #999999;
+    cursor: pointer;
+    height: auto;
+    margin: 4px 4px 0 -8px;
+  fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 24px;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    user-select: none;
+    flex-shrink: 0;
+}
+.chip-svg:hover{
+    color: #666666;
+}
+`
 export const PaymentStatus = styled.div` 
   height: 15px;
   text-align: center;
-  display: grid;
+  display: flex;
   place-content: center;
   ${props => props.active
     ? css`
         color #12d4aa7d;
-    `
+        `
     : css`
-    box-shadow: 0 0 0 5px #ebeef3, 0 0 0 10px #f3f4f6;
+    color ${BColor};
   ` }
 `
 export const CircleCompany = styled.div` 
@@ -151,7 +379,7 @@ export const OptionsFunction = styled.div`
     height: 200px;
     z-index: 999;
     width: 200px;
-    right: 110px;
+    right: 130px;
     grid-template-columns: auto;
     padding: 10px 0;
     top: 60px;
@@ -355,11 +583,12 @@ export const Section = styled.div`
     align-items: center;
     margin: 0 auto;
     border-bottom: 1px solid #f0f0f0;
-    background-color: ${({ bgRow }) => bgRow === 1 ? `${TBGAColor}` : bgRow === 2 ? `${TBGVColor}` : bgRow === 3 ? `${TBGBColor}` : bgRow === 4 ? `${TBGSColor}` : bgRow === 5 ? TBGAColor : bgRow === 6 ? TBGEColor : bgRow === 7 ? TBGRColor : bgRow === 8 && TBGDColor};
+    background-color: #8e8e8e5e;
+    /* background-color: ${({ bgRow }) => bgRow === 1 ? `${TBGAColor}` : bgRow === 2 ? `${TBGVColor}` : bgRow === 3 ? `${TBGBColor}` : bgRow === 4 ? `${TBGSColor}` : bgRow === 5 ? TBGAColor : bgRow === 6 ? TBGEColor : bgRow === 7 ? TBGRColor : bgRow === 8 && TBGDColor}; */
     :hover {
         background-color: rgba(0,0,0,.075);
         :first-child {
-            background-color: #fff;
+            background-color: #ccc;
         }
     }
 `

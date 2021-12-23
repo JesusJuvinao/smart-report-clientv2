@@ -196,6 +196,7 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -352,7 +353,7 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            const data = await CommissionSchema.find({ invoiceFrom: dataCompany.companyName })
+            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
             return data
         }
     } catch (error) {
@@ -361,15 +362,12 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
 }
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max }, ctx) => {
     const idUser = ctx.User.id
-    // const idUser = '61adeb3c2256283be0cb5c2d'
-    console.log(idUser)
-    console.log(search, idComp, CompName, min, max)
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName }).sort({ age: -1 }).limit(max || 100)
+            const data = await CommissionSchema.find({ invoiceFrom: dataCompany.companyName }).sort({ age: -1 }).limit(max || 100)
             return data
         }
     } catch (error) {

@@ -14,8 +14,8 @@ import { AwesomeModal } from '../../components/AwesomeModal'
 import Tabs from '../../components/Tabs'
 import { DocumentPdf } from './Document'
 import { Pagination } from '../../components/Pagination'
-import { IconArrowBottom, IconArrowTop, IconDelete, IconDost, IconEdit, IconFolder, IconShowEye, IconPDF, IconCancel, IconPlus } from '../../public/icons'
-import { BlueButton, ButtonAdd, ButtonContentT, CardInvoice, ContainerInfo, Content, ContentHead, ContentListInvoice, ContentModal, CtnInfo, FilterOptions, HeaderModal, Options, PaymentStatus, Tooltip } from './styled'
+import { IconArrowBottom, IconArrowTop, IconDelete, IconDost, IconEdit, IconFolder, IconShowEye, IconPDF, IconCancel, IconPlus, IconPay, IconCheck, IconDelTag } from '../../public/icons'
+import { BlueButton, ButtonAdd, ButtonContentT, CardInvoice, CheckAnimation, Clip, ContainerInfo, Content, ContentHead, ContentListInvoice, ContentModal, CtnInfo, FilterOptions, HeaderModal, Options, PaymentStatus, Tooltip } from './styled'
 import {
     Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format
 } from './styled'
@@ -27,7 +27,8 @@ import { useSetState } from '../../components/hooks/useState'
 import NewSelect from '../../components/NewSelectHooks'
 import { Overline } from '../../components/common/Reusable'
 import { SpinnerColorJust } from '../../components/Loading'
-
+import currencyFormatter from 'currency-formatter'
+// {currencyFormatter.format(calculateAmount(x.quantity, x.rate)
 export const DashboardComp = ({ idComp }) => {
     const router = useRouter()
     const name = router.query.name
@@ -37,8 +38,7 @@ export const DashboardComp = ({ idComp }) => {
     const [showMore, setShowMore] = useState(0)
     const { data, loading } = useQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore } })
     const { data: DataReceived, loading: loadingR } = useQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
-    // if (loading) return <Loading />
-
+    console.log(data, 'SEND DATA')
     return (
         <ContentListInvoice>
             <FilterOptions>
@@ -52,14 +52,9 @@ export const DashboardComp = ({ idComp }) => {
                         <SentBillComponent loading={loading} setShowMore={setShowMore} showMore={showMore} data={data} />
                     </>
                 </Tabs.Panel>
-                <Tabs.Panel label={`Invoice received ${DataReceived ? DataReceived?.getAllCommissionInvoiceReceived?.length : 0}`}>
+                <Tabs.Panel label={`Invoices Received ${DataReceived ? DataReceived?.getAllCommissionInvoiceReceived?.length : 0}`}>
                     <>
                         <InvoiceReceivedComponent loading={loadingR} setShowMore={setShowMore} showMore={showMore} data={DataReceived} />
-                    </>
-                </Tabs.Panel>
-                <Tabs.Panel label={`Pending to pay`}>
-                    <>
-                        <PendingToPay loading={loadingR} setShowMore={setShowMore} showMore={showMore} data={DataReceived} />
                     </>
                 </Tabs.Panel>
             </Tabs>
@@ -113,17 +108,18 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
     const handlePayState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'stuart.wilson@smartaccountingonline.com', uEmail: 'stuart.wilson@smartaccountingonline.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const handleRedoState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: 'stuart.wilson@smartaccountingonline.com', uEmail: 'stuart.wilson@smartaccountingonline.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const handleApprovedInvoiceState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isApprovedByInvoiceSenderMutation({ variables: { idInvoice: id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        console.log(data)
+        isApprovedByInvoiceSenderMutation({ variables: { idInvoice: _id, ToEmail: 'stuart.wilson@smartaccountingonline.com', uEmail: 'stuart.wilson@smartaccountingonline.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const [show, setShow] = useState(false)
     const [open, setOpen] = useState(false)
@@ -244,7 +240,6 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
     const handleClickAddInvoice = elem => {
         setDataInv(elem)
         setOpenModal(!openModal)
-        console.log(statePay?.Addtopay?.includes(elem._id))
         if (statePay.Addtopay.filter((x) => x.idx === elem.idx)) {
             // dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
         } else {
@@ -280,25 +275,29 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
             {active.state && <ModalAddInvoicePaymentState Handleremove={Handleremove} handleClickAddInvoice={addInvoice} data={data?.getAllCommissionInvoiceReceived} showModalInvoice={showModalInvoice} dispatchInvoice={dispatchInvoice} statePay={statePay} />}
             <Table
                 titles={[
-                    { name: 'eventName', arrow: true, key: 'eventName', width: '10%' },
-                    { name: 'invoiceTo', arrow: true, key: 'invoiceTo', width: '10%' },
-                    { name: 'invoiceTotal', arrow: true, key: 'invoiceTotal', width: '10%' },
-                    { name: 'totalDiscounts', arrow: true, key: 'totalDiscounts', width: '10%' },
-                    { name: 'totalCommDue', arrow: true, key: 'totalCommDue', width: '10%' },
-                    { name: 'totalSalesReceived', arrow: true, key: 'totalSalesReceived', width: '10%' },
-                    { name: 'eventCommences', arrow: true, key: 'eventCommences', width: '10%' },
-                    { name: 'uploaded', arrow: true, key: 'uploaded', width: '10%' },
-                    { name: 'Payment', arrow: true, key: 'Payment', width: '10%' },
-                    { name: 'Action', width: '10%' }
+                    { name: 'EventCommences', arrow: true, key: 'eventCommences', width: '9%' },
+                    { name: 'Event Name', arrow: true, key: 'eventName', width: '9%' },
+                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '9%' },
+                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '9%' },
+                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '9%' },
+                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '9%' },
+                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '9%' },
+                    { name: 'Date Received', width: '9%' },
+                    { name: 'Is Pay Invoice', width: '9%' },
+                    { name: 'Approved Invoice', width: '9%' },
+                    { name: 'Action', width: '9%' }
                 ]
                 }
                 data={data?.getAllCommissionInvoiceReceived}
-                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${SVColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
+                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section pointer={true} bgRow={4} padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${SVColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                         dispatch({ type: 'select', payload: i })
                         e.target.blur()
                     }
-                }} >
+                }} >{console.log(elem)}
+                    <Wrapper>
+                        <Text size='15px'> {elem.eventCommences && dateFormat(elem.eventCommences)}</Text>
+                    </Wrapper>
                     <Wrapper>
                         <Text size='15px'>{elem.eventName}</Text>
                     </Wrapper>
@@ -306,26 +305,39 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
                         <Text size='15px'> {elem.invoiceTo}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.invoiceTotal}</Text>
+                        <Text size='15px'>{currencyFormatter.format((elem.invoiceTotal), { code: elem?.currency ? elem?.currency : 'GBP' })}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.totalDiscounts}</Text>
+                        <Text size='15px'>{currencyFormatter.format((elem.totalDiscounts), { code: elem?.currency ? elem?.currency : 'GBP' })} </Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.totalCommDue}</Text>
+                        <Text size='15px'>{currencyFormatter.format((elem.totalCommDue), { code: elem?.currency ? elem?.currency : 'GBP' })} </Text>
                     </Wrapper>
                     <Wrapper>
                         <Text size='15px'> {elem.totalSalesReceived}</Text>
                     </Wrapper>
-                    <Wrapper>
-                        <Text size='15px'> {elem.eventCommences !== null && dateFormat(elem.eventCommences)}</Text>
-                    </Wrapper>
+
                     <Wrapper>
                         <Text size='15px'> {dateFormat(elem.uploaded)}</Text>
                     </Wrapper>
                     <Wrapper>
                         <PaymentStatus active={elem?.isPaid} >
-                            <Text size='15px' color={elem?.isPaid && PColor}> {elem?.isPaid ? 'Payment' : 'No Payment'}</Text>
+                            <Clip active={elem.isPaid}>
+                                <div className="chip">
+                                    <div className="chip-head">  {!elem?.isPaid ? <IconCancel size='18px' color={!elem?.isPaid ? BGColor : PColor} /> : <IconCheck size='15px' />} </div>
+                                    <div className="chip-content"> <Text size='15px' color={elem?.isPaid && PColor}> {elem?.isPaid ? 'Paid' : 'No Payment'}</Text></div>
+                                </div>
+                            </Clip>
+                        </PaymentStatus>
+                    </Wrapper>
+                    <Wrapper>
+                        <PaymentStatus active={elem?.isApprovedByInvoiceSender} >
+                            <Clip active={elem.isPaid}>
+                                <div className="chip">
+                                    <div className="chip-head">  {!elem?.isApprovedByInvoiceSender ? <IconCancel size='18px' color={!elem?.isApprovedByInvoiceSender ? BGColor : PColor} /> : <IconCheck size='15px' />} </div>
+                                    <div className="chip-content"> <Text size='15px' color={elem?.isApprovedByInvoiceSender && PColor}> {elem?.isApprovedByInvoiceSender ? 'Approved' : 'No Approved'}</Text></div>
+                                </div>
+                            </Clip>
                         </PaymentStatus>
                     </Wrapper>
                     <Wrapper>
@@ -333,9 +345,10 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
                             <div style={{ display: 'contents' }}><Button onClick={() => setShow(elem === show ? false : elem)}><IconDost size={30} color={show === elem ? PColor : '#000'} /></Button></div>
                         </WrapperButtonAction>
                         <OptionsFunction show={show === elem}>
-                            <Button height='auto' onClick={() => handleClick({ ...elem })} ><Text>View</Text></Button>
-                            <Button height='auto' onClick={() => handleRedoState(elem)} ><Text>Redo invoice</Text></Button>
-                            <Button onClick={() => handleClickAddInvoice(elem)}> <Text>{!elem?.isPaid ? 'Mark Payment' : 'Mark No Payment'}</Text></Button>
+                            <Button border height='auto' onClick={() => handleClick({ ...elem })} ><Text size='1.1em'>View Invoice</Text></Button>
+                            <Button border height='auto' onClick={() => handleRedoState(elem)} ><Text size='1.1em'>Redo invoice</Text></Button>
+                            {elem.isApprovedByInvoiceSender === true && <Button border onClick={() => handleClickAddInvoice(elem)}> <Text size='1.1em'>{!elem?.isPaid ? 'Mark Paid' : 'Mark Unpaid'}</Text></Button>}
+                            <Button border onClick={() => handleApprovedInvoiceState(elem)}> <Text size='1.1em'>{elem.isApprovedByInvoiceSender ? 'Mark as not Approved' : 'Mark approved'}</Text></Button>
                         </OptionsFunction>
                     </Wrapper>
                 </Section>)}
@@ -391,12 +404,12 @@ export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
     const handlePayState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'stuart.wilson@smartaccountingonline.com', uEmail: 'stuart.wilson@smartaccountingonline.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const handleRedoState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: 'stuart.wilson@smartaccountingonline.com', uEmail: 'stuart.wilson@smartaccountingonline.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const [show, setShow] = useState(false)
     const [open, setOpen] = useState(false)
@@ -498,14 +511,12 @@ export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
         setOpenModal(!openModal)
         const results = statePay?.Addtopay?.filter(function (elem) { return elem._id === elem._id; });
         const firstObj = (results.length > 0) ? results[0] : null;
-        console.log(firstObj)
         if (!firstObj) {
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
         } else {
             console.log('No se puede')
         }
     }
-    console.log(statePay?.Addtopay)
     const addInvoice = elem => {
         let includes = statePay?.Addtopay.includes(elem);
         if (includes) {
@@ -539,25 +550,28 @@ export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
             {active.state && <ModalAddInvoicePaymentState handlePayState={handlePayState} Handleremove={Handleremove} handleClickAddInvoice={addInvoice} data={data?.getAllCommissionInvoiceSent} showModalInvoice={showModalInvoice} dispatchInvoice={dispatchInvoice} statePay={statePay} />}
             <Table
                 titles={[
-                    { name: 'eventName', arrow: true, key: 'eventName', width: '10%' },
-                    { name: 'invoiceTo', arrow: true, key: 'invoiceTo', width: '10%' },
-                    { name: 'invoiceTotal', arrow: true, key: 'invoiceTotal', width: '10%' },
-                    { name: 'totalDiscounts', arrow: true, key: 'totalDiscounts', width: '10%' },
-                    { name: 'totalCommDue', arrow: true, key: 'totalCommDue', width: '10%' },
-                    { name: 'totalSalesReceived', arrow: true, key: 'totalSalesReceived', width: '10%' },
-                    { name: 'eventCommences', arrow: true, key: 'eventCommences', width: '10%' },
-                    { name: 'uploaded', arrow: true, key: 'uploaded', width: '10%' },
-                    { name: 'Payment', arrow: true, key: 'Payment', width: '10%' },
+                    { name: 'EventCommences', arrow: true, key: 'eventCommences', width: '10%' },
+                    { name: 'Event Name', arrow: true, key: 'eventName', width: '10%' },
+                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '10%' },
+                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '10%' },
+                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '10%' },
+                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '10%' },
+                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '10%' },
+                    { name: 'Date Received', width: '10%' },
+                    { name: 'State Invoice', width: '10%' },
                     { name: 'Action', width: '10%' }
                 ]
                 }
                 data={data?.getAllCommissionInvoiceSent?.filter(x => x.bDescription !== 0 && x)}
-                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${SVColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
+                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section bgRow={4} padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${SVColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                         dispatch({ type: 'select', payload: i })
                         e.target.blur()
                     }
-                }} >
+                }} >{console.log(elem?.currency)}
+                    <Wrapper>
+                        <Text size='15px'> {elem.eventCommences && dateFormat(elem.eventCommences)}</Text>
+                    </Wrapper>
                     <Wrapper>
                         <Text size='15px'>{elem.eventName}</Text>
                     </Wrapper>
@@ -566,19 +580,16 @@ export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
                     </Wrapper>
 
                     <Wrapper>
-                        <Text size='15px'> {elem.invoiceTotal}</Text>
+                        <Text size='15px'>{currencyFormatter.format((elem.invoiceTotal), { code: elem?.currency ? elem?.currency : 'GBP' })}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.totalDiscounts}</Text>
+                        <Text size='15px'>{currencyFormatter.format((elem.totalDiscounts), { code: elem?.currency ? elem?.currency : 'GBP' })}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.totalCommDue}</Text>
+                        <Text size='15px'>{currencyFormatter.format((elem.totalCommDue), { code: elem?.currency ? elem?.currency : 'GBP' })}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.totalSalesReceived}</Text>
-                    </Wrapper>
-                    <Wrapper>
-                        <Text size='15px'> {elem.eventCommences !== null && dateFormat(elem.eventCommences)}</Text>
+                        <Text size='15px'> {currencyFormatter.format((elem.totalSalesReceived), { code: elem?.currency ? elem?.currency : 'GBP' })}</Text>
                     </Wrapper>
                     <Wrapper>
                         <Text size='15px'> {dateFormat(elem.uploaded)}</Text>
@@ -593,9 +604,9 @@ export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
                             <div style={{ display: 'contents' }}><Button onClick={() => setShow(elem === show ? false : elem)}><IconDost size={30} color={show === elem ? PColor : '#000'} /></Button></div>
                         </WrapperButtonAction>
                         <OptionsFunction show={show === elem}>
-                            <Button height='auto' onClick={() => handleClick({ ...elem })} ><Text>View</Text></Button>
-                            <Button height='auto' onClick={() => handleRedoState(elem)} ><Text>Redo invoice</Text></Button>
-                            <Button onClick={() => handleClickAddInvoice(elem)}> <Text>{!elem?.isPaid ? 'Mark Payment' : 'Mark No Payment'}</Text></Button>
+                            <Button border height='auto' onClick={() => handleClick({ ...elem })} ><Text size='1.1em'>View</Text></Button>
+                            <Button border height='auto' onClick={() => handleRedoState(elem)} ><Text size='1.1em'>Redo invoice</Text></Button>
+                            <Button border onClick={() => handleClickAddInvoice(elem)}> <Text size='1.1em'>{!elem?.isPaid ? 'Mark Payment' : 'Mark No Payment'}</Text></Button>
                         </OptionsFunction>
                     </Wrapper>
                 </Section>)}
@@ -649,6 +660,7 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
         }).then(() => setAlertBox({ message: `Success`, duration: 8000, color: 'success' })
         ).catch(() => setAlertBox({ message: `Error interno`, duration: 8000, color: 'error' }))
     }
+    console.log(statePay?.Addtopay)
     return (
         <div>
             <AwesomeModal zIndex='999999' padding='20px' height='600px' useScroll={true} show={openModalConfirm} onHide={() => setOpenModalConfirm(false)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
@@ -663,17 +675,42 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
                     {statePay ? statePay?.Addtopay?.map((x, idx) => (
                         <CardInvoice key={x.idx}>
                             <HeaderModal>
-                                <Text>{x.eventName}</Text>
+                                <Text color={BColor} size='20px'>{x.eventName}</Text>
                                 <RippleButton bgColor='transparent' color={BGColor}
                                     onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
                                     <IconCancel size='15px' />
                                 </RippleButton>
-                                {x.idx}
+                                <span id='line' />
                             </HeaderModal>
-                            <Button
+                            <CtnInfo>
+                                <Text size={'1rem'} color={`${BColor}69`}># {x.invoiceRef}</Text>
+                            </CtnInfo>
+                            <CtnInfo>
+                                <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
+                                {x.eventCommences && <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
+                            </CtnInfo>
+                            <CtnInfo>
+                                <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
+                                <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                            </CtnInfo>
+                            <CtnInfo>
+                                <Text size={'1.125rem'} color={BColor}>INVOICE TO: </Text>
+                                <Text size={'1.125rem'} color={BColor}>{x.invoiceTo}</Text>
+                            </CtnInfo>
+                            <CtnInfo border>
+                                <ButtonContentT>
+                                    <Tooltip onClick={() => handlePayState(x)}>PAYMENT NOW</Tooltip>
+                                    <BlueButton onClick={() => handlePayState(x)}>{'MARK PAYMENT NOW'}</BlueButton>
+                                </ButtonContentT>
+                                <Options justify>
+                                    <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
+                                    <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
+                                </Options>
+                            </CtnInfo>
+                            {/* <Button
                                 onClick={() => dispatchInvoice({ type: "TOGGLE_INVOICE", idx })}>
                                 PAY
-                            </Button>
+                            </Button> */}
                         </CardInvoice>
                     )) : <div>No data</div>}
                 </ContentModal>
@@ -683,7 +720,7 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
                 </Options>
                 <ContainerInfo>
                     <Options direction='row'>
-                        <NewSelect topTitle='30px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} />
+                        <NewSelect topTitle='10px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
                         <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('object')}>Today</Button>
@@ -691,10 +728,10 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
                         <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false).length} / {data?.length || 0}  Invoice </Text>
                     </Options>
                     <ContentModal height={'90vh'}>
-                        {data ? data?.filter(x => x.isPaid === false).map(x => (
+                        {data ? data?.filter(x => x.isPaid === false && x.invoiceTo === statePay?.Addtopay[0]?.invoiceTo).map(x => (
                             <CardInvoice key={x.id}>
-                                <HeaderModal>{console.log(x)}
-                                    <Text color={BColor} size='15px'>{x.eventName}</Text>
+                                <HeaderModal>
+                                    <Text color={BColor} size='20px'>{x.eventName}</Text>
                                     <ButtonAdd bgColor='transparent' color={BGColor}
                                         onClick={() => handleClickAddInvoice(x)}>
                                         <IconPlus color={PVColor} size='25px' />
@@ -706,11 +743,15 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
                                 </CtnInfo>
                                 <CtnInfo>
                                     <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
-                                    <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>
+                                    {x.eventCommences && <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
                                 </CtnInfo>
                                 <CtnInfo>
                                     <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
                                     <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                                </CtnInfo>
+                                <CtnInfo>
+                                    <Text size={'1.125rem'} color={BColor}>INVOICE TO: </Text>
+                                    <Text size={'1.125rem'} color={BColor}>{x.invoiceTo}</Text>
                                 </CtnInfo>
                                 <CtnInfo border>
                                     <ButtonContentT>

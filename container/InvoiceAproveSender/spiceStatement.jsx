@@ -1,3 +1,5 @@
+import { dateFormat } from "../../utils";
+
 const Styles = {
     body: {
         backgroundColor: '#fff',
@@ -245,6 +247,17 @@ const Styles = {
         justifyContent: 'flex-end',
         textAlign: 'start',
     },
+    TextInfo: {
+        display: 'inline-block',
+        overflow: 'hidden',
+        fontSize: '40px',
+        fontFamily: '\'Roboto\',sans-serif',
+        fontWeight: '300',
+        color: '#000000',
+        wordBreak: 'break-word',
+        lineHeight: 1.4,
+        verticalAlign: 'middle',
+    },
     btn: {
         minHeight: '36px',
         fontWeight: '300',
@@ -272,308 +285,580 @@ const Styles = {
 }
 const data = [
     {
-        "_id": "61bea751746e9fa4a79ffca7",
-        "agentDetails": {
-            "legalName": "SPICE MANCHESTER LIMITED",
-            "agentContact": "Lauren Fawkes",
-            "agentTradingName": "Spice Manchester",
-            "agentEmail": "lauren@spicemcr.com",
-            "agentAddress1": "11 Claremont Avenue",
-            "agentAddress2": "",
-            "agentAddress3": "",
-            "agentCity": "West Timperley",
-            "agentCounty": "Altrincham",
-            "agentCountry": "England",
-            "agentPostCode": "WA14 5NF",
-            "VATRegNo": "926 7426 03",
-            "agentVATRegistered": true,
-            "agentCompanyNumber": "06505643",
-            "id": 5
-        },
-        "invoiceDate": "03/07/2021",
-        "invoiceRef": "diy0iF8F4V_tRtWz2IaQB",
-        "invoiceTo": "Spice Manchester",
-        "invoiceFrom": "Spice East Midlands",
-        "eventType": "Non-TOMS",
-        "eventRef": "EM0031514",
-        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-        "eventCommences": "03/07/2021 18:30",
-        "invoiceTotal": 0,
-        "totalCommDue": 0,
-        "totalSalesReceived": 0,
-        "totalDiscounts": 0,
-        "vatOnComms": 0,
-        "isVATRegistered": true,
-        "lineItemsArray": [
+        "_id" : "61c3aa461d9cfd488813c2fc",
+        "Date" : "2021-12-22T22:25:41.043Z",
+        "isPaymentConfirm" : false,
+        "idComp" : "61c38c5500f2d114980e255f",
+        "Idescription" : "jhbjhjvhjvjhvjhhhjhjhjhjhjhjhjhjhvjhvjhvjhvjhvjhknlknlknlknlknlklklk",
+        "totalInvoicePayment" : 7009.84,
+        "lineItemsInvoiceIsPay" : [ 
             {
-                "subtotalTicketsSold": 9,
-                "ticketType": "Member",
-                "lineSalesReceived": 0,
-                "lineSubtotal": 0,
-                "lineCommSubtotal": 0,
-                "lineItemVATOnComm": 0,
-                "ticketCategoryTotalDue": 0,
-                "totalTicketTypeDiscount": 0,
-                "subtotalTicketTypeLessDiscount": 0,
-                "ticketPrice": 0,
-                "newArray": [
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa461d9cfd488813c2fe",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "fFeHZiDlshAI8vEKOjUS5",
-                        "bookingRef": "MCR0393394",
-                        "bookedOn": "31/05/2021 09:55",
-                        "client": "Annie Train",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffcad"
-                    },
+                        "_id" : "61c3aa461d9cfd488813c2ff",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa471d9cfd488813c301",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "eEZhEgTrQU9ttX9TwM2cQ",
-                        "bookingRef": "MCR0393693",
-                        "bookedOn": "25/06/2021 23:49",
-                        "client": "Jason Massey",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffcb2"
-                    },
+                        "_id" : "61c3aa471d9cfd488813c302",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa471d9cfd488813c304",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "OQ6aA2eMKbYgZ-JoWOlNA",
-                        "bookingRef": "MCR0393663",
-                        "bookedOn": "22/06/2021 23:06",
-                        "client": "Ian Weir",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffcb3"
-                    },
+                        "_id" : "61c3aa471d9cfd488813c305",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa471d9cfd488813c308",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "nccyDadhxGAP7AJ8EAxYm",
-                        "bookingRef": "MCR0393268",
-                        "bookedOn": "20/05/2021 17:42",
-                        "client": "Julie Close",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffcc0"
-                    },
+                        "_id" : "61c3aa471d9cfd488813c309",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa471d9cfd488813c30c",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "DfREPwNOE-dSIsyuqudbS",
-                        "bookingRef": "MCR0393272",
-                        "bookedOn": "20/05/2021 18:13",
-                        "client": "Helen Dale",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffcc1"
-                    },
+                        "_id" : "61c3aa471d9cfd488813c30d",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa471d9cfd488813c310",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "rp3RUzgLIYGX9RLJ1o0PR",
-                        "bookingRef": "MCR0393273",
-                        "bookedOn": "20/05/2021 18:23",
-                        "client": "Hazel Burgess",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffcc2"
-                    },
+                        "_id" : "61c3aa471d9cfd488813c311",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa471d9cfd488813c314",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "vJFuTj3J7VNxyZXFgIiYz",
-                        "bookingRef": "MCR0393503",
-                        "bookedOn": "09/06/2021 21:38",
-                        "client": "Janice Peel",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffcca"
-                    },
+                        "_id" : "61c3aa471d9cfd488813c315",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa471d9cfd488813c317",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "GfbpYEUTnCXCkdoWlxAcK",
-                        "bookingRef": "MCR0393469",
-                        "bookedOn": "06/06/2021 06:15",
-                        "client": "Ellen Davies",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffccc"
-                    },
+                        "_id" : "61c3aa471d9cfd488813c318",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c31a",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
                     {
-                        "id": "97GYB-0aZylWQOM9nmd2r",
-                        "bookingRef": "MCR0393467",
-                        "bookedOn": "05/06/2021 23:50",
-                        "client": "Kathy Hanley",
-                        "ticketoption": "Member",
-                        "ticketquantity": 1,
-                        "ticketprice": 0,
-                        "totaldue": 0,
-                        "totaldueCalc": 0,
-                        "totalpaid": 0,
-                        "balancedue": 0,
-                        "commissionRatePercent": 5,
-                        "commissionpayable": 0,
-                        "agentCode": "Spice Manchester",
-                        "clientOwnerAtPurchaseDate": "Spice Manchester",
-                        "bookingStatus": "Booked",
-                        "eventName": "SPICE EXCLUSIVE: Rock n Roll Bingo",
-                        "eventOwner": "Spice East Midlands",
-                        "eventCommences": "03/07/2021 18:30",
-                        "discountRate": 0,
-                        "discountTotal": 0,
-                        "discountedTotalDue": 0,
-                        "eventRef": "EM0031514",
-                        "eventType": "Non-TOMS",
-                        "_id": "61bea751746e9fa4a79ffccd"
+                        "_id" : "61c3aa481d9cfd488813c31b",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c31d",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c31e",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c320",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c321",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c323",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c324",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c326",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c327",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c329",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c32a",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c32c",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c32d",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c32f",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c330",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa481d9cfd488813c332",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa481d9cfd488813c333",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa491d9cfd488813c335",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa491d9cfd488813c336",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa491d9cfd488813c338",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa491d9cfd488813c339",
+                        "newArray" : []
+                    }
+                ]
+            }, 
+            {
+                "isPaid" : false,
+                "isApprovedByInvoiceSender" : false,
+                "hasBeenReceived" : false,
+                "isRedo" : false,
+                "_id" : "61c3aa491d9cfd488813c33b",
+                "agentDetails" : {
+                    "legalName" : "SPICE BIRMINGHAM LIMITED",
+                    "agentContact" : "Steve Dell",
+                    "agentTradingName" : "Spice West Midlands",
+                    "agentEmail" : "steve@spicebham.com",
+                    "agentAddress1" : "Ryknild House",
+                    "agentAddress2" : "Burnett Road",
+                    "agentAddress3" : "Sutton Coldfield",
+                    "agentCity" : "",
+                    "agentCountry" : "England",
+                    "agentPostCode" : "B74 3EL",
+                    "VATRegNo" : "679 0904 96",
+                    "agentVATRegistered" : true,
+                    "agentCompanyNumber" : "04878169"
+                },
+                "lineItemsArray" : [ 
+                    {
+                        "_id" : "61c3aa491d9cfd488813c33c",
+                        "newArray" : []
                     }
                 ]
             }
         ],
-        "datePaid": "20/12/2021",
-        "hasBeenReceived": false,
-        "hasBeenSent": false,
-        "isOnStatement": true,
-        "statementId": "WDA7ZQ1RMv51a2Djj2Ms-"
+        "__v" : 0
     }
-
 ]
 export const InvoiceApproveSender = () => {
 
-    return (
+    return (    
         <div>
             <body style={Styles.body}>
                 <div style={Styles.container} >
@@ -583,40 +868,11 @@ export const InvoiceApproveSender = () => {
                         </div>
                         <div style={Styles.wrapperInfo}>
                             <div style={Styles.block}>
-                                <h5 style={Styles.textBold}>Commission Statement To: </h5>{console.log(data)}
-                            </div>
-                            <div style={Styles.block}>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.legalName} (T/a {data[0]?.agentDetails.agentTradingName})</h5>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.agentAddress1} </h5>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.agentAddress2} </h5>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.agentAddress3} </h5>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.agentCity} </h5>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.agentCounty} </h5>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.agentCountry} </h5>
-                                <h5 style={Styles.text}>{data[0]?.agentDetails.agentPostCode} </h5>
-                                <h5 style={Styles.text}>Company No:{data[0]?.agentDetails.agentCompanyNumber} </h5>
-                                <h5 style={Styles.text}>VAT Reg No:{data[0]?.agentDetails.VATRegNo} </h5>
-                                <h5 style={Styles.text}></h5>
+                                <h5 style={Styles.TextInfo}>{dateFormat(data[0]?.Date)}</h5>
                             </div>
                         </div>
                     </div>
-                    <h1 style={Styles.title}> Commission Statement</h1>
-                    <div style={Styles.subheader}>
-                        <div style={Styles.block}>
-                            <h2 style={Styles.textBlock}>Statement Date</h2>
-                            <h2 style={Styles.textBlock}>{data[0]?.invoiceDate}</h2>
-                        </div>
-                        <div style={Styles.block}>
-                            <h2 style={Styles.textBlock}>Agent Received</h2>
-                            <h2 style={Styles.textBlock}>£ dasda{data[0]?.totalGrossSalesReceivedByYou?.toString()}</h2>
-                        </div>
-                        <div style={Styles.block}>
-                            <h2 style={Styles.textBlock}>Other</h2>
-                            <h2 style={Styles.textBlock}>£ {data[0]?.totalDiscounts?.toString()}</h2>
-                        </div>
-                    </div>
-                    <div>
-                    </div>
+                    <h1 style={Styles.title}> Invoice Payment </h1>
                     <h2 style={Styles.headerline} > Event name {data[0].eventName}  {data[0]?.eventRef}, {data[0]?.eventCommences}  </h2>
                     <div style={Styles.lineitembox}>
                         <div style={Styles.Card}>
@@ -645,7 +901,7 @@ export const InvoiceApproveSender = () => {
                         </div>
                     </div>
                 
-                    {data && data[0]?.lineItemsArray?.map(item => {
+                    {data && data[0]?.lineItemsInvoiceIsPay?.map(item => {
                         return (
                             <div key={item._id}>
                                 <div style={Styles.section_one}>

@@ -174,7 +174,7 @@ export const GlobalStyle = createGlobalStyle`
         flex: 1;
         justify-content: "flex-end";
         zoom: 2;
-        transform: scale(1);
+        transform: scale(1.3);
         transform-origin: 0 0;
     }
 

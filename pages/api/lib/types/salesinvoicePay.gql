@@ -8,6 +8,7 @@ type SalesInvoicePay {
   idUser: ID
   idComp: ID
   Date: DateTime
+  currency: String
   Idescription: String
   totalInvoicePayment: Float
   isPaymentConfirm: Boolean
@@ -19,6 +20,7 @@ input ISalesInvoicePay {
   idUser: ID
   idComp: ID
   Date: DateTime
+  currency: String
   Idescription: String
   totalInvoicePayment: Float
   isPaymentConfirm: Boolean
@@ -43,6 +45,7 @@ input IlineItemsInvoicePay {
     _id: ID
     idUser: ID
     idComp: ID
+    currency: String
     idInvoice: ID
     isPaid: Boolean
     agentDetails: InputAgentDetails

@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
-import { BColor, PColor, SECColor } from '../../public/colors';
+import { BColor, BGColor, PColor, SECColor, PVColor  } from '../../public/colors';
 
 export const Content = styled.div`
   padding: 30px;
@@ -115,3 +115,130 @@ export const Button = styled.button`
     background: #282828;
   }
 `;
+export const CardInvoice = styled.div`
+    padding: 15px;
+    color: gray;
+    position: relative;
+    margin: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    border: 1px solid rgb(206, 206, 206);
+    box-shadow: 0 4px 0 rgb(91 105 135 / 20%);
+    border-radius: .5rem;
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    width: 100%;
+    &:hover {
+      border: 1px solid #c0c2d3;
+      box-shadow: 0 2px 0 rgb(91 105 135 / 20%);
+    }
+`
+
+export const ContentInvoice = styled.div`
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill,minmax(20%, 1fr));
+    position: relative;
+    /* overflow-y: auto; */
+    /* height: ${({ height }) => height || '50vh'}; */
+    /* min-height: ${({ height }) => height || '50vh'}; */
+    /* max-height: ${({ height }) => height || '50vh'}; */
+    @media only screen and (max-width: 960px){
+      grid-template-columns: repeat(auto-fill,minmax(25%, 1fr));
+    }
+    @media only screen and (max-width: 768px){
+      grid-template-columns: repeat(auto-fill,minmax(50%, 1fr));
+    }
+`
+export const HeaderModal = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+    & > #line {
+    line-height: 1.5;
+    font-family: "Inter", sans-serif;
+    font-weight: inherit;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #d2d6dc;
+    background-color: rgba(63,131,248);
+    display: block;
+    margin-top: 1rem;
+    width: 4rem;
+    height: 1.5px;
+    position: absolute;
+    margin-top: 30px;
+    }
+`
+export const ButtonAdd = styled.button`
+    position: absolute;
+    right: 0;
+    top: 0px;
+    border-radius: 10px 10px 10px 200px;
+    width: 60px;
+    height: 45px;
+    margin: 0;
+    overflow: hidden;
+    border: none;
+    line-height: 1.75;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    padding: .5em;
+    font-size: 12px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    font-family: PFont-Light;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    border-radius: 10px 10px 10px 200px;
+    width: 60px;
+    height: 45px;
+`
+export const CtnInfo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.5;
+  ${props => props.border && css`
+  border-top: 1px solid #33282830;
+  `}
+`
+export const Tooltip = styled.div`
+    cursor: pointer;
+    height: auto;
+    width: 100px;
+    background-color: ${BGColor};
+    transition: all 200ms ease-in-out;
+    padding: 5px;
+    box-shadow: rgba(10, 10, 10, 0.445) 0px 4px 12px;
+    position: absolute;
+    margin: 0;
+    right: 0;
+    visibility: hidden;
+    z-index: 999; 
+    opacity: 0;
+    &:hover {
+          background-color: rgb(44, 160, 28);
+          color: ${BGColor};
+    }
+`
+export const ButtonContentT = styled.div`
+  position: relative;
+  &:hover > ${Tooltip} {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(-35px);
+  }
+`

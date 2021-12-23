@@ -64,7 +64,7 @@ export const numberFormat = value => value && parseFloat(value) && new Intl.Numb
 // export const numberFormat = value => value ? (parseInt(value) ? new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(parseFloat(`${value}`.replace(/\./g, ''))) : '') : (value === 0 ? 0 : '')
 
 // valida los inputs
-export const dateFormat = value =>  !!moment(value).format('DD-MM-YYYY') ? moment(value).format('DD-MM-YYYY') : value
+export const dateFormat = value => moment(value).format('DD-MM-YYYY')
 export const validations = (e, typeNull, typeLetters, typeNumeric, typeRange, minRange, maxRange, typeEmail, typeFormat) => {
     let { value } = e.target
     const { nextSibling } = e.target

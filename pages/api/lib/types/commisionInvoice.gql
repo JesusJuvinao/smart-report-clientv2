@@ -6,6 +6,7 @@ type CommissionLineItems {
     lineSubtotal: Float
     hasBeenSent: Boolean
     lineCommSubtotal: Float
+    currency: String
     lineItemVATOnComm: Float
     ticketCategoryTotalDue: Float
     totalTicketTypeDiscount: Float
@@ -82,6 +83,7 @@ type CommissionInvoice {
     eventRef: String
     eventName: String
     eventCommences: DateTime
+    currency: String
     eventType: String
     invoiceTotal: Float
     totalCommDue: Float
@@ -116,6 +118,7 @@ input ICommissionInvoice {
     totalCommDue: Float
     totalSalesReceived: Float
     totalDiscounts: Float
+    currency: String
     vatOnComms: Float
     isVATRegistered: Boolean
     isApprovedByInvoiceSender: Boolean

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { BtnIcon, ContainerTable, Content, Section, TableBtn, Text, Title, CheckBoxWrapper, CheckBox, CheckBoxLabel, TableResponsive, StatusC, EntryPerViewC, EntryLabel, EntryInput, EntryPaginationC, EntryButton, CurrentPage, ArrowsCheck, ArrowsLabel, Button } from './styled'
 import { orderColumn } from './orderColumn'
 import { IconArrowBottom, IconArrowTop } from '../../public/icons'
+import { BColor } from '../../public/colors'
 
 export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entryPerView, handleAdd, buttonAdd, labelBtn }) => {
   const initialState = { selectedIndex: 0 }
@@ -95,8 +96,8 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
               </ArrowsLabel>
               {x.arrow && <ArrowsLabel htmlFor={x.key}>
                 <ArrowsCheck type="checkbox" ref={fileInputRef} name={x.key} id={x.key} onChange={(e) => handleColumn(e, x.key)} />
-                <Button onClick={onTargetClick}><IconArrowTop size='10px' color={currentColumn?.[`${x.key}`] === 0 ? '#3a3945' : '#d0d7ec'} /></Button>
-                <Button onClick={onTargetClick}><IconArrowBottom size='10px' color={currentColumn?.[`${x.key}`] === 1 ? '#3a3945' : '#d0d7ec'} /></Button>
+                <Button onClick={onTargetClick}><IconArrowTop size='15px' color={currentColumn?.[`${x.key}`] === 0 ? BColor : '#d0d7ec'} /></Button>
+                <Button onClick={onTargetClick}><IconArrowBottom size='15px' color={currentColumn?.[`${x.key}`] === 1 ? BColor : '#d0d7ec'} /></Button>
               </ArrowsLabel>}
             </Content>)}
           </Section>

@@ -67,6 +67,8 @@ query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max:
           invoiceTo
           invoiceFrom
           eventRef
+          isApprovedByInvoiceSender
+          currency
           eventName
           eventCommences
           eventType
@@ -126,6 +128,7 @@ query getAllCommissionInvoiceReceived($idUser: ID, $search: String, $min: Int, $
           invoiceDate
           invoiceRef
           invoiceTo
+          currency
           invoiceFrom
           eventRef
           eventName
@@ -133,6 +136,7 @@ query getAllCommissionInvoiceReceived($idUser: ID, $search: String, $min: Int, $
           eventType
           invoiceTotal
           totalCommDue
+          isApprovedByInvoiceSender
           totalSalesReceived
           totalDiscounts
           vatOnComms
