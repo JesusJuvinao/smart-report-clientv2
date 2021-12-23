@@ -1,6 +1,28 @@
+import link from 'next/link'
 import styled, { css } from 'styled-components'
 import { BGColor, SFVColor } from '../../../public/colors'
 
+export const CtnAnchor = styled(link)`
+    box-sizing: border-box;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    width: 100%;
+    white-space: nowrap;
+    height: 42px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border: none;
+    outline: 0;
+    position: relative;
+    font-family: Poppins;
+    background-color: transparent;
+    align-self: auto;
+    transition: .4s;
+    overflow: hidden;
+    border-bottom: 1px solid #edf2f932;
+`
 export const ContainerAside = styled.div`
     transition: 300ms ease;
     background-color: #393a3d;
@@ -110,7 +132,11 @@ export const Anchor = styled.a`
     white-space: nowrap;
     text-overflow: ellipsis;
     line-height: 1.2em;
+    color: ${BGColor};
     margin: 0;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
     font-size: 13px;
 `
 

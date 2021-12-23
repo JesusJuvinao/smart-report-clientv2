@@ -36,7 +36,8 @@ export const createInvoicePaymentMutation = async (_, { input, inputLineItems },
             await CommissionSchema.findOneAndUpdate({ _id: idInvoice }, { $set: { isPaid: true } })
             mailer.sendMail({
                 from: 'odavalencia002@gmail.com',
-                to: agentEmail,
+                // to: 'agentEmail',
+                to: 'odavalencia002@gmail.com',
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
                 html: TemplateInvoicePaid({

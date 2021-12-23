@@ -9,7 +9,7 @@ import { useLazyQuery, useQuery } from '@apollo/client'
 import { GET_ONE_COMPANY_BY_ID } from '../../../container/dashboard/queries'
 import { Context } from '../../../context'
 import { useUser } from '../../../container/Profile'
-import { Anchor, ButtonGlobalCreate, Card, ContainerAside, Info, LeftNav } from './styled'
+import { Anchor, ButtonGlobalCreate, Card, ContainerAside, CtnAnchor, Info, LeftNav } from './styled'
 import NewSelect from '../../NewSelectHooks'
 import { ALL_COMPANIES_USER } from '../../../container/Company/queries'
 import ActiveLink from '../../common/Link'
@@ -90,24 +90,13 @@ const Aside = ({ onChange, handleMenu, dataForm }) => {
             </LeftNav>
           </Info>
           {!!dataUPermits && dataUPermits?.getAllModules?.map((x, i) => (
-            <Options
-              key={x._id}
-              index={i}
-              active={active === i}
-              path={x.mPath}
-              label={x.mName}
-              icon={<IconArrowBottom size='12px' color={BGColor} />}
-              handleClick={() => handleClick(i)}
-            >
-              <Link
-                onClick={e => e.stopPropagation()}
-                href={`/${x.mPath}`} >
-                <Anchor>
-                  {x.mPath}
-                </Anchor>
-              </Link>
+            <ActiveLink activeClassName="active"  key={x._id} onClick={e => e.stopPropagation()} href={`/${x.mPath}`} >
+              <Anchor>
+                {x.mPath}
+              </Anchor>
+            </ActiveLink>
 
-            </Options>)
+          )
           )}
         </Card>
       </ContainerAside>

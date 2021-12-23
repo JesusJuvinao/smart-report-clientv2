@@ -997,3 +997,7 @@ export const hiddenEmail = email => {
     const result = `${ sliceUsername }${ hideUsername }${ lastChar }@${ hideDomain }${ sliceDomain }`
     return result
 }
+export const roundToTwo = (num) =>  {
+    return (Math.round(num + 'e+2') + 'e-2');
+}
+  

@@ -3,46 +3,30 @@ import PropTypes from 'prop-types'
 import InputHooks from '../../components/InputHooks/InputHooks'
 import { useFormTools } from '../../components/hooks/useForm'
 import { useRouter } from 'next/router'
-import { EColor, PColor, TBGBColor, SFVColor, BColor, BGColor, PVColor } from '../../public/colors'
+import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor } from '../../public/colors'
 import { CREATE_COMMISSION_PAY, GET_ALL_INVOICES_RECEIVED, GET_ALL_INVOICES_SENT, HAS_BEEN_RECEIVED } from './queries'
 import { useQuery, useMutation } from '@apollo/client'
 import { orderColumn } from '../../components/Table/orderColumn'
 import { Table, useKeyPress } from '../../components/Table'
 import { IS_APPROVED_INVOICE_SENDER, IS_PAY_INVOICE, IS_REDO_INVOICE } from '../../container/invoice/queries'
-import { dateFormat, updateCache } from '../../utils'
+import { dateFormat, dateNow, updateCache } from '../../utils'
 import { AwesomeModal } from '../../components/AwesomeModal'
 import Tabs from '../../components/Tabs'
 import { DocumentPdf } from './Document'
 import { Pagination } from '../../components/Pagination'
 import { IconArrowBottom, IconArrowTop, IconDelete, IconDost, IconEdit, IconFolder, IconShowEye, IconPDF, IconCancel, IconPlus } from '../../public/icons'
-import { ButtonLoadMore, CardInvoice, ContainerInfo, Content, ContentHead, ContentListInvoice, ContentModal, HeaderModal, Options } from './styled'
+import { BlueButton, ButtonAdd, ButtonContentT, CardInvoice, ContainerInfo, Content, ContentHead, ContentListInvoice, ContentModal, CtnInfo, FilterOptions, HeaderModal, Options, PaymentStatus, Tooltip } from './styled'
 import {
-    Container,
-    WrapperFilter,
-    Button,
-    Card,
-    Text,
-    Circle,
-    Wrapper,
-    LineItems,
-    OptionsFunction,
-    WrapperButtonAction,
-    Current,
-    Section,
-    ArrowsLabel,
-    InputFilterNumber,
-    BoxArrow,
-    InputHide,
-    ButtonPagination,
-    PageA4Format
+    Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format
 } from './styled'
 import { Context } from '../../context'
 import { useContext } from 'react'
-import { LoadEllipsis, Loading } from '../../components/Loading'
 import { useUser } from '../Profile'
 import { RippleButton } from '../../components/Ripple'
 import { useSetState } from '../../components/hooks/useState'
 import NewSelect from '../../components/NewSelectHooks'
+import { Overline } from '../../components/common/Reusable'
+import { SpinnerColorJust } from '../../components/Loading'
 
 export const DashboardComp = ({ idComp }) => {
     const router = useRouter()
@@ -51,21 +35,31 @@ export const DashboardComp = ({ idComp }) => {
     const [active, setActive] = useState(1)
     const handleClick = index => setActive(index === active ? false : index)
     const [showMore, setShowMore] = useState(0)
-    const { data } = useQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore } })
-    const { data: DataReceived } = useQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
+    const { data, loading } = useQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore } })
+    const { data: DataReceived, loading: loadingR } = useQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
     // if (loading) return <Loading />
+
     return (
         <ContentListInvoice>
+            <FilterOptions>
+                <Button style={{ border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem' }} onClick={() => console.log('object')}>Filtros</Button>
+                <Button style={{ border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem' }} onClick={() => console.log('object')}>Save invoices</Button>
+            </FilterOptions>
             <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {name}</Text>
             <Tabs>
                 <Tabs.Panel label={`Sent bill: ${data ? data?.getAllCommissionInvoiceSent?.length : 0}`}>
                     <>
-                        <SentBillComponent setShowMore={setShowMore} showMore={showMore} data={data} />
+                        <SentBillComponent loading={loading} setShowMore={setShowMore} showMore={showMore} data={data} />
                     </>
                 </Tabs.Panel>
                 <Tabs.Panel label={`Invoice received ${DataReceived ? DataReceived?.getAllCommissionInvoiceReceived?.length : 0}`}>
                     <>
-                        <InvoiceReceivedComponent setShowMore={setShowMore} showMore={showMore} data={DataReceived} />
+                        <InvoiceReceivedComponent loading={loadingR} setShowMore={setShowMore} showMore={showMore} data={DataReceived} />
+                    </>
+                </Tabs.Panel>
+                <Tabs.Panel label={`Pending to pay`}>
+                    <>
+                        <PendingToPay loading={loadingR} setShowMore={setShowMore} showMore={showMore} data={DataReceived} />
                     </>
                 </Tabs.Panel>
             </Tabs>
@@ -73,11 +67,10 @@ export const DashboardComp = ({ idComp }) => {
     )
 }
 
-export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
+export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading }) => {
     // Filtrar
-    const { setAlertBox, company } = useContext(Context)
+    const { setAlertBox } = useContext(Context)
     const [search, setSearch] = useState('')
-    const [handleChange, handleSubmit, setDataValue, { dataForm, errorForm }] = useFormTools()
     const [dataUser] = useUser()
     const handleChangeFilter = e => {
         setSearch(e.target.value)
@@ -120,17 +113,17 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
     const handlePayState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: agentEmail, uEmail: dataUser.uEmail } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const handleRedoState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: agentEmail, uEmail: dataUser.uEmail } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const handleApprovedInvoiceState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isApprovedByInvoiceSenderMutation({ variables: { idInvoice: id, ToEmail: agentEmail, uEmail: dataUser.uEmail } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isApprovedByInvoiceSenderMutation({ variables: { idInvoice: id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const [show, setShow] = useState(false)
     const [open, setOpen] = useState(false)
@@ -221,7 +214,12 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
                 }
             case 'REMOVE_INVOICE':
                 return {
-                    ...state,
+                    // ...state,
+                    Addtopay: state.Addtopay.filter((t, idx) => idx !== action?.idx)
+                };
+            case "TOGGLE_INVOICE":
+                return {
+                    Addtopay: state.Addtopay.map((t, idx) => idx === action.idx ? { ...t, isPaid: !t.isPaid } : t),
                 };
             // const itemToBeRemoved = state.Addtopay.find((item) => item.id === action.payload)
             default:
@@ -246,15 +244,19 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
     const handleClickAddInvoice = elem => {
         setDataInv(elem)
         setOpenModal(!openModal)
-        if (statePay.Addtopay.filter((x) => x.id !== elem._id)) {
+        console.log(statePay?.Addtopay?.includes(elem._id))
+        if (statePay.Addtopay.filter((x) => x.idx === elem.idx)) {
+            // dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
+        } else {
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
+
         }
     }
     const addInvoice = elem => {
         dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
     }
-    const Handleremove = elem => {
-        dispatchInvoice({ type: 'REMOVE_INVOICE', payload: elem })
+    const Handleremove = _id => {
+        dispatchInvoice({ type: 'REMOVE_INVOICE', payload: _id })
     }
     const handleMarckPayInvoice = () => {
         setOpenModal(!openModal)
@@ -291,7 +293,7 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
                 ]
                 }
                 data={data?.getAllCommissionInvoiceReceived}
-                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${TBGBColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
+                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${SVColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                         dispatch({ type: 'select', payload: i })
                         e.target.blur()
@@ -303,7 +305,6 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
                     <Wrapper>
                         <Text size='15px'> {elem.invoiceTo}</Text>
                     </Wrapper>
-
                     <Wrapper>
                         <Text size='15px'> {elem.invoiceTotal}</Text>
                     </Wrapper>
@@ -323,7 +324,9 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
                         <Text size='15px'> {dateFormat(elem.uploaded)}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px' color={elem?.isPaid && PColor}> {elem?.isPaid ? 'Payment' : 'No Payment'}</Text>
+                        <PaymentStatus active={elem?.isPaid} >
+                            <Text size='15px' color={elem?.isPaid && PColor}> {elem?.isPaid ? 'Payment' : 'No Payment'}</Text>
+                        </PaymentStatus>
                     </Wrapper>
                     <Wrapper>
                         <WrapperButtonAction style={{ display: 'flex', justifyContent: 'flex-end', width: 'min-content' }}>
@@ -337,15 +340,14 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore }) => {
                     </Wrapper>
                 </Section>)}
             />
-            <Pagination value={showMore} range={data?.getAllCommissionInvoiceReceived?.length || 100} onChange={setShowMore} />
-            <ButtonLoadMore onClick={() => setShowMore(s => s + 100)}>Load more </ButtonLoadMore>
+            {/* <Pagination value={showMore} range={data?.getAllCommissionInvoiceReceived?.length || 100} onChange={setShowMore} /> */}
+            {data && <BlueButton onClick={() => setShowMore(s => s + 100)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
 
         </Container>
     )
 }
-export const SentBillComponent = ({ data, setShowMore, showMore }) => {
+export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
     // STATES
-
     const { setAlertBox, company } = useContext(Context)
     const [handleChange, handleSubmit, setDataValue, { dataForm, errorForm }] = useFormTools()
     // QUETYS
@@ -389,12 +391,12 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
     const handlePayState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: agentEmail, uEmail: dataUser.uEmail } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const handleRedoState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: agentEmail, uEmail: dataUser.uEmail } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        isRedoStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const [show, setShow] = useState(false)
     const [open, setOpen] = useState(false)
@@ -456,6 +458,7 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
     const initialStateInvoice = {
         Addtopay: []
     }
+    // ESTE ES JESUS
     const invoicePayReducer = (state, action) => {
         switch (action.type) {
             case 'ADD_TO_PAY':
@@ -465,7 +468,11 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
                 }
             case 'REMOVE_INVOICE':
                 return {
-                    ...state,
+                    Addtopay: state.Addtopay.filter((t, idx) => idx !== action?.idx),
+                };
+            case "TOGGLE_INVOICE":
+                return {
+                    Addtopay: state.Addtopay.map((t, idx) => idx === action.idx ? { ...t, isPaid: !t.isPaid } : t),
                 };
             // const itemToBeRemoved = state.Addtopay.find((item) => item.id === action.payload)
             default:
@@ -489,15 +496,26 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
     const handleClickAddInvoice = elem => {
         setDataInv(elem)
         setOpenModal(!openModal)
-        if (statePay.Addtopay.filter((x) => x.id !== elem._id)) {
+        const results = statePay?.Addtopay?.filter(function (elem) { return elem._id === elem._id; });
+        const firstObj = (results.length > 0) ? results[0] : null;
+        console.log(firstObj)
+        if (!firstObj) {
+            dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
+        } else {
+            console.log('No se puede')
+        }
+    }
+    console.log(statePay?.Addtopay)
+    const addInvoice = elem => {
+        let includes = statePay?.Addtopay.includes(elem);
+        if (includes) {
+            setAlertBox({ message: 'The invoice is already added to the list' })
+        } else {
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
         }
     }
-    const addInvoice = elem => {
-        dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
-    }
-    const Handleremove = elem => {
-        dispatchInvoice({ type: 'REMOVE_INVOICE', payload: elem })
+    const Handleremove = _id => {
+        dispatchInvoice({ type: 'REMOVE_INVOICE', payload: _id })
     }
     const handleMarckPayInvoice = () => {
         setOpenModal(!openModal)
@@ -506,6 +524,7 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
     }
     return (
         <div>
+            <Overline show={show} onClick={() => setShow(!show)} />
             <AwesomeModal useScroll={true} height='100vh' padding='10px' show={open} hideOnConfirm={false} title={` Invoice Name ${dataInvoice.eventName}`} onHide={() => setOpen(!open)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                 <PageA4Format>
                     {<DocumentPdf invoice={dataInvoice} />}
@@ -517,7 +536,7 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
                     <RippleButton margin='0px 10px 0px 0px' border='60px' color={BColor} widthButton='150px' bgColor={'#e2e8f0'} family='PFont-Regular' onClick={() => active.state !== 2 && handleMarckPayInvoice()}>No</RippleButton>
                 </Options>
             </AwesomeModal>
-            {active.state && <ModalAddInvoicePaymentState Handleremove={Handleremove} handleClickAddInvoice={addInvoice} data={data?.getAllCommissionInvoiceSent} showModalInvoice={showModalInvoice} dispatchInvoice={dispatchInvoice} statePay={statePay} />}
+            {active.state && <ModalAddInvoicePaymentState handlePayState={handlePayState} Handleremove={Handleremove} handleClickAddInvoice={addInvoice} data={data?.getAllCommissionInvoiceSent} showModalInvoice={showModalInvoice} dispatchInvoice={dispatchInvoice} statePay={statePay} />}
             <Table
                 titles={[
                     { name: 'eventName', arrow: true, key: 'eventName', width: '10%' },
@@ -533,7 +552,7 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
                 ]
                 }
                 data={data?.getAllCommissionInvoiceSent?.filter(x => x.bDescription !== 0 && x)}
-                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${TBGBColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
+                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state.selectedIndex ? `${SVColor}` : 'transparent' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                         dispatch({ type: 'select', payload: i })
                         e.target.blur()
@@ -565,7 +584,9 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
                         <Text size='15px'> {dateFormat(elem.uploaded)}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px' color={elem?.isPaid && PColor}> {elem?.isPaid ? 'Payment' : 'No Payment'}</Text>
+                        <PaymentStatus active={elem?.isPaid} >
+                            <Text size='15px' color={elem?.isPaid && PColor}> {elem?.isPaid ? 'Payment' : 'No Payment'}</Text>
+                        </PaymentStatus>
                     </Wrapper>
                     <Wrapper>
                         <WrapperButtonAction style={{ display: 'flex', justifyContent: 'flex-end', width: 'min-content' }}>
@@ -579,13 +600,13 @@ export const SentBillComponent = ({ data, setShowMore, showMore }) => {
                     </Wrapper>
                 </Section>)}
             />
-            <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length || 100} onChange={setShowMore} />
-            <ButtonLoadMore onClick={() => setShowMore(s => s + 100)}>Load more </ButtonLoadMore>
+            {/* <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length || 100} onChange={setShowMore} /> */}
+            {data?.getAllCommissionInvoiceSent && <BlueButton onClick={() => setShowMore(s => s + 100)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
 
         </div>
     )
 }
-export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispatchInvoice, data, handleClickAddInvoice, Handleremove }) => {
+export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispatchInvoice, data, handleClickAddInvoice, Handleremove, handlePayState }) => {
     // STATE
     const { setAlertBox, company } = useContext(Context)
     const [values, setValues] = useState({})
@@ -610,7 +631,6 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
     })
     const newData = statePay?.Addtopay?.map(x => ({ idInvoice: x._id, agentDetails: { VATRegNo: x.agentDetails.VATRegNo, agentAddress1: x.agentDetails.agentAddress1, agentAddress2: x.agentDetails.agentAddress2, agentAddress3: x.agentDetails.agentAddress3, agentCity: x.agentDetails.agentCity, agentCompanyNumber: x.agentDetails.agentCompanyNumber, agentContact: x.agentDetails.agentContact, agentCountry: x.agentDetails.agentCountry, agentEmail: x.agentDetails.agentEmail, agentPostCode: x.agentDetails.agentPostCode, agentTradingName: x.agentDetails.agentTradingName, agentVATRegistered: x.agentDetails.agentVATRegistered, legalName: x.agentDetails.legalName }, lineItemsArray: { eventName: x.eventName, eventRef: x.eventRef, eventType: x.eventType, hasBeenReceived: x.hasBeenReceived, hasBeenSent: false, invoiceDate: x.invoiceDate, invoiceFrom: x.invoiceFrom, invoiceRef: x.invoiceRef, invoiceTo: x.invoiceTo, invoiceTotal: x.invoiceTotal, isOnStatement: x.isOnStatement, isPaid: x.isPaid, isRedo: x.isRedo, isVATRegistered: x.isVATRegistered, statementId: x.statementId, totalCommDue: x.totalCommDue, totalDiscounts: x.totalDiscounts, totalSalesReceived: x.totalSalesReceived, uploaded: x.uploaded, vatOnComms: x.vatOnComms } }))
     // HANDLES
-    console.log(newData)
     const handleForm = async e => {
         e.preventDefault()
         return createInvoicePaymentMutation({
@@ -633,59 +653,101 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
         <div>
             <AwesomeModal zIndex='999999' padding='20px' height='600px' useScroll={true} show={openModalConfirm} onHide={() => setOpenModalConfirm(false)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
                 <form onSubmit={(e) => handleForm(e)}>
+                    <h4>{dateNow}</h4>
                     <InputHooks title='Description' required name='Idescription' error={errors?.Idescription} value={values?.Idescription} onChange={handleChange} />
                     <RippleButton padding='10px' widthButton={'100%'} type={'sutmit'}  >Save</RippleButton>
                 </form>
             </AwesomeModal>
-            <AwesomeModal zIndex='99999' padding='20px' height='100vh' show={showModalInvoice.state} onHide={() => showModalInvoice.setState(false)} onCancel={() => false} size='large' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
-                <Options direction='row'>
-                    <NewSelect topTitle='30px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} />
-                    <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
-                    <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
-                    <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('object')}>Today</Button>
-                    <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('object')}>Last 7 days</Button>
-                </Options>
+            <AwesomeModal zIndex='99999' padding='20px' height='100vh' show={showModalInvoice.state} onHide={() => showModalInvoice.setState(false)} onCancel={() => false} size='large' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                 <ContentModal>
-                    {statePay ? statePay?.Addtopay?.map(x => (
-                        <CardInvoice key={x.id}>
+                    {statePay ? statePay?.Addtopay?.map((x, idx) => (
+                        <CardInvoice key={x.idx}>
                             <HeaderModal>
                                 <Text>{x.eventName}</Text>
                                 <RippleButton bgColor='transparent' color={BGColor}
-                                    onClick={() => Handleremove(x)}>
+                                    onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
                                     <IconCancel size='15px' />
                                 </RippleButton>
-                            </HeaderModal>x
+                                {x.idx}
+                            </HeaderModal>
+                            <Button
+                                onClick={() => dispatchInvoice({ type: "TOGGLE_INVOICE", idx })}>
+                                PAY
+                            </Button>
                         </CardInvoice>
                     )) : <div>No data</div>}
                 </ContentModal>
                 <Options direction='row'>
                     <Button style={{ border: '1px solid #ccc' }} onClick={() => setOpenModalConfirm(!openModalConfirm)}>Save invoices</Button>
-                    <Text width='min-content' size='30px'>{parseFloat(totalInvoice.toFixed(2))}</Text>
+                    <Text width='min-content' size='30px'>£ {parseFloat(totalInvoice.toFixed(2))}</Text>
                 </Options>
                 <ContainerInfo>
-                    <Options direction='row'>{console.log(data)}
+                    <Options direction='row'>
                         <NewSelect topTitle='30px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
                         <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('object')}>Today</Button>
                         <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('object')}>Last 7 days</Button>
-                    <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false ).length} Invoice </Text>
-                    </Options>{console.log(data?.filter(x => x.isPaid === false ).length, 'IS PAID')}
-                    <ContentModal>{console.log(data)}
-                        {data ? data?.filter(x => x.isPaid === false ).map(x => (
+                        <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false).length} / {data?.length || 0}  Invoice </Text>
+                    </Options>
+                    <ContentModal height={'90vh'}>
+                        {data ? data?.filter(x => x.isPaid === false).map(x => (
                             <CardInvoice key={x.id}>
-                                <HeaderModal>
-                                    <Text>{x.eventName}</Text>
-                                    <RippleButton bgColor='transparent' color={BGColor}
+                                <HeaderModal>{console.log(x)}
+                                    <Text color={BColor} size='15px'>{x.eventName}</Text>
+                                    <ButtonAdd bgColor='transparent' color={BGColor}
                                         onClick={() => handleClickAddInvoice(x)}>
                                         <IconPlus color={PVColor} size='25px' />
-                                    </RippleButton>
+                                    </ButtonAdd>
+                                    <span id='line' />
                                 </HeaderModal>
+                                <CtnInfo>
+                                    <Text size={'1rem'} color={`${BColor}69`}># {x.invoiceRef}</Text>
+                                </CtnInfo>
+                                <CtnInfo>
+                                    <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
+                                    <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>
+                                </CtnInfo>
+                                <CtnInfo>
+                                    <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
+                                    <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                                </CtnInfo>
+                                <CtnInfo border>
+                                    <ButtonContentT>
+                                        <Tooltip onClick={() => handlePayState(x)}>PAYMENT NOW</Tooltip>
+                                        <BlueButton onClick={() => handlePayState(x)}>{'MARK PAYMENT NOW'}</BlueButton>
+                                    </ButtonContentT>
+                                    <Options justify>
+                                        <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
+                                        <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
+                                    </Options>
+                                </CtnInfo>
                             </CardInvoice>
                         )) : <div>No data</div>}
                     </ContentModal>
                 </ContainerInfo>
             </AwesomeModal>
+        </div>
+    )
+}
+
+
+export const PendingToPay = ({ statePay }) => {
+    return (
+        <div>
+            <ContentModal>
+                {statePay ? statePay?.Addtopay?.map(x => (
+                    <CardInvoice key={x.id}>
+                        <HeaderModal>
+                            <Text>{x.eventName}</Text>
+                            <RippleButton bgColor='transparent' color={BGColor}
+                                onClick={() => Handleremove(x)}>
+                                <IconCancel size='15px' />
+                            </RippleButton>
+                        </HeaderModal>x
+                    </CardInvoice>
+                )) : <div>No data</div>}
+            </ContentModal>
         </div>
     )
 }
