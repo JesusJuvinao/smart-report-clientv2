@@ -1,49 +1,70 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { BGAColor, BGColor } from '../../public/colors'
-import { AnimationColor, dashAnimation, Rotator } from '../animations'
+import { AnimationColor, dashAnimation, onPulses, Rotator } from '../animations'
+import { IconLogo } from '../common/logo'
 
 export const Loading = () => {
-    return (
-        <Container>
-            <LsRipple>
-                <div></div>
-                <div></div>
-            </LsRipple>
-        </Container>
-    )
+  return (
+    <Container>
+      <LsRipple>
+        <div></div>
+        <div></div>
+      </LsRipple>
+    </Container>
+  )
 }
 
 export const SpinnerColor = () => {
-    return (
-        <Container>
-            <LsRipple>
-                <svg width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
-                </svg>
-            </LsRipple>
-        </Container>
-    )
+  return (
+    <Container>
+      <LsRipple>
+        <svg width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+          <circle fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+      </LsRipple>
+    </Container>
+  )
 }
 export const SpinnerColorJust = () => {
-    return (
-        <LoadingSpinner>
-            <div className="loading-google-spinner">
-                <svg className="loading-google-spinner__circle-svg" viewBox="25 25 50 50">
-                    <circle className="loading-google-spinner__circle-stroke" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10" />
-                </svg>
-            </div>
-        </LoadingSpinner>
-    )
+  return (
+    <LoadingSpinner>
+      <div className="loading-google-spinner">
+        <svg className="loading-google-spinner__circle-svg" viewBox="25 25 50 50">
+          <circle className="loading-google-spinner__circle-stroke" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10" />
+        </svg>
+      </div>
+    </LoadingSpinner>
+  )
+}
+export const LazyLoading = ({ bgColor }) => {
+  return (
+    <Container bgColor={bgColor}>
+      <ContainerLogo>
+        <IconLogo size='100px'/>
+      </ContainerLogo>
+    </Container>
+  )
 }
 
 export const LoadEllipsis = ({ color }) => (
-    <EllipsisSpinner color={color}>
-        <div></div><div></div><div></div><div></div>
-    </EllipsisSpinner>
+  <EllipsisSpinner color={color}>
+    <div></div><div></div><div></div><div></div>
+  </EllipsisSpinner>
 )
 
+const ContainerLogo = styled.div`
+  animation: ${onPulses} 0.6s infinite;
+  animation-timing-function: ease-in-out;
+  justify-content: center;
+  display: flex;
+  border-radius: 50%;
+  background: white;
+  width: 200px;
+  height: 200px;
+  align-items: center;
+`
 const LoadingSpinner = styled.div`
   width: auto;
 .loading-google-spinner {
@@ -170,24 +191,24 @@ const EllipsisSpinner = styled.div`
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color:  ${ ({ color }) => color || BGColor };
+    background-color:  ${({ color }) => color || BGColor};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 div:nth-child(1) {
   left: 8px;
-  animation: ${ ldsEllipsis1 } 0.6s infinite;
+  animation: ${ldsEllipsis1} 0.6s infinite;
 }
 div:nth-child(2) {
   left: 8px;
-  animation: ${ ldsEllipsis2 } 0.6s infinite;
+  animation: ${ldsEllipsis2} 0.6s infinite;
 }
 div:nth-child(3) {
   left: 32px;
-  animation:${ ldsEllipsis2 } 0.6s infinite;
+  animation:${ldsEllipsis2} 0.6s infinite;
 }
 div:nth-child(4) {
   left: 56px;
-  animation: ${ ldsEllipsis3 } 0.6s infinite;
+  animation: ${ldsEllipsis3} 0.6s infinite;
 }
 
 `
@@ -217,8 +238,14 @@ const Container = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: ${ BGAColor };
-    /* background-color: ${ `${ BGAColor }69` }; */
+    ${({ bgColor }) => !!bgColor ? css`
+        background-color: ${bgColor};
+    ` : css`
+        background-color: ${BGAColor};
+  
+    `}
+
+    /* background-color: ${`${BGAColor}69`}; */
     z-index: 99999999;
 `
 const LsRipple = styled.div`
@@ -232,24 +259,24 @@ const LsRipple = styled.div`
         border: 4px solid #0099ff;
         opacity: 1;
         border-radius: 50%;
-        animation: ${ AnimationRipple } .1s cubic-bezier(0, 0.2, 0.8, 1)
+        animation: ${AnimationRipple} .1s cubic-bezier(0, 0.2, 0.8, 1)
             infinite;
     }
     & div:nth-child(2) {
         animation-delay: -0.5s;
     }
     .spinner {
-  animation: ${ Rotator } 1.4s linear infinite;
+  animation: ${Rotator} 1.4s linear infinite;
 }
 .path {
   stroke-dasharray: 187;
   stroke-dashoffset: 0;
   transform-origin: center;
   animation:
-    ${ dashAnimation } 1.4s ease infinite, 
-    ${ AnimationColor } 1s ease infinite;
+    ${dashAnimation} 1.4s ease infinite, 
+    ${AnimationColor} 1s ease infinite;
 }
 `
 LoadEllipsis.propTypes = {
-    color: PropTypes.object
+  color: PropTypes.object
 }

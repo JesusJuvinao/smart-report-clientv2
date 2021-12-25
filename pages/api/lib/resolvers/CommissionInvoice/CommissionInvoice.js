@@ -157,7 +157,6 @@ export const deleteOneTagLineItem = async (_, { id, idLine }) => {
     }
 }
 export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx) => {
-    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -196,7 +195,6 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
-    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -360,6 +358,37 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
+export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
+    // const idUser = ctx.User.id
+    const idUser = '61c38a904516c431d8c22e08'
+
+    try {
+        const Array = await UserSchema.findOne({ _id: idUser })
+        const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
+        if (dataComp && dataComp.length) {
+            const dataCompany = await CompanySchema.findOne({ _id: idComp });
+            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
+            return data
+        }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
+// export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
+//     const idUser = ctx.User.id
+//     try {
+//         const Array = await UserSchema.findOne({ _id: idUser })
+//         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
+//         if (dataComp && dataComp.length) {
+//             const dataCompany = await CompanySchema.findOne({ _id: idComp });
+//             const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
+//             console.log(data)
+//             return data
+//         }
+//     } catch (error) {
+//         throw new ApolloError('Your request could not be processed.', 500)
+//     }
+// }
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max }, ctx) => {
     const idUser = ctx.User.id
     try {
@@ -374,13 +403,29 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
+export const getEstimateCountInvoiceSend = async (_, { search, idComp, CompName, min, max }, ctx) => {
+    const idUser = ctx.User.id
+    try {
+        const Array = await UserSchema.findOne({ _id: idUser })
+        const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
+        if (dataComp && dataComp.length) {
+            const dataCompany = await CompanySchema.findOne({ _id: idComp });
+            const data = await CommissionSchema.find({ invoiceFrom: dataCompany.companyName })
+            return data
+        }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
 
 export default {
     TYPES: {
     },
     QUERIES: {
         getAllCommissionInvoiceReceived,
+        getEstimateCountInvoice,
         getAllCommissionInvoiceSent,
+        getEstimateCountInvoiceSend,
         getOneCommissionInvoice
     },
     MUTATIONS: {

@@ -22,6 +22,11 @@ const SalesInvoicePayments = new Schema({
         required: false,
         trim: true
     },
+    IdRef: {
+        type: String,
+        required: false,
+        trim: true
+    },
     totalInvoicePayment: {
         type: Number,
         required: true
@@ -40,6 +45,11 @@ const SalesInvoicePayments = new Schema({
             type: Schema.Types.ObjectId,
             required: true,
             ref: 'Companies'
+        },
+        idInvoice: {
+            type: Schema.Types.ObjectId,
+            required: false,
+            ref: 'spicecommissioninvoices'
         },
         agentDetails: {
             legalName: String,

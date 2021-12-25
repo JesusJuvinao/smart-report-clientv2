@@ -44,10 +44,9 @@ export const Content = styled.div`
 `
 export const Title = styled.span`
     cursor: ${({ pointer }) => pointer && 'pointer'};
-    font-size: 1.1em;
+    font-size: 0.875rem;
     font-family: PFont-Regular;
     user-select: none;
-    margin-right: 30px;
     pointer-events: none;
 
 `

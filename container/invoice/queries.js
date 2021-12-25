@@ -95,6 +95,50 @@ export const IS_PAY_INVOICE = gql`
   }
 }	
 `
+export const GET_ONE_PAY_INVOICE = gql`
+query getOneInvoicePay($idComp: ID,$idInvoice: ID) {
+  getOneInvoicePay(idComp: $idComp, idInvoice: $idInvoice) {
+    _id
+    idUser
+    idComp
+    Date
+    currency
+    Idescription
+    IdRef
+    totalInvoicePayment
+    isPaymentConfirm
+	lineItemsInvoiceIsPay {
+    _id
+    idUser
+    idComp
+    Date
+    hasBeenReceived	
+    isRedo
+    currency
+    idInvoice
+    totalInvoicePayment
+    isPaymentConfirm
+    agentDetails {
+        legalName
+        agentContact
+        agentTradingName
+        agentEmail
+        agentAddress1
+        agentAddress2
+        agentAddress3
+        agentCity
+        agentCounty
+        agentCountry
+        agentPostCode
+        VATRegNo
+        agentVATRegistered
+        agentCompanyNumber
+      
+    }
+}
+  }
+}
+`
 export const IS_REDO_INVOICE = gql`
 mutation isRedoStateInvoice($idInvoice: ID, $ToEmail: String! $uEmail: String!) {
   isRedoStateInvoice(idInvoice: $idInvoice, ToEmail: $ToEmail, uEmail: $uEmail ) {

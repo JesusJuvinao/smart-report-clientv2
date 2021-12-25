@@ -2,11 +2,25 @@ import styled, { keyframes, css } from 'styled-components';
 import { BColor, BGColor, PColor, SECColor, PVColor  } from '../../public/colors';
 
 export const Content = styled.div`
+  background-color: rgb(249, 251, 253);
   padding: 30px;
 `
+export const Title = styled.h1`
+  font-size: ${({ size }) => size || '12px'};
+  color: ${BColor};
+`
 export const Text = styled.span`
-  font-size: 12px;
-  font-family: PFont-Regular;
+    font-size: ${({ size }) => size || '12px'};
+    text-align:  ${({ align }) => align || 'start'};
+    color:  ${({ color }) => color || BColor};
+    ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
+    margin: ${({ margin }) => margin || 'auto'};
+    justify-content: ${({ justify }) => justify || 'flex-start'};
+    display: flex;
+    font-family: ${({ font }) => font || 'PFont-Regular'};
+    max-width: ${({ width }) => width || '100%'};
+    width: ${({ width }) => width || 'auto'};
+    text-overflow: ellipsis;
 `
 export const ButtonTheme = styled.div`
     width: 65px;
@@ -56,7 +70,6 @@ export const DocumentFormatA4 = styled.div`
 export const WrapperControls = styled.div`
     flex: 0 0 25%;
     max-width: 25%;
-
 `
 export const bounce = keyframes`
   0% {
@@ -82,14 +95,42 @@ export const animate = css`
 
 export const flexCenter = css`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
+export const FooterInfoCard = styled.div`
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+    ${flexCenter}
+`
+export const CntTextArea = styled.div`
+  height: 100px;
+  overflow: auto;
+  margin: 15px 0;
+  max-height: 100px;
+  padding: 20px;
+  border: 3px dashed rgba(0,0,0,0.1);
+  min-height: 100px;
+`
 export const Container = styled.div`
   width: 100%;
-  height: 400px;
-  ${flexCenter}
+  height: 100%;
+  ${({ display }) => display && css`display: ${display};`}
+  ${({ direction }) => direction && css`flex-direction: ${direction};`}
+  ${({ justify }) => justify && css`justify-content: ${justify};`}
+`;
+export const Card = styled.div`
+    height: 700px;
+    position: relative;
+    ${({ width }) => width && css`width: ${width};`}
+    ${({ display }) => display && css`display: ${display};`}
+    ${({ direction }) => direction && css`flex-direction: ${direction};`}
+    border-radius: 8px;
+    box-shadow: rgba(35, 68, 101, 0.05) 0px 4px 16px, rgba(35, 68, 101, 0.05) 0px 4px 4px;
+    background-color: rgb(255, 255, 255);
+    padding: 32px;
 `;
 
 export const Button = styled.button`

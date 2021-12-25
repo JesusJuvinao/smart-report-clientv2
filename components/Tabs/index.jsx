@@ -34,14 +34,15 @@ class Tabs extends Component {
   };
 
   render() {
-      const { children, tabBreak } = this.props;
+      const { children, tabBreak, width } = this.props;
       const { selectedTab } = this.state;
 
       return (
           <TabsWrapper>
-              <TabList breakPoint={tabBreak} role="tablist">
+              <TabList  columnWidth={width} breakPoint={tabBreak} role="tablist">
                   {React.Children.map(children, ({ props: { label } }, index) => (
                       <TabButton
+                     
                           role="tab"
                           selected={selectedTab === index}
                           aria-selected={selectedTab === index ? 'true' : 'false'}
@@ -68,7 +69,6 @@ const TabsWrapper = styled.div`
 `;
 
 const TabButton = styled.button`
-  flex: 1;
   height: 50px;
   padding: 0px 24px;
   display: flex;
@@ -77,7 +77,7 @@ const TabButton = styled.button`
   font-size: 16px;
   cursor: default;
   background: transparent;
-  outline: none;
+
   transition: border-color 0.2s ease-in;
   border: none;
   border-bottom: 4px solid ${ props => (props.selected ? PVColor : '#fff') };
@@ -92,6 +92,12 @@ const TabList = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  display: grid;
+  grid-template-columns: ${({ columnWidth }) => columnWidth ? columnWidth?.map(x => `${x} `) : '1fr'}; 
+  height: auto;
+  align-items: center;
+  margin: 0 auto;
+  outline: none;
   @media (max-width: ${ props => props.breakPoint }) {
     flex-direction: column;
     & > div,

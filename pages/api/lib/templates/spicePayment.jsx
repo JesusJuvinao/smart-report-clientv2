@@ -407,7 +407,8 @@ const data = [
         "__v" : 0
     }
 ]
-export const SpiceStatement = () => {
+export const SpicePayment = () => {
+
     return (
         <div>
             <body style={Styles.body}>
@@ -430,7 +431,7 @@ export const SpiceStatement = () => {
                     </div>
                     {data && data[0]?.lineItemsInvoiceIsPay?.map(item => {
                         return (
-                            <div key={item._id}>sla
+                            <div key={item._id}>
                                 <h2 style={Styles.headerline} > Agent Trading Name: {item.agentDetails.agentTradingName}  </h2>
                                 <div style={Styles.section_one}>
                                     <div style={Styles.lineitembox}>

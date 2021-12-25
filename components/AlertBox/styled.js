@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import { BGColor, PColor } from '../../public/colors'
 
-const fadeIn = keyframes`
+export const fadeIn = keyframes`
     from {
     opacity: 0;
     top: -50%;
@@ -11,7 +11,7 @@ const fadeIn = keyframes`
     top: 0%;
   }
 `
-const fadeOut = keyframes`
+export const fadeOut = keyframes`
      from {
     top: 0%;
   }

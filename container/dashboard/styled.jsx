@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from 'styled-components'
 import { StyleSheet } from '@react-pdf/renderer'
 import { BColor, BGColor, EColor, ESFColor, PColor, SECColor, PVColor, TBGSColor } from '../../public/colors'
+import { fadeIn, fadeOut } from '../../components/AlertBox/styled'
 
 const pulse = keyframes`
   0% {
@@ -15,6 +16,16 @@ const pulse = keyframes`
 `
 export const WrapperButtonAction = styled.div`
 `
+export const Toolbar = styled.div`
+    position: relative;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #0069ff;
+`
 export const Options = styled.div`
   display: flex;
   align-items: center;
@@ -27,7 +38,7 @@ export const Options = styled.div`
 `
 export const Wrapper = styled.div`
   border-left: 1px dotted #00000017;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
   position: relative;
 `
@@ -254,69 +265,25 @@ export const Clip = styled.div`
   .chip{
     display: inline-flex;
     flex-direction: row;
-    background-color: #e5e5e5;
     border: none;
-    cursor: default;
+    cursor: pointer;
     height: 30px;
-    outline: none;
-    padding: 0;
-    font-size: 14px;
-    font-color: #333333;
-    font-family:"Open Sans", sans-serif;
-    white-space: nowrap;
     align-items: center;
     border-radius: 16px;
+    /* ${props => props.activebg ? css`
+      background-color: rgba(15, 183, 107,0.12) !important;
+      ` : css`
+      background-color: rgba(242, 17, 54,0.12) !important;
+    
+    `} */
     vertical-align: middle;
     text-decoration: none;
     justify-content: center;
 }
-.chip-head{
-    display: flex;
-    position: relative;
-    overflow: hidden;
-    ${props => props.active ? css`
-      background-color: ${PColor};
-      ` : css`
-      background-color: ${EColor};
-    `}
-    font-size: 1.25rem;
-    flex-shrink: 0;
-    align-items: center;
-    user-select: none;
-    border-radius: 50%;
-    justify-content: center;
-    width: 36px;
-    color: #fff;
-    height: 36px;
-    font-size: 20px;
-    margin-right: -4px;
-}
-.chip-content{
-    cursor: inherit;
-    display: flex;
-    align-items: center;
-    user-select: none;
-    white-space: nowrap;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-.chip-svg{
-        color: #999999;
-    cursor: pointer;
-    height: auto;
-    margin: 4px 4px 0 -8px;
-  fill: currentColor;
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    font-size: 24px;
-    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    user-select: none;
-    flex-shrink: 0;
-}
-.chip-svg:hover{
-    color: #666666;
-}
+`
+
+export const ChipHead = styled.div`
+  transition: 1s ease;
 `
 export const PaymentStatus = styled.div` 
   height: 15px;
@@ -366,11 +333,9 @@ export const BlueButton = styled.button`
     transition: all 0.2s ease;
     align-self: flex-start;
     margin-right: 24px;
-    width: 100%;
-    width: 300px;
+    width: auto;
     display: flex;
     justify-content: center;
-    margin: auto;
 `
 export const OptionsFunction = styled.div`
     display: flex;
@@ -415,7 +380,7 @@ export const ContentModal = styled.div`
     width: 100%;
     grid-template-columns: repeat(auto-fill,minmax(20%, 1fr));
     position: relative;
-    overflow-y: auto;
+    ${({ overflow }) => overflow && css`overflow: ${overflow};`}
     height: ${({ height }) => height || '50vh'};
     min-height: ${({ height }) => height || '50vh'};
     max-height: ${({ height }) => height || '50vh'};
@@ -487,7 +452,7 @@ export const Tooltip = styled.div`
     box-shadow: rgba(10, 10, 10, 0.445) 0px 4px 12px;
     position: absolute;
     margin: 0;
-    right: 0;
+    right: 135px;
     visibility: hidden;
     z-index: 999; 
     opacity: 0;
@@ -531,6 +496,8 @@ export const CardInvoice = styled.div`
     flex-direction: column;
     transition: all 0.2s ease;
     width: 100%;
+    min-width: 300px;
+    max-width: 100%;
     &:hover {
       border: 1px solid #c0c2d3;
       box-shadow: 0 2px 0 rgb(91 105 135 / 20%);
@@ -727,6 +694,7 @@ export const CardPrimary = styled.div`
     `
 export const ContentListInvoice = styled.div`
   padding: 30px;
+  margin-top: 40px;
 `
 export const FilterOptions = styled.div`
     font-size: 16px;
@@ -743,6 +711,41 @@ export const FilterOptions = styled.div`
     top: 0px;
     margin-top: -30px;
 `
+export const Toast = styled.div`
+    animation: ${ ({ open }) => open && (open ? fadeIn : fadeOut ) } 1s forwards;
+    height: 89px;
+    top: -50%;
+    background-color: #50a773;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    padding: 30px;
+    z-index: 999999999;
+    transition: 400ms;
+    box-shadow: 0px 0px 6px #00000052;
+    color: ${ BGColor };
+`
+export const DownLoadButton = styled.button`
+    box-sizing: border-box;
+    margin: 0;
+    width: 200px;
+    overflow: visible;
+    text-transform: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid hsla(0,0%,100%,.9);
+    color: #fff;
+    border-radius: 2px;
+    padding: 5px 10px;
+    font-size: 13px;
+    transition: all;
+    transition-duration: .3s;
+    margin-left: 10px;
+`
 export const Text = styled.span`
     font-weight: ${({ bold }) => bold || 'initial'};
     font-size: ${({ size }) => size || '12px'};
@@ -750,13 +753,13 @@ export const Text = styled.span`
     margin: ${({ margin }) => margin || '0'};
     justify-content: ${({ justify }) => justify || 'flex-start'};
     display: ${({ display }) => display || 'flex'};
+    white-space: ${({ wrap }) => wrap || 'nowrap'};
     font-family: ${({ font }) => font || 'PFont-Regular'};
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
     ${({ color }) => color && css`color: ${color};`}
     word-break: break-word;
     max-width: ${({ width }) => width || '100%'};
     width: ${({ width }) => width || '100%'};
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 `

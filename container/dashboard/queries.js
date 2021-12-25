@@ -53,8 +53,130 @@ query getOneCompanyById($idC: ID){
   }
 }
 `
-
-// Just Spice
+export const GET_STIMATE_COUNT = gql`
+query getEstimateCountInvoice($idComp: ID) {
+  getEstimateCountInvoice(idComp: $idComp) {
+          _id
+          idUser
+          idComp
+          uploaded
+          invoiceDate
+          invoiceRef
+          invoiceTo
+          invoiceFrom
+          eventRef
+          isApprovedByInvoiceSender
+          currency
+          eventName
+          eventCommences
+          eventType
+          invoiceTotal
+          totalCommDue
+          totalSalesReceived
+          totalDiscounts
+          vatOnComms
+          isVATRegistered
+          isPaid
+          isRedo
+    
+          datePaid
+          hasBeenReceived
+          isOnStatement
+          statementId
+          __typename
+        lineItemsArray {
+            _id
+            subtotalTicketsSold
+            ticketType
+            lineSalesReceived
+            lineSubtotal
+            lineCommSubtotal
+            ticketCategoryTotalDue
+            totalTicketTypeDiscount
+            subtotalTicketTypeLessDiscount
+            ticketPrice
+        }
+        agentDetails {
+          legalName
+          agentContact
+          agentTradingName
+          agentEmail
+          agentAddress1
+          agentAddress2
+          agentAddress3
+          agentCity
+          agentCounty
+          agentCountry
+          agentPostCode
+          VATRegNo
+          agentVATRegistered
+          agentCompanyNumber
+        }
+      }
+}
+`
+export const GET_STIMATE_COUNT_SEND = gql`
+  query getEstimateCountInvoiceSend($idComp: ID) {
+    getEstimateCountInvoiceSend(idComp: $idComp) {
+          _id
+          idUser
+          idComp
+          uploaded
+          invoiceDate
+          invoiceRef
+          invoiceTo
+          invoiceFrom
+          eventRef
+          isApprovedByInvoiceSender
+          currency
+          eventName
+          eventCommences
+          eventType
+          invoiceTotal
+          totalCommDue
+          totalSalesReceived
+          totalDiscounts
+          vatOnComms
+          isVATRegistered
+          isPaid
+          isRedo
+    
+          datePaid
+          hasBeenReceived
+          isOnStatement
+          statementId
+          __typename
+        lineItemsArray {
+            _id
+            subtotalTicketsSold
+            ticketType
+            lineSalesReceived
+            lineSubtotal
+            lineCommSubtotal
+            ticketCategoryTotalDue
+            totalTicketTypeDiscount
+            subtotalTicketTypeLessDiscount
+            ticketPrice
+        }
+        agentDetails {
+          legalName
+          agentContact
+          agentTradingName
+          agentEmail
+          agentAddress1
+          agentAddress2
+          agentAddress3
+          agentCity
+          agentCounty
+          agentCountry
+          agentPostCode
+          VATRegNo
+          agentVATRegistered
+          agentCompanyNumber
+        }
+    }
+  }
+`
 export const GET_ALL_INVOICES_SENT = gql`
 query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max: Int, $idComp: ID, $CompName: String) {
   getAllCommissionInvoiceSent(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, CompName: $CompName ) {
@@ -192,18 +314,15 @@ createInvoicePaymentMutation(input: $input, inputLineItems: $inputLineItems) {
   		totalInvoicePayment
   		isPaymentConfirm
   		lineItemsInvoiceIsPay {
-        _id
-        subtotalTicketsSold
-        ticketType
-        lineSalesReceived
-        lineSubtotal
-        hasBeenSent
-        lineCommSubtotal
-        lineItemVATOnComm
-        ticketCategoryTotalDue
-         totalTicketTypeDiscount
-        subtotalTicketTypeLessDiscount
-        ticketPrice
+          idUser
+          idComp
+          Date
+          hasBeenReceived	
+          isRedo
+          currency
+          idInvoice
+          totalInvoicePayment
+          isPaymentConfirm
         agentDetails {
           legalName
           agentContact

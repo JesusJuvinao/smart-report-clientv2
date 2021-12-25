@@ -96,8 +96,8 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
               </ArrowsLabel>
               {x.arrow && <ArrowsLabel htmlFor={x.key}>
                 <ArrowsCheck type="checkbox" ref={fileInputRef} name={x.key} id={x.key} onChange={(e) => handleColumn(e, x.key)} />
-                <Button onClick={onTargetClick}><IconArrowTop size='15px' color={currentColumn?.[`${x.key}`] === 0 ? BColor : '#d0d7ec'} /></Button>
-                <Button onClick={onTargetClick}><IconArrowBottom size='15px' color={currentColumn?.[`${x.key}`] === 1 ? BColor : '#d0d7ec'} /></Button>
+                <Button style={{ height: '10px' }} onClick={onTargetClick}><IconArrowTop size='15px' color={currentColumn?.[`${x.key}`] === 0 ? BColor : '#d0d7ec'} /></Button>
+                <Button style={{ height: '10px' }} onClick={onTargetClick}><IconArrowBottom size='15px' color={currentColumn?.[`${x.key}`] === 1 ? BColor : '#d0d7ec'} /></Button>
               </ArrowsLabel>}
             </Content>)}
           </Section>
