@@ -98,12 +98,15 @@ export const flexCenter = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 `;
 
 export const FooterInfoCard = styled.div`
     position: absolute;
+    border-top: 1px solid #ccc;
     right: 0;
     bottom: 25px;
+    padding: 10px;
     ${flexCenter}
 `
 export const CntTextArea = styled.div`
@@ -118,6 +121,11 @@ export const CntTextArea = styled.div`
 export const RowGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 20%);
+
+`
+export const Anchor = styled.a`
+    display: flex;
+    justify-content: center;
 
 `
 export const Container = styled.div`

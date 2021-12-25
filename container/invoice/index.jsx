@@ -13,6 +13,7 @@ import { BColor } from '../../public/colors';
 import { RippleButton } from '../../components/Ripple';
 import { useSetState } from '../../components/hooks/useState';
 import { useUser } from '../Profile';
+import { generatePdfDocumentInvoice } from './PdfInvoice';
 
 export const Invoice = ({ idInvoice }) => {
     const { data, loading } = useQuery(GET_ONE_INVOICE, { variables: { idInvoice: idInvoice }, fetchPolicy: 'cache-and-network' })
@@ -64,15 +65,15 @@ export const Invoice = ({ idInvoice }) => {
         isRedoStateInvoice({ variables: { idInvoice: id, ToEmail: 'juvinaojesusd@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
     const Switch = useSetState(0)
-    const handleChangeReceived = async () => {  
+    const handleChangeReceived = async () => {
         setOpenModal(!openModal)
         await hasBeenReceived({
             variables: {
                 idInvoice: idInvoice,
-                uEmail: data && data?.getOneCommissionInvoice.agentDetails.agentEmail,
+                uEmail: data && data?.getOneCommissionInvoice?.agentDetails?.agentEmail,
                 ToEmail: dataUser && dataUser?.uEmail
             }
-        })  
+        })
     }
     if (loading) return <Loading />
     return (
@@ -103,7 +104,10 @@ export const Invoice = ({ idInvoice }) => {
                     </WrapperControls>
                 </WrapperPdf>
             </AwesomeModal>
-
+            <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { ...data } })}
+                type='button' width='40%' padding='6px 10px' margin='0 0 10px auto' >
+                Descargar
+            </RippleButton>
         </Content>
     )
 }
