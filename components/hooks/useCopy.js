@@ -17,5 +17,5 @@ export function useCopy() {
     }, 1000);
   }, [copiedText]);
 
-  return [handleCopy, copiedText, copiedTextLength];
+  return { handleCopy, copiedText, copiedTextLength };
 }

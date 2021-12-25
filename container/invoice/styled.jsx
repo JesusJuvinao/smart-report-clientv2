@@ -14,6 +14,7 @@ export const Text = styled.span`
     text-align:  ${({ align }) => align || 'start'};
     color:  ${({ color }) => color || BColor};
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
+    ${({ overflow }) => overflow && css`overflow: ${overflow};`}
     margin: ${({ margin }) => margin || 'auto'};
     justify-content: ${({ justify }) => justify || 'flex-start'};
     display: flex;
@@ -111,16 +112,29 @@ export const CntTextArea = styled.div`
   margin: 15px 0;
   max-height: 100px;
   padding: 20px;
-  border: 3px dashed rgba(0,0,0,0.1);
+  border: 3px dashed;
   min-height: 100px;
+`
+export const RowGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20%);
+
 `
 export const Container = styled.div`
   width: 100%;
   height: 100%;
+  padding: 10px;
   ${({ display }) => display && css`display: ${display};`}
   ${({ direction }) => direction && css`flex-direction: ${direction};`}
   ${({ justify }) => justify && css`justify-content: ${justify};`}
 `;
+export const Row = styled.div`
+    ${flexCenter}
+`
+export const CardInner = styled.div`
+  background-color: rgb(249 249 249);
+  border-radius: 10px;
+`
 export const Card = styled.div`
     height: 700px;
     position: relative;
