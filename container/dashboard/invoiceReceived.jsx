@@ -1,17 +1,20 @@
+import { useMutation } from '@apollo/client'
+import { useContext, useState } from 'react'
 import { Checkbox } from '../../components/Checkbox'
 import { Overline } from '../../components/common/Reusable'
 import { LazyLoading, SpinnerColorJust } from '../../components/Loading'
 import { RippleButton } from '../../components/Ripple'
 import { Table } from '../../components/Table'
-import { AwesomeModal } from '../../components/AwesomeModal'
+import { Context } from '../../context'
 import { BColor, BGColor, SVColor } from '../../public/colors'
 import { IconCancel, IconDost } from '../../public/icons'
 import { dateFormat } from '../../utils'
 import { DocumentPdf } from './Document'
+import { CREATE_COMMISSION_PAY } from './queries'
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip } from './styled'
 
 
-export const SentBillComponent = ({ data, setShowMore, setShow, dispatch, handleChangeCheck, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
+export const InvoiceReceived = ({ data, setShowMore, setShow, dispatch, handleChangeCheck, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     return (
         <div>
             <Toast open={checkedItems?.size > 1}>
