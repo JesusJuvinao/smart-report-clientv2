@@ -103,11 +103,11 @@ export const Invoice = ({ idInvoice }) => {
                         </ContentToggle>
                     </WrapperControls>
                 </WrapperPdf>
+                <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { ...data } })}
+                    type='button' width='40%' padding='6px 10px' margin='0 0 10px auto' >
+                    Descargar
+                </RippleButton>
             </AwesomeModal>
-            <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { ...data } })}
-                type='button' width='40%' padding='6px 10px' margin='0 0 10px auto' >
-                Descargar
-            </RippleButton>
         </Content>
     )
 }
