@@ -85,6 +85,7 @@ export const DashboardComp = () => {
                             setShowMore={setShowMore}
                             showMore={showMore}
                             data={data}
+                            dataInvoice={data}
                             handleClick={handleClick}
                             active={active}
                         />
