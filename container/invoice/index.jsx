@@ -84,12 +84,13 @@ export const Invoice = ({ idInvoice }) => {
             <AwesomeModal show={data && openModal} useScroll={true} height='100vh' zIndex='0' title={`Invoice ${data ? data?.getOneCommissionInvoice?.eventName : null}`} onHide={() => setOpenModal(!openModal)} backdrop='static' onCancel={() => true} size='large' btnCancel={false} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                 <WrapperPdf>
                     <DocumentFormatA4>
-                        <DocumentPdf invoice={!loading && data?.getOneCommissionInvoice} />
+                        {/* <DocumentPdf invoice={!loading && data?.getOneCommissionInvoice} /> */}
+                        <Text>titulo</Text>
                     </DocumentFormatA4>
                     <WrapperControls>
                         <ContentToggle>
                             <div>
-                                <Text style={{ margin: '0' }} size='13px' >Redo Invoice</Text>
+                                <Text style={{ margin: '0' }} size='13px' >Redo Invoidfgdfgdce</Text>
                                 <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
                                     <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
                                 </ButtonTheme>
