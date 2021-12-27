@@ -42,6 +42,11 @@ export const Wrapper = styled.div`
   align-items: center;
   position: relative;
 `
+export const AnchorLink = styled.a`
+    font-family: PFont-Light;
+    border-bottom: 1px solid #ccc;  
+    width: 100%;
+`
 export const Button = styled.button`
   background-color: transparent;
   padding: ${({ padding }) => padding || '7px'};
@@ -68,12 +73,12 @@ export const Button = styled.button`
   }
   `}
   ${props => props.shadow && css`
-    box-shadow: 0 2px 16px 0 rgb(0 0 0 / 10%);
-    margin-right: 24px;
-    transition: color .16s ease-in-out,
-    background-color .16s ease-in-out,
-    border-color .16s ease-in-out;
-` }
+  box-shadow: 0 2px 16px 0 rgb(0 0 0 / 10%);
+  margin-right: 24px;
+  transition: color .16s ease-in-out,
+  background-color .16s ease-in-out,
+  border-color .16s ease-in-out;
+  ` }
 `
 
 export const WrapperFilter = styled.div`  

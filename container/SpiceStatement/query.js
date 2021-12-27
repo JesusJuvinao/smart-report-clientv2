@@ -1,0 +1,136 @@
+import { gql } from '@apollo/client'
+
+export const GET_ALL_COMMISSION_STATEMENTS = gql`
+query getAllCommissionStatements {
+    getAllCommissionStatements {
+        _id
+        statementId
+        statementFromDetails {
+            legalName
+            agentContact
+            agentTradingName
+            agentEmail
+            agentAddress1
+            agentAddress2
+            agentAddress3
+            agentCity
+            agentCounty
+            agentCountry
+            agentPostCode
+            VATRegNo
+            agentVATRegistered
+            agentCompanyNumber
+            id
+        }
+        statementFromEmail
+        statementFrom
+        statementToDetails {
+            legalName
+            agentContact
+            agentTradingName
+            agentEmail
+            agentAddress1
+            agentAddress2
+            agentAddress3
+            agentCity
+            agentCounty
+            agentCountry
+            agentPostCode
+            VATRegNo
+            agentVATRegistered
+            agentCompanyNumber
+            id
+        }
+        statementToEmail
+        statementTo
+        statementDate
+        invoiceType
+        eventsMonth
+        emailedDate
+        totalAmountToPay
+        totalCommissionPayableToYou
+        totalGrossSalesReceivedByYou
+        totalDiscounts
+        invoicesIncOnStatement {
+            _id
+            agentDetails {
+                legalName
+                agentContact
+                agentTradingName
+                agentEmail
+                agentAddress1
+                agentAddress2
+                agentAddress3
+                agentCity
+                agentCounty
+                agentCountry
+                agentPostCode
+                VATRegNo
+                agentVATRegistered
+                agentCompanyNumber
+                id
+            }
+            invoiceDate
+            invoiceRef
+            invoiceTo
+            invoiceFrom
+            eventType
+            eventRef
+            eventName
+            eventCommences
+            invoiceTotal
+            totalCommDue
+            totalSalesReceived  
+            totalDiscounts
+            vatOnComms
+            isVATRegistered
+            lineItemsArray {
+                subtotalTicketsSold
+                ticketType
+                lineSalesReceived
+                lineSubtotal
+                lineCommSubtotal
+                lineItemVATOnComm
+                ticketCategoryTotalDue
+                totalTicketTypeDiscount
+                subtotalTicketTypeLessDiscount
+                ticketPrice
+                newArray {
+                    id
+                    bookingRef
+                    bookedOn
+                    client
+                    ticketoption
+                    ticketquantity
+                    ticketprice
+                    totaldue
+                    totaldueCalc
+                    totalpaid
+                    balancedue
+                    commissionRatePercent
+                    commissionpayable
+                    agentCode
+                    clientOwnerAtPurchaseDate
+                    bookingStatus
+                    eventName
+                    eventOwner
+                    eventCommences
+                    discountRate
+                    discountTotal
+                    discountedTotalDue
+                    eventRef
+                    eventType
+                    _id
+                }
+            }  
+            currency
+            eventsMonth
+            hasInvoiceBeenOpenedByRecipient
+            hasInvoiceBeenSent
+            isOnStatement
+            statementId
+        }
+        totalVATOnComms
+    }
+}
+`
