@@ -15,13 +15,11 @@ import { RippleButton } from "../../components/Ripple"
 import { AwesomeModal } from "../../components/AwesomeModal"
 
 export const ViewComponentInvoice = ({ idInvoice }) => {
-    console.log(idInvoice)
     const { company } = useContext(Context)
     const [open, setOpen] = useState(false)
     const [openEx, setOpenopenEx] = useState(false)
 
     const { data: dataInvoice, loading } = useQuery(GET_ONE_PAY_INVOICE, { variables: { idComp: company.idLasComp && company.idLasComp, idInvoice }, fetchPolicy: 'cache-and-network' })
-    console.log(dataInvoice)
     // const [handleCopy, copiedText, copiedTextLength] = useCopy();
     const Copy = useCopy();
     const CopyDescription = useCopy();

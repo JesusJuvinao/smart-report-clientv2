@@ -120,7 +120,6 @@ const style = StyleSheet.create({
 
 const InvoicePdfGenerate = ({ pdfDocumentData }) => {
     const { dataInvoice } = pdfDocumentData
-    console.log(dataInvoice, 'AQUI ES')
     return (
         <Document>
             <Page size="A4">

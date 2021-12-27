@@ -32,7 +32,6 @@ export const ForgotPasswordC = () => {
   })
   const [ResetPassword, { loading: loadingChange }] = useMutation(CHANGE_PASSWORD, {
     onCompleted: (data) => {
-      console.log(data?.ResetPassword?.message)
       if (data?.ResetPassword.success === true) {
         setAlertBox({ message: `${data?.ResetPassword?.message}`, duration: 8000 }); 
         router.push('/login')

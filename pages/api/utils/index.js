@@ -9,6 +9,7 @@ import { client } from '../presignedUrl'
 function isString (arg) {
     return typeof (arg) === 'string'
 }
+export const dateFormat = value => moment(value).format('DD-MM-YYYY')
 
 function isValidBucketName (bucket) {
     if (!isString(bucket)) return false

@@ -210,7 +210,6 @@ export const ListCompany = ({ useCompany, handleClick, active, dataComp, search 
     })
 
     const HandleClickEdit = async data => {
-        console.log(data)
     }
     const ChangeState = async ({ _id }) => {
         await ActiveCompany({ variables: { idComp: _id } }).catch(err => setAlertBox({ message: `${ err }`, duration: 300000 }))

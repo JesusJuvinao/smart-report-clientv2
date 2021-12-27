@@ -43,7 +43,6 @@ export const SupplierCo = () => {
     }
   }
   if (loading) return <Loading />
-  console.log(data)
   return (
     <Container>
       {loading && <Loading />}

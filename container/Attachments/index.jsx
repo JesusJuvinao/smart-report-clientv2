@@ -49,7 +49,6 @@ export const AttachmentsC = () => {
       })
     }
   })
-  console.log(Error)
   const [setAttachment] = useMutation(UPDATE_ONE_ATTACHMENTS, {
     onError: () => setAlertBox({ message: 'Error show files', duration: 8000 }),
     update(cache) {
@@ -115,7 +114,6 @@ export const AttachmentsC = () => {
   const handleForm = (e, show) => handleSubmit({
     event: e,
     action: () => {
-      console.log(show)
       if (show === 1) {
         return setAttachment({
           variables: {
@@ -142,7 +140,6 @@ export const AttachmentsC = () => {
         const res = await uploadFileMultiple({ variables: { file: Files.state[i], input: { aSize: Files.state[i].size } } })
         Reset.setState(!Reset)
       } catch (error) {
-        console.log(error)
       }
     }
   }

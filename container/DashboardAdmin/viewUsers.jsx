@@ -9,7 +9,6 @@ import { IconArrowLeft } from '../../public/icons'
 import { useUser } from '../Profile'
 
 const ViewUsers = ({ data }) => {
-    console.log(data)
     const [dataUser] = useUser()
     const [modal, setModal] = useState(false)
     const handleClickMenu = index => setModal(index === modal ? false : index)
@@ -37,7 +36,6 @@ ViewUsers.propTypes = {
 export default ViewUsers
 
 export const UsersModal = ({ modal, setModal, data }) => {
-    console.log(data)
     const mapContainerStyle = {
         height: '60vh',
         width: '50%',
