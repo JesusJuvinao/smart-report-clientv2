@@ -32,33 +32,6 @@ export const Header = ({ props, data, handleClickMap, isSession, authData, modal
                             </a>
                         </NavLink>
                     </ContentLogo>
-                    {!isSession && <>
-                        <NavLink href='/'>
-                            <a>
-                                <Button>
-                                    Home
-                                </Button>
-                            </a>
-                        </NavLink>
-                        <NavLink href='/login'>
-                            <a>
-                                <Button login padding='0px 7px'>
-                                    Find
-                                    &nbsp;
-                                    <IconArrowBottom size='11px' />
-                                </Button>
-                            </a>
-                        </NavLink>
-                        <NavLink href='/login'>
-                            <a>
-                                <Button login padding='0px 7px'>
-                                    Plans
-                                    &nbsp;
-                                    <IconArrowBottom size='11px' />
-                                </Button>
-                            </a>
-                        </NavLink>
-                    </>}
                 </ContentLink>
             </ContainerLink>
             <LayoutOption data={data} isSession={isSession} authData={authData} theme={theme} closeSession={closeSession} handleClickMap={handleClickMap} modal={modal} FullscreenIcon={FullscreenIcon} location={location} activeSettings={activeSettings} handleClick={handleClick} setShowModal={setShowModal} showModal={showModal} props={props} handleTheme={handleTheme} keyTheme={keyTheme} show={show} setShow={setShow} />

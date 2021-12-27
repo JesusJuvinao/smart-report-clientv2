@@ -158,6 +158,7 @@ export const deleteOneTagLineItem = async (_, { id, idLine }) => {
 }
 export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx) => {
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
+    console.log(idInvoice, ToEmail, uEmail)
     try {
         if (!InvoiceData) {
             return { success: false, message: 'The Invoice no exist' }
@@ -316,7 +317,8 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
             {
                 $set: {
                     isRedo: InvoiceData.isRedo !== true,
-                    isPaid: false
+                    isPaid: false,
+                    isApprovedByInvoiceSender: false
                 }
             }
         )

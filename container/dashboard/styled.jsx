@@ -706,10 +706,11 @@ export const ContentListInvoice = styled.div`
   margin-top: 40px;
 `
 export const FilterOptions = styled.div`
-    font-size: 16px;
     box-sizing: border-box;
     display: flex;
     list-style: none;
+    justify-content: space-between;
+    align-items: center;
     background-color: #ffffff;
     z-index: 2;
     width: calc(100% + 40px);

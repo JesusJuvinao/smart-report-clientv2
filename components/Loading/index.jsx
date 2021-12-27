@@ -259,7 +259,7 @@ const LsRipple = styled.div`
         border: 4px solid #0099ff;
         opacity: 1;
         border-radius: 50%;
-        animation: ${AnimationRipple} .1s cubic-bezier(0, 0.2, 0.8, 1)
+        animation: ${AnimationRipple} .3s cubic-bezier(0, 0.2, 0.8, 1)
             infinite;
     }
     & div:nth-child(2) {

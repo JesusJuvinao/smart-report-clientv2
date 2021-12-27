@@ -26,7 +26,7 @@ import { RippleButton } from '../../components/Ripple'
 import { useSetState } from '../../components/hooks/useState'
 import NewSelect from '../../components/NewSelectHooks'
 import { Overline } from '../../components/common/Reusable'
-import { LazyLoading, SpinnerColorJust } from '../../components/Loading'
+import { LazyLoading, Loading, SpinnerColorJust } from '../../components/Loading'
 import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 import { Checkbox } from '../../components/Checkbox'
 import { useCheckboxState } from '../../components/hooks/useCheckbox'
@@ -127,7 +127,7 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
         Addtopay: []
     }
     // QUERIES
-    const [isPaidStateInvoice] = useMutation(IS_PAY_INVOICE, {
+    const [isPaidStateInvoice, { loading: loadingPay }] = useMutation(IS_PAY_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
             cache,
@@ -139,7 +139,7 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
         })
     })
 
-    const [isRedoStateInvoice] = useMutation(IS_REDO_INVOICE, {
+    const [isRedoStateInvoice, { loading: loadingRedo }] = useMutation(IS_REDO_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isRedoStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
             cache,
@@ -317,8 +317,10 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
         handleClickShow(true)
         showModalInvoice.setState(true)
     }
+    console.log(loadingPay || loadingRedo || loadingApprove)
     return (
         <Container>
+            {loadingPay || loadingRedo || loadingApprove && <Loading />}
             <AwesomeModal zIndex='9999' padding='20px' height='200px' show={openModalO || openModalPay} onHide={() => !openModalPay ? setOpenModalO(!openModalO) : setOpenModalPay(!openModalPay)} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
                 <Text size='20px' color={BColor}>Necessary action!</Text>
                 <Text size='30px' wrap='wrap' color={BColor}>Do you want to mark the invoice as paid?</Text>
@@ -326,7 +328,7 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
                 OR
                 <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => { showModalInvoice.setState(true), handleClickShow(1) }}>Add More invoice</RippleButton>
             </AwesomeModal >
-            {loadingApprove && <LazyLoading bgColor={`${PLColor}69`} />}
+            {/* {loadingApprove && <LazyLoading bgColor={`${PLColor}69`} />} */}
             <InputHooks title='Filter.' width='50%' required disabled={false} value={search} onChange={handleChangeFilter} name='search' />
             <AwesomeModal useScroll={true} height='100vh' padding='10px' show={open} hideOnConfirm={false} title={` Invoice Name ${dataInvoice.eventName}`} onHide={() => setOpen(!open)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                 <PageA4Format>

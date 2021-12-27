@@ -4,14 +4,14 @@ import { LazyLoading, SpinnerColorJust } from '../../components/Loading'
 import { RippleButton } from '../../components/Ripple'
 import { Table } from '../../components/Table'
 import { AwesomeModal } from '../../components/AwesomeModal'
-import { BColor, BGColor, SVColor } from '../../public/colors'
 import { IconCancel, IconDost } from '../../public/icons'
 import { dateFormat } from '../../utils'
 import { DocumentPdf } from './Document'
+import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip } from './styled'
 
 
-export const SentBillComponent = ({ data, setShowMore, setShow, dispatch, handleChangeCheck, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
+export const SentBillComponent = ({ data, setShowMore, setShow, dispatch, handleChangeCheck, handleClickAddInvoice,  dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     return (
         <div>
             <Toast open={checkedItems?.size > 1}>
