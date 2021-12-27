@@ -37,6 +37,10 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                     { name: 'Action', width: '8%' }
                 ]
                 }
+                bgRow={2}
+                pointer
+                entryPerView
+                buttonAdd={false}
                 data={data?.getAllCommissionInvoiceSent?.filter(x => showInvoice ? x.isPaid === true : x)}
                 renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section bgRow={1} padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state?.selectedIndex ? `${SVColor}` : 'transparent', borderBottom: 'border-bottom: 1px solid rgba(0, 0, 0, 0.05)' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
                     if (e.key === 'Enter') {
