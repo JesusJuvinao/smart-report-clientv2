@@ -9,7 +9,7 @@ import { useCopy } from "../../components/hooks/useCopy"
 import { IconCopy, IconExcel, IconPDF, IconShowEye, IconWord } from "../../public/icons"
 import { BGColor, PColor, PVColor } from "../../public/colors"
 import { Card, Container, Text, Title, FooterInfoCard, CntTextArea, Content, CardInner, flexCenter, Row, RowGrid, Anchor } from "./styled"
-import { generatePdfDocument } from "./PdfInvoicePay"
+import { generatePdfDocument } from "./Pdf"
 import ActiveLink from "../../components/common/Link"
 // import ReactExport from 'react-data-export'
 

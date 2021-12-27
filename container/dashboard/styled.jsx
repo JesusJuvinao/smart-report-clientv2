@@ -390,6 +390,9 @@ export const ContentModal = styled.div`
     @media only screen and (max-width: 768px){
       grid-template-columns: repeat(auto-fill,minmax(50%, 1fr));
     }
+    ${props => props.showInvoice && css`
+        grid-template-columns: repeat(auto-fill,minmax(25%, 1fr));
+    `}
 `
 export const ButtonAdd = styled.button`
     position: absolute;
@@ -480,6 +483,9 @@ export const CtnInfo = styled.div`
   border-top: 1px solid #33282830;
   `}
 `
+export const WrapperInnerInvoiceTo = styled.div`
+  /* border: 1px solid rgb(206, 206, 206); */
+`
 export const CardInvoice = styled.div`
     padding: 15px;
     color: gray;
@@ -487,8 +493,14 @@ export const CardInvoice = styled.div`
     margin: 5px;
     font-size: 12px;
     font-weight: 400;
-    border: 1px solid rgb(206, 206, 206);
-    box-shadow: 0 4px 0 rgb(91 105 135 / 20%);
+    ${props => !props.showInvoice && css`
+         border: 1px solid rgb(206, 206, 206);
+         box-shadow: 0 4px 0 rgb(91 105 135 / 20%);
+        &:hover {
+          border: 1px solid #c0c2d3;
+          box-shadow: 0 2px 0 rgb(91 105 135 / 20%);
+        }
+    `}
     border-radius: .5rem;
     height: 300px;
     display: flex;
@@ -496,13 +508,10 @@ export const CardInvoice = styled.div`
     flex-direction: column;
     transition: all 0.2s ease;
     width: 100%;
-    min-width: 300px;
     max-width: 100%;
-    &:hover {
-      border: 1px solid #c0c2d3;
-      box-shadow: 0 2px 0 rgb(91 105 135 / 20%);
-    }
-`
+    
+    ${({ height }) => height && css`height: ${height};`}
+    `
 
 export const ButtonPagination = styled.button`
     border-radius: 0.2rem;
@@ -712,7 +721,7 @@ export const FilterOptions = styled.div`
     margin-top: -30px;
 `
 export const Toast = styled.div`
-    animation: ${ ({ open }) => open && (open ? fadeIn : fadeOut ) } 1s forwards;
+    animation: ${({ open }) => open && (open ? fadeIn : fadeOut)} 1s forwards;
     height: 89px;
     top: -50%;
     background-color: #50a773;
@@ -727,7 +736,7 @@ export const Toast = styled.div`
     z-index: 999999999;
     transition: 400ms;
     box-shadow: 0px 0px 6px #00000052;
-    color: ${ BGColor };
+    color: ${BGColor};
 `
 export const DownLoadButton = styled.button`
     box-sizing: border-box;

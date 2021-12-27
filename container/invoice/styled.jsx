@@ -123,6 +123,14 @@ export const RowGrid = styled.div`
   grid-template-columns: repeat(auto-fill, 20%);
 
 `
+export const RowDinamic = styled.div`
+    display: grid;
+    grid-template-columns: ${({ columnWidth }) => columnWidth ? columnWidth?.map(x => `${x} `) : '1fr'}; 
+    height: auto;
+    align-items: center;
+    margin: 0 auto;
+    border-bottom: 1px solid ${BColor};
+`
 export const Anchor = styled.a`
     display: flex;
     justify-content: center;
@@ -138,21 +146,31 @@ export const Container = styled.div`
 `;
 export const Row = styled.div`
     ${flexCenter}
+    ${props => props.border && css`
+      border-right: 1px solid ${BColor};
+      padding: 15px;
+      &:first-child {
+        border-left: 1px solid ${BColor};
+      }
+    
+    `}
 `
 export const CardInner = styled.div`
   background-color: rgb(249 249 249);
   border-radius: 10px;
 `
 export const Card = styled.div`
-    height: 700px;
+    /* height: 700px; */
+    display: flex;
+    flex-wrap: wrap;
     position: relative;
+    ${({ height }) => height && css`height: ${height};`}
+    ${({ background }) => background && css`background-color: ${background};`}
     ${({ width }) => width && css`width: ${width};`}
     ${({ display }) => display && css`display: ${display};`}
+    ${({ margin }) => margin && css`margin: ${margin};`}
     ${({ direction }) => direction && css`flex-direction: ${direction};`}
-    border-radius: 8px;
-    box-shadow: rgba(35, 68, 101, 0.05) 0px 4px 16px, rgba(35, 68, 101, 0.05) 0px 4px 4px;
-    background-color: rgb(255, 255, 255);
-    padding: 32px;
+    ${({ radius }) => radius && css`border-radius: ${radius};`}
 `;
 
 export const Button = styled.button`
@@ -304,4 +322,17 @@ export const ButtonContentT = styled.div`
       opacity: 1;
       transform: translateY(-35px);
   }
+`
+
+export const ContPdf = styled.div`
+  
+`
+export const Tabla = styled.div`
+  width:100%;
+  position:relative;
+  background-color: #ccc;
+`
+export const TablaFila = styled.div`
+  position:relative;
+  background-color: #0ccc;
 `

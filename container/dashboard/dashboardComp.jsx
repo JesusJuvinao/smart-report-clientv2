@@ -14,7 +14,7 @@ import { DocumentPdf } from './Document'
 import { Pagination } from '../../components/Pagination'
 import { CREATE_COMMISSION_PAY, GET_ALL_INVOICES_RECEIVED, GET_ALL_INVOICES_SENT, GET_STIMATE_COUNT, GET_STIMATE_COUNT_SEND, HAS_BEEN_RECEIVED } from './queries'
 import { IconArrowBottom, IconArrowTop, IconDelete, IconDost, IconEdit, IconFolder, IconShowEye, IconPDF, IconCancel, IconPlus, IconPay, IconCheck, IconDelTag } from '../../public/icons'
-import { BlueButton, ButtonAdd, ButtonContentT, CardInvoice, CheckAnimation, ChipHead, Clip, ContainerInfo, Content, ContentHead, ContentListInvoice, ContentModal, CtnInfo, DownLoadButton, FilterOptions, HeaderModal, Options, PaymentStatus, Toast, Toolbar, Tooltip } from './styled'
+import { BlueButton, ButtonAdd, ButtonContentT, CardInvoice, CardInvoiceTo, CheckAnimation, ChipHead, Clip, ContainerInfo, Content, ContentHead, ContentListInvoice, ContentModal, CtnInfo, DownLoadButton, FilterOptions, HeaderModal, Options, PaymentStatus, Toast, Toolbar, Tooltip, WrapperInnerInvoiceTo } from './styled'
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format } from './styled'
 import { Context } from '../../context'
 import { useContext } from 'react'
@@ -263,7 +263,6 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
     })
     const newData = statePay?.Addtopay?.map(x => ({ idInvoice: x._id, currency: x.currency, agentDetails: { VATRegNo: x.agentDetails.VATRegNo, agentAddress1: x.agentDetails.agentAddress1, agentAddress2: x.agentDetails.agentAddress2, agentAddress3: x.agentDetails.agentAddress3, agentCity: x.agentDetails.agentCity, agentCompanyNumber: x.agentDetails.agentCompanyNumber, agentContact: x.agentDetails.agentContact, agentCountry: x.agentDetails.agentCountry, agentEmail: x.agentDetails.agentEmail, agentPostCode: x.agentDetails.agentPostCode, agentTradingName: x.agentDetails.agentTradingName, agentVATRegistered: x.agentDetails.agentVATRegistered, legalName: x.agentDetails.legalName }, lineItemsArray: { eventName: x.eventName, eventRef: x.eventRef, eventType: x.eventType, hasBeenReceived: x.hasBeenReceived, hasBeenSent: false, invoiceDate: x.invoiceDate, invoiceFrom: x.invoiceFrom, invoiceRef: x.invoiceRef, invoiceTo: x.invoiceTo, invoiceTotal: x.invoiceTotal, isOnStatement: x.isOnStatement, isPaid: x.isPaid, isRedo: x.isRedo, isVATRegistered: x.isVATRegistered, statementId: x.statementId, totalCommDue: x.totalCommDue, totalDiscounts: x.totalDiscounts, totalSalesReceived: x.totalSalesReceived, uploaded: x.uploaded, vatOnComms: x.vatOnComms } }))
     // HANDLES
-    console.log(newData)
     const handleForm = async e => {
         e.preventDefault()
         return createInvoicePaymentMutation({
@@ -287,6 +286,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
         r[a.invoiceTo].push(a);
         return r;
     }, Object.create(null));
+    const dataInvoiceTo = Object.keys(result);
     console.log(result)
     return (
         <div>
@@ -297,9 +297,9 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
                     <RippleButton padding='10px' widthButton={'100%'} type={'sutmit'}  >Save</RippleButton>
                 </form>
             </AwesomeModal>
-            <AwesomeModal zIndex='99999' padding='20px' height='100vh' show={active === 3 || 4} onHide={() => setActive(false)} onCancel={() => false} size='large' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
-                <ContentModal overflow='auto'>
-                    {statePay?.Addtopay?.filter(x => x.isPaid === false).map((x, idx) => (
+            <AwesomeModal zIndex='99999' padding='20px' height='100vh' show={active === 3} onHide={() => setActive(false)} onCancel={() => false} size='large' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
+                <ContentModal showInvoice={showInvoice} overflow='auto'>
+                    {!showInvoice && statePay?.Addtopay?.filter(x => x.isPaid === false).map((x, idx) => (
                         <CardInvoice key={x.idx}>
                             <HeaderModal>
                                 <Text color={BColor} size='20px'>{x.eventName}</Text>
@@ -326,14 +326,60 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
                             </CtnInfo>
                             <CtnInfo border>
                                 <ButtonContentT>
-                                    <Tooltip onClick={() => handlePayState(x)}>PAYMENT NOW</Tooltip>
-                                    <BlueButton onClick={() => handlePayState(x)}>{'MARK PAYMENT NOW'}</BlueButton>
+                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>PAYMENT NOW</Tooltip>
+                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
                                 </ButtonContentT>
                                 <Options justify>
                                     <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
                                     <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                 </Options>
                             </CtnInfo>
+                        </CardInvoice>
+                    ))}
+                    {showInvoice && dataInvoiceTo?.map(date => (
+                        <CardInvoice height='100vh' showInvoice={showInvoice}>
+                            <WrapperInnerInvoiceTo>
+                                <Text color={BColor} size='26px'>{date}</Text>
+                                <div>
+                                    {result[date]?.map((x, idx) => (
+                                        <CardInvoice key={x.idx}>
+                                            <HeaderModal>
+                                                <Text color={BColor} size='20px'>{x.eventName}</Text>
+                                                <RippleButton bgColor='transparent' color={BGColor}
+                                                    onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
+                                                    <IconCancel size='15px' />
+                                                </RippleButton>
+                                                <span id='line' />
+                                            </HeaderModal>
+                                            <CtnInfo>
+                                                <Text size={'1rem'} color={`${BColor}69`}># {x.invoiceRef}</Text>
+                                            </CtnInfo>
+                                            <CtnInfo>
+                                                <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
+                                                {x.eventCommences && <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
+                                            </CtnInfo>
+                                            <CtnInfo>
+                                                <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
+                                                <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                                            </CtnInfo>
+                                            <CtnInfo>
+                                                <Text size={'1.125rem'} color={BColor}>INVOICE TO: </Text>
+                                                <Text size={'1.125rem'} color={BColor}>{x.invoiceTo}</Text>
+                                            </CtnInfo>
+                                            <CtnInfo border>
+                                                <ButtonContentT>
+                                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>PAYMENT NOW</Tooltip>
+                                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
+                                                </ButtonContentT>
+                                                <Options justify>
+                                                    <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
+                                                    <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
+                                                </Options>
+                                            </CtnInfo>
+                                        </CardInvoice>
+                                    ))}
+                                </div>
+                            </WrapperInnerInvoiceTo>
                         </CardInvoice>
                     ))}
                 </ContentModal>
@@ -346,11 +392,11 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
                         <NewSelect topTitle='10px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
-                        {/* <Button style={{ border: '1px solid #ccc' }} onClick={() => showAllData(!showInvoice)}>{!showInvoice ? 'Show' : 'Close'} All invoice</Button> */}
+                        <Button style={{ border: '1px solid #ccc' }} onClick={() => showAllData(!showInvoice)}>{!showInvoice ? 'Show' : 'Close'} All invoice</Button>
                         <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false)?.length} / {data?.length || 0}  Invoice </Text>
                     </Options>
                     <ContentModal height={'90vh'}>
-                        {!showInvoice ? data ? data?.filter(x => x.isPaid === false).map(x => (
+                        {!showInvoice ? data ? data?.filter(x => statePay?.Addtopay.length > 0 ? x.invoiceTo === statePay?.Addtopay[0]?.invoiceTo && x.isPaid === false : x.isPaid === false).map(x => (
                             <CardInvoice key={x.id}>
                                 <HeaderModal>
                                     <Text color={BColor} size='20px'>{x.eventName}</Text>
@@ -378,7 +424,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
                                 <CtnInfo border>
                                     <ButtonContentT>
                                         <Tooltip onClick={() => handlePayState(x)}>PAYMENT NOW</Tooltip>
-                                        <BlueButton onClick={() => handlePayState(x)}>{'MARK PAYMENT NOW'}</BlueButton>
+                                        <BlueButton onClick={() => handlePayState(x)}> {x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
                                     </ButtonContentT>
                                     <Options justify>
                                         <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
@@ -386,7 +432,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
                                     </Options>
                                 </CtnInfo>
                             </CardInvoice>
-                        )) : <div>No data</div> : data ? data?.filter(x => x.isPaid === false && x.invoiceTo === statePay?.Addtopay[0]?.invoiceTo).map(x => (
+                        )) : <div>No data</div> : data ? data?.filter(x => x.isPaid === false).map(x => (
                             <CardInvoice key={x.id}>
                                 <HeaderModal>
                                     <Text color={BColor} size='20px'>{x.eventName}</Text>
@@ -414,7 +460,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, handleA
                                 <CtnInfo border>
                                     <ButtonContentT>
                                         <Tooltip onClick={() => handlePayState(x)}>PAYMENT NOW</Tooltip>
-                                        <BlueButton onClick={() => handlePayState(x)}>{'MARK PAYMENT NOW'}</BlueButton>
+                                        <BlueButton onClick={() => handlePayState(x)}>{x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
                                     </ButtonContentT>
                                     <Options justify>
                                         <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
