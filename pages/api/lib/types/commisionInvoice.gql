@@ -228,7 +228,7 @@ input InputNewArray {
 }
 type Query {
   getAllCommissionInvoiceReceived(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
-  getAllCommissionInvoiceSent(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
+  getAllCommissionInvoiceSent(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int, datePaid: String, updatedAt: String, invoiceFrom: String, invoiceTo: String): [CommissionInvoice]
   getOneCommissionInvoice(idInvoice: ID, idUser: ID): CommissionInvoice
 }
 

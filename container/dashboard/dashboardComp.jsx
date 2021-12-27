@@ -41,22 +41,30 @@ export const DashboardComp = () => {
     const [arrayInvoice, setData] = useState([])
     // main func
     const [active, setActive] = useState(false)
+    const [showDataToday, showAllToday] = useState(false)
     const handleClick = index => setActive(index === active ? false : index)
     const [showMore, setShowMore] = useState(0)
-    const { data, loading } = useQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore } })
-    const { data: dataCount } = useQuery(GET_STIMATE_COUNT, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
-    const { data: dataCountSend } = useQuery(GET_STIMATE_COUNT_SEND, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
-    const { data: DataReceived, loading: loadingR } = useQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
+    const [searchPay, setSearchDatePay] = useState('')
     const [values, setValues] = useState({})
     const [alertModal, setAlertModal] = useState(false)
     const [invoiceData, setDataInv] = useState({})
     const [errors, setErrors] = useState({})
     const [showInvoice, showAllData] = useState(false)
+    // filter
+    const handleChangeFilterDatePay = e => {
+        setSearchDatePay(e.target.value)
+    }
+    // filter
     const handleChange = (e, error) => {
         setValues({ ...values, [e.target.name]: e.target.value })
         setErrors({ ...errors, [e.target.name]: error })
     }
+    const { data, loading } = useQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore, updatedAt: 'atDate', datePaid: searchPay, invoiceFrom: values?.from, invoiceTo: values?.todate } })
+    const { data: dataCount } = useQuery(GET_STIMATE_COUNT, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
+    const { data: dataCountSend } = useQuery(GET_STIMATE_COUNT_SEND, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
+    const { data: DataReceived, loading: loadingR } = useQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
 
+    console.log(values)
     // QUERIES
     const [isPaidStateInvoice, { loading: loadingPay }] = useMutation(IS_PAY_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
@@ -99,7 +107,6 @@ export const DashboardComp = () => {
     const handleApprovedInvoiceState = async (data) => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
-        console.log(data)
         if (data.isApprovedByInvoiceSender === false) {
             await isApprovedByInvoiceSenderMutation({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
         } else {
@@ -114,7 +121,6 @@ export const DashboardComp = () => {
     }
     const handleClickAddInvoice = elem => {
         let includes = statePay?.Addtopay.includes(elem);
-        console.log(elem)
         if (elem.isPaid === false) {
             handlePayState(elem)
         } else if (includes && elem.isPaid !== true) {
@@ -219,13 +225,15 @@ export const DashboardComp = () => {
             {loadingPay || loadingRedo || loadingApprove && <Loading />}
             <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {name}</Text>
             <FilterOptions>
-                <Button size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px', display: 'grid', placeContent: 'center', gridTemplateColumns: '1fr .5fr' }} onClick={() => getYearInvoices()}> FILTERS</Button>
+                {/* <Button size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px', display: 'grid', placeContent: 'center', gridTemplateColumns: '1fr .5fr' }} onClick={() => getYearInvoices()}> FILTERS</Button> */}
                 <Button size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px' }} onClick={() => setOpenModalMain(true)}> ADD INVOICE PAY</Button>
+                <Button onClick={() => showAllData(!showInvoice)}  size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px' }} >FILTER INVOICE PAY </Button>
+                {/* <Button onClick={() => showAllToday(!showDataToday)}  size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px' }} >FILTER INVOICE TODAY </Button> */}
                 {/* <NewSelect topTitle='10px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} /> */}
                 <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
                 <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
-                <Button style={{ border: '1px solid #ccc' }} onClick={() => showAllData(!showInvoice)}>{!showInvoice ? 'Show' : 'Close'} All invoice</Button>
-                {/* <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false)?.length} / {data?.length || 0}  Invoice </Text> */}
+                <input style={{ height: '45px', width: '25%' }} label='Search Pay' name='searchPay' value={searchPay} title='Filter pay invoice' onChange={handleChangeFilterDatePay} type='date' />
+                <Text width='min-content' size='30px'>{data?.getAllCommissionInvoiceSent?.filter(x => x.isPaid === false)?.length}  / {data?.getAllCommissionInvoiceSent?.length || 0}  BILLS PAID </Text>
             </FilterOptions>
             <Tabs width={['25%', '25%']} >
                 <Tabs.Panel label={`Sent bill: ${data ? data?.getAllCommissionInvoiceSent?.length : 0} / ${dataCountSend?.getEstimateCountInvoiceSend ? dataCountSend?.getEstimateCountInvoiceSend?.length : 0}`}>
@@ -238,6 +246,8 @@ export const DashboardComp = () => {
                             show={show}
                             setActive={setActive}
                             state={state}
+                            showInvoice={showInvoice}
+                            showDataToday={showDataToday}
                             dataInvoice={data}
                             handleClickAddInvoice={handleClickAddInvoice}
                             // onchange

@@ -11,7 +11,7 @@ import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, B
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip } from './styled'
 
 
-export const SentBillComponent = ({ data, setShowMore, setShow, dispatch, handleChangeCheck, handleClickAddInvoice,  dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
+export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     return (
         <div>
             <Toast open={checkedItems?.size > 1}>
@@ -37,7 +37,7 @@ export const SentBillComponent = ({ data, setShowMore, setShow, dispatch, handle
                     { name: 'Action', width: '8%' }
                 ]
                 }
-                data={data?.getAllCommissionInvoiceSent?.filter(x => x.bDescription !== 0 && x)}
+                data={data?.getAllCommissionInvoiceSent?.filter(x => showInvoice ? x.isPaid === true : x)}
                 renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section bgRow={1} padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state?.selectedIndex ? `${SVColor}` : 'transparent', borderBottom: 'border-bottom: 1px solid rgba(0, 0, 0, 0.05)' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                         dispatch({ type: 'select', payload: i })
@@ -112,7 +112,7 @@ export const SentBillComponent = ({ data, setShowMore, setShow, dispatch, handle
                 </Section>)}
             />
             {/* <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length || 100} onChange={setShowMore} /> */}
-            {data?.getAllCommissionInvoiceSent && <BlueButton onClick={() => setShowMore(s => s + 100)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
+            {<BlueButton style={{ width: '100%' }} onClick={() => setShowMore(s => s + 200)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
         </div>
     )
 }

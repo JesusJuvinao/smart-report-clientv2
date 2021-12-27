@@ -361,9 +361,7 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
     }
 }
 export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
-    // const idUser = ctx.User.id
-    const idUser = '61c38a904516c431d8c22e08'
-
+    const idUser = ctx.User.id
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
@@ -376,23 +374,12 @@ export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
-// export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
-//     const idUser = ctx.User.id
-//     try {
-//         const Array = await UserSchema.findOne({ _id: idUser })
-//         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
-//         if (dataComp && dataComp.length) {
-//             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-//             const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
-//             console.log(data)
-//             return data
-//         }
-//     } catch (error) {
-//         throw new ApolloError('Your request could not be processed.', 500)
-//     }
-// }
-export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max }, ctx) => {
+export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     const idUser = ctx.User.id
+    console.log(datePaid, updatedAt, invoiceTo, invoiceFrom)
+    const time = new Date(datePaid)
+    const invoiceToDate = new Date(invoiceTo)
+    const invoiceFromDate = new Date(invoiceFrom)
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
@@ -400,10 +387,10 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
             // var today = moment().startOf('day');
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
             const data = await CommissionSchema.find({
-                    invoiceFrom: dataCompany.companyName, /* updatedAt: {
-                        // $gte: today
-                        $lt: today
-                    } */
+                invoiceFrom: dataCompany.companyName,
+                // updatedAt: { $regex: { $gte: invoiceToDate, $lt: invoiceFromDate, $options: 'i'  } },
+                // eventName: { $regex: search, $options: 'i' },
+                // updatedAt: { $regex: time.toISOString(), $options: 'i' }
             }).sort({ age: -1 }).limit(max || 100)
             return data
         }

@@ -178,8 +178,8 @@ export const GET_STIMATE_COUNT_SEND = gql`
   }
 `
 export const GET_ALL_INVOICES_SENT = gql`
-query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max: Int, $idComp: ID, $CompName: String) {
-  getAllCommissionInvoiceSent(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, CompName: $CompName ) {
+query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max: Int, $idComp: ID, $CompName: String, $updatedAt: String, $datePaid: String, $invoiceTo: String, $invoiceFrom: String) {
+  getAllCommissionInvoiceSent(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, CompName: $CompName,  updatedAt: $updatedAt, datePaid: $datePaid, invoiceTo: $invoiceTo, invoiceFrom: $invoiceFrom  ) {
           _id
           idUser
           idComp
