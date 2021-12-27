@@ -395,13 +395,13 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
-            var today = moment().startOf('day');
+            // var today = moment().startOf('day');
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
             const data = await CommissionSchema.find({
-                    invoiceFrom: dataCompany.companyName, updatedAt: {
+                    invoiceFrom: dataCompany.companyName, /* updatedAt: {
                         // $gte: today
                         $lt: today
-                    }
+                    } */
             }).sort({ age: -1 }).limit(max || 100)
             return data
         }
