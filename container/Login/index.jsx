@@ -87,7 +87,6 @@ export const LoginC = ({ setAlertBox }) => {
                 if (res.success) {
                     loginUser({ variables: { uEmail: values.uEmail, uPassword: values.uPassword, idBrowser: visitorId } })
                         .then(res => {
-                            console.log(res.data)
                             setSessionActive({ data: res.data.loginUser.user })
                             if (res.data.loginUser.isVerifyEmail === true ) {
                                 router.push('/switch-options')
