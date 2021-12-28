@@ -85,9 +85,9 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
     }, [result])
     const ValitareRange = () => {
         if (statePay?.Addtopay.length > 0) {
-            handleClick(4) 
+            handleClick(4)
         } else {
-             setAlertBox({ message: 'You must select at least one invoice' })
+            setAlertBox({ message: 'You must select at least one invoice' })
         }
     }
     return (
@@ -105,36 +105,35 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                     {!showInvoice && statePay?.Addtopay?.filter(x => x.isPaid === false).map((x, idx) => (
                         <CardInvoice key={x.idx}>
                             <HeaderModal>
-                                <Text color={BColor} size='20px'>{x.eventName}</Text>
-                                <RippleButton bgColor='transparent' color={BGColor}
+                                <RippleButton bgColor='transparent' justifyContent='flex-end' color={BGColor}
                                     onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
-                                    <IconCancel size='15px' />
+                                    <IconCancel size='15px' color='#FF2D01' />
                                 </RippleButton>
-                                <span id='line' />
                             </HeaderModal>
                             <CtnInfo>
-                                <Text size={'1rem'} color={`${BColor}69`}># {x.invoiceRef}</Text>
+                                <Text color={BColor} size='18px'>{x.eventName}</Text>
                             </CtnInfo>
                             <CtnInfo>
-                                <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
-                                {x.eventCommences && <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
+                                <Text size='18px' color={`${BColor}69`}># {x.invoiceRef}</Text>
                             </CtnInfo>
                             <CtnInfo>
-                                <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
-                                <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                                <Text size='18px' color={BColor}>{dateFormat(x.eventCommences)}</Text>
+                                {x.eventCommences && <Text size='18px' color={BColor}>Commences:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
                             </CtnInfo>
                             <CtnInfo>
-                                <Text size={'1.125rem'} color={BColor}>INVOICE TO: </Text>
-                                <Text size={'1.125rem'} color={BColor}>{x.invoiceTo}</Text>
+                                <Text size='18px' color={BColor}>Invoice From: </Text>
+                                <Text size='18px' color={BColor}>{x.invoiceFrom}</Text>
+                            </CtnInfo>
+                            <CtnInfo>
+                                <Text size='18px' color={BColor}>Invoice To: </Text>
+                                <Text size='18px' color={BColor}>{x.invoiceTo}</Text>
                             </CtnInfo>
                             <CtnInfo border>
-                                <ButtonContentT>
-                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>PAYMENT NOW</Tooltip>
-                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
-                                </ButtonContentT>
-                                <Options justify>
-                                    <Text justify='flex-end' size={'1.125rem'} color={BColor}> TOTAL VALUE TO PAY:</Text>
-                                    <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
+                                <Options style={{ width: 'min-content' }} justify>
+                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>Payment Now</Tooltip>
+                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
+                                    <Text justify='flex-start' size='18px' color={BColor}> TOTAL TO PAY:</Text>
+                                    <Text justify='flex-end' size='18px' color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                 </Options>
                             </CtnInfo>
                         </CardInvoice>
@@ -147,7 +146,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                                     {result[date]?.filter(x => x.isPaid === false).map((x, idx) => (
                                         <CardInvoice key={x.idx}>
                                             <HeaderModal>
-                                                <Text color={BColor} size='20px'>{x.eventName}</Text>
+                                                <Text color={BColor} size='20px'>{x.eventName}</Text>       
                                                 <RippleButton bgColor='transparent' color={BGColor}
                                                     onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
                                                     <IconCancel size='15px' />
@@ -155,31 +154,29 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                                                 <span id='line' />
                                             </HeaderModal>
                                             <CtnInfo>
-                                                <Text size={'1rem'} color={`${BColor}69`}># {x.invoiceRef}</Text>
+                                                <Text size='18px' color={`${BColor}69`}># {x.invoiceRef}</Text>
                                             </CtnInfo>
                                             <CtnInfo>
-                                                <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
-                                                {x.eventCommences && <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
+                                                <Text size='18px' color={BColor}>{dateFormat(x.eventCommences)}</Text>
+                                                {x.eventCommences && <Text size='18px' color={BColor}>Commences:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
                                             </CtnInfo>
                                             <CtnInfo>
-                                                <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
-                                                <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                                                <Text size='18px' color={BColor}>Invoice From: </Text>
+                                                <Text size='18px' color={BColor}>{x.invoiceFrom}</Text>
                                             </CtnInfo>
                                             <CtnInfo>
-                                                <Text size={'1.125rem'} color={BColor}>INVOICE TO: </Text>
-                                                <Text size={'1.125rem'} color={BColor}>{x.invoiceTo}</Text>
+                                                <Text size='18px' color={BColor}>Invoice To: </Text>
+                                                <Text size='18px' color={BColor}>{x.invoiceTo}</Text>
                                             </CtnInfo>
                                             <CtnInfo border>
-
-                                                <ButtonContentT>
-                                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>PAYMENT NOW</Tooltip>
-                                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
-                                                </ButtonContentT>
+                                                {/*   <ButtonContentT>
+                                                </ButtonContentT> */}
                                                 <Options justify>
-                                                    <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
-                                                    <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
+                                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>PAYMENT NOW</Tooltip>
+                                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
+                                                    <Text justify='flex-end' size='18px' color={BColor}>TOTAL</Text>
+                                                    <Text justify='flex-end' size='18px' color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                                 </Options>
-
                                             </CtnInfo>
                                         </CardInvoice>
                                     ))}
@@ -204,72 +201,74 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                         {!showInvoice ? data ? data?.filter(x => statePay?.Addtopay.length > 0 ? x.invoiceTo === statePay?.Addtopay[0]?.invoiceTo && x.isPaid === false : x.isPaid === false).map(x => (
                             <CardInvoice key={x.id}>
                                 <HeaderModal>
-                                    <Text color={BColor} size='20px'>{x.eventName}</Text>
-                                    <ButtonAdd bgColor='transparent' color={BGColor}
+                                    <ButtonAdd bgColor='transparent' justifyContent='flex-end' color={BGColor}
                                         onClick={() => handleAddInvoice(x)}>
                                         <IconPlus color={PVColor} size='25px' />
                                     </ButtonAdd>
-                                    <span id='line' />
                                 </HeaderModal>
                                 <CtnInfo>
-                                    <Text size={'1rem'} color={`${BColor}69`}># {x.invoiceRef}</Text>
+                                    <Text color={BColor} size='18px'>{x.eventName}</Text>
                                 </CtnInfo>
                                 <CtnInfo>
-                                    <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
-                                    {x.eventCommences && <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
+                                    <Text size='18px' color={`${BColor}69`}># {x.invoiceRef}</Text>
                                 </CtnInfo>
                                 <CtnInfo>
-                                    <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
-                                    <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                                    <Text size='18px' color={BColor}>{dateFormat(x.eventCommences)}</Text>
+                                    {x.eventCommences && <Text size='18px' color={BColor}>Commences:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
                                 </CtnInfo>
                                 <CtnInfo>
-                                    <Text size={'1.125rem'} color={BColor}>INVOICE TO: </Text>
-                                    <Text size={'1.125rem'} color={BColor}>{x.invoiceTo}</Text>
+                                    <Text size='18px' color={BColor}>Invoice From: </Text>
+                                    <Text size='18px' color={BColor}>{x.invoiceFrom}</Text>
+                                </CtnInfo>
+                                <CtnInfo>
+                                    <Text size='18px' color={BColor}>Invoice to: </Text>
+                                    <Text size='18px' color={BColor}>{x.invoiceTo}</Text>
                                 </CtnInfo>
                                 <CtnInfo border>
                                     <ButtonContentT>
                                         <Tooltip onClick={() => handlePayState(x)}>PAYMENT NOW</Tooltip>
-                                        <BlueButton onClick={() => handlePayState(x)}> {x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
+                                        <BlueButton onClick={() => handlePayState(x)}> {x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
                                     </ButtonContentT>
                                     <Options justify>
-                                        <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
-                                        <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
+                                        <Text justify='flex-end' size='18px' color={BColor}>TOTAL</Text>
+                                        <Text justify='flex-end' size='18px' color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                     </Options>
                                 </CtnInfo>
                             </CardInvoice>
                         )) : <div>No data</div> : data ? data?.filter(x => x.isPaid === false).map(x => (
                             <CardInvoice key={x.id}>
                                 <HeaderModal>
-                                    <Text color={BColor} size='20px'>{x.eventName}</Text>
-                                    <ButtonAdd bgColor='transparent' color={BGColor}
+                                    <ButtonAdd bgColor='transparent' justifyContent='flex-end' color={BGColor}
                                         onClick={() => handleAddInvoice(x)}>
                                         <IconPlus color={PVColor} size='25px' />
                                     </ButtonAdd>
-                                    <span id='line' />
                                 </HeaderModal>
                                 <CtnInfo>
-                                    <Text size={'1rem'} color={`${BColor}69`}># {x.invoiceRef}</Text>
+                                    <Text color={BColor} size='18px'>{x.eventName}</Text>
                                 </CtnInfo>
                                 <CtnInfo>
-                                    <Text size={'1.125rem'} color={BColor}>{dateFormat(x.eventCommences)}</Text>
-                                    {x.eventCommences && <Text size={'1.125rem'} color={BColor}>COMMENCES:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
+                                    <Text size='18px' color={`${BColor}69`}># {x.invoiceRef}</Text>
                                 </CtnInfo>
                                 <CtnInfo>
-                                    <Text size={'1.125rem'} color={BColor}>INVOICE FORM: </Text>
-                                    <Text size={'1.125rem'} color={BColor}>{x.invoiceFrom}</Text>
+                                    <Text size='18px' color={BColor}>{dateFormat(x.eventCommences)}</Text>
+                                    {x.eventCommences && <Text size='18px' color={BColor}>Commences:  {x.eventCommences && dateFormat(x.eventCommences)}</Text>}
                                 </CtnInfo>
                                 <CtnInfo>
-                                    <Text size={'1.125rem'} color={BColor}>INVOICE TO: </Text>
-                                    <Text size={'1.125rem'} color={BColor}>{x.invoiceTo}</Text>
+                                    <Text size='18px' color={BColor}>Invoice From: </Text>
+                                    <Text size='18px' color={BColor}>{x.invoiceFrom}</Text>
+                                </CtnInfo>
+                                <CtnInfo>
+                                    <Text size='18px' color={BColor}>Invoice To: </Text>
+                                    <Text size='18px' color={BColor}>{x.invoiceTo}</Text>
                                 </CtnInfo>
                                 <CtnInfo border>
                                     <ButtonContentT>
                                         <Tooltip onClick={() => handlePayState(x)}>PAYMENT NOW</Tooltip>
-                                        <BlueButton onClick={() => handlePayState(x)}>{x.isPaid === false ? 'MARK PAYMENT NOW' : 'PAID OUT'}</BlueButton>
+                                        <BlueButton onClick={() => handlePayState(x)}>{x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
                                     </ButtonContentT>
                                     <Options justify>
-                                        <Text justify='flex-end' size={'1.125rem'} color={BColor}>TOTAL</Text>
-                                        <Text justify='flex-end' size={'1.125rem'} color={APColor}>£ {x.invoiceTotal || 0}</Text>
+                                        <Text justify='flex-end' size='18px' color={BColor}>TOTAL</Text>
+                                        <Text justify='flex-end' size='18px' color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                     </Options>
                                 </CtnInfo>
                             </CardInvoice>

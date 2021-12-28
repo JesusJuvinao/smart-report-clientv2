@@ -6,21 +6,14 @@ export default function Home() {
   query sayHello {
     sayHello
 }`;
-  const { loading, error, data } = useQuery(GET_BEASTS);
+  // const { loading, error, data } = useQuery(GET_BEASTS);
   return (
-     <IndexC />
-     )
+    <IndexC />
+  )
 }
 export const getServerSideProps = withSession(async function ({ req }) {
-  const user = req?.session?.get('user')
-  if (!user) {
-  // res.next()
-      return { props: {} }
-  }
-  if (!req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/login' } }
-
+  if (req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/dashborad', permanent: false } }
   return {
-      props: {}
+      props: { }
   }
-}
-)
+})

@@ -12,8 +12,7 @@ export const ContactC = () => {
             <OnBanner height='80px' />
             <Hero />
             <HeroCard/>
-            <OnBanner height='18.25rem' title='Want to see what Smart-report can do for your business?' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Try it for free' />
-
+            <OnBanner height='18.25rem' title='Want to see what Smart-Resport can do for your business?' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Try it for free' />
         </Container>
   )
 }

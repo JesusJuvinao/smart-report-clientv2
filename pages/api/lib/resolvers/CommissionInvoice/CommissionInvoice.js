@@ -5,7 +5,7 @@ import UserSchema from '../../../models/users/userLogin'
 import CompanySchema from '../../../models/Companies/CompanySchema'
 import { setFiles } from '../Upload/upload'
 import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
-import { transporter } from '../../../utils'
+import { strToDate, transporter } from '../../../utils'
 import moment from 'moment'
 
 export const createCommissionInvoiceMutation = async (_, { input, inputCommissionLineItems }, ctx) => {
@@ -347,7 +347,9 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
 
 }
 export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName }, ctx) => {
-    const idUser = ctx.User.id
+    // const idUser = ctx.User.id
+    // const idUser = ctx.User.id
+    const idUser = '61c38a904516c431d8c22e08'
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
@@ -357,6 +359,7 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
             return data
         }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -376,6 +379,7 @@ export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
 }
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     const idUser = ctx.User.id
+    // const idUser = '61c38a904516c431d8c22e08'
     // console.log(datePaid, updatedAt, invoiceTo, invoiceFrom)
     const time = new Date(datePaid)
     const invoiceToDate = new Date(invoiceTo)
@@ -386,16 +390,19 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
         if (dataComp && dataComp.length) {
             // var today = moment().startOf('day');
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
+            console.log(dataCompany)
             const data = await CommissionSchema.find({
                 invoiceFrom: dataCompany.companyName,
                 // updatedAt: { $regex: { $gte: invoiceToDate, $lt: invoiceFromDate, $options: 'i'  } },
                 // eventName: { $regex: search, $options: 'i' },
                 // updatedAt: { $regex: time.toISOString(), $options: 'i' }
             }).sort({ age: -1 }).limit(max || 100)
-            console.log(data)
-            return data
+            const newData = data?.map(x => { return ({ eventCommences: strToDate(x.eventCommences), lineItemsArray: [{ _id: x.lineItemsArray._id, subtotalTicketsSold:  x.lineItemsArray.subtotalTicketsSold, ticketType:  x.lineItemsArray.ticketType, lineSalesReceived: x.lineItemsArray.lineSalesReceived, lineSubtotal: x.lineItemsArray.lineSubtotal, lineCommSubtotal: x.lineItemsArray.lineCommSubtotal, ticketCategoryTotalDue: x.lineItemsArray.ticketCategoryTotalDue, totalTicketTypeDiscount: x.lineItemsArray.totalTicketTypeDiscount, subtotalTicketTypeLessDiscount: x.lineItemsArray.subtotalTicketTypeLessDiscount, ticketPrice: x.lineItemsArray.ticketPrice }], _id: x._id, idUser: x.idUser, idComp: x.idComp, uploaded: x.uploaded, invoiceDate: x.invoiceDate, invoiceRef: x.invoiceRef, invoiceTo: x.invoiceTo, invoiceFrom: x.invoiceFrom, eventRef: x.eventRef, isApprovedByInvoiceSender: x.isApprovedByInvoiceSender, currency: x.currency, eventName: x.eventName, eventType: x.eventType, invoiceTotal: x.invoiceTotal,  totalCommDue: x.totalCommDue, totalSalesReceived: x.totalSalesReceived, totalDiscounts: x.totalDiscounts, vatOnComms: x.vatOnComms, isVATRegistered: x.isVATRegistered, isPaid: x.isPaid, isRedo: x.isRedo, datePaid: x.datePaid, hasBeenReceived: x.hasBeenReceived, isOnStatement: x.isOnStatement, statementId: x.statementId, agentDetails: { legalName: x.agentDetails.legalName, agentContact: x.agentDetails.agentContact, agentTradingName: x.agentDetails.agentTradingName, agentEmail: x.agentDetails.agentEmail, agentAddress1: x.agentDetails.agentAddress1, agentAddress2: x.agentDetails.agentAddress2, agentAddress3: x.agentDetails.agentAddress3, agentCity:  x.agentDetails.agentCity, agentCounty: x.agentDetails.agentCounty, agentCountry: x.agentDetails.agentCountry, agentPostCode: x.agentDetails.agentPostCode, VATRegNo: x.agentDetails.VATRegNo, agentVATRegistered: x.agentDetails.agentVATRegistered, agentCompanyNumber: x.agentDetails.agentCompanyNumber } }) })
+            // console.log(newData, 'NEW DATA')
+            return newData
         }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

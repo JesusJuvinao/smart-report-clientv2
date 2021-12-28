@@ -9,7 +9,8 @@ export const ContentLink = styled.div`
     justify-content: space-between;
     `
 export const ContentLogo = styled.div`
-  @media (max-width: 769px) {
+    width: min-content;
+    @media (max-width: 769px) {
   display: none;
   }
 `

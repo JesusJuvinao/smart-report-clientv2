@@ -192,6 +192,7 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                             show={show}
                             modal={modal}
                             setShow={setShow}
+                            setShow={setShow}
                             handleTheme={handleTheme}
                             authData={authData}
                             keyTheme={keyTheme}
@@ -199,7 +200,7 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                         />
                     )}
                     {['/', ].find(x => x === location.pathname) && (
-                        <HeaderPublic />
+                        <HeaderPublic  closeSession={closeSession}  />
                     )}
                     <div style={{ gridArea: 'main', overflowY: 'auto' }}>
                         {children}

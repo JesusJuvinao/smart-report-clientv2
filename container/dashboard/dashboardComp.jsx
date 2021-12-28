@@ -31,9 +31,12 @@ import { SentBillComponent } from './invoiceSend'
 import { InvoiceReceived } from './invoiceReceived'
 import { ModalAddInvoicePaymentState } from './ModalPayment'
 import { ModalAlerBox } from './ModalAlert'
+import { useCompanyHook } from '.'
+
 export const DashboardComp = () => {
     const { setAlertBox, company } = useContext(Context)
     const router = useRouter()
+    const [dataComp] = useCompanyHook()
     const name = router.query.name
     const [show, setShow] = useState(false)
     const [openModalMain, setOpenModalMain] = useState(false)
@@ -47,6 +50,7 @@ export const DashboardComp = () => {
     const [searchPay, setSearchDatePay] = useState('')
     const [values, setValues] = useState({})
     const [alertModal, setAlertModal] = useState(false)
+    const [dataInvoiceSend, setDataInvoiceSend] = useState([])
     const [invoiceData, setDataInv] = useState({})
     const [errors, setErrors] = useState({})
     const [showInvoice, showAllData] = useState(false)
@@ -59,10 +63,18 @@ export const DashboardComp = () => {
         setValues({ ...values, [e.target.name]: e.target.value })
         setErrors({ ...errors, [e.target.name]: error })
     }
-    const { data, loading } = useQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore, updatedAt: 'atDate', datePaid: searchPay, invoiceFrom: values?.from, invoiceTo: values?.todate } })
+    const [getAllCommissionInvoiceSent, { data, loading }] = useLazyQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore, updatedAt: 'atDate', datePaid: searchPay, invoiceFrom: values?.from, invoiceTo: values?.todate } })
     const { data: dataCount } = useQuery(GET_STIMATE_COUNT, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
     const { data: dataCountSend } = useQuery(GET_STIMATE_COUNT_SEND, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
     const { data: DataReceived, loading: loadingR } = useQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
+    // EFFECTS
+
+    useEffect(() => {
+        // variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore, updatedAt: 'atDate', datePaid: searchPay, invoiceFrom: values?.from, invoiceTo: values?.todate }
+        getAllCommissionInvoiceSent()
+        data?.getAllCommissionInvoiceSent && setDataInvoiceSend([...data?.getAllCommissionInvoiceSent])
+    }, [data])
+    console.log(data, 'Data')
     // QUERIES
     const [isPaidStateInvoice, { loading: loadingPay }] = useMutation(IS_PAY_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
@@ -74,6 +86,7 @@ export const DashboardComp = () => {
             type: 2
         })
     })
+    console.log(dataInvoiceSend, 'HIIIIII')
     const [isApprovedByInvoiceSenderMutation, { loading: loadingApprove }] = useMutation(IS_APPROVED_INVOICE_SENDER, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isApprovedByInvoiceSenderMutation?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
@@ -221,13 +234,10 @@ export const DashboardComp = () => {
     return (
         <ContentListInvoice>
             {loadingPay || loadingRedo || loadingApprove && <Loading />}
-            <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {name}</Text>
+            <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {dataComp?.companyName}</Text>
             <FilterOptions>
-                {/* <Button size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px', display: 'grid', placeContent: 'center', gridTemplateColumns: '1fr .5fr' }} onClick={() => getYearInvoices()}> FILTERS</Button> */}
-                <Button size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px' }} onClick={() => setOpenModalMain(true)}> ADD INVOICE PAY</Button>
-                <Button onClick={() => showAllData(!showInvoice)} size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px' }} >FILTER INVOICE PAY </Button>
-                {/* <Button onClick={() => showAllToday(!showDataToday)}  size='0.875rem' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '5.375rem', padding: '2px 10px' }} >FILTER INVOICE TODAY </Button> */}
-                {/* <NewSelect topTitle='10px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} /> */}
+                <Button size='13px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => setOpenModalMain(true)}> ADD INVOICE PAY</Button>
+                <Button size='11px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => showAllData(!showInvoice)} >FILTER INVOICE PAY </Button>
                 <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
                 <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
                 <input style={{ height: '45px', width: '25%' }} label='Search Pay' name='searchPay' value={searchPay} title='Filter pay invoice' onChange={handleChangeFilterDatePay} type='date' />
@@ -317,6 +327,7 @@ export const DashboardComp = () => {
                 // onchange
                 values={values}
                 errors={errors}
+                showInvoice={showInvoice}
                 handleChange={handleChange}
                 statePay={statePay}
                 data={data?.getAllCommissionInvoiceSent}

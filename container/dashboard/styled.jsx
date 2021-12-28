@@ -429,7 +429,7 @@ export const ButtonAdd = styled.button`
 export const HeaderModal = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
     & > #line {
     line-height: 1.5;
     font-family: "Inter", sans-serif;
