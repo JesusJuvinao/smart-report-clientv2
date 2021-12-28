@@ -19,7 +19,7 @@ export const Hero = () => {
         <Section>
             <Content>
                 <Card justify='flex-start' width='100%'>
-                    <Text size='1rem' >ACCOUNTING SOFTWARE | INTUIT QUICKBOOKS | GLOBAL</Text>
+                    <Text size='1rem' >ACCOUNTING SOFTWARE | INTUIT Smart-report | GLOBAL</Text>
                     <Text lineHeight={'1.25'} font='PFont-Bold' bold='bold' justify='center' color={SECColor} size='2.90rem' margin='30px auto'>Smart, simple online accounting software for small business</Text>
                     <Text margin='1rem 0 3.75rem' size='1.20rem'>Track expenses, customise invoices, run reports and even more all from one place.</Text>
                     <Card width='50%'>
@@ -57,7 +57,7 @@ export const HeroCard = () => {
                     />
                     <Text justify='center' align={'center'} color={SECColor} lineHeight='1.4' bold='600' size='1.25rem' margin='1.25rem 1.5rem'>Hello organised</Text>
                     <Paragraph justify='center' align={'center'} color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
-                        QuickBooks Online keeps everything in its right place, so you’ll always have what you need when you need it.
+                        Smart-report Online keeps everything in its right place, so you’ll always have what you need when you need it.
                     </Paragraph>
                 </Card>
                 <Card media minWidth='192px' margin='0 0 2.5rem 0' padding='0 1.25rem' justify='center'>
@@ -86,7 +86,7 @@ export const HeroCard = () => {
                     />
                     <Text justify='center' align={'center'} color={SECColor} lineHeight='1.4' bold='600' size='1.25rem' margin='1.25rem 1.5rem'>Claim everything</Text>
                     <Paragraph justify='center' align={'center'} color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
-                        Claim every entitlement at tax time with your expense receipts stored and sorted in QuickBooks.
+                        Claim every entitlement at tax time with your expense receipts stored and sorted in Smart-report.
                     </Paragraph>
                 </Card>
                 <Card media minWidth='192px' margin='0 0 2.5rem 0' padding='0 1.25rem' justify='center'>
@@ -100,7 +100,7 @@ export const HeroCard = () => {
                     />
                     <Text justify='center' align={'center'} color={SECColor} lineHeight='1.4' bold='600' size='1.25rem' margin='1.25rem 1.5rem'>Unlimited support</Text>
                     <Paragraph justify='center' align={'center'} color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
-                        With QuickBooks free and unlimited customer support, help is always just a click away.
+                        With Smart-report free and unlimited customer support, help is always just a click away.
                     </Paragraph>
                 </Card>
             </Content>
@@ -223,7 +223,7 @@ export const PricingCard = () => {
 
     return (
         <Section>
-            <Text lineHeight={'2.75rem'} font='PFont-Regular' bold='600' justify='center' color={SECColor} size='2.125rem' margin='30px auto'>There’s a QuickBooks for every business</Text>
+            <Text lineHeight={'2.75rem'} font='PFont-Regular' bold='600' justify='center' color={SECColor} size='2.125rem' margin='30px auto'>There’s a Smart-report for every business</Text>
             <ContentToggle>
                 <Text lineHeight={'2.75rem'} font='PFont-Regular' bold='600' justify='center' color={SECColor} size='1.5rem' margin='0 .625rem' width='auto' >Monthly</Text>
                 <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
@@ -349,7 +349,7 @@ export const PQR = () => {
                         Access and manage your books from your computer, laptop, tablet, or smartphone anytime you choose. Create access privileges so that your colleague or accountant can login and work with your data online.
                     </Paragraph>
                 </Options>
-                <Options aph color={SECColor} size='20px' label='Will QuickBooks online accounting software work on my Apple Mac?' active={active === 3} handleClick={() => handleClick(3)} icon={<IconArrowBottom size='10px' color={PLColor} />} iconTwo={<IconSearch size='25px' color={PLColor} />}>
+                <Options aph color={SECColor} size='20px' label='Will Smart-report online accounting software work on my Apple Mac?' active={active === 3} handleClick={() => handleClick(3)} icon={<IconArrowBottom size='10px' color={PLColor} />} iconTwo={<IconSearch size='25px' color={PLColor} />}>
                     <Paragraph color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
                         Access and manage your books from your computer, laptop, tablet, or smartphone anytime you choose. Create access privileges so that your colleague or accountant can login and work with your data online.
                     </Paragraph>
@@ -360,7 +360,7 @@ export const PQR = () => {
                         Access and manage your books from your computer, laptop, tablet, or smartphone anytime you choose. Create access privileges so that your colleague or accountant can login and work with your data online.
                     </Paragraph>
                 </Options>
-                <Options aph color={SECColor} size='20px' label='Can I access QuickBooks Online accounting software on my mobile phone or tablet?' active={active === 4} handleClick={() => handleClick(4)} icon={<IconArrowBottom size='10px' color={PLColor} />} iconTwo={<IconSearch size='25px' color={PLColor} />}>
+                <Options aph color={SECColor} size='20px' label='Can I access Smart-report Online accounting software on my mobile phone or tablet?' active={active === 4} handleClick={() => handleClick(4)} icon={<IconArrowBottom size='10px' color={PLColor} />} iconTwo={<IconSearch size='25px' color={PLColor} />}>
                     <Paragraph color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
                         Access and manage your books from your computer, laptop, tablet, or smartphone anytime you choose. Create access privileges so that your colleague or accountant can login and work with your data online.
                     </Paragraph>

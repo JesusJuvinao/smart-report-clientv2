@@ -15,6 +15,14 @@ export const GetLicences = async (_, { input }, ctx) => {
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
+export const GetOneLicences = async (_, { id }, ctx) => {
+    try {
+        const data = await LicenceSchema.findOne({ _id: id })
+        return data        
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
 export const registerGetLicences = async (_, { input }, ctx) => {
     try {
         const { LPrice, Ref, LDescuento, Date, EndDate, Active, LName } = input || {}
@@ -35,7 +43,8 @@ export const registerGetLicences = async (_, { input }, ctx) => {
 export default {
     TYPES: {},
     QUERIES: {
-        GetLicences
+        GetLicences,
+        GetOneLicences
     },
     MUTATIONS: {
         registerGetLicences

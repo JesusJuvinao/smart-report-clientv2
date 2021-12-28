@@ -1,24 +1,24 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 async function CreateStripeSession(req, res) {
-    const { item } = req.body;
-
+    const { name, description, image, quantity, price, licenceId } = req.body;
+    console.log(name, description, image, quantity, price)
     const redirectURL =
         process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3000'
-            : 'https://www.smartreportz.com/';
+            ? `http://localhost:3000/checkout/${licenceId}`
+            : `https://www.smartreportz.com/checkout/${licenceId}`;
 
     const transformedItem = {
         price_data: {
             currency: 'usd',
             product_data: {
-                images: [item.image],
-                name: item.name,
+                images: [],
+                name: name,
             },
-            unit_amount: item.price * 100,
+            unit_amount: price * 100,
         },
-        description: item.description,
-        quantity: item.quantity,
+        description: description,
+        quantity: quantity,
     };
 
     const session = await stripe.checkout.sessions.create({
@@ -28,10 +28,10 @@ async function CreateStripeSession(req, res) {
         success_url: redirectURL + '?status=success',
         cancel_url: redirectURL + '?status=cancel',
         metadata: {
-            images: item.image,
+            images: [],
         },
     });
-
+    console.log(session)
     res.json({ id: session.id });
 }
 

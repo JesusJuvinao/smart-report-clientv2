@@ -26,6 +26,7 @@ input ILicences {
 # Query
 type Query {
   GetLicences(_idUser: ID): [Licences]
+  GetOneLicences(id: ID): Licences
 }
 # Mutations
 type Mutation {

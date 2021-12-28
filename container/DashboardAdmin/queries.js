@@ -32,6 +32,21 @@ query GetLicences($_idUser: ID){
   }
 }
 `
+export const GET_ONE_LICENCE = gql`
+query GetOneLicences($id: ID){
+  GetOneLicences(id: $id){
+    _id
+    idUser
+    LName
+    LPrice
+    Ref
+    LDescuento
+    Date
+    EndDate
+    Active
+  }
+}
+`
 export const CREATE_ONE_LICENCE = gql`
     mutation registerGetLicences($input: ILicences) {
         registerGetLicences(input: $input) {
