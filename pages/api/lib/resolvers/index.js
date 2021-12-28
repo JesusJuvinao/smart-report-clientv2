@@ -15,6 +15,7 @@ import IvaResolvers from './Iva'
 import accountResolver from './Account'
 import uploadFileResolver from './Upload'
 import detailResolver from './DetailSales'
+import LicenceModules from './Licences'
 import CommentsResolver from './Commets'
 import CommissionInvoice from './CommissionInvoice'
 import taxedResolver from './Taxes'
@@ -35,6 +36,7 @@ export default {
     ...CountriesResolvers.TYPES,
     ...SalesInvoicePaymetResolver.TYPES,
     ...uploadFileResolver.TYPES,
+    ...LicenceModules.TYPES,
     ...ClassResolver.TYPES,
     DateTime: dateTimeScalar,
     Upload: GraphQLUpload,
@@ -60,6 +62,7 @@ export default {
         ...CurrencyResolvers.QUERIES,
         ...CountriesResolvers.QUERIES,
         ...CompanyResolvers.QUERIES,
+        ...LicenceModules.QUERIES,
         ...DashboardResolvers.QUERIES,
         ...SaleResolvers.QUERIES
     },
@@ -79,6 +82,7 @@ export default {
         ...IvaResolvers.MUTATIONS,
         ...reportsResolver.MUTATIONS,
         ...CategoriesResolvers.MUTATIONS,
+        ...LicenceModules.MUTATIONS,
         ...ClassResolver.MUTATIONS,
         ...productsResolvers.MUTATIONS,
         ...CurrencyResolvers.MUTATIONS,

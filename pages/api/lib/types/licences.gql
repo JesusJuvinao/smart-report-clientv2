@@ -1,0 +1,35 @@
+
+
+type Licences {
+    _id: ID
+    idUser: ID
+    LName: String
+    LPrice: Int
+    Ref: String
+    LDescuento: Int
+    Date: DateTime
+    EndDate: DateTime
+    Active: Boolean
+}
+# Account Input
+input ILicences {
+    _id: ID
+    idUser: ID
+    LName: String
+    LPrice: Int
+    Ref: String
+    LDescuento: Int
+    Date: DateTime
+    EndDate: DateTime
+    Active: Boolean
+}
+# Query
+type Query {
+  GetLicences(_idUser: ID): [Licences]
+}
+# Mutations
+type Mutation {
+  registerGetLicences(input: ILicences): Licences
+  EditGetLicences(input: ILicences): Licences
+  DeleteGetLicences(id: ID): Boolean,
+}
