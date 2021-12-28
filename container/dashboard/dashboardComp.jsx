@@ -31,6 +31,7 @@ import { SentBillComponent } from './invoiceSend'
 import { InvoiceReceived } from './invoiceReceived'
 import { ModalAddInvoicePaymentState } from './ModalPayment'
 import { ModalAlerBox } from './ModalAlert'
+
 export const DashboardComp = () => {
     const { setAlertBox, company } = useContext(Context)
     const router = useRouter()

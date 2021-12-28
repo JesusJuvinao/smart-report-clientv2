@@ -13,13 +13,14 @@ import { RippleButton } from '../../components/Ripple';
 import { useSetState } from '../../components/hooks/useState';
 import { useUser } from '../Profile';
 import { generatePdfDocumentInvoice } from './PdfInvoice';
-import { Button, DocumentFormatA4, WrapperControls, WrapperPdf, Card, Content, ContentToggle, ButtonTheme, SwitchButton, Text, Title, Row, RowGrid, ContentInvoice, Container, ContPdf, Tabla, TablaFila, RowDinamic } from './styled';
+import { DocumentFormatA4, WrapperControls, WrapperPdf, Card, Content, ContentToggle, ButtonTheme, SwitchButton, Text, Title, Row, RowGrid, ContentInvoice, Container, ContPdf, Tabla, TablaFila, RowDinamic } from './styled';
 
 export const Invoice = ({ idInvoice }) => {
     const { data, loading } = useQuery(GET_ONE_INVOICE, { variables: { idInvoice: idInvoice }, fetchPolicy: 'cache-and-network' })
     const { setAlertBox } = useContext(Context)
     const [dataUser] = useUser()
-    const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = useState(false);
+
     useEffect(() => {
         if (data) {
             setOpenModal(true)
@@ -64,7 +65,9 @@ export const Invoice = ({ idInvoice }) => {
     const handleRedoState = async ({ id }) => {
         isRedoStateInvoice({ variables: { idInvoice: id, ToEmail: 'juvinaojesusd@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
-    const Switch = useSetState(0)
+    const Switch = useSetState(0);
+    const Switch2 = useSetState(0);
+
     const handleChangeReceived = async () => {
         setOpenModal(!openModal)
         await hasBeenReceived({
@@ -93,10 +96,10 @@ export const Invoice = ({ idInvoice }) => {
                                 <Card width='50%'>
 
                                     <Card width='50%'>
-                                        sadnbas
+                                        INVOICE DATE:
                                     </Card>
                                     <Card width='50%'>
-                                        sadnbas
+                                    {data?.getOneCommissionInvoice?.invoiceDate ? data?.getOneCommissionInvoice?.invoiceDate : 'Without Date'}
                                     </Card>
                                 </Card>
                             </Card>
@@ -129,7 +132,22 @@ export const Invoice = ({ idInvoice }) => {
                                         <Row border> <Text size='11px'>{invoice?.ticketPrice}</Text> </Row>
                                     </RowDinamic>
                                 ))}
+                                <Card>
+                                    <Text margin='10px 0 10px 0' size='11px'> Total Revenue of Tickets You Sold: </Text>
+                                </Card>
+                                <Card>
+                                    <Text margin='10px 0 10px 0' size='11px'> Total Commission (including VAT) Payable to you: </Text>
+                                </Card>
+                                <Card>
+                                    <Text margin='10px 0 10px 0' size='11px'> Total Payable by your group to the event owner: </Text>
+                                </Card>
+                                <Card>
+                                    <RippleButton  bgColor={'#cb1d6c'}>View Invoice</RippleButton>
+                                </Card>
                             </Card>
+
+                           
+                            
                         </ContPdf>
                     </DocumentFormatA4>
                     <WrapperControls>
@@ -142,8 +160,8 @@ export const Invoice = ({ idInvoice }) => {
                             </div>
                             <div>
                                 <Text style={{ margin: '0' }} size='13px' >Mark Payment</Text>
-                                <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
-                                    <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
+                                <ButtonTheme onClick={() => Switch2.setState(!Switch2.state)}>
+                                    <SwitchButton active={Switch2.state ? '36px' : '3.5px'} />
                                 </ButtonTheme>
                             </div>
                             <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { ...data } })}
