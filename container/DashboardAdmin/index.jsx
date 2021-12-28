@@ -16,12 +16,13 @@ export const DashboardAmin = () => {
   const { setAlertBox, company } = useContext(Context)
   const [handleChange, handleSubmit, setDataValue, { dataForm, errorForm }] = useFormTools()
 
-  const [dataUser] = useUser()
-  const { data: dataAllUser } = useQuery(GET_USER_INFO)
-  const { data: dataHtml } = useQuery(GET_MODULES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' })
-  const [RegisterUserAdmin] = useMutation(CREATE_ONE_USER_ADMIN)
-  const { data: allLicence } = useQuery(GET_ALL_LICENCE)
+  const [dataUser] = useUser();
+  const { data: dataAllUser } = useQuery(GET_USER_INFO);
+  const { data: dataHtml } = useQuery(GET_MODULES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' });
+  const [RegisterUserAdmin] = useMutation(CREATE_ONE_USER_ADMIN);
+  const { data: allLicence } = useQuery(GET_ALL_LICENCE);
   console.log(allLicence)
+  
   const [registerModule, { loading, data }] = useMutation(CREATE_ONE_MODULE, {
     onError: (error) => {
       setAlertBox({
