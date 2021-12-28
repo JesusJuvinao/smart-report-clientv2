@@ -34,7 +34,7 @@ export const LoginC = ({ setAlertBox }) => {
    
     const [loginUser, { loading }] = useMutation(CREATE_CURRENT_SESSION, {
         onError: error => {
-            console.log(error)
+            console.log('')
             setAlertBox({
                 message: 'an internal error occurred',
                 duration: 300000,

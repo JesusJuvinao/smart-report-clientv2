@@ -19,13 +19,14 @@ export const Invoice = ({ idInvoice }) => {
     const { data, loading } = useQuery(GET_ONE_INVOICE, { variables: { idInvoice: idInvoice }, fetchPolicy: 'cache-and-network' })
     const { setAlertBox } = useContext(Context)
     const [dataUser] = useUser()
-    const [openModal, setOpenModal] = useState(false);
+    const [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
         if (data) {
             setOpenModal(true)
         }
     }, [data])
+
     const [isRedoStateInvoice] = useMutation(IS_REDO_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isRedoStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
@@ -37,6 +38,7 @@ export const Invoice = ({ idInvoice }) => {
 
         })
     })
+
     const [hasBeenReceived] = useMutation(HAS_BEEN_RECEIVED, {
         onCompleted: (data) => setAlertBox({ message: `${data?.hasBeenReceived?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
@@ -48,6 +50,7 @@ export const Invoice = ({ idInvoice }) => {
 
         })
     })
+    
     const [isPaidStateInvoice] = useMutation(IS_PAY_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
@@ -59,9 +62,11 @@ export const Invoice = ({ idInvoice }) => {
 
         })
     })
+
     const handlePayState = async ({ id }) => {
         isPaidStateInvoice({ variables: { idInvoice: id, ToEmail: 'juvinaojesusd@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
+
     const handleRedoState = async ({ id }) => {
         isRedoStateInvoice({ variables: { idInvoice: id, ToEmail: 'juvinaojesusd@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
@@ -78,6 +83,7 @@ export const Invoice = ({ idInvoice }) => {
             }
         })
     }
+
     if (loading) return <Loading />
     return (
         <Content>
@@ -95,10 +101,10 @@ export const Invoice = ({ idInvoice }) => {
                                 <Card width='50%'>
 
                                     <Card width='50%'>
-                                        INVOICE DATE:
+                                        {data?.getOneCommissionInvoice.agentDetails.legalName}
                                     </Card>
                                     <Card width='50%'>
-                                    {data?.getOneCommissionInvoice?.invoiceDate ? data?.getOneCommissionInvoice?.invoiceDate : 'Without Date'}
+                                        {data?.getOneCommissionInvoice.invoiceDate}
                                     </Card>
                                 </Card>
                             </Card>

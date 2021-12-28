@@ -15,7 +15,7 @@ export const Hero = () => {
           <Section>
               <Content>
                   <Card justify='flex-start' width='100%' >
-                      <Text size='1rem' >INTUIT Smart-Resport CUSTOMER SUPPORT</Text>
+                      <Text size='1rem' >INTUIT Smart-report CUSTOMER SUPPORT</Text>
                       <Text lineHeight={'1.25'} font='PFont-Bold' bold='bold' justify='start' color={SECColor} size='2.90rem' margin='30px auto'>Contact us</Text>
                       <Card width='50%'>
                           <RippleButton padding='0 15px' size='15px' family='PFont-Regular' bgColor={PColor} minHeight='2.25em' border='624.9375rem' height='calc(100% + .625rem)' >Contact us</RippleButton>
@@ -51,7 +51,7 @@ export const HeroCard = () => {
                       />
                       <Text justify='center' align='center' color={SECColor} lineHeight='1.4' bold='600' size='1.25rem' margin='1.25rem 1.5rem'>Hello organised</Text>
                       <Paragraph justify='center' align={'center'} color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
-                          Smart-Resport Online keeps everything in its right place, so you’ll always have what you need when you need it.
+                          Smart-report Online keeps everything in its right place, so you’ll always have what you need when you need it.
                       </Paragraph>
                   </Card>
                   <Card media minWidth='192px' margin='0 0 2.5rem 0' padding='0 1.25rem' justify='center'>
@@ -80,7 +80,7 @@ export const HeroCard = () => {
                       />
                       <Text justify='center' align={'center'} color={SECColor} lineHeight='1.4' bold='600' size='1.25rem' margin='1.25rem 1.5rem'>Claim everything</Text>
                       <Paragraph justify='center' align={'center'} color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
-                          Claim every entitlement at tax time with your expense receipts stored and sorted in Smart-Resport.
+                          Claim every entitlement at tax time with your expense receipts stored and sorted in Smart-report.
                       </Paragraph>
                   </Card>
                   <Card media minWidth='192px' margin='0 0 2.5rem 0' padding='0 1.25rem' justify='center'>
@@ -94,7 +94,7 @@ export const HeroCard = () => {
                       />
                       <Text justify='center' align={'center'} color={SECColor} lineHeight='1.4' bold='600' size='1.25rem' margin='1.25rem 1.5rem'>Unlimited support</Text>
                       <Paragraph justify='center' align={'center'} color={SECColor} lineHeight='1.5' size='1rem' margin='0'>
-                          With Smart-Resport free and unlimited customer support, help is always just a click away.
+                          With Smart-report free and unlimited customer support, help is always just a click away.
                       </Paragraph>
                   </Card>
               </Content>

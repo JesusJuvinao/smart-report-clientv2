@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { LoadEllipsis, Loading } from '../../components/Loading'
-import { CREATE_ONE_MODULE, CREATE_ONE_ROLE, CREATE_ONE_USER_ADMIN, GET_ALL_ROLES, GET_MODULES, GET_USER_INFO } from './queries'
+import { CREATE_ONE_LICENCE, CREATE_ONE_MODULE, CREATE_ONE_ROLE, CREATE_ONE_USER_ADMIN, GET_ALL_ROLES, GET_MODULES, GET_USER_INFO, GET_ALL_LICENCE } from './queries'
 import { Context } from '../../context'
 import { useUser } from '../Profile'
 import { useFormTools } from '../../components/hooks/useForm'
@@ -9,16 +9,20 @@ import InputHooks from '../../components/InputHooks/InputHooks'
 import { Card, Container, ContainerCard, Form, Row } from './styled'
 import { RippleButton } from '../../components/Ripple'
 import { BGColor, SCColor } from '../../public/colors'
+import { nanoid } from 'nanoid'
 import NewSelect from '../../components/NewSelectHooks'
 import ViewUsers from './viewUsers'
 export const DashboardAmin = () => {
   const { setAlertBox, company } = useContext(Context)
   const [handleChange, handleSubmit, setDataValue, { dataForm, errorForm }] = useFormTools()
 
-  const [dataUser] = useUser()
-  const { data: dataAllUser } = useQuery(GET_USER_INFO)
-  const { data: dataHtml } = useQuery(GET_MODULES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' })
-  const [RegisterUserAdmin] = useMutation(CREATE_ONE_USER_ADMIN)
+  const [dataUser] = useUser();
+  const { data: dataAllUser } = useQuery(GET_USER_INFO);
+  const { data: dataHtml } = useQuery(GET_MODULES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' });
+  const [RegisterUserAdmin] = useMutation(CREATE_ONE_USER_ADMIN);
+  const { data: allLicence } = useQuery(GET_ALL_LICENCE);
+  console.log(allLicence)
+  
   const [registerModule, { loading, data }] = useMutation(CREATE_ONE_MODULE, {
     onError: (error) => {
       setAlertBox({
@@ -42,6 +46,7 @@ export const DashboardAmin = () => {
       })
     }
   })
+  const [registerGetLicences, { data: dataLicence }] = useMutation(CREATE_ONE_LICENCE)
   const [createRoleMutation, { data: dataRole }] = useMutation(CREATE_ONE_ROLE, {
     onError: (error) => {
       setAlertBox({
@@ -79,6 +84,39 @@ export const DashboardAmin = () => {
               mName: dataForm.mName,
               mPriority: parseInt(dataForm.mPriority),
               mIcon: parseInt(dataForm.mIcon)
+            },
+            //  Array
+            inputLineItemsMod: {
+              setDataModule: []
+            }
+          }
+        })
+      } else if (show === 2) {
+        console.log('')
+      } else if (show === 3) {
+        return null
+      }
+    },
+    actionAfterSuccess: () => {
+      setDataValue({})
+    }
+  })
+  var now = Date.now();
+  const HandleFormUpdateLicence = (e, show) => handleSubmit({
+    event: e,
+    action: () => {
+      if (!show) {
+        return registerGetLicences({
+          variables: {
+            input: {
+              idUser: dataForm?.mPath,
+              LName: dataForm.LName,
+              Ref: nanoid(),
+              LPrice: parseInt(dataForm.LPrice),
+              LDescuento: parseInt(dataForm.LDescuento),
+              Date:now,
+              EndDate: '2021-12-22T20:29:04.462Z',
+              Active: true,
             },
             //  Array
             inputLineItemsMod: {
@@ -161,6 +199,13 @@ export const DashboardAmin = () => {
           <InputHooks title='PassWord.' width='100%' required errors={errorForm?.PassWord} value={dataForm?.PassWord} disabled={false} onChange={handleChange} name='PassWord' />
           <RippleButton bgColor={SCColor} margin='20px 0px' widthButton='100%' type='submit'>{loading ? <LoadEllipsis /> : 'Submit'}</RippleButton>
         </form>
+        <form onSubmit={(e) => (HandleFormUpdateLicence(e))}>
+          <span> Create Licence  </span>
+          <InputHooks title='Licence Name.' width='100%' required errors={errorForm?.LName} value={dataForm?.LName} disabled={false} onChange={handleChange} name='LName' />
+          <InputHooks title='Licence Descuento.' width='100%' required errors={errorForm?.LDescuento} value={dataForm?.LDescuento} disabled={false} onChange={handleChange} name='LDescuento' />
+          <InputHooks title='Licence Price.' width='100%' required errors={errorForm?.LPrice} value={dataForm?.LPrice} disabled={false} onChange={handleChange} name='LPrice' />
+          <RippleButton bgColor={SCColor} margin='20px 0px' widthButton='100%' type='submit'>{loading ? <LoadEllipsis /> : 'Submit'}</RippleButton>
+        </form>
       </Card>
     </ContainerCard>
     <ContainerCard>
@@ -173,6 +218,7 @@ export const DashboardAmin = () => {
       </Row>
      {dataAllUser && dataAllUser?.getAlUserLocation?.map(x => <div key={x._id}><ViewUsers data={x} /></div> )}
     </ContainerCard>
+
   </Container>
   )
 }
