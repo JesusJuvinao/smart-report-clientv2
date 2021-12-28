@@ -85,9 +85,9 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
     }, [result])
     const ValitareRange = () => {
         if (statePay?.Addtopay.length > 0) {
-            handleClick(4) 
+            handleClick(4)
         } else {
-             setAlertBox({ message: 'You must select at least one invoice' })
+            setAlertBox({ message: 'You must select at least one invoice' })
         }
     }
     return (
@@ -105,7 +105,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                     {!showInvoice && statePay?.Addtopay?.filter(x => x.isPaid === false).map((x, idx) => (
                         <CardInvoice key={x.idx}>
                             <HeaderModal>
-                                <RippleButton bgColor='transparent' justifyContent='flex-end'  color={BGColor}
+                                <RippleButton bgColor='transparent' justifyContent='flex-end' color={BGColor}
                                     onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
                                     <IconCancel size='15px' color='#FF2D01' />
                                 </RippleButton>
@@ -129,16 +129,12 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                                 <Text size='18px' color={BColor}>{x.invoiceTo}</Text>
                             </CtnInfo>
                             <CtnInfo border>
-                                <Options justify>
+                                <Options style={{ width: 'min-content' }} justify>
+                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>Payment Now</Tooltip>
+                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
                                     <Text justify='flex-start' size='18px' color={BColor}> TOTAL TO PAY:</Text>
                                     <Text justify='flex-end' size='18px' color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                 </Options>
-                            </CtnInfo>
-                            <CtnInfo border>
-                                <ButtonContentT>
-                                    <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>Payment Now</Tooltip>
-                                    <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
-                                </ButtonContentT>
                             </CtnInfo>
                         </CardInvoice>
                     ))}
@@ -150,7 +146,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                                     {result[date]?.filter(x => x.isPaid === false).map((x, idx) => (
                                         <CardInvoice key={x.idx}>
                                             <HeaderModal>
-                                                <Text color={BColor} size='20px'>{x.eventName}</Text>
+                                                <Text color={BColor} size='20px'>{x.eventName}</Text>       
                                                 <RippleButton bgColor='transparent' color={BGColor}
                                                     onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
                                                     <IconCancel size='15px' />
@@ -173,16 +169,14 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                                                 <Text size='18px' color={BColor}>{x.invoiceTo}</Text>
                                             </CtnInfo>
                                             <CtnInfo border>
-
-                                                <ButtonContentT>
+                                                {/*   <ButtonContentT>
+                                                </ButtonContentT> */}
+                                                <Options justify>
                                                     <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>PAYMENT NOW</Tooltip>
                                                     <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
-                                                </ButtonContentT>
-                                                <Options justify>
                                                     <Text justify='flex-end' size='18px' color={BColor}>TOTAL</Text>
                                                     <Text justify='flex-end' size='18px' color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                                 </Options>
-
                                             </CtnInfo>
                                         </CardInvoice>
                                     ))}

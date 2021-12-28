@@ -61,7 +61,7 @@ export const InvoiceReceived = ({ data, setShowMore, showInvoice, setShow, showD
                         <BlueButton onClick={() => enableCheckboxes(elem)}>enable</BlueButton> */}
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem?.eventCommences && dateFormat(elem.eventCommences)}</Text>
+                        <Text size='15px'> {elem.eventCommences}</Text>
                     </Wrapper>
                     <Wrapper>
                         <Text size='15px'>{elem?.eventName}</Text>

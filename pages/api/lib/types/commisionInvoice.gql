@@ -54,7 +54,7 @@ input ICommissionLineItems {
     invoiceTo: String
     invoiceFrom: String
     eventRef: String
-    eventCommences: DateTime
+    eventCommences: String
     eventType: String
     invoiceTotal: Float
     totalCommDue: Float
@@ -82,7 +82,7 @@ type CommissionInvoice {
     invoiceFrom: String
     eventRef: String
     eventName: String
-    eventCommences: DateTime
+    eventCommences: String
     currency: String
     eventType: String
     invoiceTotal: Float
@@ -112,7 +112,7 @@ input ICommissionInvoice {
     invoiceFrom: String
     eventRef: String
     eventName: String
-    eventCommences: DateTime
+    eventCommences: String
     eventType: String
     invoiceTotal: Float
     totalCommDue: Float
@@ -193,7 +193,7 @@ type NewArray {
         bookingStatus: String,
         eventName: String,
         eventOwner: String,
-        eventCommences: DateTime,
+        eventCommences: String,
         discountRate: Float,
         discountTotal: String,
         discountedTotalDue: String,
@@ -219,7 +219,7 @@ input InputNewArray {
         bookingStatus: String,
         eventName: String,
         eventOwner: String,
-        eventCommences: DateTime,
+        eventCommences: String,
         discountRate: Float,
         discountTotal: String,
         discountedTotalDue: String,

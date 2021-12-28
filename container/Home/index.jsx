@@ -9,7 +9,7 @@ import { Offers } from '../../components/Offers'
 export const IndexC = () => {
   return (
     <Container>
-      <OnBanner height='100px' direction='row' title='GET A OFFERS' padding='0 50px' offers />
+      <OnBanner height='100px' direction='row' padding='0 50px' offers />
       <Hero />
       <HeroCard />
       <OnBanner height='18.25rem' title='Ready to run your business better with Smart-Resport Online?' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Buy now and save' />

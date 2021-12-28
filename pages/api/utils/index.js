@@ -6,12 +6,12 @@ import nodemailer from 'nodemailer'
 import jwt from 'jsonwebtoken'
 import { client } from '../presignedUrl'
 
-function isString (arg) {
+function isString(arg) {
     return typeof (arg) === 'string'
 }
 export const dateFormat = value => moment(value).format('DD-MM-YYYY')
 
-function isValidBucketName (bucket) {
+function isValidBucketName(bucket) {
     if (!isString(bucket)) return false
 
     // bucket length should be less than and no more than 63
@@ -69,7 +69,7 @@ export const createToken = function () {
 
 // CREATE ONE BUCKET
 export const createOneBucket = async bucketName => {
-    client.makeBucket(`smartreportzuploads${ bucketName }`, 'us-east-1', function (err) {
+    client.makeBucket(`smartreportzuploads${bucketName}`, 'us-east-1', function (err) {
         isValidBucketName(bucketName)
         if (err) return console.log('Error creating bucket.', err)
         console.log('Bucket created successfully in "us-east-1".')
@@ -86,7 +86,7 @@ export const deleteOneFileMinio = async ({ fileName, idComp }) => {
         if (err) {
             return {
                 success: false,
-                message: `'Unable to remove object', ${ err }`
+                message: `'Unable to remove object', ${err}`
             }
         } else {
             return {
@@ -107,3 +107,12 @@ export const bucketExistsQuery = async () => {
         }
     })
 }
+export function strToDate(dtStr) {
+    let dateObject = {}
+    if (!dtStr) return null
+    let dateParts = dtStr.split("/");
+    let timeParts = dateParts[2].split(" ")[1].split(":");
+    dateParts[2] = dateParts[2].split(" ")[0];
+    // month is 0-based, that's why we need dataParts[1] - 1
+    return dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1]);
+  }
