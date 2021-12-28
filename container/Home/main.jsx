@@ -9,6 +9,7 @@ import { IconLogo } from '../../components/common/logo'
 import { Overline } from '../../components/common/Reusable'
 import { Section, Card, Content, Text, Paragraph, TabsListWrapper, ContentPricing, Line, Pricing, FeatureItem, BtnItem, ContentPrice, ModuleInfo, Module, BtnClose, SwitchButton, ButtonTheme, ContentToggle, ContentCarPrice } from './styled'
 import Options from '../../components/Accordion/Options'
+import ActiveLink from '../../components/common/Link'
 
 export const Hero = () => {
     return (
@@ -241,7 +242,12 @@ export const PricingCard = () => {
                                 <span id='number'>{!Switch.state && 36}</span>
                                 <span id='letters'>{Switch.state ? '/yr' : '/mo'}</span>
                             </ContentPrice>
-                            <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'>Buy now</RippleButton>
+                            <ActiveLink activeClassName="active" href={`/checkout/${`61bea73d746e9fa4a79ffc99`}`}>
+                                <a>
+                                    <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'>Buy now</RippleButton>
+                                </a>
+                            </ActiveLink>
+                            {/* <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'></RippleButton> */}
                             <RippleButton borderSolid='.125rem solid #393a3d' margin='15px 10px 40px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'>Free 30-day trial</RippleButton>
                             <FeatureItem>
                                 <IconArrowBottom color={BColor} size='17px' />&nbsp;

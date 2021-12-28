@@ -6,7 +6,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-export const Checkout = () => {
+export const Checkout = ({ licenceId }) => {
+  console.log(licenceId)
   const router = useRouter();
   const { status } = router.query;
 
