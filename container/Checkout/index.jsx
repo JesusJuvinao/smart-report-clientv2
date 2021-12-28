@@ -17,14 +17,16 @@ export const Checkout = ({ licenceId }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const [item, setItem] = useState({
-    name: 'Apple AirPods',
-    description: 'Latest Apple AirPods.',
-    image:
-      'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
-    quantity: 0,
-    price: 999,
-  });
+  const [item, setItem] = useState(
+    {
+      name: 'Premium',
+      description: 'Start your business',
+      image:
+        'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
+      quantity: 0,
+      price: 999,
+    }
+  );
 
   const changeQuantity = (value) => {
     // Don't allow the quantity less than 0, if the quantity is greater than value entered by user then the user entered quantity is used, else 0
@@ -70,11 +72,13 @@ export const Checkout = ({ licenceId }) => {
                 <Text lineHeight={'1.3'} font='PFont-Bold' bold='700' color={SECColor} size='2.5rem' margin='.5rem 0'>US$ {item.price}</Text>
             </ContentPrice>
             <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#61D2B4'} family='PFont-Medium'>Buy now</RippleButton>
+            
+            <RippleButton borderSolid='.125rem solid #393a3d' margin='0px 0px 0px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'> - </RippleButton>
             <Wrapper>
               <InputField></InputField>
               <Label>Quantity</Label>
             </Wrapper>
-            <RippleButton borderSolid='.125rem solid #393a3d' margin='15px 10px 40px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'>Free 30-day trial</RippleButton>
+            <RippleButton borderSolid='.125rem solid #393a3d' margin='0px 0px 0px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'> + </RippleButton>
         </Card>
                   <Head>
           <title>Stripe Checkout with Next.js</title>

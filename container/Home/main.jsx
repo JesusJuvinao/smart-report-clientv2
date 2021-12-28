@@ -10,8 +10,12 @@ import { Overline } from '../../components/common/Reusable'
 import { Section, Card, Content, Text, Paragraph, TabsListWrapper, ContentPricing, Line, Pricing, FeatureItem, BtnItem, ContentPrice, ModuleInfo, Module, BtnClose, SwitchButton, ButtonTheme, ContentToggle, ContentCarPrice } from './styled'
 import Options from '../../components/Accordion/Options'
 import ActiveLink from '../../components/common/Link'
+import { useQuery } from '@apollo/client'
+import { GET_ALL_LICENCE } from '../../container/DashboardAdmin/queries'
+
 
 export const Hero = () => {
+    // console.log(data.GetLicences)
     return (
         <Section>
             <Content>
@@ -206,14 +210,19 @@ export const TabList = () => {
 }
 export const PricingCard = () => {
     const show = useSetState(0)
+    const { data } = useQuery(GET_ALL_LICENCE);
+    console.log(data)
     const Switch = useSetState(0)
+
     const handleShow = index => {
         show.setState(index === show.state ? false : index)
     }
+
     useEffect(() => {
         if (show) window.addEventListener('keyup', e => e.code === 'Escape' && show.setState(false))
         return () => window.removeEventListener('keyup', () => { })
     }, [show])
+
     return (
         <Section>
             <Text lineHeight={'2.75rem'} font='PFont-Regular' bold='600' justify='center' color={SECColor} size='2.125rem' margin='30px auto'>There’s a QuickBooks for every business</Text>
@@ -226,30 +235,28 @@ export const PricingCard = () => {
             </ContentToggle>
             <ContentPricing>
                 <ContentCarPrice>
-                    {[1,2,3].map(x => (
-                        <Card key={x} alignContent='flex-start' radius='15px' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="100vw" margin='1.5rem .625rem 0' padding='20px 20px' justify='flex-start'>
-                            <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' >Simple Start</Text>
+                    {data?.GetLicences?.map(x => (
+                        <Card key={x._id} alignContent='flex-start' radius='15px' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="100vw" margin='1.5rem .625rem 0' padding='20px 20px' justify='flex-start'>
+                            <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' >{x.LName}</Text>
                             <Line />
                             <Text margin='0px 0px 1.25rem 0'>Start your business</Text>
                             <Pricing>
                                 <s>
-                                    {Switch.state ? 'US$172' : 'US$16'}
+                                    {x.LDescuento ? `£ ${x.LDescuento}` : '£ 16'}
                                 </s>
 
                             </Pricing>
                             <ContentPrice>
-                                <Text lineHeight={'1.3'} font='PFont-Bold' bold='700' color={SECColor} size='2.5rem' margin='.5rem 0'>{Switch.state ? 'US$151' : 'US$8'}</Text>
-                                <span id='number'>{!Switch.state && 36}</span>
-                                <span id='letters'>{Switch.state ? '/yr' : '/mo'}</span>
+                                <Text lineHeight={'1.3'} font='PFont-Bold' bold='700' color={SECColor} size='2.5rem' margin='.5rem 0'>{x.LPrice ? `£ ${x.LPrice}` : '£ 2'}</Text>
                             </ContentPrice>
-                            <ActiveLink activeClassName="active" href={`/checkout/${`61bea73d746e9fa4a79ffc99`}`}>
+                            <ActiveLink activeClassName="active" href={`/checkout/${x._id}`}>
                                 <a>
                                     <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#61D2B4'} family='PFont-Medium'>Buy now</RippleButton>
                                 </a>
                             </ActiveLink>
                             {/* <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'></RippleButton> */}
-                            <RippleButton borderSolid='.125rem solid #393a3d' margin='15px 10px 40px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'>Free 30-day trial</RippleButton>
-                            <FeatureItem>
+                            {/* <RippleButton borderSolid='.125rem solid #393a3d' margin='15px 10px 40px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'>Free 30-day trial</RippleButton> */}
+                            {/* <FeatureItem>
                                 <IconArrowBottom color={BColor} size='17px' />&nbsp;
                                 <BtnItem onClick={() => handleShow(1)}>Track income & expenses</BtnItem>
                             </FeatureItem>
@@ -264,7 +271,7 @@ export const PricingCard = () => {
                             <FeatureItem>
                                 <IconArrowBottom color={BColor} size='17px' />&nbsp;
                                 <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
-                            </FeatureItem>
+                            </FeatureItem> */}
                         </Card>
                     ))}
                 </ContentCarPrice>
