@@ -17,6 +17,36 @@ query getAllModules {
   }
 }
 `
+export const GET_ALL_LICENCE = gql`
+query GetLicences($_idUser: ID){
+  GetLicences(_idUser: $_idUser){
+    _id
+    idUser
+    LName
+    LPrice
+    Ref
+    LDescuento
+    Date
+    EndDate
+    Active
+  }
+}
+`
+export const CREATE_ONE_LICENCE = gql`
+    mutation registerGetLicences($input: ILicences) {
+        registerGetLicences(input: $input) {
+          _id
+          idUser
+          LName
+          LPrice
+          Ref
+          LDescuento
+          Date
+          EndDate
+          Active
+        }
+    }
+`
 export const CREATE_ONE_MODULE = gql`
 mutation registerModule($input: IModules, $inputLineItemsMod: InputLineItemsSubModules) {
   registerModule(input: $input, inputLineItemsMod: $inputLineItemsMod ){
