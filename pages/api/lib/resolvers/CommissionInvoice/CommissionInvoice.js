@@ -376,7 +376,7 @@ export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
 }
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     const idUser = ctx.User.id
-    console.log(datePaid, updatedAt, invoiceTo, invoiceFrom)
+    // console.log(datePaid, updatedAt, invoiceTo, invoiceFrom)
     const time = new Date(datePaid)
     const invoiceToDate = new Date(invoiceTo)
     const invoiceFromDate = new Date(invoiceFrom)
@@ -392,6 +392,7 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
                 // eventName: { $regex: search, $options: 'i' },
                 // updatedAt: { $regex: time.toISOString(), $options: 'i' }
             }).sort({ age: -1 }).limit(max || 100)
+            console.log(data)
             return data
         }
     } catch (error) {
