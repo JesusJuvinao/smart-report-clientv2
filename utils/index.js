@@ -413,7 +413,7 @@ export function parse (str) {
         alert()
         for (const current in str) {
             // eslint-disable-next-line
-            console.log(current)
+            console.log('')
         }
     }
 }

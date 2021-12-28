@@ -34,7 +34,6 @@ export const EmailBuilder = () => {
 
   const onReady = () => {
     // editor is ready
-    console.log('')
   }
   const htmlFromCMS = `${Html}`
   const [registerEmailsTemplate, { loading }] = useMutation(DELETE_ONE_TEMPLATE, {

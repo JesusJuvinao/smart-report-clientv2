@@ -21,7 +21,6 @@ export const DashboardAmin = () => {
   const { data: dataHtml } = useQuery(GET_MODULES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' });
   const [RegisterUserAdmin] = useMutation(CREATE_ONE_USER_ADMIN);
   const { data: allLicence } = useQuery(GET_ALL_LICENCE);
-  console.log(allLicence)
   
   const [registerModule, { loading, data }] = useMutation(CREATE_ONE_MODULE, {
     onError: (error) => {

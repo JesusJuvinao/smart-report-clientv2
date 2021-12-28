@@ -42,7 +42,6 @@ export const Accounts = () => {
       // View func
     }
   }
-  console.log(data)
   if (loading) return <Loading />
   return (<Container>
     <Table

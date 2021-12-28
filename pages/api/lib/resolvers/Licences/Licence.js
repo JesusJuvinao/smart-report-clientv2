@@ -16,7 +16,6 @@ export const GetLicences = async (_, { input }, ctx) => {
     }
 }
 export const registerGetLicences = async (_, { input }, ctx) => {
-    console.log(input)
     try {
         const { LPrice, Ref, LDescuento, Date, EndDate, Active, LName } = input || {}
         const idUser = ctx.User.id
@@ -30,9 +29,7 @@ export const registerGetLicences = async (_, { input }, ctx) => {
             // }
             // }
         } catch (error) {
-            console.log(error)
             throw new ApolloError('Your request could not be processed.', 500)
-        console.log(error)
     }
 }
 export default {

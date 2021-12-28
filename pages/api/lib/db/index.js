@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 const connect = async () => {
     await mongoose
         .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
-        .then(() => console.log(`Mongo running at ${ process.env.MONGODB_URI }`))
+        .then(() => console.log(''))
         .catch(err => console.log(err))
 }
 
@@ -16,6 +16,6 @@ const connectDB = handler => async (req, res) => {
 }
 
 const db = mongoose.connection
-db.once('ready', () => console.log(`connected to mongo on ${ process.env.MONGODB_URI }`))
+db.once('ready', () => console.log(''))
 
 export default connectDB

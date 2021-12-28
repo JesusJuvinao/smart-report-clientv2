@@ -13,7 +13,6 @@ export const getAllCommissionStatements = async (_, { idComp, CompName }, ctx) =
         //     const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
         //     return data
         // }
-        console.log('resolver')
 
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)

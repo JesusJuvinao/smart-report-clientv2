@@ -12,11 +12,11 @@ export default function Stripe() {
   useEffect(() => {
     if( success !== undefined || canceled !== undefined ){
         if (success) {
-            console.log('Order placed! You will receive an email confirmation.');
+            console.log('');
         }
       
         if (canceled) {
-        console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+        console.log('');
         }
     }
   }, [success, canceled]);

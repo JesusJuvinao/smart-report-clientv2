@@ -24,7 +24,6 @@ export const getOneInvoicePay = async (_root, { idInvoice, idComp }, ctx) => {
     try {
         // const idUser = ctx.User.id
         const data = await SalesInvoicePayments.findOne({ _id: idInvoice, idComp: idComp })
-        console.log(data)
         return data
 
     } catch (error) {
@@ -52,7 +51,6 @@ export const createInvoicePaymentMutation = async (_, { input, inputLineItems },
         const data = await SalesInvoicePayments.create({ ...input, IdRef: nanoid() })
         for (let i = 0; i < setDataPay.length; i++) {
             const { idUser, idComp, agentDetails, lineItemsArray, idInvoice, currency } = setDataPay[i]
-            console.log(setDataPay[i])
             await SalesInvoicePayments.findOneAndUpdate(
                 { _id: data._id },
                 {
@@ -68,7 +66,6 @@ export const createInvoicePaymentMutation = async (_, { input, inputLineItems },
                 return err
             })
         }
-        // console.log(data._id)
         mailer.sendMail({
             from: 'odavalencia002@gmail.com',
             // to: 'agentEmail',
@@ -84,7 +81,6 @@ export const createInvoicePaymentMutation = async (_, { input, inputLineItems },
         })
         return data
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -93,7 +89,6 @@ export const createInvoicePaymentMutation = async (_, { input, inputLineItems },
 //     try {
 //     // Count Documents
 //         const count = await SalesInvoicePayments.count({ idComp: '' })
-//        console.log(count)
 //        return count
 //     } catch (error) {
 //         return error

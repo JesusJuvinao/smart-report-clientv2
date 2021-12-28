@@ -7,7 +7,6 @@ const UseGoogleAddress = (address, city, province, country) => {
         fetch(API)
             .then(response => response.json())
             .then(response => {
-                console.log(response)
                 setMap(response?.data?.results)
             })
             .catch(() => {
