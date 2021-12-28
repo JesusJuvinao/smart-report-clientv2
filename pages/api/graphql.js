@@ -17,7 +17,7 @@ const cors = Cors()
 const apolloServer = new ApolloServer({
     typeDefs,
     introspection: true,
-    playground: true,
+    playground: process.env.NODE_ENV === 'production',
     resolvers,
     dataSources: () => {
         return {
