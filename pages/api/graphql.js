@@ -22,6 +22,7 @@ const apolloServer = new ApolloServer({
             countriesAPI: new CountriesAPI()
         }
     },
+    
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground(), httpHeadersPlugin],
     context: withSession(async ({ req, next }) => {
     //  Initialize as empty arrays - resolvers will add items if required
