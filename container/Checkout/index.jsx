@@ -5,9 +5,13 @@ import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { Wrapper, Card, Label, Text, InputField, TabsListWrapper, ContentPricing, Line, Pricing, FeatureItem, BtnItem, ContentPrice, ModuleInfo, Module, BtnClose, SwitchButton, ButtonTheme, ContentToggle, ContentCarPrice } from './styled'
+import { BColor, BGColor, PColor, PLColor, SECColor } from '../../public/colors'
+import { useSetState } from '../../components/hooks/useState';
+import { RippleButton } from '../../components/Ripple';
 
 export const Checkout = ({ licenceId }) => {
-  console.log(licenceId)
+  const Switch = useSetState(0)
   const router = useRouter();
   const { status } = router.query;
 
@@ -56,15 +60,30 @@ export const Checkout = ({ licenceId }) => {
     setLoading(false);
   };
   return (
-    <div>
-      <Head>
-        <title>Stripe Checkout with Next.js</title>
-        <meta
-          name='description'
-          content='Complete Step By Step Tutorial for integrating Stripe Checkout with Next.js'
-        />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+    <ContentPricing>
+      <ContentCarPrice>
+        <Card alignContent='flex-start' radius='15px' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="100vw" margin='1.5rem .625rem 0' padding='20px 20px' justify='flex-start'>
+            <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' >{item.name}</Text>
+            <Line />
+            <Text margin='0px 0px 1.25rem 0'>{item.description}</Text>
+            <ContentPrice>
+                <Text lineHeight={'1.3'} font='PFont-Bold' bold='700' color={SECColor} size='2.5rem' margin='.5rem 0'>US$ {item.price}</Text>
+            </ContentPrice>
+            <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#61D2B4'} family='PFont-Medium'>Buy now</RippleButton>
+            <Wrapper>
+              <InputField></InputField>
+              <Label>Quantity</Label>
+            </Wrapper>
+            <RippleButton borderSolid='.125rem solid #393a3d' margin='15px 10px 40px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'>Free 30-day trial</RippleButton>
+        </Card>
+                  <Head>
+          <title>Stripe Checkout with Next.js</title>
+          <meta
+            name='description'
+            content='Complete Step By Step Tutorial for integrating Stripe Checkout with Next.js'
+          />
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
       <main>
         {status && status === 'success' && (
           <div className='bg-green-100 text-green-700 p-2 rounded border mb-2 border-green-700'>
@@ -112,6 +131,52 @@ export const Checkout = ({ licenceId }) => {
           </button>
         </div>
       </main>
-    </div>
+      {/* <ContentPricing>
+                <ContentCarPrice>
+                    {[1,2,3].map(x => (
+                        <Card key={x} alignContent='flex-start' radius='15px' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="100vw" margin='1.5rem .625rem 0' padding='20px 20px' justify='flex-start'>
+                            <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' >Simple Start</Text>
+                            <Line />
+                            <Text margin='0px 0px 1.25rem 0'>Start your business</Text>
+                            <Pricing>
+                                <s>
+                                    {Switch.state ? 'US$172' : 'US$16'}
+                                </s>
+
+                            </Pricing>
+                            <ContentPrice>
+                                <Text lineHeight={'1.3'} font='PFont-Bold' bold='700' color={SECColor} size='2.5rem' margin='.5rem 0'>{Switch.state ? 'US$151' : 'US$8'}</Text>
+                                <span id='number'>{!Switch.state && 36}</span>
+                                <span id='letters'>{Switch.state ? '/yr' : '/mo'}</span>
+                            </ContentPrice>
+                            <ActiveLink activeClassName="active" href={`/checkout/${`61bea73d746e9fa4a79ffc99`}`}>
+                                <a>
+                                    <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#61D2B4'} family='PFont-Medium'>Buy now</RippleButton>
+                                </a>
+                            </ActiveLink>
+                            {/* <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'></RippleButton> *
+                            <RippleButton borderSolid='.125rem solid #393a3d' margin='15px 10px 40px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'>Free 30-day trial</RippleButton>
+                            <FeatureItem>
+                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
+                                <BtnItem onClick={() => handleShow(1)}>Track income & expenses</BtnItem>
+                            </FeatureItem>
+                            <FeatureItem>
+                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
+                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
+                            </FeatureItem>
+                            <FeatureItem>
+                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
+                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
+                            </FeatureItem>
+                            <FeatureItem>
+                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
+                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
+                            </FeatureItem>
+                        </Card>
+                    ))}
+                </ContentCarPrice>
+            </ContentPricing> */}
+            </ContentCarPrice>
+    </ContentPricing>
   );
 }

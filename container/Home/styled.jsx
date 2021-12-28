@@ -3,23 +3,18 @@ import Link from 'next/link'
 import { PVColor, PColor, BGColor, SECColor } from '../../public/colors'
 import { FadeOup } from '../../components/animations'
 export const Container = styled.div`
-
-
-    `
+`
 
 export const Section = styled.section`
     padding: 30px;
     max-width: 90rem;
     margin: 0 auto;
-
-    `
+`
 export const Line = styled.div`
-    width: 2.5rem;
     height: 0.125rem;
     background-color: #393a3d;
     border-radius: 0.0625rem;
-    margin: 1.25rem 0;
-
+    margin: 0 0 10px 0;
 `
 export const ContentToggle = styled.div`
     align-items: center;

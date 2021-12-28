@@ -226,9 +226,9 @@ export const PricingCard = () => {
             </ContentToggle>
             <ContentPricing>
                 <ContentCarPrice>
-                    {[1, 2, 3].map(x => (
-                        <Card height='700px' key={x} alignContent='flex-start' radius='.25rem' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="16.5625rem" margin='1.5rem .625rem 0' padding='0 1.25rem' justify='flex-start'>
-                            <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' margin='2.5rem 0 0'>Simple Start</Text>
+                    {[1,2,3].map(x => (
+                        <Card key={x} alignContent='flex-start' radius='15px' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="100vw" margin='1.5rem .625rem 0' padding='20px 20px' justify='flex-start'>
+                            <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' >Simple Start</Text>
                             <Line />
                             <Text margin='0px 0px 1.25rem 0'>Start your business</Text>
                             <Pricing>
@@ -244,7 +244,7 @@ export const PricingCard = () => {
                             </ContentPrice>
                             <ActiveLink activeClassName="active" href={`/checkout/${`61bea73d746e9fa4a79ffc99`}`}>
                                 <a>
-                                    <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'>Buy now</RippleButton>
+                                    <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#61D2B4'} family='PFont-Medium'>Buy now</RippleButton>
                                 </a>
                             </ActiveLink>
                             {/* <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'></RippleButton> */}
@@ -252,14 +252,6 @@ export const PricingCard = () => {
                             <FeatureItem>
                                 <IconArrowBottom color={BColor} size='17px' />&nbsp;
                                 <BtnItem onClick={() => handleShow(1)}>Track income & expenses</BtnItem>
-                            </FeatureItem>
-                            <FeatureItem>
-                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
-                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
-                            </FeatureItem>
-                            <FeatureItem>
-                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
-                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
                             </FeatureItem>
                             <FeatureItem>
                                 <IconArrowBottom color={BColor} size='17px' />&nbsp;
