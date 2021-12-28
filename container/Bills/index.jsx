@@ -67,7 +67,6 @@ export const BillsC = () => {
         })
     const [deleteOneTagLineItem] = useMutation(DELETE_ONE_TAG)
     const { data: dataBill } = useQuery(GET_ALL_BILL, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: navigator.onLine ? 'network-only' : 'cache-only' })
-    // console.log(dataBill)
     // const [dataBills, setData] = useState([])
     //
     // EFFECTS
