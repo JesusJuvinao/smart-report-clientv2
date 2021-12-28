@@ -78,7 +78,6 @@ export const Invoice = ({ idInvoice }) => {
             }
         })
     }
-    console.log(data)
     if (loading) return <Loading />
     return (
         <Content>

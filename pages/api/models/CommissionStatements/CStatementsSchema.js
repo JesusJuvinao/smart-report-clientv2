@@ -15,23 +15,72 @@ const CommissionStatement = new mongoose.Schema({
         required: true,
         ref: 'Companies'
     },
-    agentDetails: {
-        legalName: String,
-        agentContact: String,
-        agentTradingName: String,
-        agentEmail: String,
-        agentAddress1: String,
-        agentAddress2: String,
-        agentAddress3: String,
-        agentCity: String,
-        agentCounty: String,
-        agentCountry: String,
-        agentPostCode: String,
-        VATRegNo: String,
-        agentVATRegistered: Boolean,
-        agentCompanyNumber: String
+    statementId: {
+        type: String,
+        required: false
     },
-    lineItemsArray: [{
+    statementToEmail: {
+        type: String,
+        required: false
+    },
+    statementTo: {
+        type: String,
+        required: true
+    },
+    statementTo: {
+        type: Date,
+        required: true
+    },
+    invoiceType: {
+        type: String,
+        required: true
+    },
+    eventsMonth: {
+        type: Date,
+        required: true
+    },
+    emailedDate: {
+        type: Date,
+        required: true
+    },
+    emailedDate: {
+        type: Number,
+        required: true
+    },
+    totalCommissionPayableToYou: {
+        type: Number,
+        required: true
+    },
+    totalGrossSalesReceivedByYou: {
+        type: Number,
+        required: true
+    },
+    totalDiscounts: {
+        type: Number,
+        required: true
+    },
+    invoicesIncOnStatement: [{
+        agentDetails: {
+            legalName: String,
+            agentContact: String,
+            agentTradingName: String,
+            agentEmail: String,
+            agentAddress1: String,
+            agentAddress2: String,
+            agentAddress3: String,
+            agentCity: String,
+            agentCounty: String,
+            agentCountry: String,
+            agentPostCode: String,
+            VATRegNo: String,
+            agentVATRegistered: Boolean,
+            agentCompanyNumber: String,
+            id: Number
+        },
+
+        statementFromEmail: String,
+        statementFrom: String,
+
         subtotalTicketsSold: Number,
         ticketType: String,
         lineSalesReceived: Number,
@@ -41,33 +90,7 @@ const CommissionStatement = new mongoose.Schema({
         ticketCategoryTotalDue: Number,
         totalTicketTypeDiscount: Number,
         subtotalTicketTypeLessDiscount: Number,
-        ticketPrice: Number,
-        newArray: [{
-            id: String,
-            bookingRef: String,
-            bookedOn: Date,
-            client: String,
-            ticketoption: String,
-            ticketquantity: Number,
-            ticketprice: Number,
-            totaldue: Number,
-            totaldueCalc: Number,
-            totalpaid: Number,
-            balancedue: Number,
-            commissionRatePercent: String,
-            commissionpayable: String,
-            agentCode: String,
-            clientOwnerAtPurchaseDate: String,
-            bookingStatus: String,
-            eventName: String,
-            eventOwner: String,
-            eventCommences: Date,
-            discountRate: Number,
-            discountTotal: String,
-            discountedTotalDue: String,
-            eventRef: String,
-            eventType: String
-        }]
+        ticketPrice: Number
     }],
     uploaded: {
         type: Date,

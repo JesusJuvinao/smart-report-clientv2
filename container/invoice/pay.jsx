@@ -22,7 +22,6 @@ export const InvoicePay = () => {
     const { setAlertBox, company } = useContext(Context)
 
     const { data, loading } = useQuery(GET_COMMISSION_PAY, { variables: { idComp: company.idLasComp && company.idLasComp }, fetchPolicy: 'cache-and-network' })
-    console.log(data)
     return (
         <Content>
             <AwesomeModal show={false} useScroll={true} height='100vh' zIndex='0' title={`Invoice ${'data ? data?.getOneCommissionInvoice?.eventName : null'}`} onHide={() => false} backdrop='static' onCancel={() => true} size='large' btnCancel={false} btnConfirm={false} header={true} footer={false} borderRadius='0' >

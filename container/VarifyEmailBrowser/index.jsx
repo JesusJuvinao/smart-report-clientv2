@@ -44,7 +44,6 @@ export const VaryfyEmail = () => {
 
 export const SendVerifyEmail = () => {
   const [Otp, setOtp] = useState({})
-  console.log(Otp)
   return (
     <div>
       <Form>

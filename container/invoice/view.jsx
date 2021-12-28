@@ -9,21 +9,17 @@ import { useCopy } from "../../components/hooks/useCopy"
 import { IconCopy, IconExcel, IconPDF, IconShowEye, IconWord } from "../../public/icons"
 import { BGColor, PColor, PVColor } from "../../public/colors"
 import { Card, Container, Text, Title, FooterInfoCard, CntTextArea, Content, CardInner, flexCenter, Row, RowGrid, Anchor } from "./styled"
-import { generatePdfDocument } from "./Pdf"
+import { generatePdfDocument } from "./PdfInvoicePay"
 import ActiveLink from "../../components/common/Link"
-// import ReactExport from 'react-data-export'
-
 import { RippleButton } from "../../components/Ripple"
 import { AwesomeModal } from "../../components/AwesomeModal"
 
 export const ViewComponentInvoice = ({ idInvoice }) => {
-    console.log(idInvoice)
     const { company } = useContext(Context)
     const [open, setOpen] = useState(false)
     const [openEx, setOpenopenEx] = useState(false)
 
     const { data: dataInvoice, loading } = useQuery(GET_ONE_PAY_INVOICE, { variables: { idComp: company.idLasComp && company.idLasComp, idInvoice }, fetchPolicy: 'cache-and-network' })
-    console.log(dataInvoice)
     // const [handleCopy, copiedText, copiedTextLength] = useCopy();
     const Copy = useCopy();
     const CopyDescription = useCopy();

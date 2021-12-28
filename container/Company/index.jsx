@@ -75,7 +75,7 @@ export const CompanyC = ({ useCompany }) => {
           })
         })
       } else if (router.query.id) {
-        return console.log(handleForm)
+        return console.log('')
       }
     },
     actionAfterSuccess: () => {

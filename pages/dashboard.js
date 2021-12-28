@@ -26,7 +26,7 @@ export const getServerSideProps = withSession(async function ({ req }) {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log('')
     }
   
     return {

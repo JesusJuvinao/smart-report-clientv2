@@ -75,7 +75,6 @@ export const List = ({ modal, setModal }) => {
     const CleanLines = () => {
         setInvoice(initialInvoice)
     }
-    console.log(invoice.productLines)
     const handleLineChange = (index, name, value) => {
         const productLines = invoice.productLines.map((salesLine, i) => {
             if (i === index) {
@@ -477,7 +476,6 @@ export const InputSelect = ({ className, placeholder, value, onChange, show, pdf
         setNewOption(options)
     }, [options])
     const [isEditing, setIsEditing] = useState(false)
-    console.log(newOption)
     // const nameValue = ()=> {
     //   const data = newOption.find()
     // }

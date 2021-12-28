@@ -28,7 +28,6 @@ BillsAcceptInvoice.propTypes = {
 }
 export const BillsEditEmployee = ({ data }) => {
     const { data: dataOneBill } = useQuery(FIND_ONE_BILLS, { variables: { id: data && data.idBill }, fetchPolicy: 'cache-and-network' })
-    console.log(dataOneBill)
     return (
         <Container>
             <Text>Hello {data?.UserName}</Text>

@@ -13,10 +13,9 @@ export const IndexPaypal = () => {
                             //         "Content-Type": "application/json",
                             //     },
                             // });
-                            console.log('object')
                             return '';
                         } catch (error) {
-                            console.log(error);
+                            console.log('');
                         }
                     }}
                     onCancel={(data) => console.log("compra cancelada")}

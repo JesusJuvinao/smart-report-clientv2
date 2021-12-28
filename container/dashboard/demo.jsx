@@ -624,7 +624,6 @@ export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
         showModalInvoice.setState(true)
     }
     const { checkedItems, disabledItems, handleChangeCheck, toggleAll, selectAll, clearAll } = useCheckboxState(data?.getAllCommissionInvoiceSent, [0], [0]);
-    console.log(checkedItems)
     return (
         <div>
             <Toast open={checkedItems?.size > 1}>
@@ -777,7 +776,6 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
     })
     const newData = statePay?.Addtopay?.map(x => ({ idInvoice: x._id, currency: x.currency, agentDetails: { VATRegNo: x.agentDetails.VATRegNo, agentAddress1: x.agentDetails.agentAddress1, agentAddress2: x.agentDetails.agentAddress2, agentAddress3: x.agentDetails.agentAddress3, agentCity: x.agentDetails.agentCity, agentCompanyNumber: x.agentDetails.agentCompanyNumber, agentContact: x.agentDetails.agentContact, agentCountry: x.agentDetails.agentCountry, agentEmail: x.agentDetails.agentEmail, agentPostCode: x.agentDetails.agentPostCode, agentTradingName: x.agentDetails.agentTradingName, agentVATRegistered: x.agentDetails.agentVATRegistered, legalName: x.agentDetails.legalName }, lineItemsArray: { eventName: x.eventName, eventRef: x.eventRef, eventType: x.eventType, hasBeenReceived: x.hasBeenReceived, hasBeenSent: false, invoiceDate: x.invoiceDate, invoiceFrom: x.invoiceFrom, invoiceRef: x.invoiceRef, invoiceTo: x.invoiceTo, invoiceTotal: x.invoiceTotal, isOnStatement: x.isOnStatement, isPaid: x.isPaid, isRedo: x.isRedo, isVATRegistered: x.isVATRegistered, statementId: x.statementId, totalCommDue: x.totalCommDue, totalDiscounts: x.totalDiscounts, totalSalesReceived: x.totalSalesReceived, uploaded: x.uploaded, vatOnComms: x.vatOnComms } }))
     // HANDLES
-    console.log(newData)
     const handleForm = async e => {
         e.preventDefault()
         return createInvoicePaymentMutation({
@@ -801,8 +799,6 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
         r[a.invoiceTo].push(a);
         return r;
     }, Object.create(null));
-    console.log(statePay?.Addtopay)
-    console.log(result, 'HELLO');
     return (
         <div>
             <AwesomeModal zIndex='999999' padding='20px' height='600px' useScroll={true} show={openModalConfirm} onHide={() => setOpenModalConfirm(false)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
