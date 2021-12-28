@@ -347,7 +347,9 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
 
 }
 export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName }, ctx) => {
-    const idUser = ctx.User.id
+    // const idUser = ctx.User.id
+    // const idUser = ctx.User.id
+    const idUser = '61c38a904516c431d8c22e08'
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
@@ -357,6 +359,7 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
             return data
         }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

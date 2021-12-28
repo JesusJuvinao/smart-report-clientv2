@@ -12,13 +12,13 @@ export const IndexC = () => {
       <OnBanner height='100px' direction='row' title='GET A OFFERS' padding='0 50px' offers />
       <Hero />
       <HeroCard />
-      <OnBanner height='18.25rem' title='Ready to run your business better with Quickbooks Online?' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Buy now and save' />
+      <OnBanner height='18.25rem' title='Ready to run your business better with Smart-Resport Online?' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Buy now and save' />
       <TabList />
       <PricingCard />
       <Modules />
       <PQR />
       <Item />
-      <OnBanner height='18.25rem' title='See what QuickBooks can do for your business.' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Buy now' />
+      <OnBanner height='18.25rem' title='See what Smart-Resport can do for your business.' color={BGColor} bgColor={SECColor} width='220px' size='2.125rem' Button TextBtn='Buy now' />
     </Container>
 
   )

@@ -219,6 +219,7 @@ export const DashboardComp = () => {
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
         }
     }
+    console.log(data?.getAllCommissionInvoiceSent)
     return (
         <ContentListInvoice>
             {loadingPay || loadingRedo || loadingApprove && <Loading />}
