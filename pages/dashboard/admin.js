@@ -3,9 +3,11 @@ import withSession from '../../apollo/session'
 import { DashboardAmin } from '../../container/DashboardAdmin'
 
 export default function Dashboard () {
-    return (
-        <DashboardAmin />
-    )
+  return (<DashboardComp idComp={idComp} />)
+
+    // return (
+    //     <DashboardAmin />
+    // )
 }
 
 export const getServerSideProps = withSession(async function ({ req }) {
