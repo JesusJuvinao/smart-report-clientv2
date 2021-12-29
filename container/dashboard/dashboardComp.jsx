@@ -41,7 +41,8 @@ export const DashboardComp = () => {
     const [show, setShow] = useState(false)
     const [openModalMain, setOpenModalMain] = useState(false)
     const [yearss, setsetYear] = useState('')
-    const [arrayInvoice, setData] = useState([])
+    // data invoice send
+    const [InvoiceSend, setData] = useState([])
     // main func
     const [active, setActive] = useState(false)
     const [showDataToday, showAllToday] = useState(false)
@@ -63,19 +64,53 @@ export const DashboardComp = () => {
         setValues({ ...values, [e.target.name]: e.target.value })
         setErrors({ ...errors, [e.target.name]: error })
     }
-    const [getAllCommissionInvoiceSent, { data, loading }] = useLazyQuery(GET_ALL_INVOICES_SENT, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore, updatedAt: 'atDate', datePaid: searchPay, invoiceFrom: values?.from, invoiceTo: values?.todate } })
-    const { data: dataCount } = useQuery(GET_STIMATE_COUNT, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
-    const { data: dataCountSend } = useQuery(GET_STIMATE_COUNT_SEND, { fetchPolicy: 'network-only', variables: { idComp: company.idLasComp && company.idLasComp } })
-    const { data: DataReceived, loading: loadingR } = useQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
-    // EFFECTS
+    // GET_ALL_INVOICE_NUMBER LNG
+    const [getEstimateCountInvoiceSend, { data: dataCountSend }] = useLazyQuery(GET_STIMATE_COUNT_SEND, {
+        fetchPolicy: 'network-only',
+        variables: {
+            idComp: company.idLasComp && company.idLasComp
+        }
+    })
+    const [getAllCommissionInvoiceSent, { data, loading }] = useLazyQuery(GET_ALL_INVOICES_SENT,
+        {
+            fetchPolicy: 'network-only',
+            variables: {
+                search: '', idComp: company.idLasComp && company.idLasComp,
+                max: showMore,
+                updatedAt: 'atDate',
+                datePaid: searchPay,
+                invoiceFrom: values?.from,
+                invoiceTo: values?.todate
+            }
+        })
 
     useEffect(() => {
-        // variables: { search: '', idComp: company.idLasComp && company.idLasComp, max: showMore, updatedAt: 'atDate', datePaid: searchPay, invoiceFrom: values?.from, invoiceTo: values?.todate }
-        getAllCommissionInvoiceSent()
-        data?.getAllCommissionInvoiceSent && setDataInvoiceSend([...data?.getAllCommissionInvoiceSent])
+        data?.getAllCommissionInvoiceSent && setData([...data?.getAllCommissionInvoiceSent])
     }, [data])
-    console.log(data, 'Data')
-    // QUERIES
+    useEffect(() => {
+        getAllCommissionInvoiceSent({
+            variables: {
+                search: '',
+                idComp: company.idLasComp && company.idLasComp,
+                max: showMore,
+                updatedAt: 'atDate',
+                datePaid: searchPay,
+                invoiceFrom: values?.from,
+                invoiceTo: values?.todate
+            }
+        })
+        getEstimateCountInvoiceSend({
+            variables: {
+                idComp: company.idLasComp && company.idLasComp
+            }
+        })
+    }, [showMore])
+    const [getEstimateCountInvoice, { data: dataCount }] = useLazyQuery(GET_STIMATE_COUNT, {
+        fetchPolicy: 'network-only', variables: {
+            idComp: company.idLasComp && company.idLasComp
+        }
+    })
+    const [getAllCommissionInvoiceReceived, { data: DataReceived, loading: loadingR }] = useLazyQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
     const [isPaidStateInvoice, { loading: loadingPay }] = useMutation(IS_PAY_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
@@ -86,7 +121,6 @@ export const DashboardComp = () => {
             type: 2
         })
     })
-    console.log(dataInvoiceSend, 'HIIIIII')
     const [isApprovedByInvoiceSenderMutation, { loading: loadingApprove }] = useMutation(IS_APPROVED_INVOICE_SENDER, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isApprovedByInvoiceSenderMutation?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
@@ -215,14 +249,11 @@ export const DashboardComp = () => {
                 return state;
         }
     }
-
     const [statePay, dispatchInvoice] = useReducer(invoicePayReducer, initialStateInvoice)
     const [state, dispatch] = useReducer(reducer, initialState)
-
     const Handleremove = _id => {
         dispatchInvoice({ type: 'REMOVE_INVOICE', payload: _id })
     }
-
     const handleAddInvoice = elem => {
         let includes = statePay?.Addtopay.includes(elem);
         if (includes) {
@@ -231,9 +262,10 @@ export const DashboardComp = () => {
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
         }
     }
+    // return null
     return (
         <ContentListInvoice>
-            {loadingPay || loadingRedo || loadingApprove && <Loading />}
+            {/* {loadingPay || loadingRedo || loadingApprove && <Loading />} */}
             <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {dataComp?.companyName}</Text>
             <FilterOptions>
                 <div>
@@ -286,7 +318,7 @@ export const DashboardComp = () => {
                 </Tabs.Panel>
                 <Tabs.Panel label={`Invoices Received ${DataReceived ? DataReceived?.getAllCommissionInvoiceReceived?.length : 0} / ${dataCount?.getEstimateCountInvoice ? dataCount?.getEstimateCountInvoice?.length : 0}`}>
                     <>
-                        <InvoiceReceived
+                        {/* <InvoiceReceived
                             loading={loading}
                             setShowMore={setShowMore}
                             showMore={showMore}
@@ -317,7 +349,7 @@ export const DashboardComp = () => {
                             handleChangeCheck={handleChangeCheck}
                             active={active}
                             data={DataReceived}
-                        />
+                        /> */}
                     </>
                 </Tabs.Panel>
             </Tabs>
@@ -342,14 +374,14 @@ export const DashboardComp = () => {
                 active={active}
                 handlePayState={handlePayState}
             />
-            <ModalAlerBox
+            {/* <ModalAlerBox
                 setAlertModal={setAlertModal}
                 handlePayState={handlePayState}
                 invoiceData={invoiceData}
                 handleApprovedInvoiceState={handleApprovedInvoiceState}
                 alertModal={alertModal}
-            />
-            <ModalFilter
+            /> */}
+            {/* <ModalFilter
                 // open modal Action
                 data={data}
                 active={active}
@@ -361,7 +393,7 @@ export const DashboardComp = () => {
                 setActive={setActive}
                 selectedDate={selectedDate}
                 handleDateChange={handleDateChange}
-            />
+            /> */}
 
         </ContentListInvoice>
     )

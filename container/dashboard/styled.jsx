@@ -725,6 +725,7 @@ export const FilterOptions = styled.div`
     margin-bottom: 30px;
     top: 0px;
     margin-top: -30px;
+    border-bottom: 1px solid #ccc;
 `
 export const Toast = styled.div`
     animation: ${({ open }) => open && (open ? fadeIn : fadeOut)} 1s forwards;

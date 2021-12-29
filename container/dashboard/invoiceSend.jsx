@@ -23,33 +23,31 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
             </Toast>
             <Table
                 titles={[
-                    { name: '', width: '8%' },
-                    { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '8%' },
-                    { name: 'Event Name', arrow: true, key: 'eventName', width: '8%' },
-                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '8%' },
-                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '8%' },
-                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '8%' },
-                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '8%' },
-                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '8%' },
-                    { name: 'Date Received', width: '8%' },
-                    { name: 'Pay Invoice', width: '8%' },
-                    { name: 'Approve Invoice', width: '8%' },
-                    { name: 'Action', width: '8%' }
+                    // { name: '', width: '8%' },
+                    { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '9%' },
+                    { name: 'Event Name', arrow: true, key: 'eventName', width: '9%' },
+                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '9%' },
+                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '9%' },
+                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '9%' },
+                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '9%' },
+                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '9%' },
+                    { name: 'Date Received', width: '9%' },
+                    { name: 'Pay Invoice', width: '9%' },
+                    { name: 'Approve Invoice', width: '9%' },
+                    { name: 'Action', width: '9%' }
                 ]
                 }
                 bgRow={2}
                 pointer
-                entryPerView
-                buttonAdd={false}
                 data={data?.getAllCommissionInvoiceSent?.filter(x => showInvoice ? x.isPaid === true : x)}
                 renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section bgRow={1} padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state?.selectedIndex ? `${SVColor}` : 'transparent', borderBottom: 'border-bottom: 1px solid rgba(0, 0, 0, 0.05)' }} radius='3px' tabIndex={0} columnWidth={titles} key={i} onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                         dispatch({ type: 'select', payload: i })
                         e.target.blur()
                     } }}>
-                    <Wrapper>
+                    {/* <Wrapper>
                         <Checkbox id={elem} disabled={disabledItems.has(elem)} checked={checkedItems.has(elem)} onChange={handleChangeCheck} />
-                    </Wrapper>
+                    </Wrapper> */}
                     <Wrapper>
                         <Text size='15px'> {(elem.eventCommences)}</Text>
                     </Wrapper>
