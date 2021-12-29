@@ -18,9 +18,8 @@ export const IndexPaypal = () => {
                             console.log('');
                         }
                     }}
-                    onCancel={(data) => console.log("compra cancelada")}
+                    onCancel={(data) => console.log(" ")}
                     onApprove={(data, actions) => {
-                        console.log(data);
                         actions.order.capture();
                     }}
                     style={{ layout: "horizontal", color: "blue" }}

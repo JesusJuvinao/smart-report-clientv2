@@ -317,7 +317,6 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
         handleClickShow(true)
         showModalInvoice.setState(true)
     }
-    console.log(loadingPay || loadingRedo || loadingApprove)
     return (
         <Container>
             {loadingPay || loadingRedo || loadingApprove && <Loading />}
@@ -866,8 +865,8 @@ export const ModalAddInvoicePaymentState = ({ showModalInvoice, statePay, dispat
                         <NewSelect topTitle='10px !important' action top='88%' icon title='Filter supplier.' width='25%' secOptionName={''} error={errors?._id} required search disabled={false} options={data || []} id='_id' name='_id' value={values?._id || ''} optionName={['invoiceTo']} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
                         <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
-                        <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('object')}>Today</Button>
-                        <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('object')}>Last 7 days</Button>
+                        <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('')}>Today</Button>
+                        <Button style={{ border: '1px solid #ccc' }} onClick={() => console.log('')}>Last 7 days</Button>
                         {/* <Button style={{ border: '1px solid #ccc' }} onClick={() => showAllData(!showInvoice)}>{!showInvoice ? 'Show' : 'Close'} All invoice</Button> */}
                         <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false)?.length} / {data?.length || 0}  Invoice </Text>
                     </Options>

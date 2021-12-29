@@ -49,7 +49,6 @@ export const createRoleMutation = async (_, input, context) => {
             }
         }
     } catch (e) {
-        console.log(e)
         const error = new Error('Your request could not be processed')
         return error
     }
@@ -63,7 +62,6 @@ export const getAllRoles = async  (_, __, context) => {
         for (let i = 0; i < roles.length; i++) {
             if (roles[i].name === 'admin') {
                 const Dataroles = await Roles.find()
-                console.log(Dataroles)
                 return Dataroles
             }
         }

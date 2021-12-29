@@ -11,7 +11,7 @@ export const Title = styled.h1`
 `
 export const Text = styled.span`
     font-size: ${({ size }) => size || '12px'};
-    text-align:  ${({ align }) => align || 'start'};
+    text-align:  ${({ align }) => align || 'left'};
     color:  ${({ color }) => color || BColor};
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
     ${({ overflow }) => overflow && css`overflow: ${overflow};`}
@@ -148,7 +148,8 @@ export const Row = styled.div`
     ${flexCenter}
     ${props => props.border && css`
       border-right: 1px solid ${BColor};
-      padding: 15px;
+      padding: 7px;
+      height: 100%;
       &:first-child {
         border-left: 1px solid ${BColor};
       }
@@ -171,8 +172,15 @@ export const Card = styled.div`
     ${({ margin }) => margin && css`margin: ${margin};`}
     ${({ direction }) => direction && css`flex-direction: ${direction};`}
     ${({ radius }) => radius && css`border-radius: ${radius};`}
+    text-align: left;
 `;
 
+export const Card2 = styled.div`
+    top: 140vh; left: 0vw;
+    display: flex;
+    ${({ width }) => width && css`width: ${width};`}
+    position: absolute;
+`;
 export const Button = styled.button`
   width: auto;
   height: auto;

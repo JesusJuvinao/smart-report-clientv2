@@ -355,7 +355,6 @@ export const BillsC = () => {
     }
     const getFileUrl = async fileName => {
         const { BillLink, Delete, idFile } = fileName
-        console.log(BillLink, Delete)
         FileNameLink.setState(BillLink)
         LinkMinio.setState(BillLink)
         getAllFilesLinkToBills()

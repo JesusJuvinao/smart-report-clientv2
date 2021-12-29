@@ -36,7 +36,6 @@ export const ViewComponentInvoice = ({ idInvoice }) => {
     <></>
     // GET_ONE_PAY_INVOICE
     if (loading) return <Loading />
-    console.log(reactElementToJSXString(<div a="1" b="2">{10 * 10}</div>));
     return (
         <Content>
             <AwesomeModal zIndex='88' padding='20px' height='200px' show={open} onHide={() => setOpen(false)} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >

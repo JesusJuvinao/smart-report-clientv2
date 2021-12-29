@@ -10,7 +10,7 @@ export default async function  handler (req, res) {
             from: '+12343513461',
             body: 'Parece que funciona'
         });
-        console.log(message)
+        console.log('')
         return message;
         
     } catch (error) {

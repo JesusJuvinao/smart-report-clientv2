@@ -15,7 +15,6 @@ export const Categories = () => {
   // Handles
   const handleDelete = async (elem) => {
     const { _id } = elem
-    console.log(_id)
     const results = await DeleteOneCategories({
       variables: { id: _id },
       update (cache) {

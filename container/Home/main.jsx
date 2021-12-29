@@ -15,7 +15,6 @@ import { GET_ALL_LICENCE } from '../../container/DashboardAdmin/queries'
 
 
 export const Hero = () => {
-    // console.log(data.GetLicences)
     return (
         <Section>
             <Content>
@@ -211,7 +210,6 @@ export const TabList = () => {
 export const PricingCard = () => {
     const show = useSetState(0)
     const { data } = useQuery(GET_ALL_LICENCE);
-    console.log(data)
     const Switch = useSetState(0)
 
     const handleShow = index => {

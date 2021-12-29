@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useContext, useEffect, useState } from 'react';
 import { GET_ONE_INVOICE, IS_PAY_INVOICE, IS_REDO_INVOICE } from './queries';
 import { DocumentPdf } from '../dashboard/Document';
-import { updateCache } from '../../utils';
+import { dateFormat, updateCache } from '../../utils';
 import { GET_ALL_INVOICES_SENT, HAS_BEEN_RECEIVED } from '../dashboard/queries';
 import { Context } from '../../context';
 import { BColor, BGColor } from '../../public/colors';
@@ -13,13 +13,17 @@ import { RippleButton } from '../../components/Ripple';
 import { useSetState } from '../../components/hooks/useState';
 import { useUser } from '../Profile';
 import { generatePdfDocumentInvoice } from './PdfInvoice';
-import { DocumentFormatA4, WrapperControls, WrapperPdf, Card, Content, ContentToggle, ButtonTheme, SwitchButton, Text, Title, Row, RowGrid, ContentInvoice, Container, ContPdf, Tabla, TablaFila, RowDinamic } from './styled';
+import { Button, DocumentFormatA4, WrapperControls, WrapperPdf, Card, Card2, Content, ContentToggle, ButtonTheme, SwitchButton, Text, Title, Row, RowGrid, ContentInvoice, Container, ContPdf, Tabla, TablaFila, RowDinamic } from './styled';
+import { PaymentStatus } from '../dashboard/styled';
+import moment from 'moment';
 
 export const Invoice = ({ idInvoice }) => {
     const { data, loading } = useQuery(GET_ONE_INVOICE, { variables: { idInvoice: idInvoice }, fetchPolicy: 'cache-and-network' })
     const { setAlertBox } = useContext(Context)
     const [dataUser] = useUser()
     const [openModal, setOpenModal] = useState(false)
+
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         if (data) {
@@ -85,6 +89,7 @@ export const Invoice = ({ idInvoice }) => {
     }
 
     if (loading) return <Loading />
+
     return (
         <Content>
             <RippleButton margin='0px 10px 0px 0px' border='60px' color={BColor} widthButton='150px' bgColor={'#e2e8f0'} family='PFont-Regular' onClick={() => handleChangeReceived()}>
@@ -99,20 +104,51 @@ export const Invoice = ({ idInvoice }) => {
                                     Logo
                                 </Card>
                                 <Card width='50%'>
-
                                     <Card width='50%'>
-                                        {data?.getOneCommissionInvoice.agentDetails.legalName}
+                                        <Text align='left'>Company Name: {data?.getOneCommissionInvoice.agentDetails.legalName}</Text>
                                     </Card>
                                     <Card width='50%'>
-                                        {data?.getOneCommissionInvoice.invoiceDate}
+                                        <Text align='left' >Invoice Date: {(dateFormat(data?.getOneCommissionInvoice?.invoiceDate))} {/* { data?.getOneCommissionInvoice.invoiceDate ? data?.getOneCommissionInvoice.invoiceDate : 'Without Date'} */}</Text>
                                     </Card>
                                 </Card>
                             </Card>
+                            <Card margin='0 0 30px 0' width='100%'>
+                                <Card width='50%'>
+                                    <Text align='left'>Invoice Reference: {data?.getOneCommissionInvoice.invoiceRef}</Text>
+                                </Card>
+                                <Card width='50%'>
+                                    <Text align='left'>Event Reference: {data?.getOneCommissionInvoice.eventRef}</Text>
+                                </Card>
+                            </Card>
+                            <Card margin='0 0 30px 0' width='100%'>
+                                <Card width='50%'>
+                                    <Text align='left'>Event Type: {data?.getOneCommissionInvoice.eventType}</Text>
+                                </Card>
+                                <Card width='50%'>
+                                    <Text align='left'>Has Been Recived: {data?.getOneCommissionInvoice.hasBeenRecived ? 'Yes':'No'}</Text>
+                                </Card>
+                            </Card>
+                            <Card margin='0 0 30px 0' width='100%'>
+                                <Card width='50%'>
+                                    <Text align='left'>Is Paid: {data?.getOneCommissionInvoice.isPaid ? 'Yes':'No'}</Text>
+                                </Card>
+                                <Card width='50%'>
+                                    <Text align='left'>Is Redo: {data?.getOneCommissionInvoice.isRedo ? 'Yes':'No'}</Text>
+                                </Card>
+                            </Card>
+                            <Card margin='0 0 30px 0' width='100%'>
+                                <Card width='50%'>
+                                    <Text align='left'>Invoice From: {data?.getOneCommissionInvoice.invoiceFrom}</Text>
+                                </Card>
+                                <Card width='50%'>
+                                    <Text align='left'>Invoice To: {data?.getOneCommissionInvoice.invoiceTo}</Text>
+                                </Card>
+                            </Card>
                             <Card>
-                                <Text margin='10px 0 10px 0' size='30px'> COMMISSION PAYMENT</Text>
+                                <Text align='left' margin='10px 0 10px 0' size='30px'> COMMISSION PAYMENT</Text>
                             </Card>
                             <Card margin='20px 0' background='#cb1d6c' radius='0'>
-                                <Text margin='10px 0 10px 5px' color={BGColor} size='20px'> Agent Trading Name: Spice Yorkshire</Text>
+                                <Text align='left' margin='10px 0 10px 5px' color={BGColor} size='20px'> Event {data?.getOneCommissionInvoice.eventName}</Text>
                             </Card>
                             <Card >
                                 <RowDinamic columnWidth={['12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%']}>
@@ -150,22 +186,39 @@ export const Invoice = ({ idInvoice }) => {
                                     <RippleButton  bgColor={'#cb1d6c'}>View Invoice</RippleButton>
                                 </Card>
                             </Card>
-
-                           
-                            
+                            <Card2 width='100%'>
+                                <Card margin='10px 0 30px 0' width='50%'>
+                                    <Card width='50%'>
+                                        <Text align='left'>Total Sales Received: {data?.getOneCommissionInvoice.totalSalesReceived}</Text>
+                                    </Card>
+                                    <Card width='50%'>
+                                        <Text align='left'>Total: {data?.getOneCommissionInvoice.invoiceTotal}</Text>
+                                    </Card>
+                                </Card>
+                                <Card margin='10px 0 30px 0' width='50%'>
+                                    <Card width='50%'>
+                                        <Text align='left'>Total Discounts: {data?.getOneCommissionInvoice.totalDiscounts}</Text>
+                                    </Card>
+                                    <Card width='50%'>
+                                        <Text align='left'>Total Commission Due: {data?.getOneCommissionInvoice.totalCommDue}</Text>
+                                    </Card>
+                                </Card>
+                            </Card2>
                         </ContPdf>
                     </DocumentFormatA4>
                     <WrapperControls>
                         <ContentToggle>
                             <div>
+                            {/* handleRedoState(data?.getOneCommissionInvoice._id) */}
                                 <Text style={{ margin: '0' }} size='13px' >Redo Invoice</Text>
                                 <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
                                     <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
                                 </ButtonTheme>
                             </div>
                             <div>
+                            {/* handlePayMake(data?.getOneCommissionInvoice._id) */}
                                 <Text style={{ margin: '0' }} size='13px' >Mark Payment</Text>
-                                <ButtonTheme onClick={() => Switch2.setState(!Switch2.state)}>
+                                <ButtonTheme onClick={ () => Switch2.setState(!Switch2.state) }>
                                     <SwitchButton active={Switch2.state ? '36px' : '3.5px'} />
                                 </ButtonTheme>
                             </div>
@@ -182,7 +235,4 @@ export const Invoice = ({ idInvoice }) => {
     )
 }
 
-Invoice.propTypes = {
-    idInvoice: PropTypes.string,
 
-}
