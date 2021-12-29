@@ -18,7 +18,7 @@ type Modules {
     mName: String
     mPriority: Int
     mIcon: Int
-    lineItemsModules: [SubModules]
+    SubModules: [SubModules]
 }
 
 # Module Input

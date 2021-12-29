@@ -52,7 +52,7 @@ export const LeftNav = styled.div`
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     z-index: 999;
     border-radius: 5px;
-    overflow: hidden;
+    // overflow: hidden;
     width: 400px;
     place-content: center;
     gap: 10px;
@@ -119,6 +119,15 @@ export const Info = styled.div`
 export const ContentOption = styled.div`
     min-height: 150px;
 `
+export const SubMenuModules = styled.div`
+    position: absolute;
+    right: -170px;
+    background: red;
+    color: red;
+    z-index: 99;
+    top: 0;
+    border: 12px solid;
+`
 export const Anchor = styled.a`
     padding: 0px;
     display: flex;
@@ -128,7 +137,7 @@ export const Anchor = styled.a`
     cursor: pointer;    
     display: block;
     text-decoration: none;
-    overflow: hidden;
+    // overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     line-height: 1.2em;
@@ -138,6 +147,9 @@ export const Anchor = styled.a`
     border-bottom: 1px solid #ccc;
     width: 100%;
     font-size: 13px;
+    &:hover > ${SubMenuModules} {
+        display: block;
+    }
 `
 
 // export const Anchor = styled.a`
@@ -147,7 +159,7 @@ export const Card = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
+    // overflow-y: auto;
 
     transition: 300ms ease;
     height: 100vw;

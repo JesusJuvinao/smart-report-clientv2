@@ -1,21 +1,15 @@
 import { ApolloError } from 'apollo-server-errors'
-import CommissionSchema from '../../../models/commisionInvoice/commisionInvoice'
+import CommissionInvoiceStatement from '../../../models/CommissionStatements/CStatementsSchema'
 import UserSchema from '../../../models/users/userLogin'
 import CompanySchema from '../../../models/Companies/CompanySchema'
 
-export const getAllCommissionStatements = async (_, { idComp, CompName }, ctx) => {
-    const idUser = ctx.User.id
+export const getAllCommissionStatements = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     try {
-        // const Array = await UserSchema.findOne({ _id: idUser })
-        // const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
-        // if (dataComp && dataComp.length) {
-        //     const dataCompany = await CompanySchema.findOne({ _id: idComp });
-        //     const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
-        //     return data
-        // }
-        console.log('resolver')
-
+        const idUser = ctx.User.id
+            const data = await CommissionInvoiceStatement.find({ })
+            return data
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

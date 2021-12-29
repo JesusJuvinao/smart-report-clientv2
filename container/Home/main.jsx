@@ -222,7 +222,7 @@ export const PricingCard = () => {
         if (show) window.addEventListener('keyup', e => e.code === 'Escape' && show.setState(false))
         return () => window.removeEventListener('keyup', () => { })
     }, [show])
-
+    console.log(data)
     return (
         <Section>
             <Text lineHeight={'2.75rem'} font='PFont-Regular' bold='600' justify='center' color={SECColor} size='2.125rem' margin='30px auto'>There’s a Smart-report for every business</Text>
@@ -236,60 +236,54 @@ export const PricingCard = () => {
             <ContentPricing>
                 <ContentCarPrice>
                     {data?.GetLicences?.map(x => (
-                        <Card key={x._id} alignContent='flex-start' radius='15px' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="100vw" margin='1.5rem .625rem 0' padding='20px 20px' justify='flex-start'>
-                            <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' >{x.LName}</Text>
-                            <Line />
-                            <Text margin='0px 0px 1.25rem 0'>Start your business</Text>
-                            <Pricing>
-                                <s>
-                                    {x.LDescuento ? `£ ${x.LDescuento}` : '£ 16'}
-                                </s>
+                        <>
+                            <Card overflow='hidden' key={x._id} alignContent='flex-start' radius='5px' shadow='0 0.125rem 0.5rem 0 rgb(0 0 0 / 20%)' maxWidth='16.5625rem' width="100vw" margin='1.5rem .625rem 0' padding='20px 20px' justify='flex-start'>
+                                <Text color={BColor} lineHeight='1.4' bold='500' size='1.25rem' >{x.LName}</Text>
+                                <Line />
+                                <Pricing>
+                                    <s>
+                                        {x.LDescuento ? `£ ${x.LDescuento}` : '£ 16'}
+                                    </s>
 
-                            </Pricing>
-                            <ContentPrice>
-                                <Text lineHeight={'1.3'} font='PFont-Bold' bold='700' color={SECColor} size='2.5rem' margin='.5rem 0'>{x.LPrice ? `£ ${x.LPrice}` : '£ 2'}</Text>
-                            </ContentPrice>
-                            <ActiveLink activeClassName="active" href={`/checkout/${x._id}`}>
-                                <a>
-                                    <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#61D2B4'} family='PFont-Medium'>Buy now</RippleButton>
-                                </a>
-                            </ActiveLink>
-                            {/* <RippleButton margin='0px 10px 0px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'></RippleButton> */}
-                            {/* <RippleButton borderSolid='.125rem solid #393a3d' margin='15px 10px 40px 0px' border='624.9375rem' color={BColor} widthButton='150px' bgColor={'transparent'} family='PFont-Medium'>Free 30-day trial</RippleButton> */}
-                            {/* <FeatureItem>
-                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
-                                <BtnItem onClick={() => handleShow(1)}>Track income & expenses</BtnItem>
-                            </FeatureItem>
-                            <FeatureItem>
-                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
-                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
-                            </FeatureItem>
-                            <FeatureItem>
-                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
-                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
-                            </FeatureItem>
-                            <FeatureItem>
-                                <IconArrowBottom color={BColor} size='17px' />&nbsp;
-                                <BtnItem onClick={() => console.log('')}>Track income & expenses</BtnItem>
-                            </FeatureItem> */}
-                        </Card>
+                                </Pricing>
+                                <ContentPrice>
+                                    <Text lineHeight={'1.3'} font='PFont-Bold' bold='700' color={SECColor} size='2.5rem' margin='.5rem 0'>{x.LPrice ? `£ ${x.LPrice}` : '£ 2'}</Text>
+                                </ContentPrice>
+                                <ActiveLink activeClassName="active" href={`/checkout/${x._id}`}>
+                                    <a>
+                                        <RippleButton margin='0px 10px 20px 0px' border='624.9375rem' color={BGColor} widthButton='150px' bgColor={'#0e8900'} family='PFont-Medium'>Buy now</RippleButton>
+                                    </a>
+                                </ActiveLink>
+                                {x.lineItemsLicences.map(z => (
+                                    <div key={z._id}>
+                                        <FeatureItem>
+                                            <IconArrowBottom color={BColor} size='17px' />&nbsp;
+                                            <BtnItem overflow style={{ fontSize: '1.25rem' }}  onClick={() => show.setState(x === show.state ? false : x)}>{z.lineItemsDescription}</BtnItem>
+                                        </FeatureItem>
+                                    </div>
+                                ))}
+                            </Card>
+                            <ModuleInfo show={show.state === x}>
+                                <Module>
+                                    <BtnClose onClick={() => show.setState(false)}>
+                                        <IconCancel size='20px' />
+                                    </BtnClose>
+                                    <Text color={SECColor} lineHeight='1.4' bold='600' size='2rem' margin='2.5rem 0 0'>Track income & expenses</Text>
+                                    {x.lineItemsLicences.map(z => (
+                                        <ul key={z._id}>
+                                            <li >{z.lineItemsDescription}</li>
+                                        </ul>
+                                    ))}
+
+                                </Module>
+                            </ModuleInfo>
+                        </>
+
                     ))}
                 </ContentCarPrice>
             </ContentPricing>
             <Overline bgColor='rgba(0,0,0,.4)' show={show.state} onClick={() => show.setState(false)} />
-            <ModuleInfo show={show.state}>
-                <Module>
-                    <BtnClose onClick={() => show.setState(false)}>
-                        <IconCancel size='20px' />
-                    </BtnClose>
-                    <Text color={SECColor} lineHeight='1.4' bold='600' size='2rem' margin='2.5rem 0 0'>Track income & expenses</Text>
-                    <ul>
-                        <li>See how your business is doing in real-time on your dashboard.</li>
-                        <li>Connect your bank accounts to categorise your expenses.</li>
-                        <li>Sort your income and expenses fully-customisable categories.</li>
-                    </ul>
-                </Module>
-            </ModuleInfo>
+
             <ContentToggle>
                 <RippleButton padding='0 15px' size='15px' family='PFont-Regular' margin='50px 0' bgColor={SECColor} minHeight='3em' border='624.9375rem' height='calc(100% + .625rem)' >See all features</RippleButton>
             </ContentToggle>

@@ -14,6 +14,8 @@ import { Card, Container, ContentCarPrice, Text, Section, PayMethod, Navigation,
 import { BtnClose } from '../Home/styled';
 import { Overline } from '../../components/common/Reusable';
 import { Context } from '../../context';
+import { IconLogo } from '../../components/common/logo';
+import ActiveLink from '../../components/common/Link';
 
 export const Checkout = ({ licenceId }) => {
   // STATES
@@ -65,7 +67,12 @@ export const Checkout = ({ licenceId }) => {
       <Overline bgColor='rgba(0,0,0,.4)' show={show.state} onClick={() => show.setState(!show.state)} />
       <Section>
         <Navigation>
-          askdhaslkdjh
+          <ActiveLink activeClassName="active" href='/'>
+            <a>
+              <IconLogo size='100px' />
+            </a>
+          </ActiveLink>
+          Safe shopping
         </Navigation>
       </Section>
       <Card>

@@ -16,6 +16,7 @@ import accountResolver from './Account'
 import uploadFileResolver from './Upload'
 import detailResolver from './DetailSales'
 import LicenceModules from './Licences'
+import CommissionStatements from './CommissionStatements'
 import CommentsResolver from './Commets'
 import CommissionInvoice from './CommissionInvoice'
 import taxedResolver from './Taxes'
@@ -29,6 +30,7 @@ const pubsub = new PubSub()
 export default {
     ...UserResolvers.TYPES,
     ...SupplierResolvers.TYPES,
+    ...CommissionStatements.TYPES,
     ...BillsResolvers.TYPES,
     ...modulesResolver.TYPES,
     ...CompanyResolvers.TYPES,
@@ -52,6 +54,7 @@ export default {
         ...detailResolver.QUERIES,
         ...accountResolver.QUERIES,
         ...uploadFileResolver.QUERIES,
+        ...CommissionStatements.QUERIES,
         ...IvaResolvers.QUERIES,
         ...CategoriesResolvers.QUERIES,
         ...productsResolvers.QUERIES,
@@ -74,6 +77,7 @@ export default {
     Mutation: {
         ...registerEmailsTemplateResolver.MUTATIONS,
         ...modulesResolver.MUTATIONS,
+        ...CommissionStatements.MUTATIONS,
         ...CommissionInvoice.MUTATIONS,
         ...taxedResolver.MUTATIONS,
         ...uploadFileResolver.MUTATIONS,

@@ -8,7 +8,7 @@ query getAllModules {
     mName
     mPriority
     mIcon
-    lineItemsModules {
+    SubModules {
       _id
       smName
       smPath
@@ -29,6 +29,10 @@ query GetLicences($_idUser: ID){
     Date
     EndDate
     Active
+    lineItemsLicences {
+      _id
+      lineItemsDescription
+    }
   }
 }
 `
@@ -48,9 +52,8 @@ query GetOneLicences($id: ID){
 }
 `
 export const CREATE_ONE_LICENCE = gql`
-    mutation registerGetLicences($input: ILicences) {
-        registerGetLicences(input: $input) {
-          _id
+    mutation registerGetLicences($input: ILicences, $inputLineItems: ILineItemsFinalLicence) {
+        registerGetLicences(input: $input, inputLineItems: $inputLineItems) {
           idUser
           LName
           LPrice
@@ -59,6 +62,10 @@ export const CREATE_ONE_LICENCE = gql`
           Date
           EndDate
           Active
+        lineItemsLicences {
+          _id
+          lineItemsDescription
+        }
         }
     }
 `

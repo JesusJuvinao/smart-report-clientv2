@@ -89,6 +89,12 @@ export const Card = styled.div`
         box-shadow: rgba(18, 18, 19, 0.2) 0px 7px 29px 0px;
     }
 `
+export const ContainerDinamic = styled.a`
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    cursor: pointer;
+`
 export const Folder = styled.a`
     display: flex;
     cursor: pointer;

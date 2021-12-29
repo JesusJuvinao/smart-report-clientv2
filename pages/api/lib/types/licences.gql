@@ -10,6 +10,8 @@ type Licences {
     Date: DateTime
     EndDate: DateTime
     Active: Boolean
+    lineItemsLicences: [LineItemsLicences]
+
 }
 # Account Input
 input ILicences {
@@ -22,15 +24,28 @@ input ILicences {
     Date: DateTime
     EndDate: DateTime
     Active: Boolean
+    lineItemsLicences: [ILineItemsLicences]
 }
 # Query
 type Query {
   GetLicences(_idUser: ID): [Licences]
   GetOneLicences(id: ID): Licences
 }
+type LineItemsLicences {
+    _id: ID
+    lineItemsDescription: String
+}
+
+input ILineItemsLicences {
+    _id: ID
+    lineItemsDescription: String
+}
+  input ILineItemsFinalLicence {
+      setDataLicence: [ILineItemsLicences]
+  }
 # Mutations
 type Mutation {
-  registerGetLicences(input: ILicences): Licences
+  registerGetLicences(input: ILicences, inputLineItems: ILineItemsFinalLicence): Licences
   EditGetLicences(input: ILicences): Licences
   DeleteGetLicences(id: ID): Boolean,
 }
