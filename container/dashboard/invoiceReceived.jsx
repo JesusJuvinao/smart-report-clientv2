@@ -5,7 +5,7 @@ import { RippleButton } from '../../components/Ripple'
 import { Table } from '../../components/Table'
 import { AwesomeModal } from '../../components/AwesomeModal'
 import { IconCancel, IconDost } from '../../public/icons'
-import { dateFormat } from '../../utils'
+import { dateFormat, NewDateFormat } from '../../utils'
 import { DocumentPdf } from './Document'
 import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 import ActiveLink from '../../components/common/Link'
@@ -27,7 +27,7 @@ export const InvoiceReceived = ({ data, setShowMore, showInvoice, setShow, showD
                     { name: '', width: '8%' },
                     { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '8%' },
                     { name: 'Event Name', arrow: true, key: 'eventName', width: '8%' },
-                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '8%' },
+                    { name: 'Invoice To', arrow: true, key: 'invoiceTo', width: '8%' },
                     { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '8%' },
                     { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '8%' },
                     { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '8%' },
@@ -61,13 +61,13 @@ export const InvoiceReceived = ({ data, setShowMore, showInvoice, setShow, showD
                         <BlueButton onClick={() => enableCheckboxes(elem)}>enable</BlueButton> */}
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.eventCommences}</Text>
+                        <Text size='15px'> {NewDateFormat(elem.eventCommences)}</Text>
                     </Wrapper>
                     <Wrapper>
                         <Text size='15px'>{elem?.eventName}</Text>
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem?.invoiceTo}</Text>
+                        <Text size='15px'> {elem?.invoiceFrom}</Text>
                     </Wrapper>
 
                     <Wrapper>

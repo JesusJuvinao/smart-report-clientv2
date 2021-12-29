@@ -236,12 +236,16 @@ export const DashboardComp = () => {
             {loadingPay || loadingRedo || loadingApprove && <Loading />}
             <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {dataComp?.companyName}</Text>
             <FilterOptions>
-                <Button size='13px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => setOpenModalMain(true)}> ADD INVOICE PAY</Button>
-                <Button size='11px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => showAllData(!showInvoice)} >FILTER INVOICE PAY </Button>
-                <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} />
-                <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} />
-                <input style={{ height: '45px', width: '25%' }} label='Search Pay' name='searchPay' value={searchPay} title='Filter pay invoice' onChange={handleChangeFilterDatePay} type='date' />
-                <Text width='min-content' size='30px'>{data?.getAllCommissionInvoiceSent?.filter(x => x.isPaid === false)?.length}  / {data?.getAllCommissionInvoiceSent?.length || 0}  BILLS PAID </Text>
+                <div>
+                    <Button size='13px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => setOpenModalMain(true)}> ADD INVOICE PAY</Button>
+                    <Button size='11px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => showAllData(!showInvoice)} >FILTER INVOICE PAY </Button>
+                </div>
+                <div>
+                </div>
+                {/* <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} /> */}
+                {/* <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} /> */}
+                {/* <input style={{ height: '45px', width: '25%' }} label='Search Pay' name='searchPay' value={searchPay} title='Filter pay invoice' onChange={handleChangeFilterDatePay} type='date' /> */}
+                {/* <Text width='min-content' size='30px'>{data?.getAllCommissionInvoiceSent?.filter(x => x.isPaid === false)?.length}  / {data?.getAllCommissionInvoiceSent?.length || 0}  BILLS PAID </Text> */}
             </FilterOptions>
             <Tabs width={['25%', '25%']} >
                 <Tabs.Panel label={`Sent bill: ${data ? data?.getAllCommissionInvoiceSent?.length : 0} / ${dataCountSend?.getEstimateCountInvoiceSend ? dataCountSend?.getEstimateCountInvoiceSend?.length : 0}`}>

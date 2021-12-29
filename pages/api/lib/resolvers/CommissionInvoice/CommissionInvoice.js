@@ -227,7 +227,7 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
                 })
             })
         }
-        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }
@@ -336,7 +336,7 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
                     uEmail,
                     date: today,
                     hour,
-                    statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                    statusInvoice: InvoiceData.isRedo !== true ? 'Redo' : 'No Redo',
                 })
             })
         }

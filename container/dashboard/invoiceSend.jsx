@@ -51,7 +51,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                         <Checkbox id={elem} disabled={disabledItems.has(elem)} checked={checkedItems.has(elem)} onChange={handleChangeCheck} />
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem.eventCommences}</Text>
+                        <Text size='15px'> {(elem.eventCommences)}</Text>
                     </Wrapper>
                     <Wrapper>
                         <Text size='15px'>{elem?.eventName}</Text>

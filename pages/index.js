@@ -12,7 +12,7 @@ export default function Home() {
   )
 }
 export const getServerSideProps = withSession(async function ({ req }) {
-  if (req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/dashborad', permanent: false } }
+  if (req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/dashboard', permanent: false } }
   return {
       props: { }
   }
