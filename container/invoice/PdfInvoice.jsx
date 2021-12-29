@@ -165,12 +165,6 @@ const InvoicePdfGenerate = ({ pdfDocumentData }) => {
                         <Text style={ style.textData }> {dateFormat(dataInvoice?.getOneCommissionInvoice.uploaded)}</Text>
                         
                     </View>
-                    
-                    <View style={ style.row, style.rowItem }>
-                        <Text style={ style.titleData }>Note:</Text>
-                        <Text style={ style.textData }>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</Text>
-                    </View>
                     <View style={ style.row, style.rowItem } >
                         {dataInvoice && dataInvoice?.getOneCommissionInvoice?.lineItemsArray?.map((x, i) => (
                             <View key={x._id} >
