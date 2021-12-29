@@ -43,11 +43,13 @@ export const DashboardComp = () => {
     const [yearss, setsetYear] = useState('')
     // data invoice send
     const [InvoiceSend, setData] = useState([])
+    const [InvoiceDataReceived, setDataReceived] = useState([])
     // main func
     const [active, setActive] = useState(false)
     const [showDataToday, showAllToday] = useState(false)
     const handleClick = index => setActive(index === active ? false : index)
     const [showMore, setShowMore] = useState(0)
+    const [showMoreReceived, setShowMoreReceived] = useState(0)
     const [searchPay, setSearchDatePay] = useState('')
     const [values, setValues] = useState({})
     const [alertModal, setAlertModal] = useState(false)
@@ -84,9 +86,27 @@ export const DashboardComp = () => {
             }
         })
 
+
+
+
+    const [getEstimateCountInvoice, { data: dataCount }] = useLazyQuery(GET_STIMATE_COUNT, {
+        fetchPolicy: 'network-only', variables: {
+            idComp: company.idLasComp && company.idLasComp
+        }
+    })
+    const [getAllCommissionInvoiceReceived, { data: DataReceived, loading: loadingR }] = useLazyQuery(GET_ALL_INVOICES_RECEIVED, {
+        fetchPolicy: 'network-only',
+        variables:
+        {
+            search: '',
+            idComp: company.idLasComp && company.idLasComp
+        }
+    })
     useEffect(() => {
         data?.getAllCommissionInvoiceSent && setData([...data?.getAllCommissionInvoiceSent])
-    }, [data])
+        data?.getAllCommissionInvoiceReceived && setDataReceived([...data?.getAllCommissionInvoiceReceived])
+    }, [data, DataReceived])
+
     useEffect(() => {
         getAllCommissionInvoiceSent({
             variables: {
@@ -99,18 +119,24 @@ export const DashboardComp = () => {
                 invoiceTo: values?.todate
             }
         })
+        getAllCommissionInvoiceReceived({
+            variables: {
+                search: '',
+                max: showMoreReceived,
+                idComp: company.idLasComp && company.idLasComp
+            }
+        })
         getEstimateCountInvoiceSend({
             variables: {
                 idComp: company.idLasComp && company.idLasComp
             }
         })
+        getEstimateCountInvoice({
+            variables: {
+                idComp: company.idLasComp && company.idLasComp
+            }
+        })
     }, [showMore])
-    const [getEstimateCountInvoice, { data: dataCount }] = useLazyQuery(GET_STIMATE_COUNT, {
-        fetchPolicy: 'network-only', variables: {
-            idComp: company.idLasComp && company.idLasComp
-        }
-    })
-    const [getAllCommissionInvoiceReceived, { data: DataReceived, loading: loadingR }] = useLazyQuery(GET_ALL_INVOICES_RECEIVED, { fetchPolicy: 'network-only', variables: { search: '', idComp: company.idLasComp && company.idLasComp } })
     const [isPaidStateInvoice, { loading: loadingPay }] = useMutation(IS_PAY_INVOICE, {
         onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getAllCommissionInvoiceReceived } }) => updateCache({
@@ -263,6 +289,7 @@ export const DashboardComp = () => {
         }
     }
     // return null
+    console.log(DataReceived)
     return (
         <ContentListInvoice>
             {/* {loadingPay || loadingRedo || loadingApprove && <Loading />} */}
@@ -318,10 +345,10 @@ export const DashboardComp = () => {
                 </Tabs.Panel>
                 <Tabs.Panel label={`Invoices Received ${DataReceived ? DataReceived?.getAllCommissionInvoiceReceived?.length : 0} / ${dataCount?.getEstimateCountInvoice ? dataCount?.getEstimateCountInvoice?.length : 0}`}>
                     <>
-                        {/* <InvoiceReceived
+                        <InvoiceReceived
                             loading={loading}
-                            setShowMore={setShowMore}
-                            showMore={showMore}
+                            setShowMore={setShowMoreReceived}
+                            showMore={showMoreReceived}
                             setShow={setShow}
                             show={show}
                             setActive={setActive}
@@ -349,7 +376,7 @@ export const DashboardComp = () => {
                             handleChangeCheck={handleChangeCheck}
                             active={active}
                             data={DataReceived}
-                        /> */}
+                        />
                     </>
                 </Tabs.Panel>
             </Tabs>

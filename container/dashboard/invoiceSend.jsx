@@ -10,6 +10,7 @@ import { DocumentPdf } from './Document'
 import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 import ActiveLink from '../../components/common/Link'
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip, AnchorLink } from './styled'
+import { Pagination } from '../../components/Pagination'
 
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     return (
@@ -108,7 +109,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                     </Wrapper>
                 </Section>)}
             />
-            {/* <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length || 100} onChange={setShowMore} /> */}
+            <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length + 200} onChange={setShowMore} />
             {<BlueButton style={{ width: '100%' }} onClick={() => setShowMore(s => s + 200)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
         </div>
     )
