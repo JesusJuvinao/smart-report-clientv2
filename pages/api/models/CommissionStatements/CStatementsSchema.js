@@ -134,7 +134,7 @@ const CommissionStatement = new mongoose.Schema({
         required: false
     },
     eventCommences: {
-        type: Date,
+        type: String,
         required: true
     },
     invoiceRef: {

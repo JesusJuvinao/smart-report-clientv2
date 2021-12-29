@@ -8,8 +8,8 @@ import { useRouter } from 'next/router'
 import { IconLogo } from '../../common/logo'
 import { Container, NavLink, ContainerLink, Button, ContentLink, ContainerBurger, ContentLogo } from './styled'
 
-export const HeaderPublic = () => {
-    const { setCollapsed, collapsed } = useContext(Context)
+export const HeaderPublic = ({ closeSession }) => {
+    const { setCollapsed, collapsed, isSession } = useContext(Context)
     const router = useRouter()
     return (
         <Container>
@@ -49,15 +49,41 @@ export const HeaderPublic = () => {
                         </a>
                     </NavLink>
                 </ContentLink>
-                <NavLink href='/login'>
-                    <a>
-                        <Button login padding='0px 7px'>
-                            Login
-                            &nbsp;
-                            <IconArrowBottom size='11px' />
+                {isSession?.data === null ?
+                    <div style={{ width: 'min-content', display: 'flex' }}>
+                        <NavLink href='/login'>
+                            <a>
+                                <Button login padding='0px 7px'>
+                                    Login
+                                    &nbsp;
+                                    <IconArrowBottom size='11px' />
+                                </Button>
+                            </a>
+                        </NavLink>
+                        <NavLink href='/register'>
+                            <a>
+                                <Button login padding='0px 7px'>
+                                    Register
+                                    &nbsp;
+                                    <IconArrowBottom size='11px' />
+                                </Button>
+                            </a>
+                        </NavLink>
+                    </div>
+                    :
+                    <div style={{ width: 'min-content', display: 'flex' }} >
+                        <NavLink href='/dashboard'>
+                            <a>
+                                <Button login padding='0px 7px'>
+                                    Dashboard
+                                </Button>
+                            </a>
+                        </NavLink>
+                        <Button login onClick={() => closeSession()} padding='0px 7px'>
+                            Logout
                         </Button>
-                    </a>
-                </NavLink>
+                    </div>
+                }
             </ContainerLink>
         </Container >
     )

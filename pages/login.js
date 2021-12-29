@@ -10,8 +10,9 @@ export default function Login() {
 }
 
 export const getServerSideProps = withSession(async function ({ req }) {
-    if (req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/login', permanent: false } }
+    if (req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/dashboard', permanent: false } }
     return {
         props: {}
     }
 })
+// https://stackoverflow.com/questions/67689100/how-to-make-next-auth-user-session-data-globally-accessible-from-app-js-server

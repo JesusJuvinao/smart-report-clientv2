@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
 const InvoicePdfGeneratePay = ({ pdfDocumentData }) => {
     const { dataInvoice, dataForm } = pdfDocumentData
     const data = dataForm?.clientOne?.thirdParties || dataForm?.thirdParties
+
+    console.log(data, 'asdas');
     return (
         <Document>
             <Page size="A4" style={styles.page}>

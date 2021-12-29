@@ -8,14 +8,14 @@ import { IconCancel, IconDost } from '../../public/icons'
 import { dateFormat } from '../../utils'
 import { DocumentPdf } from './Document'
 import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
-import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip, AnchorLink } from './styled'
 import ActiveLink from '../../components/common/Link'
+import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip, AnchorLink } from './styled'
 
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     return (
         <div>
             <Toast open={checkedItems?.size > 1}>
-                <Text size='15px'  >  {checkedItems?.size} Object selected </Text>
+                <Text size='15px'> {checkedItems?.size} Object selected </Text>
                 <DownLoadButton onClick={selectAll}>Select All</DownLoadButton>
                 <DownLoadButton onClick={clearAll}>Clear All</DownLoadButton>
                 <DownLoadButton onClick={toggleAll}>Toggle All</DownLoadButton>
@@ -46,21 +46,12 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                     if (e.key === 'Enter') {
                         dispatch({ type: 'select', payload: i })
                         e.target.blur()
-                    }
-                }} >
+                    } }}>
                     <Wrapper>
-                        <Checkbox
-                            id={elem}
-                            // label={`${i + 1}`}
-                            disabled={disabledItems.has(elem)}
-                            checked={checkedItems.has(elem)}
-                            onChange={handleChangeCheck}
-                        />
-                        {/* <BlueButton onClick={() => disableCheckboxes(elem)}>disable</BlueButton>
-                        <BlueButton onClick={() => enableCheckboxes(elem)}>enable</BlueButton> */}
+                        <Checkbox id={elem} disabled={disabledItems.has(elem)} checked={checkedItems.has(elem)} onChange={handleChangeCheck} />
                     </Wrapper>
                     <Wrapper>
-                        <Text size='15px'> {elem?.eventCommences && dateFormat(elem.eventCommences)}</Text>
+                        <Text size='15px'> {(elem.eventCommences)}</Text>
                     </Wrapper>
                     <Wrapper>
                         <Text size='15px'>{elem?.eventName}</Text>

@@ -74,7 +74,6 @@ export const Invoice = ({ idInvoice }) => {
     const handleRedoState = async ({ id }) => {
         isRedoStateInvoice({ variables: { idInvoice: id, ToEmail: 'juvinaojesusd@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
-
     const Switch = useSetState(0);
     const Switch2 = useSetState(0);
 
@@ -174,6 +173,18 @@ export const Invoice = ({ idInvoice }) => {
                                         <Row border> <Text size='11px'>{invoice?.ticketPrice}</Text> </Row>
                                     </RowDinamic>
                                 ))}
+                                <Card>
+                                    <Text margin='10px 0 10px 0' size='11px'> Total Revenue of Tickets You Sold: </Text>
+                                </Card>
+                                <Card>
+                                    <Text margin='10px 0 10px 0' size='11px'> Total Commission (including VAT) Payable to you: </Text>
+                                </Card>
+                                <Card>
+                                    <Text margin='10px 0 10px 0' size='11px'> Total Payable by your group to the event owner: </Text>
+                                </Card>
+                                <Card>
+                                    <RippleButton  bgColor={'#cb1d6c'}>View Invoice</RippleButton>
+                                </Card>
                             </Card>
                             <Card2 width='100%'>
                                 <Card margin='10px 0 30px 0' width='50%'>

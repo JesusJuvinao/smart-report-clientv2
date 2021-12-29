@@ -5,7 +5,7 @@ import UserSchema from '../../../models/users/userLogin'
 import CompanySchema from '../../../models/Companies/CompanySchema'
 import { setFiles } from '../Upload/upload'
 import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
-import { transporter } from '../../../utils'
+import { strToDate, transporter } from '../../../utils'
 import moment from 'moment'
 
 export const createCommissionInvoiceMutation = async (_, { input, inputCommissionLineItems }, ctx) => {
@@ -226,7 +226,7 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
                 })
             })
         }
-        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }
@@ -335,7 +335,7 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
                     uEmail,
                     date: today,
                     hour,
-                    statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                    statusInvoice: InvoiceData.isRedo !== true ? 'Redo' : 'No Redo',
                 })
             })
         }
@@ -346,7 +346,9 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
 
 }
 export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName }, ctx) => {
-    const idUser = ctx.User.id
+    // const idUser = ctx.User.id
+    // const idUser = ctx.User.id
+    const idUser = '61c38a904516c431d8c22e08'
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
@@ -356,6 +358,7 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
             return data
         }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -375,6 +378,8 @@ export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
 }
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     const idUser = ctx.User.id
+    // const idUser = '61c38a904516c431d8c22e08'
+    // console.log(datePaid, updatedAt, invoiceTo, invoiceFrom)
     const time = new Date(datePaid)
     const invoiceToDate = new Date(invoiceTo)
     const invoiceFromDate = new Date(invoiceFrom)
@@ -384,6 +389,7 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
         if (dataComp && dataComp.length) {
             // var today = moment().startOf('day');
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
+            console.log(dataCompany)
             const data = await CommissionSchema.find({
                 invoiceFrom: dataCompany.companyName,
                 // updatedAt: { $regex: { $gte: invoiceToDate, $lt: invoiceFromDate, $options: 'i'  } },
@@ -393,6 +399,7 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
             return data
         }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

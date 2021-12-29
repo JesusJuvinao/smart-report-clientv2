@@ -61,7 +61,7 @@ const CommissionInvoice = new mongoose.Schema({
             bookingStatus: String,
             eventName: String,
             eventOwner: String,
-            eventCommences: Date,
+            eventCommences: String,
             discountRate: Number,
             discountTotal: String,
             discountedTotalDue: String,
@@ -111,7 +111,7 @@ const CommissionInvoice = new mongoose.Schema({
         required: false
     },
     eventCommences: {
-        type: Date,
+        type: String,
         required: true
     },
     invoiceRef: {

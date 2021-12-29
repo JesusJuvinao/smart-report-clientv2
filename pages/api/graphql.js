@@ -16,15 +16,18 @@ const cors = Cors()
 
 const apolloServer = new ApolloServer({
     typeDefs,
+    introspection: true,
+    playground: process.env.NODE_ENV === 'production',
     resolvers,
     dataSources: () => {
         return {
             countriesAPI: new CountriesAPI()
         }
     },
+
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground(), httpHeadersPlugin],
     context: withSession(async ({ req, next }) => {
-    //  Initialize as empty arrays - resolvers will add items if required
+        //  Initialize as empty arrays - resolvers will add items if required
         const setCookies = []
         const setHeaders = []
         //  Initialize PubSub
@@ -60,14 +63,14 @@ export default cors(async (req, res) => {
     if (req.method === 'OPTIONS') {
         res.end()
         return
-    }    
+    }
     await startServer;
     const handler = connectDb(apolloServer.createHandler({ path: '/api/graphql' }))
     return handler(req, res)
 })
 export const config = {
-        api: {
-            bodyParser: false,
-            playground: true,
-        }
+    api: {
+        bodyParser: false,
+        playground: true,
+    }
 }
