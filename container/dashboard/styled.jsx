@@ -512,8 +512,8 @@ export const CardInvoice = styled.div`
     justify-content: space-between;
     flex-direction: column;
     transition: all 0.2s ease;
-    width: 100%;
-    max-width: 100%;
+    width: 95%;
+    max-width: 950%;
     
     ${({ height }) => height && css`height: ${height};`}
     `

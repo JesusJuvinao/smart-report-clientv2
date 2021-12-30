@@ -6,14 +6,10 @@ import { useRouter } from 'next/router'
 import InputHooks from '../../components/InputHooks/InputHooks'
 import { orderColumn } from '../../components/Table/orderColumn'
 import { Table, useKeyPress } from '../../components/Table'
-import { IS_APPROVED_INVOICE_SENDER, IS_PAY_INVOICE, IS_REDO_INVOICE } from '../../container/invoice/queries'
 import { dateFormat, dateNow, updateCache } from '../../utils'
 import { AwesomeModal } from '../../components/AwesomeModal'
-import Tabs from '../../components/Tabs'
-import { DocumentPdf } from './Document'
-import { Pagination } from '../../components/Pagination'
 import { CREATE_COMMISSION_PAY, GET_ALL_INVOICES_RECEIVED, GET_ALL_INVOICES_SENT, GET_STIMATE_COUNT, GET_STIMATE_COUNT_SEND, HAS_BEEN_RECEIVED } from './queries'
-import { IconArrowBottom, IconArrowTop, IconDelete, IconDost, IconEdit, IconFolder, IconShowEye, IconPDF, IconCancel, IconPlus, IconPay, IconCheck, IconDelTag } from '../../public/icons'
+import { IconCancel, IconPlus } from '../../public/icons'
 import { BlueButton, ButtonAdd, ButtonContentT, CardInvoice, CardInvoiceTo, CheckAnimation, ChipHead, Clip, ContainerInfo, Content, ContentHead, ContentListInvoice, ContentModal, CtnInfo, DownLoadButton, FilterOptions, HeaderModal, Options, PaymentStatus, Toast, Toolbar, Tooltip, WrapperInnerInvoiceTo } from './styled'
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format } from './styled'
 import { Context } from '../../context'
@@ -27,7 +23,7 @@ import { LazyLoading, SpinnerColorJust } from '../../components/Loading'
 import { BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 
 
-export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpenModalMain, openModalMain, handleChange, values, errors, handleAddInvoice, data, setActive, handleClick, Handleremove, handlePayState, show, state, active }) => {
+export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpenModalMain, openModalMain, loading, setShowMore,  handleChange, values, errors, handleAddInvoice, data, setActive, handleClick, Handleremove, handlePayState, show, state, active }) => {
     // STATE
     const { setAlertBox, company } = useContext(Context)
     const [showInvoice, showAllData] = useState(false)
@@ -93,6 +89,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
     return (
         <div>
             <AwesomeModal zIndex='999999' padding='20px' height='600px' useScroll={true} show={active === 4} onHide={() => setActive(false)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='0' >
+              <Text>Data receibe</Text>
                 <form onSubmit={(e) => handleForm(e)}>
                     <h4>{dateNow}</h4>
                     <InputHooks title='Description' TypeTextarea minWidth='100%' maxWidth='100%' required name='Idescription' error={errors?.Idescription} value={values?.Idescription} onChange={handleChange} />
@@ -129,10 +126,12 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                                 <Text size='18px' color={BColor}>{x.invoiceTo}</Text>
                             </CtnInfo>
                             <CtnInfo border>
-                                <Options style={{ width: 'min-content' }} justify>
+                                <ButtonContentT>
                                     <Tooltip onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>Payment Now</Tooltip>
                                     <BlueButton onClick={() => { dispatchInvoice({ type: "TOGGLE_INVOICE", idx }); handlePayState(x) }}>{x.isPaid === false ? 'PAYMENT NOW' : 'PAID OUT'}</BlueButton>
-                                    <Text justify='flex-start' size='18px' color={BColor}> TOTAL TO PAY:</Text>
+                                </ButtonContentT>
+                                <Options justify>
+                                    <Text justify='flex-end' size='18px' color={BColor}>TOTAL</Text>
                                     <Text justify='flex-end' size='18px' color={APColor}>£ {x.invoiceTotal || 0}</Text>
                                 </Options>
                             </CtnInfo>
@@ -146,7 +145,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                                     {result[date]?.filter(x => x.isPaid === false).map((x, idx) => (
                                         <CardInvoice key={x.idx}>
                                             <HeaderModal>
-                                                <Text color={BColor} size='20px'>{x.eventName}</Text>       
+                                                <Text color={BColor} size='20px'>{x.eventName}</Text>
                                                 <RippleButton bgColor='transparent' color={BGColor}
                                                     onClick={() => dispatchInvoice({ type: "REMOVE_INVOICE", idx })}>
                                                     <IconCancel size='15px' />
@@ -197,7 +196,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                         <Button style={{ border: '1px solid #ccc' }} onClick={() => showAllData(!showInvoice)}>{!showInvoice ? 'Show' : 'Close'} All invoice</Button>
                         <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false)?.length} / {data?.length || 0}  Invoice </Text>
                     </Options>
-                    <ContentModal height={'90vh'}>
+                    <ContentModal overflow='auto' height={'90vh'}>
                         {!showInvoice ? data ? data?.filter(x => statePay?.Addtopay.length > 0 ? x.invoiceTo === statePay?.Addtopay[0]?.invoiceTo && x.isPaid === false : x.isPaid === false).map(x => (
                             <CardInvoice key={x.id}>
                                 <HeaderModal>
@@ -274,6 +273,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                             </CardInvoice>
                         )) : <div>No data</div>}
                     </ContentModal>
+                    {<BlueButton onClick={() => setShowMore(s => s + 200)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
                 </ContainerInfo>
             </AwesomeModal>
         </div>

@@ -190,9 +190,14 @@ export const DashboardComp = () => {
         const { agentEmail } = agentDetails || {}
         isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
+    const [alertModal2, setAlertModal2] = useState(false)
     const handleClickAddInvoice = elem => {
         let includes = statePay?.Addtopay.includes(elem);
         if (elem.isPaid === false) {
+            setAlertModal2(true)
+            setDataInv(elem)
+            dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
+        } else if (elem.isPaid === false) {
             handlePayState(elem)
         } else if (includes && elem.isPaid !== true) {
             setAlertBox({ message: 'The invoice is already added to the list' })
@@ -205,6 +210,7 @@ export const DashboardComp = () => {
             setDataInv(elem)
         }
     }
+
     const [selectedDate, handleDateChange] = useState('');
     const Years = (startYear) => {
         const currentYear = new Date().getFullYear()
@@ -290,9 +296,19 @@ export const DashboardComp = () => {
     }
     // return null
     console.log(DataReceived)
+    const payOnlyInvoide = () => {
+        setAlertModal2(false)
+        setAlertModal2(!alertModal2)
+        handlePayState(invoiceData)
+    }
+    const HaddMoreInvoide = () => {
+        setAlertModal2(false)
+        setOpenModalMain(true)
+    }
+
     return (
         <ContentListInvoice>
-            {/* {loadingPay || loadingRedo || loadingApprove && <Loading />} */}
+            {loadingPay || loadingRedo || loadingApprove && <Loading />}
             <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {dataComp?.companyName}</Text>
             <FilterOptions>
                 <div>
@@ -381,6 +397,7 @@ export const DashboardComp = () => {
                 </Tabs.Panel>
             </Tabs>
             <ModalAddInvoicePaymentState
+                loading={loading}
                 setShow={setShow}
                 show={show}
                 dispatchInvoice={dispatchInvoice}
@@ -390,6 +407,8 @@ export const DashboardComp = () => {
                 // onchange
                 values={values}
                 errors={errors}
+                setShowMore={setShowMore}
+                showMore={showMore}
                 showInvoice={showInvoice}
                 handleChange={handleChange}
                 statePay={statePay}
@@ -400,14 +419,14 @@ export const DashboardComp = () => {
                 Handleremove={Handleremove}
                 active={active}
                 handlePayState={handlePayState}
-            />
-            {/* <ModalAlerBox
+            />{console.log(statePay)}
+            <ModalAlerBox
                 setAlertModal={setAlertModal}
                 handlePayState={handlePayState}
                 invoiceData={invoiceData}
                 handleApprovedInvoiceState={handleApprovedInvoiceState}
                 alertModal={alertModal}
-            /> */}
+            />
             {/* <ModalFilter
                 // open modal Action
                 data={data}
@@ -421,7 +440,13 @@ export const DashboardComp = () => {
                 selectedDate={selectedDate}
                 handleDateChange={handleDateChange}
             /> */}
-
+            <AwesomeModal zIndex='99' padding='20px' height='40vh' show={alertModal2} onHide={() => setAlertModal2(false)} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
+                <Text size='30px'>Solo quieres Paga una factura?</Text>
+                <Options direction='row' style={{ position: 'absolute', bottom: '20px', left: '0', right: '0', margin: 'auto', width: '93%', flexDirection: 'row', display: 'flex' }}>
+                    <RippleButton widthButton='100% !important' bgColor={PVColor} onClick={() => payOnlyInvoide()} >Yes</RippleButton>
+                    <RippleButton widthButton='100% !important' bgColor={PVColor} onClick={() => HaddMoreInvoide()} >No</RippleButton>
+                </Options>
+            </AwesomeModal>
         </ContentListInvoice>
     )
 }

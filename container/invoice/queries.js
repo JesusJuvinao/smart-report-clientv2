@@ -22,6 +22,7 @@ export const GET_ONE_INVOICE = gql`
         invoiceTotal
         totalCommDue
         totalSalesReceived
+        currency
         totalDiscounts
         vatOnComms
         isVATRegistered
