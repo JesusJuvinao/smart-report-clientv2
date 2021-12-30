@@ -38,8 +38,8 @@ function isValidBucketName(bucket) {
 // Email Transporter
 
 export const transporter = () => nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
+    host: 'smtp.ethereal.email',
+    port: 587,
     auth: {
         user: process.env.USER_EMAIL_POST,
         pass: process.env.USER_PASS_POST

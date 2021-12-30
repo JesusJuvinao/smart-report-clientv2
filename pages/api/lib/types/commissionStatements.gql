@@ -133,5 +133,9 @@ type agentDetails {
 }
 
 type Query {
-  getAllCommissionStatements(idComp: ID, company: String, idUser: ID, search: String, min: Int, max: Int): [CommissionStatements]
+  getAllCommissionStatementsFrom(idComp: ID, company: String, idUser: ID, search: String, min: Int, max: Int): [CommissionStatements]
+  getAllCommissionStatementsTo(idComp: ID, company: String, idUser: ID, search: String, min: Int, max: Int): [CommissionStatements]
+}
+type Mutation {
+  sendOneCommissionStatements(idComp: ID, company: String, uEmail: String, statementToEmail: String, IdStatements: String): Response
 }

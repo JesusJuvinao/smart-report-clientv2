@@ -1,8 +1,16 @@
 import { gql } from '@apollo/client'
 
+export const SEND_COMMISSION_STATEMENT = gql`
+  mutation sendOneCommissionStatements($idComp: ID, $company: String, $uEmail: String, $statementToEmail: String, $IdStatements: String) {
+    sendOneCommissionStatements(idComp: $idComp, company: $company, uEmail: $uEmail, statementToEmail: $statementToEmail, IdStatements: $IdStatements) {
+    success
+    message
+    }
+}
+`
 export const ALL_COMMISSION_STATEMENT = gql`
-query getAllCommissionStatements($idUser: ID, $idComp: ID, $company: String, $search: String, $min: Int, $max: Int){
-  getAllCommissionStatements(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, company: $company ) {
+query getAllCommissionStatementsFrom($idUser: ID, $idComp: ID, $company: String, $search: String, $min: Int, $max: Int){
+  getAllCommissionStatementsFrom(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, company: $company ) {
     statementId
     _id
     statementFromDetails {

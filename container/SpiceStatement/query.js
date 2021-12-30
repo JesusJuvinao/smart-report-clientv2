@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const GET_ALL_COMMISSION_STATEMENTS = gql`
-query getAllCommissionStatements {
-    getAllCommissionStatements {
+query getAllCommissionStatementsFrom {
+    getAllCommissionStatementsFrom {
         _id
         statementId
         statementFromDetails {

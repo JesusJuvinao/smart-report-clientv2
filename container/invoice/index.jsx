@@ -82,13 +82,13 @@ export const Invoice = ({ idInvoice }) => {
 
     const handleChangeReceived = async () => {
         setOpenModal(!openModal)
-        await hasBeenReceived({
-            variables: {
-                idInvoice: idInvoice,
-                uEmail: data && data?.getOneCommissionInvoice?.agentDetails?.agentEmail,
-                ToEmail: dataUser && dataUser?.uEmail
-            }
-        })
+        // await hasBeenReceived({
+        //     variables: {
+        //         idInvoice: idInvoice,
+        //         uEmail: data && data?.getOneCommissionInvoice?.agentDetails?.agentEmail,
+        //         ToEmail: dataUser && dataUser?.uEmail
+        //     }
+        // })
     }
 
     if (loading) return <Loading />
@@ -131,13 +131,14 @@ export const Invoice = ({ idInvoice }) => {
                     <DocumentFormatA4>
                         <ContPdf>
                             <Card width='100%'>
-                                <img style={{}} src='https://www.spiceuk.com/Images/Spice-Logo.jpg' ></img>
+                                <img src='https://www.spiceuk.com/Images/Spice-Logo.jpg' ></img>
                             </Card>
                             <Card margin='0' width='100%'>
                                 <Card width='40%' margin='20px 0' background='#cb1d6c' radius='0'>
-                                    <Title align='center' color={BGColor} size='16px'> INVOICE </Title>
+                                    <Title align='center' color={BGColor} size='16px'> INVOICE  {data?.getOneCommissionInvoice.isPaid ? 'PAID' : 'NO PAID'}  </Title>
                                 </Card>
                             </Card>
+                            
                             <Card height='min-content' justifyContent='space-between' margin='5px 0 5px 0' width='100%'>
                                 <Card width='50%'>
                                     <Text width='100%' size='15px' bold='bold' align='left'>To:</Text>
