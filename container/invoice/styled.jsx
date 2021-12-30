@@ -7,20 +7,24 @@ export const Content = styled.div`
 `
 export const Title = styled.h1`
   font-size: ${({ size }) => size || '12px'};
-  color: ${BColor};
+  color:  ${({ color }) => color || BColor};
+  text-align:  ${({ align }) => align || 'left'};
 `
 export const Text = styled.span`
     font-size: ${({ size }) => size || '12px'};
     text-align:  ${({ align }) => align || 'left'};
+    ${({ background }) => background && css`background-color: ${background};`}
+    ${({ padding }) => padding && css`padding: ${padding};`}
     color:  ${({ color }) => color || BColor};
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
     ${({ overflow }) => overflow && css`overflow: ${overflow};`}
-    margin: ${({ margin }) => margin || 'auto'};
+    margin: ${({ margin }) => margin || '0'};
     justify-content: ${({ justify }) => justify || 'flex-start'};
     display: flex;
     font-family: ${({ font }) => font || 'PFont-Regular'};
     max-width: ${({ width }) => width || '100%'};
     width: ${({ width }) => width || 'auto'};
+    font-weight: ${({ bold }) => bold || 'none'};
     text-overflow: ellipsis;
 `
 export const ButtonTheme = styled.div`
@@ -129,7 +133,10 @@ export const RowDinamic = styled.div`
     height: auto;
     align-items: center;
     margin: 0 auto;
-    border-bottom: 1px solid ${BColor};
+    padding : 5px 5px;
+    font-weight: bold;
+    font-size: 14px;
+    ${({ background }) => background && css`background-color: ${background};`}
 `
 export const Anchor = styled.a`
     display: flex;
@@ -147,12 +154,10 @@ export const Container = styled.div`
 export const Row = styled.div`
     ${flexCenter}
     ${props => props.border && css`
-      border-right: 1px solid ${BColor};
-      padding: 7px;
+      border-bottom: 1px solid ${BColor};
+      padding: 5px;
       height: 100%;
-      &:first-child {
-        border-left: 1px solid ${BColor};
-      }
+      ${({ background }) => background && css`background-color: ${background};`}
     
     `}
 `
@@ -172,7 +177,8 @@ export const Card = styled.div`
     ${({ margin }) => margin && css`margin: ${margin};`}
     ${({ direction }) => direction && css`flex-direction: ${direction};`}
     ${({ radius }) => radius && css`border-radius: ${radius};`}
-    text-align: left;
+    ${({ border }) => border && css`border-width: ${border};`}
+    ${({ padding }) => padding && css`padding: ${padding};`}
 `;
 
 export const Card2 = styled.div`

@@ -23,8 +23,6 @@ export const Invoice = ({ idInvoice }) => {
     const [dataUser] = useUser()
     const [openModal, setOpenModal] = useState(false)
 
-    const [total, setTotal] = useState(0);
-
     useEffect(() => {
         if (data) {
             setOpenModal(true)
@@ -90,6 +88,36 @@ export const Invoice = ({ idInvoice }) => {
 
     if (loading) return <Loading />
 
+    // Address Agent ----
+    const dir1 = data?.getOneCommissionInvoice.agentDetails.agentAddress1;
+    const dir2 = data?.getOneCommissionInvoice.agentDetails.agentAddress2;
+    const dir3 = data?.getOneCommissionInvoice.agentDetails.agentAddress3;
+
+    let agentAddress = '';
+
+    if( dir1.trim().length > 0 && dir2.trim().length === 0 && dir3.trim().length === 0){
+        agentAddress = dir1;
+    }else if( dir1.trim().length === 0 && dir2.trim().length > 0 && dir3.trim().length === 0){
+        agentAddress = dir2;
+    }else if( dir1.trim().length === 0 && dir2.trim().length === 0 && dir3.trim().length > 0){
+        agentAddress = dir3;
+    }else if( dir1.trim().length === 0 && dir2.trim().length === 0 && dir3.trim().length === 0 ){
+        agentAddress = `Unregistered Addresses`
+    }else if( dir1.trim().length > 0 && dir2.trim().length > 0 && dir3.trim().length > 0 ){
+        agentAddress = `${dir1} - ${dir2} - ${dir3}`
+    }else if( dir1.trim().length > 0 && dir2.trim().length > 0 && dir3.trim().length === 0 ){
+        agentAddress = `${dir1} - ${dir2}`
+    }else if( dir1.trim().length > 0 && dir2.trim().length === 0 && dir3.trim().length > 0 ){
+        agentAddress = `${dir1} - ${dir3}`
+    }else if( dir1.trim().length === 0 && dir2.trim().length > 0 && dir3.trim().length > 0 ){
+        agentAddress = `${dir2} - ${dir3}`
+    } // ----
+    
+    // Map items arrays ------
+    let newArrays =[];
+    data && data?.getOneCommissionInvoice?.lineItemsArray?.map(items => (
+        newArrays.push(items.newArray)
+    ))// -------
     return (
         <Content>
             <RippleButton margin='0px 10px 0px 0px' border='60px' color={BColor} widthButton='150px' bgColor={'#e2e8f0'} family='PFont-Regular' onClick={() => handleChangeReceived()}>
@@ -99,124 +127,141 @@ export const Invoice = ({ idInvoice }) => {
                 <WrapperPdf>
                     <DocumentFormatA4>
                         <ContPdf>
-                            <Card margin='0 0 30px 0' width='100%'>
-                                <Card width='50%'>
-                                    Logo
-                                </Card>
-                                <Card width='50%'>
-                                    <Card width='50%'>
-                                        <Text align='left'>Company Name: {data?.getOneCommissionInvoice.agentDetails.legalName}</Text>
-                                    </Card>
-                                    <Card width='50%'>
-                                        <Text align='left' >Invoice Date: {(dateFormat(data?.getOneCommissionInvoice?.invoiceDate))} {/* { data?.getOneCommissionInvoice.invoiceDate ? data?.getOneCommissionInvoice.invoiceDate : 'Without Date'} */}</Text>
-                                    </Card>
+                            <Card width='100%'>
+                                <img src='https://www.spiceuk.com/Images/Spice-Logo.jpg' ></img>
+                            </Card>
+                            <Card margin='0 0 0 0' width='100%'>
+                                <Card width='30%' margin='20px 0' background='#cb1d6c' radius='0'>
+                                    <Title align='center' color='#fff' size='20px'> INVOICE </Title>
                                 </Card>
                             </Card>
-                            <Card margin='0 0 30px 0' width='100%'>
+
+                            <Card margin='5px 0 5px 0' width='100%'>
                                 <Card width='50%'>
-                                    <Text align='left'>Invoice Reference: {data?.getOneCommissionInvoice.invoiceRef}</Text>
+                                    <Text width='100%' size='15px' bold='bold' align='left'>To:</Text>
+                                    <Text width='100%' size='20px' bold='bold' align='left'>{data?.getOneCommissionInvoice.invoiceTo}</Text>
+                                    <Text width='100%' size='15px' bold='bold' align='left'>{data?.getOneCommissionInvoice.agentDetails.legalName}</Text>
                                 </Card>
-                                <Card width='50%'>
-                                    <Text align='left'>Event Reference: {data?.getOneCommissionInvoice.eventRef}</Text>
-                                </Card>
-                            </Card>
-                            <Card margin='0 0 30px 0' width='100%'>
-                                <Card width='50%'>
-                                    <Text align='left'>Event Type: {data?.getOneCommissionInvoice.eventType}</Text>
-                                </Card>
-                                <Card width='50%'>
-                                    <Text align='left'>Has Been Recived: {data?.getOneCommissionInvoice.hasBeenRecived ? 'Yes':'No'}</Text>
+                                <Card width='25%' radius='0'></Card>
+
+                                <Card padding='10px 5px' width='25%' background='#cb1d6c' radius='0'>
+                                    <Text margin='0 0 0 0' color='#fff'> Invoice No. </Text>
+                                    <Text margin='0 0 0 0' color='#fff'> {data?.getOneCommissionInvoice.invoiceRef} </Text>
                                 </Card>
                             </Card>
-                            <Card margin='0 0 30px 0' width='100%'>
+
+
+                            <Card margin='0 0 10px 0' width='100%'>
                                 <Card width='50%'>
-                                    <Text align='left'>Is Paid: {data?.getOneCommissionInvoice.isPaid ? 'Yes':'No'}</Text>
+                                    <Text color='#000' width='100%' size='12px' align='left'>{agentAddress} / {data?.getOneCommissionInvoice.agentDetails.agentPostCode}</Text>
+                                    <Text color='#000' width='100%' size='12px' align='left'>W {data?.getOneCommissionInvoice.agentDetails.agentEmail}</Text>
+                                    <Text color='#000' width='100%' size='12px' align='left'>P {data?.getOneCommissionInvoice.agentDetails.agentCompanyNumber}</Text>
                                 </Card>
-                                <Card width='50%'>
-                                    <Text align='left'>Is Redo: {data?.getOneCommissionInvoice.isRedo ? 'Yes':'No'}</Text>
+                                <Card width='25%' radius='0'></Card>
+
+                                <Card padding='10px 5px' width='25%' radius='0'>
+                                    <Text margin='0 0 0 0' color='#000'> Invoice Date : {dateFormat(data?.getOneCommissionInvoice.invoiceDate)}</Text>
+                                    <Text margin='0 0 0 0' color='#000'> Issue Date : {dateFormat(data?.getOneCommissionInvoice.invoiceDate)}</Text>
+                                    <Text margin='0 0 0 0' color='#000'> Account No : {data?.getOneCommissionInvoice.eventRef}</Text>
                                 </Card>
                             </Card>
-                            <Card margin='0 0 30px 0' width='100%'>
-                                <Card width='50%'>
-                                    <Text align='left'>Invoice From: {data?.getOneCommissionInvoice.invoiceFrom}</Text>
-                                </Card>
-                                <Card width='50%'>
-                                    <Text align='left'>Invoice To: {data?.getOneCommissionInvoice.invoiceTo}</Text>
+                            <Card margin='5px 0 5px 0' width='100%'>
+                                <Card padding='10px 5px' width='100%' background='#cb1d6c' radius='0'>
+                                    <Title align='center' color='#fff' size='15px'> {data?.getOneCommissionInvoice.eventName} </Title>
                                 </Card>
                             </Card>
-                            <Card>
-                                <Text align='left' margin='10px 0 10px 0' size='30px'> COMMISSION PAYMENT</Text>
-                            </Card>
-                            <Card margin='20px 0' background='#cb1d6c' radius='0'>
-                                <Text align='left' margin='10px 0 10px 5px' color={BGColor} size='20px'> Event {data?.getOneCommissionInvoice.eventName}</Text>
-                            </Card>
-                            <Card >
-                                <RowDinamic columnWidth={['12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%']}>
-                                    <Row><Text size='11px'>Ticket Type </Text></Row>
-                                    <Row><Text size='11px'>Total Tix Sold</Text> </Row>
-                                    <Row><Text size='11px'>Rev Tix Sold </Text></Row>
-                                    <Row><Text size='11px'>Subtotal </Text></Row>
-                                    <Row><Text size='11px'> Commission Due for Tix Sales </Text></Row>
-                                    <Row><Text size='11px'> Total Discounts Applied to Sales </Text></Row>
-                                    <Row><Text size='11px'>Total Due After Discounts</Text></Row>
-                                    <Row><Text size='11px'>Ticket Price</Text></Row>
+                            <Card margin='5px 0 0px 0' width='100%'>
+                                <RowDinamic background='#cb1d6c' columnWidth={['20%', '20%', '20%', '20%', '20%']}>
+                                    <Row><Text color='#fff' size='12px'>No. </Text></Row>
+                                    <Row><Text color='#fff' size='12px'>Ticket Type </Text> </Row>
+                                    <Row><Text color='#fff' size='12px'>Unite Price </Text></Row>
+                                    <Row><Text color='#fff' size='12px'>Qty </Text></Row>
+                                    <Row><Text color='#fff' size='12px'>Total</Text></Row>
                                 </RowDinamic>
-                                {data && data?.getOneCommissionInvoice?.lineItemsArray?.map(invoice => (
-                                    <RowDinamic columnWidth={['12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%', '12.5%']} key={invoice._id}>
-                                        <Row border> <Text size='11px'>{invoice?.ticketType}</Text> </Row>
-                                        <Row border> <Text size='11px'>{invoice?.subtotalTicketsSold}</Text> </Row>
-                                        <Row border> <Text size='11px'>{invoice?.lineItemVATOnComm}</Text> </Row>
-                                        <Row border> <Text size='11px'>{invoice?.lineSalesReceived}</Text> </Row>
-                                        <Row border> <Text size='11px'>{invoice?.subtotalTicketTypeLessDiscount}</Text> </Row>
-                                        <Row border> <Text size='11px'>{invoice?.subtotalTicketsSold}</Text> </Row>
-                                        <Row border> <Text size='11px'>{invoice?.ticketCategoryTotalDue}</Text> </Row>
-                                        <Row border> <Text size='11px'>{invoice?.ticketPrice}</Text> </Row>
+                                {newArrays[0].map(el => (
+                                    <RowDinamic columnWidth={['20%', '20%', '20%', '20%', '20%']} key={el.id}>
+                                        <Row border='1'> <Text size='11px'>{el.eventRef}</Text> </Row>
+                                        <Row border='1'> <Text size='11px'>{el.ticketoption}</Text> </Row>
+                                        <Row border='1'> <Text size='11px'>{el.ticketprice}</Text> </Row>
+                                        <Row border='1'> <Text size='11px'>{el.ticketquantity}</Text> </Row>
+                                        <Row border='1'> <Text size='11px'>{el.totalpaid}</Text> </Row>
                                     </RowDinamic>
                                 ))}
-                                <Card>
-                                    <Text margin='10px 0 10px 0' size='11px'> Total Revenue of Tickets You Sold: </Text>
-                                </Card>
-                                <Card>
-                                    <Text margin='10px 0 10px 0' size='11px'> Total Commission (including VAT) Payable to you: </Text>
-                                </Card>
-                                <Card>
-                                    <Text margin='10px 0 10px 0' size='11px'> Total Payable by your group to the event owner: </Text>
-                                </Card>
-                                <Card>
-                                    <RippleButton  bgColor={'#cb1d6c'}>View Invoice</RippleButton>
+                            </Card>
+
+                            <Card margin='0 0 5px 0' width='100%'>
+                                <Card width='25%'> </Card>
+                                <Card width='25%'> </Card>
+
+                                <Card padding='10px 5px' width='50%' radius='0'>
+                                    <Text width='30%' margin='0 0 0 0' color='#000'> Sub-Total </Text>
+                                    <Text width='70%' margin='0 0 0 0' color='#000'> {data?.getOneCommissionInvoice?.lineItemsArray[0].lineSubtotal} </Text>
                                 </Card>
                             </Card>
-                            <Card2 width='100%'>
-                                <Card margin='10px 0 30px 0' width='50%'>
-                                    <Card width='50%'>
-                                        <Text align='left'>Total Sales Received: {data?.getOneCommissionInvoice.totalSalesReceived}</Text>
-                                    </Card>
-                                    <Card width='50%'>
-                                        <Text align='left'>Total: {data?.getOneCommissionInvoice.invoiceTotal}</Text>
-                                    </Card>
+                            <Card margin='0 0 5px 0' width='100%'>
+                                <Card padding='10px 5px' background='#cb1d6c' width='25%'> 
+                                    <Text width='50%' color='#fff' size='15px'> Total Due </Text>
+                                    <Text width='50%' color='#fff' size='15px'> {data?.getOneCommissionInvoice.totalSalesReceived} </Text>
                                 </Card>
-                                <Card margin='10px 0 30px 0' width='50%'>
-                                    <Card width='50%'>
-                                        <Text align='left'>Total Discounts: {data?.getOneCommissionInvoice.totalDiscounts}</Text>
-                                    </Card>
-                                    <Card width='50%'>
-                                        <Text align='left'>Total Commission Due: {data?.getOneCommissionInvoice.totalCommDue}</Text>
-                                    </Card>
+                                <Card width='25%'> </Card>
+
+                                <Card padding='10px 5px' width='50%' radius='0'>
+                                    <Text width='30%' margin='0 0 0 0' color='#000'> Tax: Vat(% {data?.getOneCommissionInvoice.vatOnComms}) </Text>
+                                    <Text width='70%'margin='0 0 0 0' color='#000'> {data?.getOneCommissionInvoice.lineItemsArray[0].lineItemVATOnComm} </Text>
                                 </Card>
-                            </Card2>
+                            </Card>
+                            <Card margin='0 0 5px 0' width='100%'>
+                                <Card width='25%'> </Card>
+                                <Card width='25%'> </Card>
+
+                                <Card padding='10px 5px' width='50%' radius='0'>
+                                    <Text width='30%' margin='0 0 0 0' color='#000'> Discount </Text>
+                                    <Text width='70%' margin='0 0 0 0' color='#000'> {data?.getOneCommissionInvoice.totalDiscounts} </Text>
+                                </Card>
+                            </Card>
+                            <Card margin='0 0 5px 0' width='100%'>
+                                <Card width='25%'> </Card>
+                                <Card width='25%'> </Card>
+
+                                <Card padding='10px 5px' width='50%' radius='0'>
+                                    <Text width='30%' margin='0 0 0 0' color='#000'> Grand Total </Text>
+                                    <Text width='70%' margin='0 0 0 0' color='#000'> {data?.getOneCommissionInvoice.totalSalesReceived} </Text>
+                                </Card>
+                            </Card>
+                            <Card margin='5px 0 5px 0' width='100%'>
+                                <Card padding='10px 5px' width='40%' radius='0'>
+                                    <Text width='100%' padding='10px 10px' color='#fff' background='#cb1d6c' size='15px'> Payment Mathod: </Text>
+                                    <Text width='100%' color='#000' size='15px'> Stripe </Text>
+                                    <Text width='100%' color='#000' size='15px'> Card </Text>
+                                </Card>
+                                <Card width='30%'> </Card>
+                                <Card width='30%'> </Card>
+                            </Card>
+                            <Card margin='5px 0 5px 0' width='100%'>
+                                <Card padding='10px 5px' width='25%' radius='0'>
+                                    <Text width='100%' color='#000' size='15px'> Phone: 027-123-1324-23 </Text>
+                                    <Text width='100%' color='#000' size='15px'> Email: example@gmail.com </Text>
+                                    <Text width='100%' color='#000' size='15px'> Page: www.example.com </Text>
+                                </Card>
+                                <Card width='25%'> </Card>
+                                <Card width='50%'>
+                                    <Text width='100%' size='20px' bold='bold' align='left'>{data?.getOneCommissionInvoice.invoiceTo}</Text>
+                                    <Text width='100%' size='15px' bold='bold' align='left'>{data?.getOneCommissionInvoice.agentDetails.legalName}</Text>
+                                </Card>
+                            </Card>
                         </ContPdf>
                     </DocumentFormatA4>
-                    <WrapperControls>
+                    {/* <WrapperControls>
                         <ContentToggle>
                             <div>
-                            {/* handleRedoState(data?.getOneCommissionInvoice._id) */}
+                            {/* handleRedoState(data?.getOneCommissionInvoice._id) }
                                 <Text style={{ margin: '0' }} size='13px' >Redo Invoice</Text>
                                 <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
                                     <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
                                 </ButtonTheme>
                             </div>
                             <div>
-                            {/* handlePayMake(data?.getOneCommissionInvoice._id) */}
+                            {/* handlePayMake(data?.getOneCommissionInvoice._id) }
                                 <Text style={{ margin: '0' }} size='13px' >Mark Payment</Text>
                                 <ButtonTheme onClick={ () => Switch2.setState(!Switch2.state) }>
                                     <SwitchButton active={Switch2.state ? '36px' : '3.5px'} />
@@ -227,7 +272,7 @@ export const Invoice = ({ idInvoice }) => {
                                 Descargar
                             </RippleButton>
                         </ContentToggle>
-                    </WrapperControls>
+                    </WrapperControls> */}
                 </WrapperPdf>
           
             </AwesomeModal>
