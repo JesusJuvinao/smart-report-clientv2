@@ -86,6 +86,9 @@ export const DashboardComp = () => {
             }
         })
 
+
+
+
     const [getEstimateCountInvoice, { data: dataCount }] = useLazyQuery(GET_STIMATE_COUNT, {
         fetchPolicy: 'network-only', variables: {
             idComp: company.idLasComp && company.idLasComp
@@ -182,19 +185,15 @@ export const DashboardComp = () => {
             await isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
         }
     }
-
     const handlePayState = async data => {
         const { agentDetails, _id } = data || {}
         const { agentEmail } = agentDetails || {}
         isPaidStateInvoice({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
     }
-
     const [alertModal2, setAlertModal2] = useState(false)
     const handleClickAddInvoice = elem => {
-
-        let includes = statePay?.Addtopay.includes(elem);
-
-        if (elem.isPaid === false) {
+    let includes = statePay?.Addtopay.includes(elem);
+    if (elem.isPaid === false) {
             setAlertModal2(true)
             setDataInv(elem)
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
