@@ -345,20 +345,19 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
     }
 
 }
-export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName }, ctx) => {
+export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName, max }, ctx) => {
     // const idUser = ctx.User.id
-    // const idUser = ctx.User.id
-    const idUser = '61c38a904516c431d8c22e08'
+    const idUser = ctx.User.id
+    console.log(max)
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
+            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName }).sort({ age: -1 }).limit(max || 200)
             return data
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -379,7 +378,7 @@ export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     const idUser = ctx.User.id
     // const idUser = '61c38a904516c431d8c22e08'
-    // console.log(datePaid, updatedAt, invoiceTo, invoiceFrom)
+    
     const time = new Date(datePaid)
     const invoiceToDate = new Date(invoiceTo)
     const invoiceFromDate = new Date(invoiceFrom)
@@ -389,17 +388,15 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
         if (dataComp && dataComp.length) {
             // var today = moment().startOf('day');
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            console.log(dataCompany)
             const data = await CommissionSchema.find({
                 invoiceFrom: dataCompany.companyName,
                 // updatedAt: { $regex: { $gte: invoiceToDate, $lt: invoiceFromDate, $options: 'i'  } },
                 // eventName: { $regex: search, $options: 'i' },
                 // updatedAt: { $regex: time.toISOString(), $options: 'i' }
-            }).sort({ age: -1 }).limit(max || 100)
+            }).sort({ age: -1 }).limit(max || 200)
             return data
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
