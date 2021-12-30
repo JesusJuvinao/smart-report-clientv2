@@ -150,3 +150,17 @@ export const flexCenter = css`
   align-items: center;
   ${flexRow}
   `;
+
+export const SectionRow = styled.div`
+    display: grid;
+    grid-template-columns: ${({ columnWidth }) => columnWidth ? columnWidth?.map(x => `${x} `) : '1fr'}; 
+    height: auto;
+    align-items: center;
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 14px;
+    place-content: center;
+    ${({ background }) => background && css`background-color: ${background};`}
+    ${({ padding }) => padding && css`padding: ${padding};`}
+    ${({ borderButtom }) => borderButtom && css`border-bottom: ${borderButtom};`}
+`
