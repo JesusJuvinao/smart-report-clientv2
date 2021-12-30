@@ -159,6 +159,7 @@ query getAllCommissionStatementsFrom($idUser: ID, $idComp: ID, $company: String,
         isOnStatement
     }
     totalVATOnComms
+    currency
   }
 }
 `
@@ -297,6 +298,7 @@ query getAllCommissionStatementsTo($idUser: ID, $idComp: ID, $company: String, $
         isOnStatement
     }
     totalVATOnComms
+    currency
   }
 }
 `

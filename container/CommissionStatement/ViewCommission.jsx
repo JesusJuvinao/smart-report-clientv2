@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import currencyFormatter from 'currency-formatter'
 import { useMutation, useQuery } from '@apollo/client'
 import { Context } from '../../context'
 import { AwesomeModal } from '../../components/AwesomeModal'
@@ -12,18 +13,21 @@ import { RippleButton } from '../../components/Ripple'
 import { IconUser } from '../../public/icons'
 import { ALL_COMMISSION_STATEMENT, SEND_COMMISSION_STATEMENT } from './queries'
 import { useCompanyHook } from '../dashboard'
+import ActiveLink from '../../components/common/Link'
 const newDataFormatted = (data) => {
     var rightNow = new Date(data);
     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "-");
     return res
 }
 export const ViewCommissionStatements = ({ data, loading }) => {
-    // console.log(data?.statementToEmail)
+    console.log(data, 'AQUI ES LA DATA')
     // STATES}
     const [dataCompany] = useCompanyHook()
     console.log(dataCompany)
+    const [lineItemsModal, setLineItemsModal] = useState(false)
     const { setAlertBox, setCompanyLink, isCompany } = useContext(Context)
     const [modal, setModalConfirm] = useState(false)
+    const [dataItems, setDataLineItems] = useState({})
     // QUERIES
     const [sendOneCommissionStatements, { loading: loadingSend }] = useMutation(SEND_COMMISSION_STATEMENT, {
         onCompleted: (data) => {
@@ -35,6 +39,10 @@ export const ViewCommissionStatements = ({ data, loading }) => {
         }
     })
     // HANDLESS
+    const handleOpenLineItems = data => {
+        setLineItemsModal(!lineItemsModal)
+        setDataLineItems(data)
+    }
     const handleConfirmIsOnStatements = () => {
         const dataBool = data?.invoicesIncOnStatement.map(x => { return { onStatement: x.isOnStatement } })
         console.log(dataBool)
@@ -222,7 +230,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                                 <Text> {x.invoiceTo}</Text>
                             </Content>
                             <Content>
-                                <Text> {x.invoiceTotal}</Text>
+                                <Text> {currencyFormatter.format(x.invoiceTotal, { code: x?.currency ? x?.currency : 'USD' })} </Text>
                             </Content>
                             <Content>
                                 <Text> {x.isOnStatement === true ? 'Yes' : 'No'}</Text>
@@ -232,9 +240,14 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                                     <TableButton backgroundColor={TBGAColor} color={SCColor}>
                                         Download
                                     </TableButton>
-                                    <TableButton backgroundColor={TBGBColor} color={PVColor} onClick={() => handlePreview(x)}>
-                                        View
+                                    <TableButton backgroundColor={TBGAColor} color={SCColor} onClick={() => handleOpenLineItems(x)}>
+                                        View LineItems
                                     </TableButton>
+                                    <ActiveLink activeClassName="active" href={`/invoice/${x._id}`}>
+                                        <TableButton backgroundColor={TBGBColor} color={PVColor}>
+                                            View
+                                        </TableButton>
+                                    </ActiveLink>
                                     <Link href={'/invoice/commission-statement/create'}>
                                         <TableButton backgroundColor={TBGVColor} color={TFBColor}>
                                             Add
@@ -255,7 +268,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                             <Text padding='10px 0' size='20px' >{data?.totalCommissionPayableToYou}</Text>
                         </Row>
                         <Row padding='10px' width='30%' borderBottom='1px solid #ccc' margin='15px 0'>
-                            <Text padding='10px 0' size='20px' >Total Discounts</Text>
+                            <Text padding='10px 0' size='20px' color={EColor} >Total Discounts</Text>
                             <Text padding='10px 0' size='20px' color={EColor} >{data?.totalDiscounts}</Text>
                         </Row>
                         <Row padding='10px' width='30%' borderBottom='1px solid #ccc' margin='15px 0'>
@@ -290,8 +303,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                     height='300px'
                     width='50%'
                     padding='2%'
-                    footer={false}
-                >
+                    footer={false} >
                     <Text size='25px'>You want to send this commission announcement to  {data?.statementToEmail} </Text>
                     <Options style={{ borderBottom: 'none', justifyContent: 'space-between' }}>
                         <RippleButton widthButton='45%' padding={'15px 5px'} bgColor={'#ea1d2c'} color={BGColor} onClick={() => handleConfirmIsOnStatements()}>
@@ -301,6 +313,48 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                             No
                         </RippleButton>
                     </Options>
+                </AwesomeModal>
+                <AwesomeModal
+                    show={lineItemsModal}
+                    backdrop
+                    onHide={() => setLineItemsModal(false)}
+                    onCancel={() => false}
+                    btnCancel={false}
+                    btnConfirm={false}
+                    header={true}
+                    size="small"
+                    height='300px'
+                    width='50%'
+                    padding='2%'
+                    footer={false} >
+                    <Text size='25px'> Lol</Text>{console.log(dataItems, 'ESTA ES LA CONSOLA DE IMTENS')}
+                    {dataItems?.lineItemsArray.map(x => x.newArray.map((z, i) => (
+                        <div key={z._id}>
+                            <Section bgRow={2} /*  */ key={i}>
+                                <Content>
+                                    <Text> {z.agentCode}</Text>
+                                </Content>
+                                <Content>
+                                    <Text> {z.agentCode}</Text>
+                                </Content>
+                                <Content>
+                                    <Text> {z.agentCode}</Text>
+                                </Content>
+                                <Content>
+                                    <Text> {z.agentCode}</Text>
+                                </Content>
+                                <Content>
+                                    <Text> {z.agentCode}</Text>
+                                </Content>
+                                <Content>
+                                    <Text> {z.agentCode}</Text>
+                                </Content>
+                            </Section>
+                        </div>
+                    )))}
+                    
+
+
                 </AwesomeModal>
             </ContainerStatements>}
         </>

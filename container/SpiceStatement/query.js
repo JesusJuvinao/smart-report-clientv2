@@ -131,6 +131,7 @@ query getAllCommissionStatementsFrom {
             statementId
         }
         totalVATOnComms
+        currency
     }
 }
 `

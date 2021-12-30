@@ -17,6 +17,7 @@ type CommissionStatements {
     totalDiscounts: Float,
     invoicesIncOnStatement: [invoicesIncOnStatement],
     totalVATOnComms: Float
+    currency: String,
 }
 
 type invoicesIncOnStatement {

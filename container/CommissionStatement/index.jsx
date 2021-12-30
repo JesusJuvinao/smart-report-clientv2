@@ -5,6 +5,7 @@ import { ALL_COMMISSION_STATEMENT, ALL_COMMISSION_STATEMENT_TO, CANCELLED_COMMIS
 import { Loading } from '../../components/Loading'
 import { Table } from '../../components/Table'
 import { Section } from '../../components/Table/styled'
+import currencyFormatter from 'currency-formatter'
 import Link from 'next/link'
 import { ViewCommissionStatements } from './ViewCommission'
 import { RippleButton } from '../../components/Ripple'
@@ -74,7 +75,7 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
       }
     })
   }
-  console.log(data)
+  console.log(data, 'DATA FROMT PERRO')
   const handlePreview = (data) => {
     setModal(!modal)
     setDataStatement(data)
@@ -129,19 +130,19 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
             <Text> {x.statementToEmail}</Text>
           </Content>
           <Content>
-            <Text> {x.totalCommissionPayableToYou}</Text>
+            <Text>  {currencyFormatter.format(x.totalCommissionPayableToYou, { code: x.currency || 'GBP' })} </Text>
           </Content>
           <Content>
-            <Text> {x.totalGrossSalesReceivedByYou}</Text>
+            <Text> {currencyFormatter.format(x.totalGrossSalesReceivedByYou, { code: x.currency || 'GBP' })}</Text>
           </Content>
           <Content>
-            <Text> {x.totalVATOnComms}</Text>
+            <Text> {currencyFormatter.format(x.totalVATOnComms, { code: x.currency || x.currency || 'GBP' })}</Text>
           </Content>
           <Content>
-            <Text> {x.totalDiscounts}</Text>
+            <Text> {currencyFormatter.format(x.totalDiscounts, { code: x.currency || 'GBP' })}</Text>
           </Content>
           <Content>
-            <Text> {x.totalAmountToPay}</Text>
+            <Text> {currencyFormatter.format(x.totalAmountToPay, { code: x.currency || 'GBP' })} {x.totalAmountToPay}</Text>
           </Content>
           <Content>
             <ContentTableItem padding='0px' direction='row'>
