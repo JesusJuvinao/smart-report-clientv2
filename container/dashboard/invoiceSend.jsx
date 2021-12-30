@@ -38,7 +38,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                     { name: '#', width: '2%' },
                     { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '8%' },
                     { name: 'Event Name', arrow: true, key: 'eventName', width: '8%' },
-                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '8%' },
+                    { name: 'Invoice To', arrow: true, key: 'invoiceTo', width: '8%' },
                     { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '8%' },
                     { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '8%' },
                     { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '8%' },

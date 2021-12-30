@@ -10,7 +10,9 @@ import { DocumentPdf } from './Document'
 import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 import ActiveLink from '../../components/common/Link'
 import { Anchor } from '../invoice/styled'
-import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, AnchorLink,  LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip } from './styled'
+
+import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, AnchorLink,  LineItems, OptionsFunction, WrapperButtonAction, Current, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip } from './styled'
+import { Section } from '../../components/Table/styled'
 
 export const InvoiceReceived = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     return (
@@ -26,7 +28,7 @@ export const InvoiceReceived = ({ data, setShowMore, showInvoice, setShow, showD
                 titles={[
                     { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '9%' },
                     { name: 'Event Name', arrow: true, key: 'eventName', width: '9%' },
-                    { name: 'Invoice To', arrow: true, key: 'invoiceTo', width: '9%' },
+                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '9%' },
                     { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '9%' },
                     { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '9%' },
                     { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '9%' },
