@@ -96,6 +96,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                     <RippleButton padding='10px' widthButton={'100%'} type={'sutmit'}  >Save</RippleButton>
                 </form>
             </AwesomeModal>
+
             <AwesomeModal zIndex='99999' padding='20px' height='100vh' show={!!openModalMain} onHide={() => setOpenModalMain(false)} onCancel={() => setOpenModalMain(false)} size='large' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                 {TOTAL_INVOICE_TO?.length > 0 && !!showInvoice && <Text size='30px' >Invoice to selected: {TOTAL_INVOICE_TO?.length}</Text>}
                 <ContentModal showInvoice={showInvoice} overflow='auto'>
@@ -193,7 +194,7 @@ export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpen
                 </Options>
                 <ContainerInfo>
                     <Options direction='row'>
-                        <Button style={{ border: '1px solid #ccc' }} onClick={() => showAllData(!showInvoice)}>{!showInvoice ? 'Show' : 'Close'} All invoice</Button>
+                        {/* <Button style={{ border: '1px solid #ccc' }} onClick={() => showAllData(!showInvoice)}>{!showInvoice ? 'Show' : 'Close'} All invoice</Button> */}
                         <Text width='min-content' size='30px'>{data?.filter(x => x.isPaid === false)?.length} / {data?.length || 0}  Invoice </Text>
                     </Options>
                     <ContentModal overflow='auto' height={'90vh'}>
