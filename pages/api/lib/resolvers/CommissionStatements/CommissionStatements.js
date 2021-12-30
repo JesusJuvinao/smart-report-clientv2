@@ -15,9 +15,7 @@ export const getAllCommissionStatementsFrom = async (_, { search, idComp, CompNa
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
             const data = await CommissionInvoiceStatement.find({ statementFrom: dataCompany.companyName })
             return data
-            // return data
         }
-        // const data = await CommissionInvoiceStatement.find({})
     } catch (error) {
         console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
@@ -30,7 +28,7 @@ export const getAllCommissionStatementsTo = async (_, { search, idComp, CompName
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            const data = await CommissionInvoiceStatement.find({ statementFrom: dataCompany.companyName })
+            const data = await CommissionInvoiceStatement.find({ statementTo: dataCompany.companyName })
             return data
             // return data
         }

@@ -17,7 +17,7 @@ const newDataFormatted = (data) => {
     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "-");
     return res
 }
-export const ViewCommissionStatements = ({ data, loading }) => {
+export const ViewCommissionStatementsTo = ({ data, loading }) => {
     // console.log(data?.statementToEmail)
     // STATES}
     const [dataCompany] = useCompanyHook()
