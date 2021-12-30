@@ -1,18 +1,29 @@
+import { useState } from 'react'
 import { Checkbox } from '../../components/Checkbox'
 import { Overline } from '../../components/common/Reusable'
 import { LazyLoading, SpinnerColorJust } from '../../components/Loading'
 import { RippleButton } from '../../components/Ripple'
 import { Table } from '../../components/Table'
+import Link from 'next/link'
 import { AwesomeModal } from '../../components/AwesomeModal'
 import { IconCancel, IconDost } from '../../public/icons'
 import { dateFormat } from '../../utils'
 import { DocumentPdf } from './Document'
-import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
+import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor, SCColor, TBGAColor, TBGBColor, TFBColor, TBGVColor } from '../../public/colors'
 import ActiveLink from '../../components/common/Link'
-import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, Section, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip, AnchorLink } from './styled'
 import { Pagination } from '../../components/Pagination'
+import { Section } from '../../components/Table/styled'
+import { ViewInvoiceItems } from './ViewInvoice'
+import { ContentTableItem } from '../CommissionStatement/styled'
+import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip, AnchorLink, TableButton } from './styled'
 
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
+    const [modalLineItems, setModalLineItems] = useState(false)
+    const [dataInvoiceLine, setDataInvoice] = useState({})
+    const handleOpenLineItems = data => {
+        setModalLineItems(true)
+        setDataInvoice(data)
+    }
     return (
         <div>
             <Toast open={checkedItems?.size > 1}>
@@ -24,31 +35,27 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
             </Toast>
             <Table
                 titles={[
-                    // { name: '', width: '8%' },
-                    { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '9%' },
-                    { name: 'Event Name', arrow: true, key: 'eventName', width: '9%' },
-                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '9%' },
-                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '9%' },
-                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '9%' },
-                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '9%' },
-                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '9%' },
-                    { name: 'Date Received', width: '9%' },
-                    { name: 'Pay Invoice', width: '9%' },
-                    { name: 'Approve Invoice', width: '9%' },
-                    { name: 'Action', width: '9%' }
+                    { name: '#', width: '2%' },
+                    { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '8%' },
+                    { name: 'Event Name', arrow: true, key: 'eventName', width: '8%' },
+                    { name: 'Invoice From', arrow: true, key: 'invoiceTo', width: '8%' },
+                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '8%' },
+                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '8%' },
+                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '8%' },
+                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '8%' },
+                    { name: 'Date Received', width: '8%' },
+                    { name: 'Pay Invoice', width: '8%' },
+                    { name: 'Approve Invoice', width: '8%' },
+                    { name: 'Action', width: '2fr' }
                 ]
                 }
                 bgRow={2}
                 pointer
                 data={data?.getAllCommissionInvoiceSent?.filter(x => showInvoice ? x.isPaid === true : x)}
-                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section bgRow={2} columnWidth={titles} key={i} padding='1% 20px' onClick={e => { dispatch({ type: 'select', payload: i }) }} style={{ cursor: 'pointer', backgroundColor: i === state?.selectedIndex ? `${SVColor}` : 'transparent', borderBottom: 'border-bottom: 1px solid rgba(0, 0, 0, 0.05)' }} radius='3px' tabIndex={0} key={i} onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                        dispatch({ type: 'select', payload: i })
-                        e.target.blur()
-                    } }}>
-                    {/* <Wrapper>
-                        <Checkbox id={elem} disabled={disabledItems.has(elem)} checked={checkedItems.has(elem)} onChange={handleChangeCheck} />
-                    </Wrapper> */}
+                renderBody={(dataB, titles) => dataB?.map((elem, i) => <Section bgRow={2} columnWidth={titles} key={i}>
+                    <Wrapper>
+                        <Text>{i + 1}</Text>
+                    </Wrapper>
                     <Wrapper>
                         <Text size='15px'> {(elem.eventCommences)}</Text>
                     </Wrapper>
@@ -93,7 +100,25 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                         </PaymentStatus>
                     </Wrapper>
                     <Wrapper>
-                        <WrapperButtonAction style={{ display: 'flex', justifyContent: 'flex-end', width: 'min-content' }}>
+                        <ContentTableItem padding='0px' direction='row'>
+                            <TableButton backgroundColor={TBGAColor} color={SCColor}>
+                                Download
+                            </TableButton>
+                            <TableButton backgroundColor={TBGBColor} color={PVColor} onClick={() => console.log(x)}>
+                                <ActiveLink activeClassName="active" href={`/invoice/${elem._id}`}>
+                                    <AnchorLink>
+                                        View
+                                    </AnchorLink>
+                                </ActiveLink>
+                            </TableButton>
+                            <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleRedoState(elem)}>
+                                Redo
+                            </TableButton>
+                            <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleOpenLineItems(elem)}>
+                                View Array
+                            </TableButton>
+                        </ContentTableItem>
+                        {/* <WrapperButtonAction style={{ display: 'flex', justifyContent: 'flex-end', width: 'min-content' }}>
                             <div style={{ display: 'contents' }}><Button onClick={() => setShow(elem === show ? false : elem)}><IconDost size={30} color={show === elem ? PColor : '#000'} /></Button></div>
                         </WrapperButtonAction>
                         <OptionsFunction show={show === elem}>
@@ -105,10 +130,28 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                             <Button border height='auto' onClick={() => handleRedoState(elem)} ><Text size='1.1em'>Redo invoice</Text></Button>
                             {elem.isApprovedByInvoiceSender === true && <Button border onClick={() => handleClickAddInvoice(elem)}> <Text size='1.1em'>{!elem?.isPaid ? 'Mark Paid' : 'Mark Unpaid'}</Text></Button>}
                             <Button border onClick={() => handleApprovedInvoiceState(elem)}> <Text size='1.1em'>{elem.isApprovedByInvoiceSender ? 'Mark as not Approved' : 'Mark approved'}</Text></Button>
-                        </OptionsFunction>
+                        </OptionsFunction> */}
                     </Wrapper>
                 </Section>)}
             />
+            <AwesomeModal
+                show={modalLineItems}
+                backdrop
+                onHide={() => setModalLineItems(false)}
+                onCancel={() => false}
+                btnCancel={false}
+                btnConfirm={false}
+                header={true}
+                size="large"
+                title='Invoice Stements From'
+                height='60vh'
+                width='100%'
+                footer={false}
+            >
+                <ViewInvoiceItems
+                    data={dataInvoiceLine}
+                />
+            </AwesomeModal>
             <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length + 200} onChange={setShowMore} />
             {<BlueButton style={{ width: '100%' }} onClick={() => setShowMore(s => s + 200)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
         </div>

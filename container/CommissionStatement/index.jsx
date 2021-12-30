@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { Context } from '../../context'
-import { ALL_COMMISSION_STATEMENT, ALL_COMMISSION_STATEMENT_TO } from './queries'
+import { ALL_COMMISSION_STATEMENT, ALL_COMMISSION_STATEMENT_TO, CANCELLED_COMMISSION_STATEMENT } from './queries'
 import { Loading } from '../../components/Loading'
 import { Table } from '../../components/Table'
 import { Section } from '../../components/Table/styled'
@@ -34,10 +34,10 @@ export const CommissionStatements = () => {
           </>
         </Tabs.Panel>
         <Tabs.Panel label={`Statement To`}>
-            <InvoiceStementsTo
-              setModal={setModal}
-              modal={modal}
-            />
+          <InvoiceStementsTo
+            setModal={setModal}
+            modal={modal}
+          />
         </Tabs.Panel>
       </Tabs>
     </Container>
@@ -59,6 +59,21 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
     },
     fetchPolicy: 'cache-and-network'
   })
+  const [isPaidOutCommissionStatements] = useMutation(CANCELLED_COMMISSION_STATEMENT, {
+    update(cache) { cache.modify({ fields: { getAllCommissionStatementsFrom(dataOld = []) { return cache.writeQuery({ query: ALL_COMMISSION_STATEMENT, data: dataOld }) } } }) }
+  })
+  const HandleIsCanceledStatement = async data => {
+    console.log('009809840293840', data)
+    return isPaidOutCommissionStatements({
+      variables: {
+        IdStatements: '',
+        statementToEmail: '',
+        uEmail: '',
+        company: '',
+        idComp: company.idLasComp && company.idLasComp
+      }
+    })
+  }
   console.log(data)
   const handlePreview = (data) => {
     setModal(!modal)
@@ -66,7 +81,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
   }
   return (
     <div>
-      Hola mundo
       <Table
         titles={[
           { name: '#', key: '', key: 'emailedDate', justify: 'flex-start', width: '2%' },
@@ -137,8 +151,8 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
               <TableButton backgroundColor={TBGBColor} color={PVColor} onClick={() => handlePreview(x)}>
                 View
               </TableButton>
-              <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handlePreview(x)}>
-                Share
+              <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => HandleIsCanceledStatement(x)}>
+                Paid
               </TableButton>
               <Link href={'/invoice/commission-statement/create'}>
                 <TableButton backgroundColor={TBGVColor} color={TFBColor}>
