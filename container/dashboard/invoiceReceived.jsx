@@ -109,7 +109,7 @@ export const InvoiceReceived = ({ data, setShowMore, showInvoice, setShow, showD
                 </Section>)}
             />
             {/* <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length || 100} onChange={setShowMore} /> */}
-            {<BlueButton onClick={() => setShowMore(s => s + 100)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
+            {<BlueButton onClick={() => setShowMore(s => s + 10)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
         </div>
     )
 }

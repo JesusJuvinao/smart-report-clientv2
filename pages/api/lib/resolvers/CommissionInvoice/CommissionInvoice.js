@@ -354,7 +354,7 @@ export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompN
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName }).sort({ age: -1 }).limit(max || 200)
+            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName }).sort({ age: -1 }).limit(max || 10)
             return data
         }
     } catch (error) {

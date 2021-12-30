@@ -295,7 +295,6 @@ export const DashboardComp = () => {
         }
     }
     // return null
-    console.log(DataReceived)
     const payOnlyInvoide = () => {
         setAlertModal2(false)
         setAlertModal2(!alertModal2)
@@ -419,7 +418,7 @@ export const DashboardComp = () => {
                 Handleremove={Handleremove}
                 active={active}
                 handlePayState={handlePayState}
-            />{console.log(statePay)}
+            />
             <ModalAlerBox
                 setAlertModal={setAlertModal}
                 handlePayState={handlePayState}

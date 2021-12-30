@@ -134,6 +134,7 @@ type agentDetails {
 }
 
 type Query {
+  getOneCommissionStatement(idComp: ID, company: String, idUser: ID, IdStatement: ID): CommissionStatements
   getAllCommissionStatementsFrom(idComp: ID, company: String, idUser: ID, search: String, min: Int, max: Int): [CommissionStatements]
   getAllCommissionStatementsTo(idComp: ID, company: String, idUser: ID, search: String, min: Int, max: Int): [CommissionStatements]
 }
