@@ -192,6 +192,10 @@ const CommissionInvoiceStatement = new mongoose.Schema({
         type: Number,
         required: false
     },
+    currency: {
+        type: String,
+        required: false
+    },
 }, {
     timestamps: true
 })

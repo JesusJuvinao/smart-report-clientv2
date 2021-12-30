@@ -25,6 +25,7 @@ export const Text = styled.span`
     font-size: ${({ size }) => size || '12px'};
     text-align:  ${({ align }) => align || 'start'};
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
+    ${({ color }) => color && css`color: ${color};`}
     ${({ padding }) => padding && css`padding: ${padding};`}
     margin: ${({ margin }) => margin || '0'};
     justify-content: ${({ justify }) => justify || 'flex-start'};
