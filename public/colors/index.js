@@ -23,8 +23,7 @@ export const BGVColor = '#000000'
 export const APColor = '#21b478'
 /** Fuente */
 export const PFont = 'Tahoma'
-/** Colores mensajes de notificaciones */
-export const SCColor = '#4BB543'
+export const SCColor = '#1FB4D2'
 export const EColor = '#EA1D2C'
 export const WColor = '#ff9800'
 export const ESFColor = '#F22020'

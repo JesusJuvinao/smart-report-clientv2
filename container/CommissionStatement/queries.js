@@ -8,6 +8,22 @@ export const SEND_COMMISSION_STATEMENT = gql`
     }
 }
 `
+export const CANCELLED_COMMISSION_STATEMENT = gql`
+  mutation isPaidOutCommissionStatements($IdStatements: String, $statementToEmail: String $uEmail: String, $company: String, $idComp: ID) {
+    isPaidOutCommissionStatements(IdStatements: $IdStatements, statementToEmail: $statementToEmail, uEmail: $uEmail,  company: $company, idComp: $idComp) {
+    success
+    message
+  }
+  }	
+`
+export const VIEW_COMMISSION_STATEMENT = gql`
+  mutation ViewCommissionStatements($IdStatements: String, $statementToEmail: String $uEmail: String, $company: String, $idComp: ID) {
+    ViewCommissionStatements(IdStatements: $IdStatements, statementToEmail: $statementToEmail, uEmail: $uEmail,  company: $company, idComp: $idComp) {
+    success
+    message
+  }
+  }	
+`
 export const ALL_COMMISSION_STATEMENT = gql`
 query getAllCommissionStatementsFrom($idUser: ID, $idComp: ID, $company: String, $search: String, $min: Int, $max: Int){
   getAllCommissionStatementsFrom(idUser: $idUser, search: $search, min: $min, max: $max, idComp: $idComp, company: $company ) {

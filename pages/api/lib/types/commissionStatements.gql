@@ -138,4 +138,6 @@ type Query {
 }
 type Mutation {
   sendOneCommissionStatements(idComp: ID, company: String, uEmail: String, statementToEmail: String, IdStatements: String): Response
+  isPaidOutCommissionStatements(idComp: ID, company: String, uEmail: String, statementToEmail: String, IdStatements: String): Response
+  ViewCommissionStatements(idComp: ID, company: String, uEmail: String, statementToEmail: String, IdStatements: String): Response
 }

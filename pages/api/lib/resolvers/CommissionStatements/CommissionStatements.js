@@ -5,6 +5,8 @@ import CompanySchema from '../../../models/Companies/CompanySchema'
 import { TemplateLeaveComp } from '../../templates/TemplateConfirm'
 import { transporter } from '../../../utils'
 import { TemplateCommissionStatement } from '../../templates/CommissionStatement'
+import moment from 'moment'
+import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
 
 export const getAllCommissionStatementsFrom = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     try {
@@ -30,9 +32,76 @@ export const getAllCommissionStatementsTo = async (_, { search, idComp, CompName
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
             const data = await CommissionInvoiceStatement.find({ statementTo: dataCompany.companyName })
             return data
-            // return data
         }
-        // const data = await CommissionInvoiceStatement.find({})
+    } catch (error) {
+        console.log(error)
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
+export const isPaidOutCommissionStatements = async (_, { idComp, uEmail, IdStatements, company, statementToEmail }, ctx) => {
+    const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: IdStatements })
+    try {
+        if (!InvoiceData) {
+            return { success: false, message: 'The Invoice no exist' }
+        }
+        await CommissionInvoiceStatement.findOneAndUpdate(
+            { _id: IdStatements },
+            {
+                $set: {
+                    isPaid: InvoiceData.isPaid !== true
+                }
+            }
+        )
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        if (InvoiceData) {
+            mailer.sendMail({
+                from: uEmail,
+                to: statementToEmail,
+                text: 'Hello world?',
+                subject: 'Notification De Invoice Change.',
+                html: TemplateInvoicePaid({
+                    invoiceRef: 'ref',
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isPaid !== true ? 'paid' : 'No paid',
+                })
+            })
+        }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Inactive' : 'Active'} status` }
+    } catch (error) {
+        console.log(error)
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
+// hasInvoiceBeenOpenedByRecipient
+export const ViewCommissionStatements = async (_, { idComp, uEmail, IdStatements, company, statementToEmail }, ctx) => {
+    console.log(idComp, uEmail, IdStatements, company, statementToEmail)
+    // const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: IdStatements })
+    try {
+        await CommissionInvoiceStatement.findOneAndUpdate({ 'invoicesIncOnStatement._id': IdStatements },
+            {
+                $set: { 'invoicesIncOnStatement.$.hasInvoiceBeenOpenedByRecipient': true }
+            })
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        mailer.sendMail({
+            from: uEmail,
+            to: statementToEmail,
+            text: 'Hello world?',
+            subject: 'Notification De Invoice Change.',
+            html: TemplateInvoicePaid({
+                invoiceRef: 'ref',
+                uEmail,
+                date: today,
+                hour,
+                statusInvoice: 'paid',
+            })
+        })
+        return { success: true, message: `the invoice changed to ` }
     } catch (error) {
         console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
@@ -52,7 +121,7 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
                 id: IdStatements
             })
         })
-        return { success: true, message: `commission statement has been sent ${ statementToEmail } successfully.` }
+        return { success: true, message: `commission statement has been sent ${statementToEmail} successfully.` }
 
     } catch (error) {
         console.log(error)
@@ -68,6 +137,8 @@ export default {
         getAllCommissionStatementsTo
     },
     MUTATIONS: {
-        sendOneCommissionStatements
+        sendOneCommissionStatements,
+        ViewCommissionStatements,
+        isPaidOutCommissionStatements
     }
 }

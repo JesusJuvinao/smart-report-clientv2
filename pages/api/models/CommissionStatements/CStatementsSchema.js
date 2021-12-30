@@ -183,7 +183,11 @@ const CommissionInvoiceStatement = new mongoose.Schema({
         required: true,
         default: Date.now()
     },
-
+    isPaid: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     totalVATOnComms: {
         type: Number,
         required: false
