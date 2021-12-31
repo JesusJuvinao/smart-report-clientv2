@@ -510,7 +510,6 @@ export const SentBillComponent = ({ data, setShowMore, showMore, loading }) => {
     const handleClick = (data) => {
         setOpen(!open)
         setDataInvoice(data)
-    }
     const initialState = { selectedIndex: -1 }
     function reducer(state, action) {
         switch (action.type) {

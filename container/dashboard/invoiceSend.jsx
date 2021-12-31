@@ -115,7 +115,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                                 Redo
                             </TableButton>
                             <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleOpenLineItems(elem)}>
-                                View Array
+                                view tickets
                             </TableButton>
                         </ContentTableItem>
                         {/* <WrapperButtonAction style={{ display: 'flex', justifyContent: 'flex-end', width: 'min-content' }}>

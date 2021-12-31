@@ -14,6 +14,7 @@ import { Container, Card, Text, Content, ContentTableItem, TableButton, Options 
 import { AwesomeModal } from '../../components/AwesomeModal'
 import Tabs from '../../components/Tabs'
 import { ViewCommissionStatementsTo } from './ViewCommissionTo'
+import { generatePdfDocumentInvoiceStatement } from './PdfInvoiceStatement'
 
 export const CommissionStatements = () => {
   const [modal, setModal] = useState(false)
@@ -144,7 +145,7 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
           </Content>
           <Content>
             <ContentTableItem padding='0px' direction='row'>
-              <TableButton backgroundColor={TBGAColor} color={SCColor}>
+              <TableButton backgroundColor={TBGAColor} color={SCColor}  onClick={() => generatePdfDocumentInvoiceStatement({ dataInvoice: { ...x }  })}>
                 Download
               </TableButton>
               <TableButton backgroundColor={TBGBColor} color={PVColor} onClick={() => handlePreview(x)}>

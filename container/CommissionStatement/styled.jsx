@@ -63,13 +63,13 @@ export const Card = styled.div`
         ;`}
         `
 export const Content = styled.div`
-    padding: 20px 0px;
     margin: auto;
     ${props => props.center && css`
     display: grid;
     place-content: center;
     `}
-    padding: 20px 0px;
+    ${({ padding }) => padding && css`padding: ${padding};`}
+    padding: ${({ padding }) => padding || '20px 0px'};
     margin: auto;
     height: 100%;
     display: grid;
@@ -79,6 +79,9 @@ export const Content = styled.div`
         border-right: none;
     }
     `
+export const Input = styled.input`
+    padding: 10px;
+`
 export const ContentTableItem = styled.div`
     display: flex;
     flex-direction: ${({ direction }) => direction || 'column'};
@@ -152,15 +155,17 @@ export const flexCenter = css`
   `;
 
 export const SectionRow = styled.div`
-    display: grid;
+   display: grid;
     grid-template-columns: ${({ columnWidth }) => columnWidth ? columnWidth?.map(x => `${x} `) : '1fr'}; 
     height: auto;
     align-items: center;
     margin: 0 auto;
-    font-weight: bold;
-    font-size: 14px;
     place-content: center;
-    ${({ background }) => background && css`background-color: ${background};`}
-    ${({ padding }) => padding && css`padding: ${padding};`}
-    ${({ borderButtom }) => borderButtom && css`border-bottom: ${borderButtom};`}
+    border-bottom: 1px solid #f0f0f0;
+    :hover {
+        background-color: #e9e9e933;
+        :first-child {
+            background-color: #fff;
+        }
+    }
 `
