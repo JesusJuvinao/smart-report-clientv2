@@ -40,14 +40,15 @@ export const Wrapper = styled.div`
     padding: 20px 0px;
     margin: auto;
     ${props => props.center && css`
-    display: grid;
-    place-content: center;
+      display: grid;
+      place-content: center;
     `}
     padding: 20px 0px;
     margin: auto;
     height: 100%;
     display: grid;
     place-content: center;
+    justify-content: ${({ justifyContent }) => justifyContent  || 'center'};
     border-right: 1px solid #cccccc7a;
     &:last-child {
         border-right: none;

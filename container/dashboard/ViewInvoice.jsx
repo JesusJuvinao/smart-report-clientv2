@@ -3,17 +3,18 @@ import { useMutation, useQuery } from '@apollo/client'
 import { Context } from '../../context'
 import { AwesomeModal } from '../../components/AwesomeModal'
 import { Loading } from '../../components/Loading'
+import currencyFormatter from 'currency-formatter'
 import styled, { css } from 'styled-components'
 import { Section } from '../../components/Table/styled'
 import { PLVColor, PVColor, SCColor, SEGColor, TBGAColor, BGColor, TBGBColor, TBGDColor, TBGVColor, TFBColor, EColor } from '../../public/colors'
 import { Text, ContentTableItem, TableButton, ContainerStatements, } from './styled'
 import Link from 'next/link'
 export const ViewInvoiceItems = ({ data }) => {
-    console.log(data)
     // return null
     return (
         <>
             {data !== {} && <div>
+                <Text margin='20px 0' size='30px' >{data?.eventName}</Text>
                 <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']}>
                     <Content padding={'0'} >
                         <Text> AgentCode</Text>
@@ -86,82 +87,82 @@ export const ViewInvoiceItems = ({ data }) => {
                     </Content>
                 </SectionRow>
                 {data?.lineItemsArray && data?.lineItemsArray?.map(x => x.newArray?.map((z, i) => (
-                        <div key={z._id}>
-                            <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']} key={i}>
-                                <Content padding={'0'} >
-                                    <Text> {z.agentCode}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.balancedue}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.bookedOn}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.bookingRef}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.bookingStatus}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.client}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.clientOwnerAtPurchaseDate}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.commissionRatePercent}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.commissionpayable}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.discountRate}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.discountTotal}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.discountedTotalDue}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.eventCommences}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.eventName}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.eventOwner}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.eventRef}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.eventType}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.ticketoption}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.ticketprice}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.ticketquantity}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.totaldue}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.totaldueCalc}</Text>
-                                </Content>
-                                <Content padding={'0'} >
-                                    <Text> {z.totalpaid}</Text>
-                                </Content>
-                            </SectionRow>
-                        </div>
-                    )))}
-
+                    <div key={z._id}>
+                        <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']} key={i}>
+                            <Content padding={'0'} >
+                                <Text> {z.agentCode}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.balancedue}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.bookedOn}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.bookingRef}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.bookingStatus}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.client}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.clientOwnerAtPurchaseDate}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.commissionRatePercent}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.commissionpayable}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.discountRate}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.discountTotal}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.discountedTotalDue}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.eventCommences}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.eventName}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.eventOwner}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.eventRef}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.eventType}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.ticketoption}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.ticketprice}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.ticketquantity}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.totaldue}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.totaldueCalc}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <Text> {z.totalpaid}</Text>
+                            </Content>
+                        </SectionRow>
+                    </div>
+                )))}
             </div>}
+            <div>  {currencyFormatter.format(data?.invoiceTotal, { code: data.currency || 'GBP' })}</div>
         </>
     )
 }

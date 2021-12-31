@@ -23,7 +23,7 @@ import { LazyLoading, SpinnerColorJust } from '../../components/Loading'
 import { BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 
 
-export const ModalAddInvoicePaymentState = ({ statePay, dispatchInvoice, setOpenModalMain, openModalMain, loading, setShowMore, handleChange, values, errors, handleAddInvoice, data, setActive, handleClick, Handleremove, handlePayState, show, state, active }) => {
+export const ModalAddInvoicePaymentStateReceived = ({ statePay, dispatchInvoice, setOpenModalMain, openModalMain, loading, setShowMore, handleChange, values, errors, handleAddInvoice, data, setActive, handleClick, Handleremove, handlePayState, show, state, active }) => {
     // STATE
     const { setAlertBox, company } = useContext(Context)
     const [showInvoice, showAllData] = useState(false)

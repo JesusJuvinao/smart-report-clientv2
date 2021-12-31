@@ -36,19 +36,19 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
             </Toast>
             <Table
                 titles={[
-                    { name: '#', width: '2%' },
-                    { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '7%' },
-                    { name: 'Event Name', arrow: true, key: 'eventName', width: '7%' },
-                    { name: 'Invoice To', arrow: true, key: 'invoiceTo', width: '7%' },
-                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '7%' },
-                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '7%' },
-                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '7%' },
-                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '7%' },
-                    { name: 'Date Received', width: '7%' },
-                    { name: 'Pay Invoice', width: '7%' },
-                    { name: 'Approve Invoice', width: '7%' },
-                    { name: 'View', width: '1fr' },
-                    { name: 'Action', width: '1fr' },
+                    { justify: 'center', name: '#', width: '2%' },
+                    { justify: 'center', name: 'Event Commences', arrow: true, key: 'eventCommences', width: '7%' },
+                    { justify: 'center', name: 'Event Name', arrow: true, key: 'eventName', width: '7%' },
+                    { justify: 'center', name: 'Invoice To', arrow: true, key: 'invoiceTo', width: '7%' },
+                    { justify: 'center', name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '7%' },
+                    { justify: 'center', name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '7%' },
+                    { justify: 'center', name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '7%' },
+                    { justify: 'center', name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '7%' },
+                    { justify: 'center', name: 'Date Received', width: '7%' },
+                    { justify: 'center', name: 'Pay Invoice', width: '7%' },
+                    { justify: 'center', name: 'Approve Invoice', width: '7%' },
+                    { justify: 'center', name: 'View', width: '1fr' },
+                    { justify: 'center', name: 'Action', width: '1fr' },
                 ]
                 }
                 bgRow={2}
@@ -118,10 +118,10 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                             </TableButton>
                         </ContentTableItem>
                     </Wrapper>
-                    <Wrapper>
+                    <Wrapper justifyContent='start'>
                         <ContentTableItem>
                             <TableButton backgroundColor={TBGBColor} color={APColor} onClick={() => handleRedoState(elem)}>
-                                Redo
+                                {elem.isRedo === false ? 'No Redo' : 'Redo'}
                             </TableButton>
                             {elem.isApprovedByInvoiceSender === true && <TableButton backgroundColor={TBGBColor} color={!elem?.isPaid ? EColor : APColor} onClick={() => handleClickAddInvoice(elem)}>
                                 {!elem?.isPaid ? 'Mark Paid' : 'Mark Unpaid'}
@@ -142,7 +142,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                 btnConfirm={false}
                 header={true}
                 size="large"
-                title='Invoice Stements From'
+                title='Invoice Stements To'
                 height='60vh'
                 width='100%'
                 footer={false}
