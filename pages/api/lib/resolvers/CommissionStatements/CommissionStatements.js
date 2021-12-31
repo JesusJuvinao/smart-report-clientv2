@@ -10,11 +10,10 @@ import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
 
 export const getOneCommissionStatement = async (_, { idComp, CompName, IdStatement }, ctx) => {
     try {
-        const idUser = ctx.User.id
-
+        
         const data = await CommissionInvoiceStatement.findOne({ _id: IdStatement })
         return data
-    
+
     } catch (error) {
         console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)

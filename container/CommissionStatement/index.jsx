@@ -64,7 +64,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
     update(cache) { cache.modify({ fields: { getAllCommissionStatementsFrom(dataOld = []) { return cache.writeQuery({ query: ALL_COMMISSION_STATEMENT, data: dataOld }) } } }) }
   })
   const HandleIsCanceledStatement = async data => {
-    console.log('009809840293840', data)
     return isPaidOutCommissionStatements({
       variables: {
         IdStatements: '',
@@ -75,7 +74,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
       }
     })
   }
-  console.log(data, 'DATA FROMT PERRO')
   const handlePreview = (data) => {
     setModal(!modal)
     setDataStatement(data)
@@ -202,7 +200,6 @@ export const InvoiceStementsTo = ({ modal, setModal }) => {
     },
     fetchPolicy: 'cache-and-network'
   })
-  console.log(data)
   const handlePreview = (data) => {
     setModal(!modal)
     setDataStatement(data)
