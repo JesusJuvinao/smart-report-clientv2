@@ -140,6 +140,51 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
     }
 }
 
+
+// NEW FUNCIONS
+export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log(idInvoice, ToEmail, uEmail)
+    return { success: false, message: 'The Invoice no exist' }
+
+    const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: idInvoice })
+    try {
+        if (!InvoiceData) {
+            return { success: false, message: 'The Invoice no exist' }
+        }
+        await CommissionInvoiceStatement.findOneAndUpdate(
+            { _id: idInvoice },
+            {
+                $set: {
+                    isRedo: InvoiceData.isRedo !== true,
+                    isPaid: false,
+                    isApprovedByInvoiceSender: false
+                }
+            }
+        )
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        if (InvoiceData) {
+            mailer.sendMail({
+                from: uEmail,
+                to: ToEmail,
+                text: 'Hello world?',
+                subject: 'Notification De Invoice Change.',
+                html: TemplateInvoicePaid({
+                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isRedo !== true ? 'Redo' : 'No Redo',
+                })
+            })
+        }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+
+}
 export default {
     TYPES: {
     },
@@ -150,6 +195,7 @@ export default {
     },
     MUTATIONS: {
         sendOneCommissionStatements,
+        isRedoStateInvoiceStatement,
         ViewCommissionStatements,
         isPaidOutCommissionStatements
     }

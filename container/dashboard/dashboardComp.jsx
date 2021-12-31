@@ -192,8 +192,8 @@ export const DashboardComp = () => {
     }
     const [alertModal2, setAlertModal2] = useState(false)
     const handleClickAddInvoice = elem => {
-    let includes = statePay?.Addtopay.includes(elem);
-    if (elem.isPaid === false) {
+        let includes = statePay?.Addtopay.includes(elem);
+        if (elem.isPaid === false) {
             setAlertModal2(true)
             setDataInv(elem)
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
@@ -273,6 +273,10 @@ export const DashboardComp = () => {
                 return {
                     Addtopay: state?.Addtopay?.filter((t, idx) => idx !== action?.idx)
                 };
+            case 'REMOVE_ALL':
+                return {
+                    Addtopay: []
+                };
             case "TOGGLE_INVOICE":
                 return {
                     Addtopay: state?.Addtopay.map((t, idx) => idx === action.idx ? { ...t, isPaid: !t.isPaid } : t),
@@ -299,6 +303,7 @@ export const DashboardComp = () => {
         setAlertModal2(false)
         setAlertModal2(!alertModal2)
         handlePayState(invoiceData)
+        dispatchInvoice({ type: "REMOVE_ALL" })
     }
     const HaddMoreInvoide = () => {
         setAlertModal2(false)
@@ -316,10 +321,6 @@ export const DashboardComp = () => {
                 </div>
                 <div>
                 </div>
-                {/* <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} /> */}
-                {/* <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} /> */}
-                {/* <input style={{ height: '45px', width: '25%' }} label='Search Pay' name='searchPay' value={searchPay} title='Filter pay invoice' onChange={handleChangeFilterDatePay} type='date' /> */}
-                {/* <Text width='min-content' size='30px'>{data?.getAllCommissionInvoiceSent?.filter(x => x.isPaid === false)?.length}  / {data?.getAllCommissionInvoiceSent?.length || 0}  BILLS PAID </Text> */}
             </FilterOptions>
             <Tabs width={['25%', '25%']} >
                 <Tabs.Panel label={`Sent bill: ${data ? data?.getAllCommissionInvoiceSent?.length : 0} / ${dataCountSend?.getEstimateCountInvoiceSend ? dataCountSend?.getEstimateCountInvoiceSend?.length : 0}`}>
@@ -439,7 +440,7 @@ export const DashboardComp = () => {
                 selectedDate={selectedDate}
                 handleDateChange={handleDateChange}
             /> */}
-            <AwesomeModal zIndex='99' padding='20px' height='40vh' show={alertModal2} onHide={() => setAlertModal2(false)} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
+            <AwesomeModal zIndex='99' padding='20px' height='40vh' show={alertModal2} onHide={() => { setAlertModal2(false), dispatchInvoice({ type: 'REMOVE_ALL' }) }} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
                 <Text size='30px'>Solo quieres Paga una factura?</Text>
                 <Options direction='row' style={{ position: 'absolute', bottom: '20px', left: '0', right: '0', margin: 'auto', width: '93%', flexDirection: 'row', display: 'flex' }}>
                     <RippleButton widthButton='100% !important' bgColor={PVColor} onClick={() => payOnlyInvoide()} >Yes</RippleButton>
@@ -456,7 +457,7 @@ export const DashboardComp = () => {
 export const ModalFilter = ({ active, handleDateChange, InvoiceYear, setActive }) => {
     const currentYear = new Date().getFullYear()
     return (
-        <AwesomeModal zIndex='99' padding='20px' height='60vh' show={active === 6} onHide={() => setActive(false)} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
+        <AwesomeModal zIndex='99' padding='20px' height='60vh' show={active === 6} onHide={() => { setActive(false), dispatchInvoice({ type: "REMOVE_ALL" }) }} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
             <RippleButton bgColor='transparent' onClick={() => setActive(false)}>
                 <IconArrowBottom size='30px' color={EColor} />
             </RippleButton>

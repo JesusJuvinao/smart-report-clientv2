@@ -778,13 +778,11 @@ export const Text = styled.span`
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
     ${({ padding }) => padding && css`padding: ${padding};`}
     margin: ${({ margin }) => margin || '0'};
+    color: ${({ color }) => color || BColor};
     justify-content: ${({ justify }) => justify || 'flex-start'};
     display: flex;
     font-family: ${({ font }) => font || 'PFont-Regular'};
     word-break: break-word;
-    max-width: ${({ width }) => width || '100%'};
-    width: ${({ width }) => width || 'auto'};
-    text-overflow: ellipsis;
 `
 // Create styles
 export const styles = StyleSheet.create({

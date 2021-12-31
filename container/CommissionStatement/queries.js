@@ -441,3 +441,11 @@ query getAllCommissionStatementsTo($idUser: ID, $idComp: ID, $company: String, $
   }
 }
 `
+export const IS_REDO_COMMISSION_STATEMENTS_INVOICE = gql`
+mutation isRedoStateInvoiceStatement($idInvoice: ID, $ToEmail: String! $uEmail: String!) {
+  isRedoStateInvoiceStatement(idInvoice: $idInvoice, ToEmail: $ToEmail, uEmail: $uEmail ) {
+    success
+    message
+  }
+}		
+`

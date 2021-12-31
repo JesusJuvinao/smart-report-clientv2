@@ -9,13 +9,14 @@ import { AwesomeModal } from '../../components/AwesomeModal'
 import { IconCancel, IconDost } from '../../public/icons'
 import { dateFormat } from '../../utils'
 import { DocumentPdf } from './Document'
-import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor, SCColor, TBGAColor, TBGBColor, TFBColor, TBGVColor } from '../../public/colors'
+import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor, SCColor, TBGAColor, TBGBColor, TBGVColor } from '../../public/colors'
 import ActiveLink from '../../components/common/Link'
 import { Pagination } from '../../components/Pagination'
 import { Section } from '../../components/Table/styled'
 import { ViewInvoiceItems } from './ViewInvoice'
 import { ContentTableItem } from '../CommissionStatement/styled'
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip, AnchorLink, TableButton } from './styled'
+import { generatePdfDocumentInvoice } from '../invoice/PdfInvoice'
 
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     const [modalLineItems, setModalLineItems] = useState(false)
@@ -36,17 +37,18 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
             <Table
                 titles={[
                     { name: '#', width: '2%' },
-                    { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '8%' },
-                    { name: 'Event Name', arrow: true, key: 'eventName', width: '8%' },
-                    { name: 'Invoice To', arrow: true, key: 'invoiceTo', width: '8%' },
-                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '8%' },
-                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '8%' },
-                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '8%' },
-                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '8%' },
-                    { name: 'Date Received', width: '8%' },
-                    { name: 'Pay Invoice', width: '8%' },
-                    { name: 'Approve Invoice', width: '8%' },
-                    { name: 'Action', width: '2fr' }
+                    { name: 'Event Commences', arrow: true, key: 'eventCommences', width: '7%' },
+                    { name: 'Event Name', arrow: true, key: 'eventName', width: '7%' },
+                    { name: 'Invoice To', arrow: true, key: 'invoiceTo', width: '7%' },
+                    { name: 'Invoice Total', arrow: true, key: 'invoiceTotal', width: '7%' },
+                    { name: 'Total Discounts', arrow: true, key: 'totalDiscounts', width: '7%' },
+                    { name: 'Total Commission', arrow: true, key: 'totalCommDue', width: '7%' },
+                    { name: 'Total Gross Sales', arrow: true, key: 'totalSalesReceived', width: '7%' },
+                    { name: 'Date Received', width: '7%' },
+                    { name: 'Pay Invoice', width: '7%' },
+                    { name: 'Approve Invoice', width: '7%' },
+                    { name: 'View', width: '1fr' },
+                    { name: 'Action', width: '1fr' },
                 ]
                 }
                 bgRow={2}
@@ -101,36 +103,33 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                     </Wrapper>
                     <Wrapper>
                         <ContentTableItem padding='0px' direction='row'>
-                            <TableButton backgroundColor={TBGAColor} color={SCColor}>
+                            <TableButton backgroundColor={TBGAColor} color={SCColor} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { getOneCommissionInvoice: elem } })}>
                                 Download
                             </TableButton>
-                            <TableButton backgroundColor={TBGBColor} color={PVColor} onClick={() => console.log(x)}>
+                            <TableButton backgroundColor={TBGBColor} color={PVColor}>
                                 <ActiveLink activeClassName="active" href={`/invoice/${elem._id}`}>
                                     <AnchorLink>
                                         View
                                     </AnchorLink>
                                 </ActiveLink>
                             </TableButton>
-                            <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleRedoState(elem)}>
-                                Redo
-                            </TableButton>
-                            <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleOpenLineItems(elem)}>
+                            <TableButton backgroundColor={TBGBColor} color={APColor} onClick={() => handleOpenLineItems(elem)}>
                                 view tickets
                             </TableButton>
                         </ContentTableItem>
-                        {/* <WrapperButtonAction style={{ display: 'flex', justifyContent: 'flex-end', width: 'min-content' }}>
-                            <div style={{ display: 'contents' }}><Button onClick={() => setShow(elem === show ? false : elem)}><IconDost size={30} color={show === elem ? PColor : '#000'} /></Button></div>
-                        </WrapperButtonAction>
-                        <OptionsFunction show={show === elem}>
-                            <ActiveLink activeClassName="active" href={`/invoice/${elem._id}`}>
-                                <AnchorLink>
-                                    <Button border height='auto'><Text size='1.1em'>View Invoice</Text></Button>
-                                </AnchorLink>
-                            </ActiveLink>
-                            <Button border height='auto' onClick={() => handleRedoState(elem)} ><Text size='1.1em'>Redo invoice</Text></Button>
-                            {elem.isApprovedByInvoiceSender === true && <Button border onClick={() => handleClickAddInvoice(elem)}> <Text size='1.1em'>{!elem?.isPaid ? 'Mark Paid' : 'Mark Unpaid'}</Text></Button>}
-                            <Button border onClick={() => handleApprovedInvoiceState(elem)}> <Text size='1.1em'>{elem.isApprovedByInvoiceSender ? 'Mark as not Approved' : 'Mark approved'}</Text></Button>
-                        </OptionsFunction> */}
+                    </Wrapper>
+                    <Wrapper>
+                        <ContentTableItem>
+                            <TableButton backgroundColor={TBGBColor} color={APColor} onClick={() => handleRedoState(elem)}>
+                                Redo
+                            </TableButton>
+                            {elem.isApprovedByInvoiceSender === true && <TableButton backgroundColor={TBGBColor} color={!elem?.isPaid ? EColor : APColor} onClick={() => handleClickAddInvoice(elem)}>
+                                {!elem?.isPaid ? 'Mark Paid' : 'Mark Unpaid'}
+                            </TableButton>}
+                            <TableButton backgroundColor={!elem.isApprovedByInvoiceSender ? `${EColor}69` : TBGBColor} color={!elem.isApprovedByInvoiceSender ? EColor : APColor} onClick={() => handleApprovedInvoiceState(elem)}>
+                                {elem.isApprovedByInvoiceSender ? 'Mark as not Approved' : 'Mark approved'}
+                            </TableButton>
+                        </ContentTableItem>
                     </Wrapper>
                 </Section>)}
             />

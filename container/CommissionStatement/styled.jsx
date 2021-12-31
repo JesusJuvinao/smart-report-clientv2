@@ -89,6 +89,7 @@ export const ContentTableItem = styled.div`
     align-items: baseline;
     width: 100%;
     height: 15px;
+    flex-wrap: wrap;
     margin: 0px 0;
     padding: ${({ padding }) => padding || '0px 0px 0px 15px'};
     `
