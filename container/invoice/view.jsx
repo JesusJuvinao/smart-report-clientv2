@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client"
 import { Context } from "../../context"
 import { Loading } from "../../components/Loading"
 import { GET_ONE_PAY_INVOICE } from "./queries"
-import reactElementToJSXString from 'react-element-to-jsx-string';
 import { dateFormat } from "../../utils"
 import { useCopy } from "../../components/hooks/useCopy"
 import { IconCopy, IconExcel, IconPDF, IconShowEye, IconWord } from "../../public/icons"
@@ -12,13 +11,25 @@ import { Card, Container, Text, Title, FooterInfoCard, CntTextArea, Content, Car
 import { generatePdfDocument } from "./PdfInvoicePay"
 import ActiveLink from "../../components/common/Link"
 import { RippleButton } from "../../components/Ripple"
+import { Newsletter } from "./Newsletter"
 import { AwesomeModal } from "../../components/AwesomeModal"
+import jsxToString from 'jsx-to-string';
+
+
+export const PTM = () => {
+    return (
+        <div>
+            ASDAS
+        </div>
+    )
+}
+
 
 export const ViewComponentInvoice = ({ idInvoice }) => {
     const { company } = useContext(Context)
     const [open, setOpen] = useState(false)
     const [openEx, setOpenopenEx] = useState(false)
-
+    console.log(jsxToString(<PTM />))
     const { data: dataInvoice, loading } = useQuery(GET_ONE_PAY_INVOICE, { variables: { idComp: company.idLasComp && company.idLasComp, idInvoice }, fetchPolicy: 'cache-and-network' })
     // const [handleCopy, copiedText, copiedTextLength] = useCopy();
     const Copy = useCopy();
@@ -34,6 +45,7 @@ export const ViewComponentInvoice = ({ idInvoice }) => {
         setOpen(!open);
     };
     <></>
+    
     // GET_ONE_PAY_INVOICE
     if (loading) return <Loading />
     return (

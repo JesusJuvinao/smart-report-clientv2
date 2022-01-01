@@ -1,28 +1,30 @@
-const { ApolloError } = require('apollo-server-errors')
-const bcryptjs = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+import bcryptjs from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import { transporter } from '../../../utils'
+// import jsx from "jsx-template-engine";
+import { Newsletter } from './views/Newsletter'
+// const { View } = require("grandjs/lib");
+// View.settings.set("views", "./views")
+// const data = require("./data.json");
+// const NewsLetter = View.importJsx("./views/Newsletter.jsx");
 
-const { View } = require("grandjs");
-const NewsLetter = View.importJsx("./GrandJs.jsx");
-const { transporter } = require ('../../../utils');
-
-const data = require("./data.json");
-
-export const getOneAllCompany = async (_, parent) => {
+export const sendEmailTest = async (_, { email }, ctx) => {
+    console.log(email, 'asjdgasjhdv')
     const mailer = transporter();
+    return ({ message: email })
     try {
+        // const htmlString = await jsx.render(<Newsletter />);
+        // let template = View.renderToHtml(NewsLetter, { data })
         mailer.sendMail({
-            from: 'Account recovery <no-reply@smartaccountingonline.com/>',
-            to: uEmail,
+            from: email,
+            to: email,
             text: 'Hello world?', // plain text body
             subject: 'Code recuperation.',
-            html: RecoverAccountTemplate({
-                code: uToken,
-                username: existEmail.firstName
-            })
+            html: `<Newsletter />`
         })
 
     } catch (e) {
+        console.log(e)
         const error = new Error('Your request could not be processed')
         return error
     }
@@ -33,5 +35,7 @@ export default {
         User: {}
     },
     QUERIES: {},
-    MUTATIONS: { }
+    MUTATIONS: {
+        sendEmailTest
+    }
 }

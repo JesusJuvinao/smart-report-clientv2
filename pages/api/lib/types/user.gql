@@ -102,5 +102,6 @@ type AuthPayload {
     ResetPassword(input: IResetPassword) : AuthPayload
     registerUser(name: String!, email: String!, password: String!): AuthPayload!
     signInUser(email: String!, password: String!): AuthPayload!
+    sendEmailTest(email: String): Response
 
   }
