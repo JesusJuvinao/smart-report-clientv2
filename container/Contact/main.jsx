@@ -15,7 +15,7 @@ export const Hero = () => {
           <Section>
               <Content>
                   <Card justify='flex-start' width='100%' >
-                      <Text size='1rem' >INTUIT Smart-report CUSTOMER SUPPORT</Text>
+                      <Text size='1rem' > Smart-report CUSTOMER SUPPORT</Text>
                       <Text lineHeight={'1.25'} font='PFont-Bold' bold='bold' justify='start' color={SECColor} size='2.90rem' margin='30px auto'>Contact us</Text>
                       <Card width='50%'>
                           <RippleButton padding='0 15px' size='15px' family='PFont-Regular' bgColor={PColor} minHeight='2.25em' border='624.9375rem' height='calc(100% + .625rem)' >Contact us</RippleButton>
