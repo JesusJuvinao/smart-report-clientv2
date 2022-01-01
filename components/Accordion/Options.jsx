@@ -15,8 +15,8 @@ const Options = ({
     size,
     color
 }) => {
-    const [height, setHeight] = useState(0)
-    const [heightMenu, setHeightMenu] = useState(0)
+    const [height, setHeight] = useState('1%')
+    const [heightMenu, setHeightMenu] = useState('1%')
     const refButton = useRef()
     const refMenu = useRef()
     const location = useRouter()

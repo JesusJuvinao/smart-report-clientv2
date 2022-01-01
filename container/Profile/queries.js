@@ -17,6 +17,15 @@ mutation confirmEmail($idUser: ID) {
   } 
 }  
 `
+export const CONNECT_STRIPE = gql `
+    mutation connectStripe($idUser: ID, $emailUser: String){
+        connectStripe(idUser: $idUser, emailUser: $emailUser){
+            ok
+            msg
+        }
+    }
+`
+
 export const GET_USER = gql`
     query getUser($id: ID, $userName: String) {
         getUser(id: $id, userName: $userName) {

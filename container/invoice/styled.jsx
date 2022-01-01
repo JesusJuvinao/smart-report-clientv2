@@ -1,27 +1,31 @@
 import styled, { keyframes, css } from 'styled-components';
-import { BColor, BGColor, PColor, SECColor, PVColor  } from '../../public/colors';
+import { BColor, BGColor, PColor, SECColor, PVColor } from '../../public/colors';
 
 export const Content = styled.div`
   background-color: rgb(249, 251, 253);
   padding: 30px;
 `
 export const Title = styled.h1`
+  font-weight: 100;
   font-size: ${({ size }) => size || '12px'};
-  color: ${BColor};
+  color:  ${({ color }) => color || BColor};
+  text-align:  ${({ align }) => align || 'left'};
 `
 export const Text = styled.span`
     font-size: ${({ size }) => size || '12px'};
-    text-align:  ${({ align }) => align || 'start'};
+    text-align:  ${({ align }) => align || 'left'};
+    ${({ background }) => background && css`background-color: ${background};`}
+    ${({ padding }) => padding && css`padding: ${padding};`}
     color:  ${({ color }) => color || BColor};
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
     ${({ overflow }) => overflow && css`overflow: ${overflow};`}
-    margin: ${({ margin }) => margin || 'auto'};
+    margin: ${({ margin }) => margin || '0'};
     justify-content: ${({ justify }) => justify || 'flex-start'};
     display: flex;
     font-family: ${({ font }) => font || 'PFont-Regular'};
     max-width: ${({ width }) => width || '100%'};
     width: ${({ width }) => width || 'auto'};
-    text-overflow: ellipsis;
+    font-weight: ${({ bold }) => bold || 'initial'};
 `
 export const ButtonTheme = styled.div`
     width: 65px;
@@ -129,7 +133,12 @@ export const RowDinamic = styled.div`
     height: auto;
     align-items: center;
     margin: 0 auto;
-    border-bottom: 1px solid ${BColor};
+    font-weight: bold;
+    font-size: 14px;
+    place-content: center;
+    ${({ background }) => background && css`background-color: ${background};`}
+    ${({ padding }) => padding && css`padding: ${padding};`}
+    ${({ borderButtom }) => borderButtom && css`border-bottom: ${borderButtom};`}
 `
 export const Anchor = styled.a`
     display: flex;
@@ -147,11 +156,10 @@ export const Container = styled.div`
 export const Row = styled.div`
     ${flexCenter}
     ${props => props.border && css`
-      border-right: 1px solid ${BColor};
-      padding: 15px;
-      &:first-child {
-        border-left: 1px solid ${BColor};
-      }
+      border-bottom: 1px solid ${BColor};
+      padding: 5px;
+      height: 100%;
+      ${({ background }) => background && css`background-color: ${background};`}
     
     `}
 `
@@ -161,18 +169,27 @@ export const CardInner = styled.div`
 `
 export const Card = styled.div`
     /* height: 700px; */
-    display: flex;
-    flex-wrap: wrap;
     position: relative;
+    display: ${({ display }) => display || 'flex'};
+    flex-wrap: ${({ wrap }) => wrap || 'wrap'};
     ${({ height }) => height && css`height: ${height};`}
     ${({ background }) => background && css`background-color: ${background};`}
     ${({ width }) => width && css`width: ${width};`}
-    ${({ display }) => display && css`display: ${display};`}
+    ${({ justifyContent }) => justifyContent && css`justify-content: ${justifyContent};`}
     ${({ margin }) => margin && css`margin: ${margin};`}
     ${({ direction }) => direction && css`flex-direction: ${direction};`}
     ${({ radius }) => radius && css`border-radius: ${radius};`}
+    ${({ border }) => border && css`border-width: ${border};`}
+    ${({ padding }) => padding && css`padding: ${padding};`}
+    ${({ borderBottom }) => borderBottom && css`border-bottom: ${borderBottom};`}
 `;
 
+export const Card2 = styled.div`
+    top: 140vh; left: 0vw;
+    display: flex;
+    ${({ width }) => width && css`width: ${width};`}
+    position: absolute;
+`;
 export const Button = styled.button`
   width: auto;
   height: auto;

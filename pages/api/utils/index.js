@@ -38,8 +38,8 @@ function isValidBucketName(bucket) {
 // Email Transporter
 
 export const transporter = () => nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
+    host: 'smtp.ethereal.email',
+    port: 587,
     auth: {
         user: process.env.USER_EMAIL_POST,
         pass: process.env.USER_PASS_POST
@@ -72,7 +72,6 @@ export const createOneBucket = async bucketName => {
     client.makeBucket(`smartreportzuploads${bucketName}`, 'us-east-1', function (err) {
         isValidBucketName(bucketName)
         if (err) return console.log('Error creating bucket.', err)
-        console.log('Bucket created successfully in "us-east-1".')
     })
 }
 // CREATE ONE FILE
@@ -100,10 +99,10 @@ export const deleteOneFileMinio = async ({ fileName, idComp }) => {
 export const bucketExistsQuery = async () => {
     client.bucketExists('BucketName', function (err, exists) {
         if (err) {
-            return console.log(err)
+            return console.log('')
         }
         if (exists) {
-            return console.log('Bucket exists.')
+            return console.log('')
         }
     })
 }

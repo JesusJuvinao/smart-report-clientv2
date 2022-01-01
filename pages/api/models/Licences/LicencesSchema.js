@@ -41,7 +41,10 @@ const LicenceSchema = new mongoose.Schema({
         type: Boolean,
         required: false,
         default: true
-    }
+    },
+    lineItemsLicences: [{
+        lineItemsDescription: String,
+    }]
 }, {
     timestamps: true
 })

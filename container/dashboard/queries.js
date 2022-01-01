@@ -219,6 +219,33 @@ query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max:
             totalTicketTypeDiscount
             subtotalTicketTypeLessDiscount
             ticketPrice
+            newArray {
+              id
+              bookingRef
+              bookedOn
+              client
+              ticketoption
+              ticketquantity
+              ticketprice
+              totaldue
+              totaldueCalc
+              totalpaid
+              balancedue
+              commissionRatePercent
+              commissionpayable
+              agentCode
+              clientOwnerAtPurchaseDate
+              bookingStatus
+              eventName
+              eventOwner
+              eventCommences
+              discountRate
+              discountTotal
+              discountedTotalDue
+              eventRef
+              eventType
+            
+          } 
         }
         agentDetails {
           legalName
@@ -282,6 +309,33 @@ query getAllCommissionInvoiceReceived($idUser: ID, $search: String, $min: Int, $
             totalTicketTypeDiscount
             subtotalTicketTypeLessDiscount
             ticketPrice
+            newArray {
+              id
+              bookingRef
+              bookedOn
+              client
+              ticketoption
+              ticketquantity
+              ticketprice
+              totaldue
+              totaldueCalc
+              totalpaid
+              balancedue
+              commissionRatePercent
+              commissionpayable
+              agentCode
+              clientOwnerAtPurchaseDate
+              bookingStatus
+              eventName
+              eventOwner
+              eventCommences
+              discountRate
+              discountTotal
+              discountedTotalDue
+              eventRef
+              eventType
+            
+          } 
         }
         agentDetails {
           legalName

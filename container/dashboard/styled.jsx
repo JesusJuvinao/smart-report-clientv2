@@ -37,10 +37,22 @@ export const Options = styled.div`
   `}
 `
 export const Wrapper = styled.div`
-  border-left: 1px dotted #00000017;
-  padding: 5px;
-  align-items: center;
-  position: relative;
+    padding: 20px 0px;
+    margin: auto;
+    ${props => props.center && css`
+      display: grid;
+      place-content: center;
+    `}
+    padding: 20px 0px;
+    margin: auto;
+    height: 100%;
+    display: grid;
+    place-content: center;
+    justify-content: ${({ justifyContent }) => justifyContent  || 'center'};
+    border-right: 1px solid #cccccc7a;
+    &:last-child {
+        border-right: none;
+    }
 `
 export const AnchorLink = styled.a`
     font-family: PFont-Light;
@@ -512,8 +524,8 @@ export const CardInvoice = styled.div`
     justify-content: space-between;
     flex-direction: column;
     transition: all 0.2s ease;
-    width: 100%;
-    max-width: 100%;
+    width: 95%;
+    max-width: 950%;
     
     ${({ height }) => height && css`height: ${height};`}
     `
@@ -564,8 +576,7 @@ export const Section = styled.div`
     align-items: center;
     margin: 0 auto;
     border-bottom: 1px solid #f0f0f0;
-    background-color: #8e8e8e5e;
-    /* background-color: ${({ bgRow }) => bgRow === 1 ? `${TBGAColor}` : bgRow === 2 ? `${TBGVColor}` : bgRow === 3 ? `${TBGBColor}` : bgRow === 4 ? `${TBGSColor}` : bgRow === 5 ? TBGAColor : bgRow === 6 ? TBGEColor : bgRow === 7 ? TBGRColor : bgRow === 8 && TBGDColor}; */
+    background-color: ${({ bgRow }) => bgRow === 1 ? `${TBGAColor}` : bgRow === 2 ? `${TBGVColor}` : bgRow === 3 ? `${TBGBColor}` : bgRow === 4 ? `${TBGSColor}` : bgRow === 5 ? TBGAColor : bgRow === 6 ? TBGEColor : bgRow === 7 ? TBGRColor : bgRow === 8 && TBGDColor};
     :hover {
         background-color: rgba(0,0,0,.075);
         :first-child {
@@ -725,6 +736,7 @@ export const FilterOptions = styled.div`
     margin-bottom: 30px;
     top: 0px;
     margin-top: -30px;
+    border-bottom: 1px solid #ccc;
 `
 export const Toast = styled.div`
     animation: ${({ open }) => open && (open ? fadeIn : fadeOut)} 1s forwards;
@@ -762,21 +774,16 @@ export const DownLoadButton = styled.button`
     margin-left: 10px;
 `
 export const Text = styled.span`
-    font-weight: ${({ bold }) => bold || 'initial'};
     font-size: ${({ size }) => size || '12px'};
     text-align:  ${({ align }) => align || 'start'};
-    margin: ${({ margin }) => margin || '0'};
-    justify-content: ${({ justify }) => justify || 'flex-start'};
-    display: ${({ display }) => display || 'flex'};
-    white-space: ${({ wrap }) => wrap || 'nowrap'};
-    font-family: ${({ font }) => font || 'PFont-Regular'};
     ${({ lineHeight }) => lineHeight && css`line-height: ${lineHeight};`}
-    ${({ color }) => color && css`color: ${color};`}
+    ${({ padding }) => padding && css`padding: ${padding};`}
+    margin: ${({ margin }) => margin || '0'};
+    color: ${({ color }) => color || BColor};
+    justify-content: ${({ justify }) => justify || 'flex-start'};
+    display: flex;
+    font-family: ${({ font }) => font || 'PFont-Regular'};
     word-break: break-word;
-    max-width: ${({ width }) => width || '100%'};
-    width: ${({ width }) => width || '100%'};
-    overflow: hidden;
-    text-overflow: ellipsis;
 `
 // Create styles
 export const styles = StyleSheet.create({
@@ -823,3 +830,20 @@ export const ContentToggle = styled.div`
     width: min-;
     justify-content: center;
 `
+export const TableButton = styled.button`
+    display:flex;
+    padding:5px;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 10px;
+    background-color: ${({ backgroundColor }) => backgroundColor};
+    border-radius: 4px;
+    border:none;
+    outline: none;
+    color:${({ color }) => color === 1 ? '#1db9aa' : color === 2 ? 'red' : color || null};
+    font-size: 12px;
+    font-weight:bold;
+    :hover{
+        cursor:pointer;
+    }
+    `

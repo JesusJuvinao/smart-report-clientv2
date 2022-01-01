@@ -205,6 +205,18 @@ export const BtnItem = styled.button`
         text-decoration: underline;
         cursor: pointer;     
     }
+    ${props => props.overflow &&css`
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        line-height: 1.2;
+        font-size: 1.25rem;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+    `}
 `
 export const FeatureItem = styled.div`
     display: flex;
@@ -304,6 +316,7 @@ export const Card = styled.div`
     min-height:${({ minHeight }) => minHeight || 'auto'};
     height:${({ height }) => height || 'auto'};
     ${({ shadow }) => shadow && css`box-shadow: ${shadow};`}
+    ${({ overflow }) => overflow && css`overflow: ${overflow};`}
     ${({ radius }) => radius && css`border-radius: ${radius};`}
     ${({ alignContent }) => alignContent && css`align-content: ${alignContent};`}
     /* flex-flow: column; */

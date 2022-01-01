@@ -67,10 +67,10 @@ export const MenuLeft = styled.button`
     & a {
         color: ${props => props.active ? '#a6b0cf' : '#a6b0cf'};
     }
-    @media(max-width: 768px){
-        height: 120px;
-        padding: 0px 5px;
-    }
+    /* @media(max-width: 768px){
+        height: ${({ height }) => height || '200px !important'}px;
+        padding: 1px 20px;
+    } */
 `
 export const Row = styled.div`
     display: flex;

@@ -101,12 +101,10 @@ const useDropzone = (
         }),
         dragleave: e => handle.body.dragLeave(e, () => {
             // eslint-disable-next-line
-            console.log('Window Leave')
             if (isDragging) setDragging(false)
         }),
         dragend: () => {
             // eslint-disable-next-line
-            console.log('Window End')
         },
         drop: e => handle.body.drop(e, () => {
             setDragging(false)

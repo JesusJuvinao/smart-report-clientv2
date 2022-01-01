@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext, useRef, useState  } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { LoadEllipsis, Loading } from '../../components/Loading'
 import { CREATE_ONE_LICENCE, CREATE_ONE_MODULE, CREATE_ONE_ROLE, CREATE_ONE_USER_ADMIN, GET_ALL_ROLES, GET_MODULES, GET_USER_INFO, GET_ALL_LICENCE } from './queries'
@@ -11,17 +11,17 @@ import { RippleButton } from '../../components/Ripple'
 import { BGColor, SCColor } from '../../public/colors'
 import { nanoid } from 'nanoid'
 import NewSelect from '../../components/NewSelectHooks'
+import { CreateLicence } from './CreateLicence'
 import ViewUsers from './viewUsers'
+import { CreateModules } from './CreateModules'
 export const DashboardAmin = () => {
   const { setAlertBox, company } = useContext(Context)
   const [handleChange, handleSubmit, setDataValue, { dataForm, errorForm }] = useFormTools()
-
   const [dataUser] = useUser();
   const { data: dataAllUser } = useQuery(GET_USER_INFO);
   const { data: dataHtml } = useQuery(GET_MODULES, { variables: { idComp: company.idLasComp ? company.idLasComp : dataUser?.lastCompany }, fetchPolicy: 'cache-and-network' });
   const [RegisterUserAdmin] = useMutation(CREATE_ONE_USER_ADMIN);
   const { data: allLicence } = useQuery(GET_ALL_LICENCE);
-  console.log(allLicence)
   
   const [registerModule, { loading, data }] = useMutation(CREATE_ONE_MODULE, {
     onError: (error) => {
@@ -46,6 +46,7 @@ export const DashboardAmin = () => {
       })
     }
   })
+  console.log(data)
   const [registerGetLicences, { data: dataLicence }] = useMutation(CREATE_ONE_LICENCE)
   const [createRoleMutation, { data: dataRole }] = useMutation(CREATE_ONE_ROLE, {
     onError: (error) => {
@@ -101,7 +102,8 @@ export const DashboardAmin = () => {
       setDataValue({})
     }
   })
-  var now = Date.now();
+
+  // const newData = dataForm?.items?.map(x => ({ _id: x.id, lineItemsDescription: x.bDescription, lineItemsQuantity: x.quantity ? parseFloat(x.quantity) : 0, lineItemsIdPro: x.idRef, lineItemsIdAccount: x.idAccount, lineItemsRate: x.rate ? parseFloat(x.rate) : 0, lineItemsIdClass: x.idClass, lineItemsIdVAT: x.idClass, lineItemsTotalVAT: dataForm.tax === 'NO_TAX' ? 0 : dataForm.tax === 'INCLUSIVE' ? (parseFloat(x.rate) * parseFloat(x.quantity)) / (100 + parseFloat(x.iPercentage && x.iPercentage)) * parseFloat(x.iPercentage) : dataForm.tax === 'EXCLUSIVE' ? ((parseFloat(x.rate) * parseFloat(x.quantity)) * parseFloat(x.iPercentage)) / 100 : 0, lineItemsSubTotal: (parseFloat(x.rate) * parseFloat(x.quantity)) ? (parseFloat(x.rate) * parseFloat(x.quantity)) : 0, lineItemsBillIva: x.iPercentage  }))
   const HandleFormUpdateLicence = (e, show) => handleSubmit({
     event: e,
     action: () => {
@@ -119,8 +121,8 @@ export const DashboardAmin = () => {
               Active: true,
             },
             //  Array
-            inputLineItemsMod: {
-              setDataModule: []
+            inputLineItems: {
+              setDataLicence: []
             }
           }
         })
@@ -170,18 +172,23 @@ export const DashboardAmin = () => {
       setDataValue({})
     }
   })
+  const [show, setShow] = useState(false)
+  const [showModule, setShowModule] = useState(false)
+
   const ref = useRef(null)
   return (<Container>
     <ContainerCard>
+      <button onClick={() => setShow(!show)}>Open</button>
+      <button onClick={() => setShowModule(!showModule)}>Open Module</button>
       <Card>
-        <form onSubmit={(e) => (handleForm(e))}>
+        {/* <form onSubmit={(e) => (handleForm(e))}>
           <span> Add Module  </span>
           <InputHooks title='Path Name.' width='100%' required errors={errorForm?.mPath} value={dataForm?.mPath} disabled={false} onChange={handleChange} name='mPath' />
           <InputHooks title='Module Name.' width='100%' required errors={errorForm?.mName} value={dataForm?.mName} disabled={false} onChange={handleChange} name='mName' />
           <InputHooks title='Priority Module.' type='number' width='100%' required errors={errorForm?.mPriority} value={dataForm?.mPriority} disabled={false} onChange={handleChange} name='mPriority' />
           <InputHooks title='mIcon Module.' type='number' width='100%' required errors={errorForm?.mIcon} value={dataForm?.mIcon} disabled={false} onChange={handleChange} name='mIcon' />
           <RippleButton bgColor={SCColor} margin='20px 0px' widthButton='100%' type='submit'>{loading ? <LoadEllipsis /> : 'Submit'}</RippleButton>
-        </form>
+        </form> */}
       </Card>
       <Card>
         <form onSubmit={(e) => (handleFormRole(e))}>
@@ -199,13 +206,14 @@ export const DashboardAmin = () => {
           <InputHooks title='PassWord.' width='100%' required errors={errorForm?.PassWord} value={dataForm?.PassWord} disabled={false} onChange={handleChange} name='PassWord' />
           <RippleButton bgColor={SCColor} margin='20px 0px' widthButton='100%' type='submit'>{loading ? <LoadEllipsis /> : 'Submit'}</RippleButton>
         </form>
-        <form onSubmit={(e) => (HandleFormUpdateLicence(e))}>
-          <span> Create Licence  </span>
-          <InputHooks title='Licence Name.' width='100%' required errors={errorForm?.LName} value={dataForm?.LName} disabled={false} onChange={handleChange} name='LName' />
-          <InputHooks title='Licence Descuento.' width='100%' required errors={errorForm?.LDescuento} value={dataForm?.LDescuento} disabled={false} onChange={handleChange} name='LDescuento' />
-          <InputHooks title='Licence Price.' width='100%' required errors={errorForm?.LPrice} value={dataForm?.LPrice} disabled={false} onChange={handleChange} name='LPrice' />
-          <RippleButton bgColor={SCColor} margin='20px 0px' widthButton='100%' type='submit'>{loading ? <LoadEllipsis /> : 'Submit'}</RippleButton>
-        </form>
+        <CreateLicence 
+        setShow={setShow}
+        show={show}
+        />
+        <CreateModules 
+        setShowModule={setShowModule}
+        showModule={showModule}
+        />
       </Card>
     </ContainerCard>
     <ContainerCard>

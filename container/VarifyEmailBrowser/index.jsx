@@ -21,7 +21,6 @@ export const VaryfyEmail = () => {
     }
   })
 
-  console.log(dataUser)
   const HandleSendEmail = async (e) => {
     e.preventDefault()
     await sendEmailConfirmationBrowser({

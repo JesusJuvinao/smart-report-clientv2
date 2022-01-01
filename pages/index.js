@@ -11,9 +11,9 @@ export default function Home() {
     <IndexC />
   )
 }
-// export const getServerSideProps = withSession(async function ({ req }) {
-//   if (req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/dashboard', permanent: false } }
-//   return {
-//       props: { }
-//   }
-// })
+export const getServerSideProps = withSession(async function ({ req }) {
+  if (req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/dashboard', permanent: false } }
+  return {
+      props: { }
+  }
+})

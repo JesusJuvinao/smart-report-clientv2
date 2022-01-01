@@ -20,10 +20,10 @@ export const Navigation = styled.section`
     align-items: center;
     justify-content: space-between;
     padding: 50px 0 80px 0;
-    font-size: 14px;
-    text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 700;
+    min-width: 80%;
+    max-width: 80%;
+    margin: auto;
 `;
 export const PayMethod = styled.section`
     margin: 70px auto;

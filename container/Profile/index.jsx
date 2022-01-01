@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Context } from '../../context'
 import { useMutation, useQuery } from '@apollo/client'
-import { CHANGE_INFO_USER, GET_USER, SEND_EMAIL_CONFIRMATION } from './queries'
+import { CHANGE_INFO_USER, CONNECT_STRIPE, GET_USER, SEND_EMAIL_CONFIRMATION } from './queries'
 import { useSetState } from '../../components/hooks/useState'
 import { IconFacebook, IconInstagram, IconTwitter } from '../../public/icons'
 import InputHooks from '../../components/InputHooks/InputHooks'
@@ -18,6 +18,7 @@ import { Avatar, CardPrimary, Container, Content, ContentInfo, CtnIcon, Text, Ca
 import CountdownApp from '../../components/hooks/useSetInterval'
 import { useRouter } from 'next/router'
 import { useCompanyHook } from '../../container/dashboard'
+import axios from 'axios'
 
 export const ProfileC = ({ login, token }) => {
   // State
@@ -46,6 +47,8 @@ export const ProfileC = ({ login, token }) => {
   // }, [data])
   // useEffect(() => data?.role?.name !== 1 && router.push('/dashboard/admin'), [data])
   const [sendEmailConfirmation, { loading: loadingSendEmail }] = useMutation(SEND_EMAIL_CONFIRMATION)
+
+  const [connectStripe, { loading: loadConnectStripe }] = useMutation(CONNECT_STRIPE)
 
   const onTargetClick = () => {
     fileInputRef?.current?.click()
@@ -89,6 +92,20 @@ export const ProfileC = ({ login, token }) => {
     }
   })
   if (loading || loadingUpdate) return <Loading />
+
+  const handleConnectStripe = async() => {
+
+    let idUser = data.id
+    const res = await axios.post(`http://localhost:3000/api/stripe?idUser=${idUser}`)
+  }
+
+  // const handleConnectStripe = async () => {
+  //   await connectStripe({
+  //     variables: { emailUser: data.uEmail }
+  //   }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+  //   handleStart()
+  // }
+
   return (
     <Container>
       <AwesomeModal padding={'20px'} show={openModal} title='Verify email' onHide={() => setOpenModal(false)} onCancel={() => false} size='small' btnCancel={false} btnConfirm={false} header={true} footer={false} borderRadius='10px' >
@@ -128,6 +145,7 @@ export const ProfileC = ({ login, token }) => {
                 <InputHooks width='100%' title='currentPassword' required error={errorForm?.currentPassword} value={dataForm?.currentPassword} onChange={handleChange} name='currentPassword' />
                 <InputHooks width='100%' title='currentPassword' required error={dataForm?.newPassword} value={dataForm?.newPassword} onChange={handleChange} name='newPassword' />
                 <RippleButton widthButton='100%' type='submit'>Save</RippleButton>
+                <RippleButton widthButton='100%' type='submit' onClick={ handleConnectStripe() }>Connect Stripe</RippleButton>
               </form>
             </CardPrimary>
           </ShadowCard>

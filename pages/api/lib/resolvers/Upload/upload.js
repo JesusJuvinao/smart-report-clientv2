@@ -5,7 +5,6 @@ import { client } from '../../../presignedUrl'
 
 export const uploadFile = async (_, { file, input }, ctx) => {
     // Upload the files
-    console.log(file, input)
     const idUser = ctx.User.id
     const idComp = ctx.idComp
     try {

@@ -88,7 +88,7 @@ export const validations = (e, typeNull, typeLetters, typeNumeric, typeRange, mi
     if (typeRange) {
         if (rangeLength(value, minRange, maxRange)) {
             e.target.style.border = '1px solid  red'
-            nextSibling.innerHTML = `El rango de caracteres es de ${ minRange } a ${ maxRange }.`
+            nextSibling.innerHTML = `El rango de caracteres es de ${minRange} a ${maxRange}.`
             return true
         }
     }
@@ -116,7 +116,7 @@ export const validationForm = (inputs, error) => {
     let errorForm = false
     /** verifica los campos del formulario */
     for (let i = 0; i < inputs.length; i++) {
-    /** verifica los input y select si se encuentra vacio o si no, si hay un error del onchange */
+        /** verifica los input y select si se encuentra vacio o si no, si hay un error del onchange */
         if ((!!inputs[i].value === false || inputs[i].value === 'false') && inputs[i].type !== 'submit' && inputs[i].type !== 'file' && inputs[i].type !== 'button') {
             //  verifica si es un input, select obligatorio */
             if (inputs[i].dataset.ignore === 'false') {
@@ -135,7 +135,7 @@ export const validationForm = (inputs, error) => {
                 errorForm = true
             }
         } else
-        if (error[inputs[i].name]) { errorForm = true }
+            if (error[inputs[i].name]) { errorForm = true }
     }
     return errorForm
 }
@@ -320,7 +320,7 @@ export const validationsTwo = (e, typeNull, typeLetters, typeNumeric, typeRange,
         if (isNumeric(value)) { return validationsTF(e.target, nextSibling, nextSibling.nextSibling, parentNode.lastChild, 'Solo puede contener números', true) }
     }
     if (typeRange) {
-        if (rangeLength(value, minRange, maxRange)) { return validationsTF(e.target, nextSibling, nextSibling.nextSibling, parentNode.lastChild, `El rango de caracteres es de ${ minRange } a ${ maxRange }.`, true) }
+        if (rangeLength(value, minRange, maxRange)) { return validationsTF(e.target, nextSibling, nextSibling.nextSibling, parentNode.lastChild, `El rango de caracteres es de ${minRange} a ${maxRange}.`, true) }
     }
     if (typeLetters) {
         if (onlyLetters(value)) { return validationsTF(e.target, nextSibling, nextSibling.nextSibling, parentNode.lastChild, 'Solo puede contener letras', true) }
@@ -408,12 +408,12 @@ export const getDataLS = jsonValue => {
         return jsonValue
     }
 }
-export function parse (str) {
+export function parse(str) {
     if (Array.isArray(str)) {
         alert()
         for (const current in str) {
             // eslint-disable-next-line
-            console.log(current)
+            console.log('')
         }
     }
 }
@@ -426,7 +426,7 @@ export function parse (str) {
 export const updateCache = async ({ cache, query, nameFun, dataNew }) => {
     return cache.modify({
         fields: {
-            [nameFun] (dataOld = {}) {
+            [nameFun](dataOld = {}) {
                 return cache.writeQuery({ query, data: { ...dataOld, data: { ...(dataOld?.data || {}), ...(dataNew?.data || {}) } } })
             }
         }
@@ -441,7 +441,7 @@ export const updateCache = async ({ cache, query, nameFun, dataNew }) => {
 export const updateCacheMod = async ({ cache, query, nameFun, dataNew, type, id }) => {
     return cache.modify({
         fields: {
-            [nameFun] (dataOld = []) {
+            [nameFun](dataOld = []) {
                 if (type === 1) return cache.writeQuery({ query, data: [...(dataOld || []), { ...(dataNew || {}) }] })
                 if (type === 2) return cache.writeQuery({ query, data: { ...(dataOld || {}), ...(dataNew || {}) } })
                 if (type === 3) return cache.writeQuery({ query, data: dataOld.filter(x => x === id) })
@@ -454,7 +454,7 @@ export const updateCacheMod = async ({ cache, query, nameFun, dataNew, type, id 
  * @returns {null} no hay retorno
  */
 const TOKEN = 'sma.sv1'
-export function setToken (token) {
+export function setToken(token) {
     if (token === null) return false
     else if (token !== null) return JSON.parse
 }
@@ -462,15 +462,15 @@ export function setToken (token) {
  * obtiene el token del usuario
  * @returns {null} no hay retorno
  */
-export function getToken () {
+export function getToken() {
     return localStorage.getItem(TOKEN)
 }
 // obtiene el token del usuario y lo descodifica
-export function decodeToken (token) {
+export function decodeToken(token) {
     return jwtDecode(token)
 }
 const now = Date.now().valueOf() / 1000
-export function getTokenState (token) {
+export function getTokenState(token) {
     if (!token) {
         return { valid: false, needRefresh: true }
     }
@@ -484,7 +484,7 @@ export function getTokenState (token) {
     }
 }
 // Obtiene el token y lo elimina
-export function removeToken () {
+export function removeToken() {
     return localStorage.removeItem(TOKEN)
 }
 export const validateEmail = email => {
@@ -497,7 +497,7 @@ export const validateEmail = email => {
  * @param {string} value valor en numeros
  * @return {string} nuevo formato en teléfono
  */
-export const upperCase = value => `${ value || '' }`.toUpperCase()
+export const upperCase = value => `${value || ''}`.toUpperCase()
 
 /**
  * Transforma un numero en formato de teléfono
@@ -514,7 +514,7 @@ export const upperCase = value => `${ value || '' }`.toUpperCase()
  */
 export const calculateCheckDigit = value => {
     // variables necesarias
-    let nit = `${ value }`
+    let nit = `${value}`
     const vpri = [undefined, 3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71]
 
     // Se limpia el Nit
@@ -572,7 +572,7 @@ export const validationsOld = (e, typeNull, typeLetters, typeNumeric, typeRange,
         if (isNumeric(value)) return validationsTF(parentNode, nextSibling, 'Solo puede contener números.', true)
     }
     if (typeRange) {
-        if (rangeLength(value, minRange, maxRange)) return validationsTF(parentNode, nextSibling, `El rango de caracteres es de ${ minRange } a ${ maxRange }.`, true)
+        if (rangeLength(value, minRange, maxRange)) return validationsTF(parentNode, nextSibling, `El rango de caracteres es de ${minRange} a ${maxRange}.`, true)
     }
     if (typeLetters) {
         if (onlyLetters(value)) return validationsTF(parentNode, nextSibling, 'Solo puede contener letras.', true)
@@ -632,16 +632,16 @@ export const Bucket = 'NAME'
  */
 const Unidades = value => {
     switch (value) {
-    case 1: return 'UN'
-    case 2: return 'DOS'
-    case 3: return 'TRES'
-    case 4: return 'CUATRO'
-    case 5: return 'CINCO'
-    case 6: return 'SEIS'
-    case 7: return 'SIETE'
-    case 8: return 'OCHO'
-    case 9: return 'NUEVE'
-    default: return ''
+        case 1: return 'UN'
+        case 2: return 'DOS'
+        case 3: return 'TRES'
+        case 4: return 'CUATRO'
+        case 5: return 'CINCO'
+        case 6: return 'SEIS'
+        case 7: return 'SIETE'
+        case 8: return 'OCHO'
+        case 9: return 'NUEVE'
+        default: return ''
     }
 }
 
@@ -653,7 +653,7 @@ const Unidades = value => {
  * @return {string} concatena al cantidad
  */
 const DecenasY = (strSin, numUnit) => {
-    if (numUnit > 0) return `${ strSin } Y ${ Unidades(numUnit) }`
+    if (numUnit > 0) return `${strSin} Y ${Unidades(numUnit)}`
     return strSin
 }
 
@@ -668,30 +668,30 @@ const Decenas = value => {
     const Unit = value - (ten * 10)
 
     switch (ten) {
-    case 1:
-        switch (Unit) {
-        case 0: return 'DIEZ'
-        case 1: return 'ONCE'
-        case 2: return 'DOCE'
-        case 3: return 'TRECE'
-        case 4: return 'CATORCE'
-        case 5: return 'QUINCE'
-        default: return `DIECI${ Unidades(Unit) }`
-        }
-    case 2:
-        switch (Unit) {
-        case 0: return 'VEINTE'
-        default: return `VEITI${ Unidades(Unit) }`
-        }
-    case 3: return DecenasY('TREINTA', Unit)
-    case 4: return DecenasY('CUARENTA', Unit)
-    case 5: return DecenasY('CINCUENTA', Unit)
-    case 6: return DecenasY('SESENTA', Unit)
-    case 7: return DecenasY('SETENTA', Unit)
-    case 8: return DecenasY('OCHENTA', Unit)
-    case 9: return DecenasY('NOVENTA', Unit)
-    case 0: return Unidades(Unit)
-    default: return ''
+        case 1:
+            switch (Unit) {
+                case 0: return 'DIEZ'
+                case 1: return 'ONCE'
+                case 2: return 'DOCE'
+                case 3: return 'TRECE'
+                case 4: return 'CATORCE'
+                case 5: return 'QUINCE'
+                default: return `DIECI${Unidades(Unit)}`
+            }
+        case 2:
+            switch (Unit) {
+                case 0: return 'VEINTE'
+                default: return `VEITI${Unidades(Unit)}`
+            }
+        case 3: return DecenasY('TREINTA', Unit)
+        case 4: return DecenasY('CUARENTA', Unit)
+        case 5: return DecenasY('CINCUENTA', Unit)
+        case 6: return DecenasY('SESENTA', Unit)
+        case 7: return DecenasY('SETENTA', Unit)
+        case 8: return DecenasY('OCHENTA', Unit)
+        case 9: return DecenasY('NOVENTA', Unit)
+        case 0: return Unidades(Unit)
+        default: return ''
     }
 }
 /**
@@ -705,18 +705,18 @@ const Centenas = value => {
     const tens = value - (hundreds * 100)
 
     switch (hundreds) {
-    case 1:
-        if (tens > 0) return `CIENTO${ Decenas(tens) }`
-        return 'CIEN'
-    case 2: return `DOSCIENTOS${ Decenas(tens) }`
-    case 3: return `TRESCIENTOS${ Decenas(tens) }`
-    case 4: return `CUATROCIENTOS${ Decenas(tens) }`
-    case 5: return `QUINIENTOS${ Decenas(tens) }`
-    case 6: return `SEISCIENTOS${ Decenas(tens) }`
-    case 7: return `SETECIENTOS${ Decenas(tens) }`
-    case 8: return `OCHOCIENTOS${ Decenas(tens) }`
-    case 9: return `NOVECIENTOS${ Decenas(tens) }`
-    default: return Decenas(tens)
+        case 1:
+            if (tens > 0) return `CIENTO${Decenas(tens)}`
+            return 'CIEN'
+        case 2: return `DOSCIENTOS${Decenas(tens)}`
+        case 3: return `TRESCIENTOS${Decenas(tens)}`
+        case 4: return `CUATROCIENTOS${Decenas(tens)}`
+        case 5: return `QUINIENTOS${Decenas(tens)}`
+        case 6: return `SEISCIENTOS${Decenas(tens)}`
+        case 7: return `SETECIENTOS${Decenas(tens)}`
+        case 8: return `OCHOCIENTOS${Decenas(tens)}`
+        case 9: return `NOVECIENTOS${Decenas(tens)}`
+        default: return Decenas(tens)
     }
 }
 
@@ -735,7 +735,7 @@ const Seccion = (value, divider, strSingular, strPlural) => {
     let letters = ''
 
     if (hundreds > 0) {
-        if (hundreds > 1) letters = `${ Centenas(hundreds) } ${ strPlural }`
+        if (hundreds > 1) letters = `${Centenas(hundreds)} ${strPlural}`
         else letters = strSingular
     }
 
@@ -758,7 +758,7 @@ const Miles = value => {
 
     if (strThousands === '') return strhundreds
 
-    return `${ strThousands } ${ strhundreds }`
+    return `${strThousands} ${strhundreds}`
 }
 
 /**
@@ -776,7 +776,7 @@ const Millones = value => {
 
     if (strMillions === '') return strThousands
 
-    return `${ strMillions } ${ strThousands }`
+    return `${strMillions} ${strThousands}`
 }
 /**
  * Formato de transformar numero a Letras
@@ -798,16 +798,16 @@ export const NumeroALetras = (value, format = false) => {
     }
 
     if (data.pennies > 0) {
-        data.letterPennies = `CON ${ (function () {
-            if (data.pennies === 1) return `${ Millones(data.pennies) } ${ data.letterCoinPennieSingular }`
-            else return `${ Millones(data.pennies) } ${ data.letterCoinPenniesPlural }`
+        data.letterPennies = `CON ${(function () {
+            if (data.pennies === 1) return `${Millones(data.pennies)} ${data.letterCoinPennieSingular}`
+            else return `${Millones(data.pennies)} ${data.letterCoinPenniesPlural}`
         })()
-        }`
+            }`
     }
 
-    if (data.integers === 0) return `CERO ${ data.letterCoinPlural } ${ data.letterPennies }`
-    if (data.integers === 1) return `${ Millones(data.integers) } ${ data.letterCoinSingular } ${ data.letterPennies }`
-    else return `${ Millones(data.integers) } ${ data.letterCoinPlural } ${ data.letterPennies }`
+    if (data.integers === 0) return `CERO ${data.letterCoinPlural} ${data.letterPennies}`
+    if (data.integers === 1) return `${Millones(data.integers)} ${data.letterCoinSingular} ${data.letterPennies}`
+    else return `${Millones(data.integers)} ${data.letterCoinPlural} ${data.letterPennies}`
 }
 
 /**
@@ -831,67 +831,67 @@ export const valRand = () => {
 export const numberFormatM = param => {
     let money = 0; let num = 0; let value = 0; let val = param
     if (val >= 1000000000) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`${ num }000`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`${num}000`)
         money += value
-        val -= parseFloat(`${ num }000000000`)
+        val -= parseFloat(`${num}000000000`)
     }
 
     if (val >= 100000000) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`${ num }00`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`${num}00`)
         money += value
-        val -= parseFloat(`${ num }00000000`)
+        val -= parseFloat(`${num}00000000`)
     }
 
     if (val >= 10000000) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`${ num }0`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`${num}0`)
         money += value
-        val -= parseFloat(`${ num }0000000`)
+        val -= parseFloat(`${num}0000000`)
     }
 
     if (val >= 1000000) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`${ num }`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`${num}`)
         money += value
-        val -= parseFloat(`${ num }000000`)
+        val -= parseFloat(`${num}000000`)
     }
     if (val >= 100000) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`0.${ num }`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`0.${num}`)
         money += value
-        val -= parseFloat(`${ num }00000`)
+        val -= parseFloat(`${num}00000`)
     }
     if (val >= 10000) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`0.0${ num }`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`0.0${num}`)
         money += value
-        val -= parseFloat(`${ num }0000`)
+        val -= parseFloat(`${num}0000`)
     }
     if (val >= 1000) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`0.00${ num }`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`0.00${num}`)
         money += value
-        val -= parseFloat(`${ num }000`)
+        val -= parseFloat(`${num}000`)
     }
     if (val >= 100) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`0.000${ num }`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`0.000${num}`)
         money += value
-        val -= parseFloat(`${ num }00`)
+        val -= parseFloat(`${num}00`)
     }
     if (val >= 10) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`0.0000${ num }`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`0.0000${num}`)
         money += value
-        val -= parseFloat(`${ num }0`)
+        val -= parseFloat(`${num}0`)
     }
     if (val >= 1) {
-        num = `${ val }`.charAt(0)
-        value = parseFloat(`0.00000${ num }`)
+        num = `${val}`.charAt(0)
+        value = parseFloat(`0.00000${num}`)
         money += value
-        val -= parseFloat(`${ num }`)
+        val -= parseFloat(`${num}`)
     }
 
     return money.toFixed(2)
@@ -925,9 +925,9 @@ export const mongoObjectId = function () {
     }).toLowerCase()
 }
 
-export default function useKeypress (key, action) {
+export default function useKeypress(key, action) {
     useEffect(() => {
-        function onKeyup (e) {
+        function onKeyup(e) {
             if (e.key === key) action()
         }
         window.addEventListener('keyup', onKeyup)
@@ -972,7 +972,7 @@ export const CalculateAmount = (quantity, rate) => {
  * @returns {date} date day
  */
 const today = new Date()
-export const dateNow = `${ today.getFullYear() }-${ today.getMonth() + 1 }-${ today.getDate() }`
+export const dateNow = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
 
 // export const handleDelete = async (_id, action = () => undefined) => {
 //   useEffect(() => {
@@ -990,14 +990,28 @@ export const hiddenEmail = email => {
     const sliceUsername = username.slice(0, 3)
     const lastChar = username.charAt(username.length - 1)
     const usernameLengthToHide =
-    username.length - (sliceUsername.length + lastChar.length)
+        username.length - (sliceUsername.length + lastChar.length)
     const hideUsername = '*'.repeat(usernameLengthToHide)
     const domainLengthToHide = domain.length - sliceDomain.length
     const hideDomain = '*'.repeat(domainLengthToHide)
-    const result = `${ sliceUsername }${ hideUsername }${ lastChar }@${ hideDomain }${ sliceDomain }`
+    const result = `${sliceUsername}${hideUsername}${lastChar}@${hideDomain}${sliceDomain}`
     return result
 }
-export const roundToTwo = (num) =>  {
+export const roundToTwo = (num) => {
     return (Math.round(num + 'e+2') + 'e-2');
 }
-  
+
+export const NewDateFormat = (date) => {
+    try {
+        // const dateString = new Date(dateString)
+        const dateString = date => new Date(date).toString() !== 'Invalid Date';
+        const newDate = dateString instanceof Date && !isNaN(dateString);
+        console.log(newDate, 'asi es bro soy men')
+        console.log(dateString, '222222222')
+        // return new Date(date).toISOString().slice(0, 10).replace(/-/g,"");
+        return date
+
+    } catch (error) {
+        console.log(error)
+    }
+}

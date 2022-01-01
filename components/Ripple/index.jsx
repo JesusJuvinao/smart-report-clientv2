@@ -53,10 +53,7 @@ const Button = styled.button`
  ${ ({ borderSolid }) => !!borderSolid && css`border: ${ borderSolid };` }
  ${ ({ minHeight }) => !!minHeight && css`min-height: ${ minHeight };` }
  ${ ({ minHeight }) => !!minHeight && css`max-height: ${ minHeight };` }
- ${ ({ widthButton }) => widthButton && css`
-    width: ${ widthButton };`
-}
-
+ ${ ({ widthButton }) => widthButton && css` width: ${ widthButton };`}
 span {
   font-family: PFont-Light !important;
 }

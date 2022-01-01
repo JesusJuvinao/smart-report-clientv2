@@ -7,7 +7,7 @@ import { Text } from '@react-pdf/renderer'
 import styled, { css } from 'styled-components'
 import { GET_ALL_ACCOUNT, GET_ALL_IVA } from '../graphql/queries'
 import { useMutation, useQuery } from '@apollo/client'
-import { Context } from'../../context'
+import { Context } from '../../context'
 import { useUser } from '../Profile'
 import NewSelect from '../../components/NewSelectHooks'
 import { AwesomeModal } from '../../components/AwesomeModal'
@@ -63,8 +63,8 @@ export const List = ({ modal, setModal }) => {
         setDataValue({
             tax: 'INCLUSIVE',
             salesNo: Math.round(Math.random() * (99999 - 10000) + 10000),
-            refCode: `${ nanoid() }`,
-            dateNow: `${ dateNow }`,
+            refCode: `${nanoid()}`,
+            dateNow: `${dateNow}`,
             tags: []
         })
     }, [])
@@ -197,10 +197,10 @@ export const List = ({ modal, setModal }) => {
     return (
         <div>
             <div>
-                <AwesomeModal useScroll={true} backdrop='static' height='100vh' padding='30px' show={!!modal} hideOnConfirm={false} title={` Invoice ${ dataForm?.refCode } `} onHide={() => { setModal(!modal) }} onCancel={() => false} size='large' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
+                <AwesomeModal useScroll={true} backdrop='static' height='100vh' padding='30px' show={!!modal} hideOnConfirm={false} title={` Invoice ${dataForm?.refCode} `} onHide={() => { setModal(!modal) }} onCancel={() => false} size='large' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                     <ContentModal>
                         <WrapPdf>
-                            <AwesomeModal zIndex={'9999'} height='100vh' show={modalPdf} hideOnConfirm={false} title={` Generate Pdf ${ dataForm?.refCode } `} onHide={() => setModalPdf(!modalPdf)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
+                            <AwesomeModal zIndex={'9999'} height='100vh' show={modalPdf} hideOnConfirm={false} title={` Generate Pdf ${dataForm?.refCode} `} onHide={() => setModalPdf(!modalPdf)} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                                 <ContentModal>
                                     <ContentPdf>
                                         <DocumentPdf
@@ -236,7 +236,7 @@ export const List = ({ modal, setModal }) => {
                             </Card>
                             <Texto font='PFont-Medium' size='17px' ><span style={{ fontSize: '10px' }}>Currency</span> {dataOneSupplier?.getOneSuppliers?.sCurrency?.cName ? dataOneSupplier?.getOneSuppliers?.sCurrency?.cName : 'USD'}</Texto>
                             <Button width='120px' border='1px solid' height='30px' type='button' onClick={() => setModalPdf(!modalPdf)}>
-                Open Pdf
+                                Open Pdf
                             </Button>
                         </Card>
                         <Card justify='space-between'>
@@ -399,11 +399,11 @@ export const List = ({ modal, setModal }) => {
                                 <FooterModal>
                                     <Button type='button' className="link" onClick={handleAdd}>
                                         <span className="icon icon-add bg-green mr-10"></span>
-                    Add Line Item
+                                        Add Line Item
                                     </Button>
                                     <Button type='submit' className="link">
                                         <span className="icon icon-add bg-green mr-10"></span>
-                    Save
+                                        Save
                                     </Button>
                                 </FooterModal>
                             </form>
@@ -412,10 +412,10 @@ export const List = ({ modal, setModal }) => {
                         <Card justify='space-between' margin='10px 0 0 0' width='100%'>
                             <Card>
                                 <Button height='30px' width='135px' border='1px solid #8d9096' type='button' className="link" onClick={handleAdd}>
-                  Add Line Item
+                                    Add Line Item
                                 </Button>
                                 <Button height='30px' width='135px' border='1px solid #8d9096' type='button' className="link" onClick={CleanLines}>
-                  Clean lines
+                                    Clean lines
                                 </Button>
                             </Card>
                             <Card width='min-content'>
@@ -458,7 +458,7 @@ export const InputSelect = ({ className, placeholder, value, onChange, show, pdf
         if (!data) return ''
         if (Array.isArray(optionName)) {
             let valueRender = ''
-            optionName.forEach(x => valueRender = `${ valueRender } ${ (accessor && data[accessor]) ? data[accessor][x] : data[x] }`)
+            optionName.forEach(x => valueRender = `${valueRender} ${(accessor && data[accessor]) ? data[accessor][x] : data[x]}`)
             return valueRender
         } else return data[optionName]
     }
@@ -546,10 +546,10 @@ const ButtonAction = styled.button`
     background-color: rgb(212, 215, 220);
     &:hover {
       background-color: rgb(44, 160, 28);
-      color: ${ BGColor };
+      color: ${BGColor};
     }
     &:hover > svg {
-      fill: ${ BGColor };
+      fill: ${BGColor};
     }
 `
 const InputTag = styled.div`
@@ -560,7 +560,7 @@ const InputTag = styled.div`
     flex-direction: row;
     cursor: text;
     align-items: center;
-    ${ ({ maxHeight }) => maxHeight && css`max-height: ${ maxHeight };` }
+    ${({ maxHeight }) => maxHeight && css`max-height: ${maxHeight};`}
 
 
 `
@@ -568,8 +568,8 @@ const WrapPdf = styled.div`
 
 `
 const Tags = styled.div`
-  border: .5px solid ${ `${ SEGColor }69` };
-  color: ${ SEGColor };
+  border: .5px solid ${`${SEGColor}69`};
+  color: ${SEGColor};
   display: flex;
   place-content: center;
   margin: 0px 2px;
@@ -583,15 +583,15 @@ const Tags = styled.div`
 `
 export const Box = styled.div`
     display: block;
-    width: ${ ({ width }) => width || '100%' };
-    flex-direction: ${ ({ direction }) => direction || 'row' };
+    width: ${({ width }) => width || '100%'};
+    flex-direction: ${({ direction }) => direction || 'row'};
     position: relative;
     box-sizing: border-box;
     margin: 10px 5px;
     border: 1px solid #cccccc;
     border-radius: 5px;
-    ${ props => props.block && css`
-        background-color: ${ SFVColor };
+    ${props => props.block && css`
+        background-color: ${SFVColor};
         cursor: no-drop;
     ` }
  
@@ -621,7 +621,7 @@ const ContentModal = styled.div`
     overflow-y: auto;
     flex-direction: column;
     position: relative;
-    ${ ({ width }) => width
+    ${({ width }) => width
         ? css`
                   width: 80%;
                   `
@@ -644,16 +644,16 @@ const BoxSelect = styled.div`
 `
 
 export const Select = styled.select`
-  width: ${ ({ width }) => width || '100%' };
-  border: ${ ({ border }) => border || 'none' };
+  width: ${({ width }) => width || '100%'};
+  border: ${({ border }) => border || 'none'};
   height: 330px;
   min-height: 30px;
   max-height: 30px;
   font-size: 11px;
-  color: ${ BColor };
+  color: ${BColor};
   outline: none;
   option {
-    color: ${ BColor };
+    color: ${BColor};
     position: fixed;
   } 
   &:after {
@@ -670,18 +670,18 @@ export const Select = styled.select`
 export const Button = styled.button`
     flex-direction: row;
     position: relative;
-    width: ${ ({ width }) => width || 'auto' };
-    padding: ${ ({ padding }) => padding || '5px' };
-    display: ${ ({ display }) => display || 'flex' };
+    width: ${({ width }) => width || 'auto'};
+    padding: ${({ padding }) => padding || '5px'};
+    display: ${({ display }) => display || 'flex'};
     cursor: pointer;
-    border-radius: ${ ({ radius }) => radius || '30px' };
-    border: ${ ({ border }) => border || 'none' };
+    border-radius: ${({ radius }) => radius || '30px'};
+    border: ${({ border }) => border || 'none'};
     font-size: 16px;
     justify-content: center;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     height: min-content;
-    width: ${ ({ width }) => width || 'auto' };
-    background-color: ${ BGColor };
+    width: ${({ width }) => width || 'auto'};
+    background-color: ${BGColor};
     &:disabled {
         cursor: no-drop;
     }
@@ -702,19 +702,19 @@ const InputText = styled.input`
     font-size: 12px;
     &:disabled {
       cursor: no-drop;
-      background-color: ${ SFVColor };
+      background-color: ${SFVColor};
     }
 `
 export const FooterModal = styled.div`
     width: 100%;
     height: 40px;
     right: 0;
-    background-color: ${ SECColor };
+    background-color: ${SECColor};
     bottom: -1px;
     z-index: 999;
     display: flex;
     align-items: center;
-    position: ${ ({ position }) => position || 'fixed' };
+    position: ${({ position }) => position || 'fixed'};
     justify-content: space-between;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 `
@@ -723,25 +723,25 @@ const InputCustom = styled.input`
   outline: none;
   font-size: 11px;
   border: none;
-  width: ${ ({ width }) => width || '100%' };
+  width: ${({ width }) => width || '100%'};
 `
 const Card = styled.div`
-  display: ${ ({ display }) => display || 'flex' };
-  justify-content: ${ ({ justify }) => justify || 'flex-start' };
-  padding: ${ ({ padding }) => padding || '0' };
-  margin: ${ ({ margin }) => margin || '0' };
-  height: ${ ({ height }) => height || 'auto' };
-  width: ${ ({ width }) => width || '100%' };
-  border: ${ ({ border }) => border || 'none' };
+  display: ${({ display }) => display || 'flex'};
+  justify-content: ${({ justify }) => justify || 'flex-start'};
+  padding: ${({ padding }) => padding || '0'};
+  margin: ${({ margin }) => margin || '0'};
+  height: ${({ height }) => height || 'auto'};
+  width: ${({ width }) => width || '100%'};
+  border: ${({ border }) => border || 'none'};
 `
 const Texto = styled.span`
-    font-size: ${ ({ size }) => size || '12px' };
-    font-family: ${ ({ font }) => font || 'PFont-Regular' };
+    font-size: ${({ size }) => size || '12px'};
+    font-family: ${({ font }) => font || 'PFont-Regular'};
 `
 const ContainerListItem = styled.div`
   display: flex;
   justify-content: space-between;
-  width: ${ ({ width }) => width || '100%' };
+  width: ${({ width }) => width || '100%'};
         max-height: 100%;
         @media (max-width: 1199px) {
         overflow-y: scroll;

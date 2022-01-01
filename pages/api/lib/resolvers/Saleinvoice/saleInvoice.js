@@ -132,7 +132,6 @@ export const getOneSalesInvoicesById = async (_, __, ctx) => {
     }
 }
 export const shareInvoice = async (_, { toEmail, fromEmail }) => {
-    console.log('hei perris', toEmail, fromEmail)
     return { success: true, message: 'data' }
 
 }

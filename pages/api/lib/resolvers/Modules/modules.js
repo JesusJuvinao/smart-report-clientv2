@@ -10,6 +10,7 @@ export const registerModule = async (_, { input, inputLineItemsMod }, ctx) => {
     const { mPath, mName, mPriority, mIcon } = input || {}
     const { setDataModule } = inputLineItemsMod || {}
     const { smName, smPath, smState } = setDataModule
+    console.log(setDataModule)
     const idUser = ctx.User.id
     try {
     // Can only register the administrator
@@ -19,6 +20,7 @@ export const registerModule = async (_, { input, inputLineItemsMod }, ctx) => {
             if (roles[i].name === 'admin') {
                 const data = await ModulesSchema.create({ mPath, mName, mPriority, mIcon })
                 for (let i = 0; i < setDataModule.length; i++) {
+                    const { smName, smPath, smState } = setDataModule[i]
                     await ModulesSchema.findOneAndUpdate(
                         { _id: data._id },
                         {
@@ -38,6 +40,7 @@ export const registerModule = async (_, { input, inputLineItemsMod }, ctx) => {
             }
         }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

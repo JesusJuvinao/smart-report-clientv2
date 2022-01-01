@@ -158,7 +158,6 @@ export const deleteOneTagLineItem = async (_, { id, idLine }) => {
 }
 export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx) => {
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
-    console.log(idInvoice, ToEmail, uEmail)
     try {
         if (!InvoiceData) {
             return { success: false, message: 'The Invoice no exist' }
@@ -196,6 +195,7 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log( idInvoice, ToEmail, uEmail, 'HKASHDLAKSHDL')
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -227,7 +227,7 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
                 })
             })
         }
-        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }
@@ -336,7 +336,7 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
                     uEmail,
                     date: today,
                     hour,
-                    statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                    statusInvoice: InvoiceData.isRedo !== true ? 'Redo' : 'No Redo',
                 })
             })
         }
@@ -346,20 +346,19 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
     }
 
 }
-export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName }, ctx) => {
+export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName, max }, ctx) => {
     // const idUser = ctx.User.id
-    // const idUser = ctx.User.id
-    const idUser = '61c38a904516c431d8c22e08'
+    const idUser = ctx.User.id
+    console.log(max)
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });
         if (dataComp && dataComp.length) {
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName })
+            const data = await CommissionSchema.find({ invoiceTo: dataCompany.companyName }).sort({ age: -1 }).limit(max || 10)
             return data
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -380,7 +379,7 @@ export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     const idUser = ctx.User.id
     // const idUser = '61c38a904516c431d8c22e08'
-    // console.log(datePaid, updatedAt, invoiceTo, invoiceFrom)
+    
     const time = new Date(datePaid)
     const invoiceToDate = new Date(invoiceTo)
     const invoiceFromDate = new Date(invoiceFrom)
@@ -390,19 +389,15 @@ export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName,
         if (dataComp && dataComp.length) {
             // var today = moment().startOf('day');
             const dataCompany = await CompanySchema.findOne({ _id: idComp });
-            console.log(dataCompany)
             const data = await CommissionSchema.find({
                 invoiceFrom: dataCompany.companyName,
                 // updatedAt: { $regex: { $gte: invoiceToDate, $lt: invoiceFromDate, $options: 'i'  } },
                 // eventName: { $regex: search, $options: 'i' },
                 // updatedAt: { $regex: time.toISOString(), $options: 'i' }
-            }).sort({ age: -1 }).limit(max || 100)
-            const newData = data?.map(x => { return ({ eventCommences: strToDate(x.eventCommences), lineItemsArray: [{ _id: x.lineItemsArray._id, subtotalTicketsSold:  x.lineItemsArray.subtotalTicketsSold, ticketType:  x.lineItemsArray.ticketType, lineSalesReceived: x.lineItemsArray.lineSalesReceived, lineSubtotal: x.lineItemsArray.lineSubtotal, lineCommSubtotal: x.lineItemsArray.lineCommSubtotal, ticketCategoryTotalDue: x.lineItemsArray.ticketCategoryTotalDue, totalTicketTypeDiscount: x.lineItemsArray.totalTicketTypeDiscount, subtotalTicketTypeLessDiscount: x.lineItemsArray.subtotalTicketTypeLessDiscount, ticketPrice: x.lineItemsArray.ticketPrice }], _id: x._id, idUser: x.idUser, idComp: x.idComp, uploaded: x.uploaded, invoiceDate: x.invoiceDate, invoiceRef: x.invoiceRef, invoiceTo: x.invoiceTo, invoiceFrom: x.invoiceFrom, eventRef: x.eventRef, isApprovedByInvoiceSender: x.isApprovedByInvoiceSender, currency: x.currency, eventName: x.eventName, eventType: x.eventType, invoiceTotal: x.invoiceTotal,  totalCommDue: x.totalCommDue, totalSalesReceived: x.totalSalesReceived, totalDiscounts: x.totalDiscounts, vatOnComms: x.vatOnComms, isVATRegistered: x.isVATRegistered, isPaid: x.isPaid, isRedo: x.isRedo, datePaid: x.datePaid, hasBeenReceived: x.hasBeenReceived, isOnStatement: x.isOnStatement, statementId: x.statementId, agentDetails: { legalName: x.agentDetails.legalName, agentContact: x.agentDetails.agentContact, agentTradingName: x.agentDetails.agentTradingName, agentEmail: x.agentDetails.agentEmail, agentAddress1: x.agentDetails.agentAddress1, agentAddress2: x.agentDetails.agentAddress2, agentAddress3: x.agentDetails.agentAddress3, agentCity:  x.agentDetails.agentCity, agentCounty: x.agentDetails.agentCounty, agentCountry: x.agentDetails.agentCountry, agentPostCode: x.agentDetails.agentPostCode, VATRegNo: x.agentDetails.VATRegNo, agentVATRegistered: x.agentDetails.agentVATRegistered, agentCompanyNumber: x.agentDetails.agentCompanyNumber } }) })
-            // console.log(newData, 'NEW DATA')
-            return newData
+            }).sort({ age: -1 }).limit(max || 200)
+            return data
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

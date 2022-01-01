@@ -53,32 +53,6 @@ export const Container = styled.div`
   counter-reset: pagination;
   text-align: center;
   overflow-x: auto;
-  & > button {
-    color: #0288D1;
-    border-bottom: 3px solid #0288D1;
-    height: 80px;
-    flex: 1;
-    padding: 10px;
-    list-style: none;
-    text-align: center;
-    position: relative;
-    font-size: 20px;
-    transition: 0.5s ease;
-    cursor: pointer;
-    user-select: none;
-    width: 116px;
-  }
-  & > div {
-    border: solid 1px #d7d7d7;
-    margin: 0px 5px;
-    border-radius: 0.2rem;
-    color: #7d7d7d;
-    text-decoration: none;
-    width: 60px;
-    text-transform: uppercase;
-    display: inline-block;
-    text-align: center;
-    padding: 0.5rem 0.9rem;
-  
-  }
+
+
 `

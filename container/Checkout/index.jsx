@@ -14,6 +14,8 @@ import { Card, Container, ContentCarPrice, Text, Section, PayMethod, Navigation,
 import { BtnClose } from '../Home/styled';
 import { Overline } from '../../components/common/Reusable';
 import { Context } from '../../context';
+import { IconLogo } from '../../components/common/logo';
+import ActiveLink from '../../components/common/Link';
 
 export const Checkout = ({ licenceId }) => {
   // STATES
@@ -64,7 +66,14 @@ export const Checkout = ({ licenceId }) => {
       {status && status === 'cancel' && (<div className='bg-red-100 text-red-700 p-2 rounded border mb-2 border-red-700'> Payment Unsuccessful </div>)}
       <Overline bgColor='rgba(0,0,0,.4)' show={show.state} onClick={() => show.setState(!show.state)} />
       <Section>
-        <Navigation> Secure payment</Navigation>
+        <Navigation>
+          <ActiveLink activeClassName="active" href='/'>
+            <a>
+              <IconLogo size='100px' />
+            </a>
+          </ActiveLink>
+          Safe shopping
+        </Navigation>
       </Section>
       <Card>
         <Text size='20px' color={SFVColor}># {data?.GetOneLicences?.Ref}</Text>

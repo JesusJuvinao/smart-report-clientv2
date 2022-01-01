@@ -110,6 +110,10 @@ const UserSchema = new mongoose.Schema({
     iP: {
         type: Number,
         required: false
+    },
+    stripeAccountMetaData:{
+        type:Object,
+        required:false
     }
 
 }, {

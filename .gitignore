@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/apollo/urls.js
 /.pnp
 /apollo/urls.js
 .pnp.js

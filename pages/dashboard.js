@@ -21,11 +21,11 @@ export const getServerSideProps = withSession(async function ({ req }) {
     const data = decodeToken(token)
     const dataUser = await UserSchema.findById({ _id: token && data.id })
     const roles = await Roles.find({ _id: { $in: dataUser.roles } })
-    for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === 'admin') {
-        return { redirect: { destination: '/dashboard/admin' } }
-      }
-    }
+    // for (let i = 0; i < roles.length; i++) {
+    //   if (roles[i].name === 'admin') {
+    //     return { redirect: { destination: '/dashboard/admin' } }
+    //   }
+    // }
   } catch (error) {
     console.log('')
   }

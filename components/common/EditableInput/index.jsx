@@ -6,7 +6,7 @@ import React from 'react'
 import styles from './styles'
 import { Text } from '@react-pdf/renderer'
 import styled from 'styled-components'
-export const EditableInput = ({ className, placeholder, value, onChange, pdfMode }) => {
+export const EditableInput = ({ className, placeholder, value, onChange, pdfMode, margin }) => {
     return (
         <>
             {pdfMode
@@ -16,6 +16,7 @@ export const EditableInput = ({ className, placeholder, value, onChange, pdfMode
                 : (
                     <InputCustom
                         type="text"
+                        margin={margin}
                         className={`input ${ className || '' }`}
                         placeholder={placeholder || ''}
                         value={value || ''}
@@ -41,4 +42,5 @@ const InputCustom = styled.input`
   border: 1px solid;
   font-size: 14px;
   width: ${ ({ width }) => width || '100%' };
+  margin: ${ ({ margin }) => margin || '0' };
 `

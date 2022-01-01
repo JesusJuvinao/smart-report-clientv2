@@ -22,13 +22,14 @@ export const GET_ONE_INVOICE = gql`
         invoiceTotal
         totalCommDue
         totalSalesReceived
+        currency
         totalDiscounts
         vatOnComms
         isVATRegistered
+        isApprovedByInvoiceSender
         isPaid
         isRedo
         __typename
-    
         agentDetails{
             legalName
             agentContact
