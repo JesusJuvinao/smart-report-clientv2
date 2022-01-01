@@ -173,10 +173,10 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                     aside={
                         !['/', '/login', '/contact', '/varify-email', '/checkout/[id]', '/add-payment-method', '/register', '/terms_and_conditions', '/email/confirm/[code]', '/forgotpassword', '/teams/invite/[id]', '/autho', '/contact-us', '/switch-options'].find(x => x === location.pathname)}
                 >
-                    {!['/', '/login', '/register', '/terms_and_conditions',  '/varify-email', '/checkout/[id]', '/add-payment-method', '/teams/invite/[id]', '/forgotpassword', '/autho', '/contact-us', '/email/confirm/[code]', '/switch-options', '/contact', '/teams/invite/[id]'].find(x => x === location.pathname) && (
+                    {!['/', '/login', '/register', '/terms_and_conditions', '/varify-email', '/checkout/[id]', '/add-payment-method', '/teams/invite/[id]', '/forgotpassword', '/autho', '/contact-us', '/email/confirm/[code]', '/switch-options', '/contact', '/teams/invite/[id]'].find(x => x === location.pathname) && (
                         <Aside handleClickMenu={handleClickMenu} active={active} allCompany={allCompany?.getAllCompanyById} dataCompany={dataCompany} handleMenu={handleMenu} onChange={handleChange} dataForm={dataForm} />
                     )}
-                    {!['/login', '/', '/register', '/forgotpassword', '/checkout/[id]', '/teams/invite/[id]', '/varify-email',  '/terms_and_conditions', '/email/confirm/[code]', '/autho', '/contact'].find(x => x === location.pathname) && (
+                    {!['/login', '/', '/register', '/forgotpassword', '/checkout/[id]', '/teams/invite/[id]', '/varify-email', '/terms_and_conditions', '/email/confirm/[code]', '/autho', '/contact'].find(x => x === location.pathname) && (
                         <Header
                             activeSettings={activeSettings}
                             setShowModal={setShowModal}
@@ -199,8 +199,8 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                             location={location}
                         />
                     )}
-                    {['/', ].find(x => x === location.pathname) && (
-                        <HeaderPublic  closeSession={closeSession}  />
+                    {['/',].find(x => x === location.pathname) && (
+                        <HeaderPublic closeSession={closeSession} />
                     )}
                     <div style={{ gridArea: 'main', overflowY: 'auto' }}>
                         {children}
@@ -263,7 +263,7 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                                                     )
                                                     : null}
                     </LateralMenu>
-                    {!['/login', '/register', '/varify-email',  '/checkout/[id]', '/forgotpassword', '/terms_and_conditions', '/email/confirm/[code]', '/switch-options', '/teams/invite/[id]', '/contact'].find(x => x === location.pathname) && <Footer />}
+                    {!['/login', '/register', '/varify-email', '/checkout/[id]', '/forgotpassword', '/terms_and_conditions', '/email/confirm/[code]', '/switch-options', '/teams/invite/[id]', '/contact'].find(x => x === location.pathname) && <Footer />}
                 </Main>
             </App>
         </div>
@@ -290,7 +290,7 @@ const Main = styled.main`
     @media (min-width: 960px) {
         ${props => !props.aside &&
         css`
-                grid-template-columns: 1fr;
+                /* grid-template-columns: 1fr; */
                 display: flex;
                 flex-direction: column;
                 height: 100%;
