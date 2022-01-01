@@ -10,7 +10,7 @@ import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
 
 export const getOneCommissionStatement = async (_, { idComp, CompName, IdStatement }, ctx) => {
     try {
-        
+
         const data = await CommissionInvoiceStatement.findOne({ _id: IdStatement })
         return data
 
@@ -50,11 +50,10 @@ export const getAllCommissionStatementsTo = async (_, { search, idComp, CompName
     }
 }
 export const isPaidOutCommissionStatements = async (_, { idComp, uEmail, IdStatements, company, statementToEmail }, ctx) => {
+    console.log(idComp, uEmail, IdStatements, company, statementToEmail)
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: IdStatements })
     try {
-        if (!InvoiceData) {
-            return { success: false, message: 'The Invoice no exist' }
-        }
+        if (!InvoiceData) { return { success: false, message: 'The Invoice no exist' } }
         await CommissionInvoiceStatement.findOneAndUpdate(
             { _id: IdStatements },
             {
@@ -63,6 +62,10 @@ export const isPaidOutCommissionStatements = async (_, { idComp, uEmail, IdState
                 }
             }
         )
+        // await BillSchema.findOneAndUpdate({ 'lineItems._id': idArray },
+        //     {
+        //         $set: { 'lineItems.$.lineItemsDescription': lineItemsDescription, 'lineItems.$.lineItemsQuantity': lineItemsQuantity, 'lineItems.$.lineItemsTotalVAT': lineItemsTotalVAT, 'lineItems.$.lineItemsIdVAT': lineItemsIdVAT, 'lineItems.$.lineItemsRate': lineItemsRate, 'lineItems.$.lineItemsIdClass': lineItemsIdClass, 'lineItems.$.lineItemsIdPro': lineItemsIdPro, 'lineItems.$.lineItemsIdAccount': lineItemsIdAccount, 'lineItems.$.lineItemsSubTotal': lineItemsSubTotal, 'lineItems.$.lineItemsBillIva': lineItemsBillIva }
+        //     })
         const today = moment().format('DD/MM/YYYY HH:mm');
         const hour = moment().format('HH:mm');
         const mailer = transporter()
@@ -143,10 +146,8 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
 
 // NEW FUNCIONS
 export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmail }) => {
-    console.log(idInvoice, ToEmail, uEmail)
-    return { success: false, message: 'The Invoice no exist' }
-
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: idInvoice })
+    console.log(InvoiceData)
     try {
         if (!InvoiceData) {
             return { success: false, message: 'The Invoice no exist' }
@@ -185,6 +186,83 @@ export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmai
     }
 
 }
+export const isApprovedByInvoiceSenderStatement = async (_, { idInvoice, ToEmail, uEmail }) => {
+    const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: idInvoice })
+    console.log(InvoiceData)
+    try {
+        if (!InvoiceData) {
+            return { success: false, message: 'The Invoice no exist' }
+        }
+        await CommissionInvoiceStatement.findOneAndUpdate(
+            { _id: idInvoice },
+            {
+                $set: {
+                    isApprovedByInvoiceSender: InvoiceData.isApprovedByInvoiceSender !== true,
+                }
+            }
+        )
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        if (InvoiceData) {
+            mailer.sendMail({
+                from: uEmail,
+                to: ToEmail,
+                text: 'Hello world?',
+                subject: 'Notification De Invoice Change.',
+                html: TemplateInvoicePaid({
+                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isRedo !== true ? 'Redo' : 'No Redo',
+                })
+            })
+        }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Redo inactive' : 'Active'} status` }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+
+}
+export const isPaidStatementInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx) => {
+    const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
+    try {
+        if (!InvoiceData) {
+            return { success: false, message: 'The Invoice no exist' }
+        }
+        await CommissionSchema.findOneAndUpdate(
+            { _id: idInvoice },
+            {
+                $set: {
+                    isPaid: InvoiceData.isPaid !== true
+                }
+            }
+        )
+        const today = moment().format('DD/MM/YYYY HH:mm');
+        const hour = moment().format('HH:mm');
+        const mailer = transporter()
+        if (InvoiceData) {
+            mailer.sendMail({
+                from: uEmail,
+                to: ToEmail,
+                text: 'Hello world?',
+                subject: 'Notification De Invoice Change.',
+                html: TemplateInvoicePaid({
+                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isPaid !== true ? 'paid' : 'No paid',
+                })
+            })
+        }
+        return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Inactive' : 'Active'} status` }
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+
+}
 export default {
     TYPES: {
     },
@@ -195,6 +273,7 @@ export default {
     },
     MUTATIONS: {
         sendOneCommissionStatements,
+        isApprovedByInvoiceSenderStatement,
         isRedoStateInvoiceStatement,
         ViewCommissionStatements,
         isPaidOutCommissionStatements

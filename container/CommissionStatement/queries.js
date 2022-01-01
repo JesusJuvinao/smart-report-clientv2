@@ -160,6 +160,11 @@ query getAllCommissionStatementsFrom($idUser: ID, $idComp: ID, $company: String,
     }
     totalVATOnComms
     currency
+    isRedo
+    isPaid
+    isApprovedByInvoiceSender
+    isViewByInvoiceSender
+    isShareInvoiceBySender
   }
 }
 `
@@ -299,6 +304,11 @@ query getOneCommissionStatement($idUser: ID, $idComp: ID, $company: String, $IdS
     }
     totalVATOnComms
     currency
+    isRedo
+    isPaid
+    isApprovedByInvoiceSender
+    isViewByInvoiceSender
+    isShareInvoiceBySender
   }
 }
 `
@@ -438,12 +448,33 @@ query getAllCommissionStatementsTo($idUser: ID, $idComp: ID, $company: String, $
     }
     totalVATOnComms
     currency
+    isRedo
+    isPaid
+    isApprovedByInvoiceSender
+    isViewByInvoiceSender
+    isShareInvoiceBySender
   }
 }
 `
 export const IS_REDO_COMMISSION_STATEMENTS_INVOICE = gql`
 mutation isRedoStateInvoiceStatement($idInvoice: ID, $ToEmail: String! $uEmail: String!) {
   isRedoStateInvoiceStatement(idInvoice: $idInvoice, ToEmail: $ToEmail, uEmail: $uEmail ) {
+    success
+    message
+  }
+}		
+`
+export const IS_PAY_STATEMENT_INVOICE = gql`
+  mutation isPaidStatementInvoice($idInvoice: ID, $ToEmail: String! $uEmail: String!) {
+    isPaidStatementInvoice(idInvoice: $idInvoice, ToEmail: $ToEmail, uEmail: $uEmail ) {
+    success
+    message
+  }
+}	
+`
+export const IS_APPROVED_STATEMENT_SENDER = gql`
+mutation isApprovedByInvoiceSenderStatement($idInvoice: ID, $ToEmail: String! $uEmail: String!) {
+  isApprovedByInvoiceSenderStatement(idInvoice: $idInvoice, ToEmail: $ToEmail, uEmail: $uEmail ) {
     success
     message
   }

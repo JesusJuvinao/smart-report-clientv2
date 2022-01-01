@@ -183,7 +183,27 @@ const CommissionInvoiceStatement = new mongoose.Schema({
         required: true,
         default: Date.now()
     },
+    isRedo: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
     isPaid: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isApprovedByInvoiceSender: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isViewByInvoiceSender: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isShareInvoiceBySender: {
         type: Boolean,
         required: true,
         default: false

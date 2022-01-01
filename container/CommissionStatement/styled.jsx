@@ -70,6 +70,7 @@ export const Content = styled.div`
     `}
     ${({ padding }) => padding && css`padding: ${padding};`}
     padding: ${({ padding }) => padding || '20px 0px'};
+    justify-content: ${({ justify }) => justify || 'center'};
     margin: auto;
     height: 100%;
     display: grid;
@@ -88,8 +89,8 @@ export const ContentTableItem = styled.div`
     justify-content: center;
     align-items: baseline;
     width: 100%;
-    height: 15px;
-    flex-wrap: wrap;
+    /* height: 15px; */
+    flex-wrap: nowrap;
     margin: 0px 0;
     padding: ${({ padding }) => padding || '0px 0px 0px 15px'};
     `
