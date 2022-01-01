@@ -419,7 +419,6 @@ export const InvoiceReceivedComponent = ({ data, setShowMore, showMore, loading 
                     </Wrapper>
                 </Section>)}
             />
-            {/* <Pagination value={showMore} range={data?.getAllCommissionInvoiceReceived?.length || 100} onChange={setShowMore} /> */}
             {data && <BlueButton onClick={() => setShowMore(s => s + 100)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
 
         </Container>

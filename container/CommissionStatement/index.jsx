@@ -223,11 +223,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
               <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleApprovedStatementState(x)}>
                 {x.isApprovedByInvoiceSender ? 'Mark as not Approved' : 'Mark approved'}
               </TableButton>
-              {/* <Link href={'/invoice/commission-statement/create'}>
-                <TableButton backgroundColor={TBGVColor} color={TFBColor}>
-                  Add
-                </TableButton>
-              </Link> */}
             </ContentTableItem>
           </Content>
         </Section>)}

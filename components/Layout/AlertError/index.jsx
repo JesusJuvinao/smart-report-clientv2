@@ -38,7 +38,6 @@ const AwesomeModal = styled.div`
     display: flex;
     flex-direction: column;
     opacity: 0;
-    top: 50%;
     left: 70px;
     background: ${BGColor};
     position: absolute;
