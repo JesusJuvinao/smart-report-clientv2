@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { PColor, SECColor, PVColor } from '../../public/colors'
+import { PColor, SECColor, PVColor, PSColor } from '../../public/colors'
 
 export const Form = styled.form`
     display: flex;
@@ -41,7 +41,7 @@ export const Anchor = styled.span`
         border-bottom: 2px solid #61d2b4;
     }
     padding: 0px;
-    color: ${PVColor};
+    color: ${PSColor};
     cursor: pointer;
     font-weight: 300;
     display: flex;
@@ -118,18 +118,33 @@ export const Text = styled.span`
     font-family: PFont-Light;
     word-break: break-word;
 `
+// export const FooterComponent = styled.footer`
+//     position: fixed;
+//     bottom: 0;
+//     height: 150px;
+//     display: flex;
+//     left: 0;
+//     align-items: center;
+//     margin: auto;
+//     right: 0;
+//     width: 100%;
+//     box-shadow: 0px 1px 3px rgb(0 0 0 / 24%);
+//     z-index: 80;
+//     justify-content: center;
+//     background-color: ${SECColor};
+// `
+
 export const FooterComponent = styled.footer`
     position: fixed;
     bottom: 0;
-    height: 150px;
     display: flex;
     left: 0;
     align-items: center;
     margin: auto;
     right: 0;
-    width: 100%;
+    width: 100vw;
     box-shadow: 0px 1px 3px rgb(0 0 0 / 24%);
-    z-index: 80;
     justify-content: center;
     background-color: ${SECColor};
 `
+

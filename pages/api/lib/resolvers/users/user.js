@@ -307,6 +307,8 @@ export const CreateRecoverAccount = async (_, input) => {
 
         const { uEmail } = input.input
         const existEmail = await UserSchema.findOne({ uEmail })
+        console.log(existEmail)
+
         if (!existEmail) return { success: false, message: 'User does not exist' }
         // Create the recovery token or code
         const uToken = await generateCode()

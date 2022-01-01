@@ -6,7 +6,7 @@ import { TemplateLeaveComp } from '../../templates/TemplateConfirm'
 import { transporter } from '../../../utils'
 import { TemplateCommissionStatement } from '../../templates/CommissionStatement'
 import moment from 'moment'
-import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
+import { isApprovedInvoiceSenderStatement, TemplateInvoicePaid } from '../../templates/InvoicePaid'
 
 export const getOneCommissionStatement = async (_, { idComp, CompName, IdStatement }, ctx) => {
     try {
@@ -210,7 +210,7 @@ export const isApprovedByInvoiceSenderStatement = async (_, { idInvoice, ToEmail
                 to: ToEmail,
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
-                html: TemplateInvoicePaid({
+                html: isApprovedInvoiceSenderStatement({
                     invoiceRef: InvoiceData && InvoiceData.eventName,
                     uEmail,
                     date: today,

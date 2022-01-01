@@ -124,13 +124,20 @@ export const LoginC = ({ setAlertBox }) => {
     if (loading) return <Loading />
     return (
         <Container>
+            <FooterComponent>
+                <Link href='/'>
+                    <a>
+                        <IconLogo size='80px'/>
+                    </a>
+                </Link>
+            </FooterComponent>
             <Form onSubmit={handleSubmit}>
-                <Text id='title' style={{ textAlign: 'center' }}>{confirmPhone ? 'Let\'s verify your number' : 'Login Form'}</Text>
+                <Text id='title' style={{ textAlign: 'center' }}>{confirmPhone ? 'Let\'s verify your number' : 'Sign in to your account'}</Text>
                 <Text id='Subtitle' size='12px' style={{ textAlign: 'center' }}>{confirmPhone && 'Making sure your email is up to date helps us keep your account safe.'}</Text>
                 {!confirmPhone ?
                     <div>
                         <InputHooks
-                            title='Email'
+                            title='Email Address'
                             autoComplete
                             required
                             email
@@ -166,17 +173,10 @@ export const LoginC = ({ setAlertBox }) => {
 
           /> */}}
                 {/* {!confirmPhone ? <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Login' : <LoadEllipsis />}</ButtonHook> : <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Skip for now' : <LoadEllipsis />}</ButtonHook> } */}
-                <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Login' : <LoadEllipsis />}</ButtonHook>
+                <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Sign In' : <LoadEllipsis />}</ButtonHook>
                 <Text size='13px'><ActiveLink activeClassName="active" href="/forgotpassword"><Anchor>Forgot Password?</Anchor></ActiveLink></Text>
-                <Text size='13px'><ActiveLink activeClassName="active" href="/register"><Anchor>Not a member?</Anchor></ActiveLink></Text>
+                <Text size='13px'><ActiveLink activeClassName="active" href="/register"><Anchor>Don't have an account? Sign Up</Anchor></ActiveLink></Text>
             </Form>
-            <FooterComponent>
-                <Link href='/'>
-                    <a>
-                        <IconLogo size='100px' />
-                    </a>
-                </Link>
-            </FooterComponent>
         </Container>
     )
 }
