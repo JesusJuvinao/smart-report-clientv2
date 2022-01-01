@@ -26,10 +26,10 @@ export const GET_ONE_INVOICE = gql`
         totalDiscounts
         vatOnComms
         isVATRegistered
+        isApprovedByInvoiceSender
         isPaid
         isRedo
         __typename
-    
         agentDetails{
             legalName
             agentContact

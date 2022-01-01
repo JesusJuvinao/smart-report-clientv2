@@ -195,6 +195,7 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log( idInvoice, ToEmail, uEmail, 'HKASHDLAKSHDL')
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {

@@ -162,7 +162,7 @@ export const ViewCommissionStatementsTo = ({ data, loading }) => {
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >VAT Registered:</Text>
-                                <Text size='19px' >{data?.statementToDetails[0]?.agentVATRegistered}</Text>
+                                <Text size='19px' >{data?.statementToDetails[0]?.agentVATRegistered  ?  'YES' : 'NO' }</Text>
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >LegalName:</Text>

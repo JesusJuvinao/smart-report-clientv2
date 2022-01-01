@@ -32,6 +32,7 @@ import { InvoiceReceived } from './invoiceReceived'
 import { ModalAddInvoicePaymentState } from './ModalPayment'
 import { ModalAlerBox } from './ModalAlert'
 import { useCompanyHook } from '.'
+import { ModalAddInvoicePaymentStateReceived } from './ModalPaymentReceived'
 
 export const DashboardComp = () => {
     const { setAlertBox, company } = useContext(Context)
@@ -39,6 +40,7 @@ export const DashboardComp = () => {
     const [dataComp] = useCompanyHook()
     const name = router.query.name
     const [show, setShow] = useState(false)
+    const [showReceived, setShowReceived] = useState(false)
     const [openModalMain, setOpenModalMain] = useState(false)
     const [yearss, setsetYear] = useState('')
     // data invoice send
@@ -85,10 +87,6 @@ export const DashboardComp = () => {
                 invoiceTo: values?.todate
             }
         })
-
-
-
-
     const [getEstimateCountInvoice, { data: dataCount }] = useLazyQuery(GET_STIMATE_COUNT, {
         fetchPolicy: 'network-only', variables: {
             idComp: company.idLasComp && company.idLasComp
@@ -192,8 +190,8 @@ export const DashboardComp = () => {
     }
     const [alertModal2, setAlertModal2] = useState(false)
     const handleClickAddInvoice = elem => {
-    let includes = statePay?.Addtopay.includes(elem);
-    if (elem.isPaid === false) {
+        let includes = statePay?.Addtopay.includes(elem);
+        if (elem.isPaid === false) {
             setAlertModal2(true)
             setDataInv(elem)
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
@@ -204,6 +202,25 @@ export const DashboardComp = () => {
             setOpenModalMain(true)
         } else if (elem.isPaid !== true) {
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
+            setOpenModalMain(true)
+        } else if (elem.isPaid === true) {
+            setAlertModal(true)
+            setDataInv(elem)
+        }
+    }
+    const handleClickAddInvoiceReceived = elem => {
+        let includes = StateDataReceived?.Addtopay.includes(elem);
+        if (elem.isPaid === false) {
+            setAlertModal2(true)
+            setDataInv(elem)
+            dispatchInvoiceReceived({ type: 'ADD_TO_PAY', payload: elem })
+        } else if (elem.isPaid === false) {
+            handlePayState(elem)
+        } else if (includes && elem.isPaid !== true) {
+            setAlertBox({ message: 'The invoice is already added to the list' })
+            setOpenModalMain(true)
+        } else if (elem.isPaid !== true) {
+            dispatchInvoiceReceived({ type: 'ADD_TO_PAY', payload: elem })
             setOpenModalMain(true)
         } else if (elem.isPaid === true) {
             setAlertModal(true)
@@ -273,6 +290,33 @@ export const DashboardComp = () => {
                 return {
                     Addtopay: state?.Addtopay?.filter((t, idx) => idx !== action?.idx)
                 };
+            case 'REMOVE_ALL':
+                return {
+                    Addtopay: []
+                };
+            case "TOGGLE_INVOICE":
+                return {
+                    Addtopay: state?.Addtopay.map((t, idx) => idx === action.idx ? { ...t, isPaid: !t.isPaid } : t),
+                };
+            default:
+                return state;
+        }
+    }
+    const invoicePayReceivedReducer = (state, action) => {
+        switch (action.type) {
+            case 'ADD_TO_PAY':
+                return {
+                    ...state,
+                    Addtopay: [...state?.Addtopay, action?.payload]
+                }
+            case 'REMOVE_INVOICE':
+                return {
+                    Addtopay: state?.Addtopay?.filter((t, idx) => idx !== action?.idx)
+                };
+            case 'REMOVE_ALL':
+                return {
+                    Addtopay: []
+                };
             case "TOGGLE_INVOICE":
                 return {
                     Addtopay: state?.Addtopay.map((t, idx) => idx === action.idx ? { ...t, isPaid: !t.isPaid } : t),
@@ -282,9 +326,13 @@ export const DashboardComp = () => {
         }
     }
     const [statePay, dispatchInvoice] = useReducer(invoicePayReducer, initialStateInvoice)
+    const [StateDataReceived, dispatchInvoiceReceived] = useReducer(invoicePayReceivedReducer, initialStateInvoice)
     const [state, dispatch] = useReducer(reducer, initialState)
     const Handleremove = _id => {
         dispatchInvoice({ type: 'REMOVE_INVOICE', payload: _id })
+    }
+    const HandleremoveReceivedInvoice = _id => {
+        dispatchInvoiceReceived({ type: 'REMOVE_INVOICE', payload: _id })
     }
     const handleAddInvoice = elem => {
         let includes = statePay?.Addtopay.includes(elem);
@@ -294,11 +342,21 @@ export const DashboardComp = () => {
             dispatchInvoice({ type: 'ADD_TO_PAY', payload: elem })
         }
     }
+    const handleAddInvoiceReceived = elem => {
+        let includes = StateDataReceived?.Addtopay.includes(elem);
+        if (includes) {
+            setAlertBox({ message: 'The invoice is already added to the list' })
+        } else {
+            dispatchInvoiceReceived({ type: 'ADD_TO_PAY', payload: elem })
+        }
+    }
     // return null
     const payOnlyInvoide = () => {
         setAlertModal2(false)
         setAlertModal2(!alertModal2)
         handlePayState(invoiceData)
+        dispatchInvoice({ type: "REMOVE_ALL" })
+        dispatchInvoiceReceived({ type: "REMOVE_ALL" })
     }
     const HaddMoreInvoide = () => {
         setAlertModal2(false)
@@ -311,15 +369,11 @@ export const DashboardComp = () => {
             <Text margin='0 0 30px 0 !important' size='30px !important'>Welcome to {dataComp?.companyName}</Text>
             <FilterOptions>
                 <div>
-                    <Button size='13px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => setOpenModalMain(true)}> ADD INVOICE PAY</Button>
+                    {/* <Button size='13px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => setOpenModalMain(true)}> ADD INVOICE PAY</Button> */}
                     <Button size='11px' style={{ height: '40px', border: '1px solid #ccc', borderRadius: '20px', marginRight: '0.75rem', minWidth: '8.375rem', padding: '2px 10px' }} onClick={() => showAllData(!showInvoice)} >FILTER INVOICE PAY </Button>
                 </div>
                 <div>
                 </div>
-                {/* <InputHooks width='25%' type='date' title='from' required name='from' error={errors?.from} value={values?.from} onChange={handleChange} /> */}
-                {/* <InputHooks width='25%' type='date' title='todate' required name='todate' error={errors?.todate} value={values?.todate} onChange={handleChange} /> */}
-                {/* <input style={{ height: '45px', width: '25%' }} label='Search Pay' name='searchPay' value={searchPay} title='Filter pay invoice' onChange={handleChangeFilterDatePay} type='date' /> */}
-                {/* <Text width='min-content' size='30px'>{data?.getAllCommissionInvoiceSent?.filter(x => x.isPaid === false)?.length}  / {data?.getAllCommissionInvoiceSent?.length || 0}  BILLS PAID </Text> */}
             </FilterOptions>
             <Tabs width={['25%', '25%']} >
                 <Tabs.Panel label={`Sent bill: ${data ? data?.getAllCommissionInvoiceSent?.length : 0} / ${dataCountSend?.getEstimateCountInvoiceSend ? dataCountSend?.getEstimateCountInvoiceSend?.length : 0}`}>
@@ -371,7 +425,7 @@ export const DashboardComp = () => {
                             showInvoice={showInvoice}
                             showDataToday={showDataToday}
                             dataInvoice={data}
-                            handleClickAddInvoice={handleClickAddInvoice}
+                            handleClickAddInvoice={handleClickAddInvoiceReceived}
                             // onchange
                             values={values}
                             errors={errors}
@@ -381,7 +435,7 @@ export const DashboardComp = () => {
                             handleRedoState={handleRedoState}
                             dispatch={dispatch}
                             clearAll={clearAll}
-                            handleAddInvoice={handleAddInvoice}
+                            handleAddInvoice={handleAddInvoiceReceived}
                             currencyFormatter={currencyFormatter}
                             toggleAll={toggleAll}
                             selectAll={selectAll}
@@ -419,6 +473,31 @@ export const DashboardComp = () => {
                 active={active}
                 handlePayState={handlePayState}
             />
+            {/* RECEIVED */}
+            <ModalAddInvoicePaymentStateReceived
+                loading={loading}
+                setShow={setShowReceived}
+                show={showReceived}
+                dispatchInvoice={dispatchInvoiceReceived}
+                state={state}
+                openModalMain={openModalMain}
+                setOpenModalMain={setOpenModalMain}
+                // onchange
+                values={values}
+                errors={errors}
+                setShowMore={setShowMore}
+                showMore={showMore}
+                showInvoice={showInvoice}
+                handleChange={handleChange}
+                statePay={StateDataReceived}
+                data={DataReceived?.getAllCommissionInvoiceReceived}
+                handleAddInvoice={handleAddInvoiceReceived}
+                setActive={setActive}
+                handleClick={handleClick}
+                Handleremove={HandleremoveReceivedInvoice}
+                active={active}
+                handlePayState={handlePayState}
+            />
             <ModalAlerBox
                 setAlertModal={setAlertModal}
                 handlePayState={handlePayState}
@@ -439,7 +518,7 @@ export const DashboardComp = () => {
                 selectedDate={selectedDate}
                 handleDateChange={handleDateChange}
             /> */}
-            <AwesomeModal zIndex='99' padding='20px' height='40vh' show={alertModal2} onHide={() => setAlertModal2(false)} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
+            <AwesomeModal zIndex='99' padding='20px' height='40vh' show={alertModal2} onHide={() => { setAlertModal2(false), dispatchInvoice({ type: 'REMOVE_ALL' }) }} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
                 <Text size='30px'>Solo quieres Paga una factura?</Text>
                 <Options direction='row' style={{ position: 'absolute', bottom: '20px', left: '0', right: '0', margin: 'auto', width: '93%', flexDirection: 'row', display: 'flex' }}>
                     <RippleButton widthButton='100% !important' bgColor={PVColor} onClick={() => payOnlyInvoide()} >Yes</RippleButton>
@@ -456,7 +535,7 @@ export const DashboardComp = () => {
 export const ModalFilter = ({ active, handleDateChange, InvoiceYear, setActive }) => {
     const currentYear = new Date().getFullYear()
     return (
-        <AwesomeModal zIndex='99' padding='20px' height='60vh' show={active === 6} onHide={() => setActive(false)} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
+        <AwesomeModal zIndex='99' padding='20px' height='60vh' show={active === 6} onHide={() => { setActive(false), dispatchInvoice({ type: "REMOVE_ALL" }) }} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
             <RippleButton bgColor='transparent' onClick={() => setActive(false)}>
                 <IconArrowBottom size='30px' color={EColor} />
             </RippleButton>

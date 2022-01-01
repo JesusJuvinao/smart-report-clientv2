@@ -19,7 +19,7 @@ export const Hero = () => {
         <Section>
             <Content>
                 <Card justify='flex-start' width='100%'>
-                    <Text size='1rem' >ACCOUNTING SOFTWARE | INTUIT Smart-report | GLOBAL</Text>
+                    <Text size='1rem' >ACCOUNTING SOFTWARE |  Smart-report | GLOBAL</Text>
                     <Text lineHeight={'1.25'} font='PFont-Bold' bold='bold' justify='center' color={SECColor} size='2.90rem' margin='30px auto'>Smart, simple online accounting software for small business</Text>
                     <Text margin='1rem 0 3.75rem' size='1.20rem'>Track expenses, customise invoices, run reports and even more all from one place.</Text>
                     <Card width='50%'>

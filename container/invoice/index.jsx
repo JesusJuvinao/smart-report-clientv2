@@ -3,7 +3,7 @@ import { Loading } from '../../components/Loading';
 import { useMutation, useQuery } from '@apollo/client';
 import PropTypes from 'prop-types'
 import { useContext, useEffect, useState, useRef } from 'react';
-import { GET_ONE_INVOICE, IS_PAY_INVOICE, IS_REDO_INVOICE } from './queries';
+import { GET_ONE_INVOICE, IS_APPROVED_INVOICE_SENDER, IS_PAY_INVOICE, IS_REDO_INVOICE } from './queries';
 import ReactSignatureCanvas from 'react-signature-canvas'
 import { DocumentPdf } from '../dashboard/Document';
 import currencyFormatter from 'currency-formatter'
@@ -67,6 +67,18 @@ export const Invoice = ({ idInvoice }) => {
 
         })
     })
+    const [isApprovedByInvoiceSenderMutation, { loading: loadingApprove,  data: datapOPIPO }] = useMutation(IS_APPROVED_INVOICE_SENDER, {
+        onCompleted: (data) => setAlertBox({ message: `hi`, duration: 8000, color: data.success ? 'success' : 'error' }),
+        update: (cache, { data: { getOneCommissionInvoice } }) => updateCache({
+            cache,
+            query: GET_ONE_INVOICE,
+            nameFun: 'getOneCommissionInvoice',
+            dataNew: getOneCommissionInvoice,
+            type: 2
+
+        })
+    })
+    console.log(datapOPIPO)
     const handlePayState = async () => {
         const { agentDetails } = data || {}
         const { agentEmail } = agentDetails || {}
@@ -91,7 +103,6 @@ export const Invoice = ({ idInvoice }) => {
         // })
     }
 
-    if (loading) return <Loading />
 
     // Address Agent ----
     const dir1 = data?.getOneCommissionInvoice.agentDetails.agentAddress1;
@@ -121,6 +132,17 @@ export const Invoice = ({ idInvoice }) => {
     data && data?.getOneCommissionInvoice?.lineItemsArray?.map(items => (
         newArrays.push(items.newArray)
     ))// -------
+    console.log(data)
+    const handleApprovedInvoiceState = async () => {
+        const agentEmail = data && data?.getOneCommissionInvoice?.agentDetails?.agentEmail
+        if (data.isApprovedByInvoiceSender === false) {
+            await isApprovedByInvoiceSenderMutation({ variables: { idInvoice: data?.getOneCommissionInvoice?._id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        } else {
+            await isApprovedByInvoiceSenderMutation({ variables: { idInvoice: data?.getOneCommissionInvoice?._id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+            await isPaidStateInvoice({ variables: { idInvoice: data?.getOneCommissionInvoice?._id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
+        }
+    }
+    if (loading) return <Loading />
     return (
         <Content>
             <RippleButton margin='0px 10px 0px 0px' border='60px' color={BColor} widthButton='150px' bgColor={'#e2e8f0'} family='PFont-Regular' onClick={() => handleChangeReceived()}>
@@ -138,7 +160,7 @@ export const Invoice = ({ idInvoice }) => {
                                     <Title align='center' color={BGColor} size='16px'> INVOICE  {data?.getOneCommissionInvoice.isPaid ? 'PAID' : 'NO PAID'}  </Title>
                                 </Card>
                             </Card>
-                            
+
                             <Card height='min-content' justifyContent='space-between' margin='5px 0 5px 0' width='100%'>
                                 <Card width='50%'>
                                     <Text width='100%' size='15px' bold='bold' align='left'>To:</Text>
@@ -238,6 +260,10 @@ export const Invoice = ({ idInvoice }) => {
                             <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => handleRedoState()}
                                 type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >
                                 {data?.getOneCommissionInvoice.isRedo ? 'isRedo' : 'No Redo'}
+                            </RippleButton>
+                            <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => handleApprovedInvoiceState()}
+                                type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >
+                                {data?.getOneCommissionInvoice.isApprovedByInvoiceSender ? 'Mark approved' : 'Mark as not Approved'}
                             </RippleButton>
                         </ContentToggle>
                     </WrapperControls>

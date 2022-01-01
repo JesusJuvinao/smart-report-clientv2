@@ -18,6 +18,11 @@ type CommissionStatements {
     invoicesIncOnStatement: [invoicesIncOnStatement],
     totalVATOnComms: Float
     currency: String,
+    isRedo: Boolean,
+    isPaid: Boolean,
+    isApprovedByInvoiceSender: Boolean,
+    isViewByInvoiceSender: Boolean,
+    isShareInvoiceBySender: Boolean,
 }
 
 type invoicesIncOnStatement {
@@ -44,6 +49,7 @@ type invoicesIncOnStatement {
     hasInvoiceBeenOpenedByRecipient: Boolean,
     hasInvoiceBeenSent: Boolean,
     isOnStatement: Boolean,
+    
 }
 
 type lineItemsArray {
@@ -142,4 +148,7 @@ type Mutation {
   sendOneCommissionStatements(idComp: ID, company: String, uEmail: String, statementToEmail: String, IdStatements: String): Response
   isPaidOutCommissionStatements(idComp: ID, company: String, uEmail: String, statementToEmail: String, IdStatements: String): Response
   ViewCommissionStatements(idComp: ID, company: String, uEmail: String, statementToEmail: String, IdStatements: String): Response
+  isPaidStatementInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+  isRedoStateInvoiceStatement(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+  isApprovedByInvoiceSenderStatement(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
 }
