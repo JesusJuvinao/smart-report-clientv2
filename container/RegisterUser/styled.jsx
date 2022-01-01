@@ -11,11 +11,19 @@ export const Form = styled.form`
     padding: 20px 30px;
     place-content: center;
     height: min-content;
-    transform: translateX(0%);
     transition: opacity ease 300ms;
     flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto 24px;
+    width: 400px;
+    padding: 32px 40px;
+    background: rgb(255, 255, 255);
+    border-radius: 3px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    box-sizing: border-box;
+    color: rgb(94, 108, 132);
     background-color: ${({ bgColor }) => bgColor || 'white'};
-    
     @media only screen and (max-width: 960px) {
         
         float: none;
@@ -25,9 +33,9 @@ export const Form = styled.form`
     }
 `
 export const Container = styled.div`
-     min-width:500px;
+    place-content: center;
+    display: grid;
     height: 100vh;
-    position: relative;
     z-index: 999;
     overflow: hidden;
     @media only screen and (max-width: 960px) {
@@ -140,7 +148,7 @@ export const InputDate = styled.input`
 export const FooterComponent = styled.footer`
     position: fixed;
     bottom: 0;
-    height: 150px;
+    height: 70px;
     display: flex;
     left: 0;
     align-items: center;

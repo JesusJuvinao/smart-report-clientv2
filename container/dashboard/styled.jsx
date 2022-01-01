@@ -324,6 +324,7 @@ export const CircleCompany = styled.div`
   min-height: 50px;
   text-align: center;
   display: grid;
+  margin-left: calc(10% - 45px);
   place-content: center;
   min-width: 50px;
   ${props => props.pulse
@@ -332,6 +333,10 @@ export const CircleCompany = styled.div`
   `
     : css`
   ` }
+  margin-left: calc(10% - 30px);
+  &:first-child {
+    margin-left: 0;
+  }
 `
 
 export const BlueButton = styled.button`

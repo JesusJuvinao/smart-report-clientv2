@@ -161,8 +161,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
         ]}
         bgRow={2}
         pointer
-        handleAdd={() => handleMenu(4)}
-        // data={data?.filter(x => x.pName !== 0 && x)}
         data={data?.getAllCommissionStatementsFrom}
         renderBody={(dataB, titles) => dataB?.map((x, i) => <Section bgRow={2} columnWidth={titles} key={i}>
           <Content>
@@ -277,7 +275,6 @@ export const InvoiceStementsTo = ({ modal, setModal }) => {
     setModal(!modal)
     setDataStatement(data)
   }
-  // console.log(data, 'aqui esta todaladata')
   // if (loading) return <Loading />
   return (
     <div>

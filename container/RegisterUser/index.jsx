@@ -169,7 +169,7 @@ export const RegisterUserC = () => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         name='uEmail'
-                        width='50%'
+                        width='100%'
                     />
                     <InputHooks
                         title='username'
@@ -178,7 +178,7 @@ export const RegisterUserC = () => {
                         onChange={handleChange}
                         name='userName'
                         required
-                        width='50%'
+                        width='100%'
 
                     />
                     <InputHooks
@@ -189,9 +189,9 @@ export const RegisterUserC = () => {
                         value={values?.uPassword}
                         onChange={handleChange}
                         name='uPassword'
-                        width='50%'
+                        width='100%'
                     />
-                    <InputHooks name="ConfirmPassword"
+                    {/* <InputHooks name="ConfirmPassword"
                         value={values?.ConfirmPassword}
                         error={errors?.ConfirmPassword}
                         onChange={handleChange}
@@ -201,8 +201,8 @@ export const RegisterUserC = () => {
                         pass
                         range={{ min: 0, max: 180 }}
                         passConfirm={{ validate: true, passValue: values?.uPassword }}
-                        width='50%'
-                    />
+                        width='100%'
+                    /> */}
                 </DivInputs>
                 <Line>
                 </Line>
@@ -213,7 +213,7 @@ export const RegisterUserC = () => {
                             <Anchor>Global Privacy Statement. </Anchor>
                         </Link> </span>
                 </ContentTerms>
-                <ButtonHook bgColor={SCColor} disabled={!values?.ConfirmPassword} padding='10px' margin='15px 0px' width='100%' type='submit' >{loading ? <LoadEllipsis /> : 'Register'}</ButtonHook>
+                <ButtonHook bgColor={SCColor}/*  disabled={!values?.ConfirmPassword} */ padding='10px' margin='15px 0px' width='100%' type='submit' >{loading ? <LoadEllipsis /> : 'Register'}</ButtonHook>
                 <Text size='12px'> you already have a Smart account ?</Text>
                 <Link href='/login'><Anchor>Log in</Anchor>
                 </Link>
