@@ -160,3 +160,41 @@ export const FooterComponent = styled.footer`
     justify-content: center;
     background-color: ${SECColor};
 `
+
+export const ButtonSubmit = styled.button`
+    background-color: ${ ({ color, theme }) => color === '1'
+        ? ' #4065b4'
+        : color === '2'
+            ? `${ BGColor }`
+            : theme.SFAColor };
+    outline: none;
+    border: none;
+    box-shadow: 0px 1px 4px rgb(0 0 0 / 5%), 0px 4px 16px rgb(0 0 0 / 6%);
+    font-family:  PFont-Regular;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: ${ ({ content }) => content ? content : 'space-between' };
+    font-size: ${ ({ size }) => (size ? size : '1rem') };
+    color: ${ ({ colorFont }) => (colorFont ? colorFont : `${ BGColor }`) };
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0px;
+    ${ props => props.hoverColor &&
+        css`
+            &:hover {
+                color: ${ BGColor };
+                background-color:${ PColor };
+            }
+        ` };
+    ${ props => props.colorPrimary &&
+        css`
+            {
+                color: ${ BGColor };
+                background-color:${ PColor };
+            }
+        ` };
+`
