@@ -31,7 +31,6 @@ const apolloServer = new ApolloServer({
         const setCookies = []
         const setHeaders = []
         //  Initialize PubSub
-        console.log(req.headers)
         const pubsub = new PubSub()
         const { token } = req.session.get('user') || {}
         const idComp = req.headers.authorization?.split(' ')[1]

@@ -96,7 +96,7 @@ export const ProfileC = ({ login, token }) => {
 
   const handleConnectStripe = async() => {
 
-    let idUser = data.id
+    let idUser = data?.id
     const res = await axios.post(`${BASEURL}api/stripe?idUser=${idUser}`)
   }
 
