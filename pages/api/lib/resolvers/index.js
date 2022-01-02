@@ -28,6 +28,7 @@ import registerEmailsTemplateResolver from './TemplatesEmails'
 import GraphQLUpload from 'graphql-upload'
 const { PubSub } = require('graphql-subscriptions')
 const pubsub = new PubSub()
+const NEW_USER = "NEW_USER"
 export default {
     ...UserResolvers.TYPES,
     ...SupplierResolvers.TYPES,
@@ -73,7 +74,10 @@ export default {
     Subscription: {
         testEmit: {
             subscribe: () => pubsub.asyncIterator('testEmit')
-        }
+        },
+        newUser: {
+            subscribe: (_, __, { pubsub }) => pubsub.asyncIterator(NEW_USER),
+        },
     },
     Mutation: {
         ...registerEmailsTemplateResolver.MUTATIONS,
