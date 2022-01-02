@@ -21,7 +21,7 @@ const newDataFormatted = (data) => {
     return res
 }
 export const ViewCommissionStatements = ({ data, loading }) => {
-    // console.log(data, 'AQUI ES LA DATA')
+    console.log(data, 'AQUI ES LA DATA')
     // STATES}
     const [dataCompany] = useCompanyHook()
     // console.log(dataCompany)

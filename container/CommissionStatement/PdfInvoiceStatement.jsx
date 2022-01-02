@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
 
 const InvoicePdfGenerateStatement = ({ pdfDocumentData }) => {
     const { dataInvoice } = pdfDocumentData
-    // console.log(dataInvoice, 'data pdf download')
+    console.log(dataInvoice, 'data pdf download')
     return (
         <Document>
             <Page size="A4" style={styles.page}>
