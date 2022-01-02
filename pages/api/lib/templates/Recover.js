@@ -96,6 +96,19 @@ module.exports = ({ code }) => {
                 </td>
             </tr>
             <tr>
+            <td> <a href="https://smartreportz.com/"
+                    style="text-align: center; color: #F5E9DA; font-weight: bold; text-decoration: unset; font-size: 16px; display: block;">
+                    <table border="0" height="50px" width="335px" align="center" cellpadding="5" cellspacing="10"
+                        bgcolor="#EA1D2C" style=" border-radius: 4px;">
+                        <tr>
+                            <td align="center"> <span
+                                    style="text-align: center; color: #F5E9DA; font-weight: bold; text-decoration: unset; font-size: 16px; display: block;">Entrar</span>
+                            </td>
+                        </tr>
+                    </table>
+                </a> </td>
+        </tr>
+            <tr>
                 <td>
                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="10"
                         style="margin: 60px auto 0">

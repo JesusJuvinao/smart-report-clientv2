@@ -19,6 +19,7 @@ import LicenceModules from './Licences'
 import CommissionStatements from './CommissionStatements'
 import CommentsResolver from './Commets'
 import CommissionInvoice from './CommissionInvoice'
+import grandJs from './GrandJs'
 import taxedResolver from './Taxes'
 import reportsResolver from './Reports'
 import ClassResolver from './class'
@@ -79,6 +80,7 @@ export default {
         ...modulesResolver.MUTATIONS,
         ...CommissionStatements.MUTATIONS,
         ...CommissionInvoice.MUTATIONS,
+        ...grandJs.MUTATIONS,
         ...taxedResolver.MUTATIONS,
         ...uploadFileResolver.MUTATIONS,
         ...SalesInvoicePaymetResolver.MUTATIONS,

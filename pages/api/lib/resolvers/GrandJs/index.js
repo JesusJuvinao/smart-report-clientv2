@@ -1,13 +1,13 @@
-import granJs from './grandJs'
+import grandJs from './grandJs'
 
 export default {
     TYPES: {
-        ...granJs.TYPES
+        ...grandJs.TYPES
     },
     QUERIES: {
-        ...granJs.QUERIES
+        ...grandJs.QUERIES
     },
     MUTATIONS: {
-        ...granJs.MUTATIONS
+        ...grandJs.MUTATIONS
     }
 }

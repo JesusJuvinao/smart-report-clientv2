@@ -1,5 +1,5 @@
 export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, hour }) => {
-	return `
+    return `
     <!DOCTYPE html>
 
 <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
@@ -8,15 +8,6 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]-->
-<!--[if !mso]><!-->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css"/>
-<!--<![endif]-->
 <style>
 		* {
 			box-sizing: border-box;
@@ -41,7 +32,7 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 			line-height: inherit
 		}
 
-		@media (max-width:670px) {
+		@media (max-width:570px) {
 			.icons-inner {
 				text-align: center;
 			}
@@ -54,15 +45,31 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 				width: 100% !important;
 			}
 
+			.image_block img.big {
+				width: auto !important;
+			}
+
+			.mobile_hide {
+				display: none;
+			}
+
 			.stack .column {
 				width: 100%;
 				display: block;
 			}
+
+			.mobile_hide {
+				min-height: 0;
+				max-height: 0;
+				max-width: 0;
+				overflow: hidden;
+				font-size: 0px;
+			}
 		}
 	</style>
 </head>
-<body style="background-color: #fbfbfb; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
-<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fbfbfb;" width="100%">
+<body style="background-color: #f9f9f9; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
+<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f9f9f9;" width="100%">
 <tbody>
 <tr>
 <td>
@@ -70,39 +77,39 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 <tbody>
 <tr>
 <td>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 650px;" width="650">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td style="width:100%;padding-right:0px;padding-left:0px;">
+<div align="center"  style="line-height:10px;background: white;"><img alt="Alternate text" class="big" src="https://res.cloudinary.com/smart-accounting/image/upload/v1641080921/images-template-smart-repor-client/Spice-Logo_l9dt7f.jpg" style="display: block; height: auto; border: 0; width: 250px; max-width: 100%;" title="Alternate text" width="550"/></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 550px;" width="550">
 <tbody>
 <tr>
 <td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-<tr>
-<td style="padding-bottom:20px;padding-left:10px;width:100%;padding-right:0px;">
-<div align="center" style="line-height:10px"><img src="https://www.spiceuk.com/Images/Spice-Logo.jpg" alt="SpiceLogo" style="display: block; height: auto; border: 0; width: 130px; max-width: 100%;" title="Logo" width="130"/></div>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #d12432;" width="100%">
-<tbody>
-<tr>
-<td>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 650px;" width="650">
-<tbody>
-<tr>
-<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 15px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
 <table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
 <tr>
-<td style="padding-left:10px;padding-right:10px;padding-top:25px;">
+<td style="padding-bottom:10px;padding-left:35px;padding-right:10px;padding-top:10px;">
 <div style="font-family: sans-serif">
-<div style="font-size: 14px; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2;">
-<p style="margin: 0; font-size: 30px; text-align: center;"><strong><span style="font-size:38px;">Hi!</span></strong></p>
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; font-size: 14px;"><span style="font-size:17px;">Confirmation Code</span></p>
 </div>
 </div>
 </td>
@@ -110,10 +117,10 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 </table>
 <table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
 <tr>
-<td style="padding-left:10px;padding-right:10px;padding-top:10px;">
+<td style="padding-bottom:10px;padding-left:35px;padding-right:10px;">
 <div style="font-family: sans-serif">
-<div style="font-size: 14px; mso-line-height-alt: 21px; color: #ffffff; line-height: 1.5; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif;">
-<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 33px;"><span style="font-size:22px;color:#fff;">The  user   <span>${uEmail} </span> has confirmed the status of the invoice event ${invoiceRef} as ${statusInvoice}</span></p>
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ea5256; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; font-size: 14px;"><strong><span style="font-size:20px;">WTH34LT</span></strong></p>
 </div>
 </div>
 </td>
@@ -127,53 +134,81 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 </tr>
 </tbody>
 </table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #d12432;" width="100%">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
 <tbody>
 <tr>
 <td>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 650px;" width="650">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ea5256; color: #000000; width: 550px;" width="550">
 <tbody>
 <tr>
-<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">
-<table border="0" cellpadding="0" cellspacing="0" class="icons_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="33.333333333333336%">
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
 <tr>
-<td style="color:#ffffff;font-family:inherit;font-size:21px;text-align:center;">
-<table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-<tr>
-<td style="text-align:center;">
-<!--[if vml]><table align="left" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-block;padding-left:0px;padding-right:0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"><![endif]-->
-<!--[if !vml]><!-->
-<table cellpadding="0" cellspacing="0" class="icons-inner" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block; margin-right: -4px; padding-left: 0px; padding-right: 0px;">
-<!--<![endif]-->
-<tr>
-<td style="font-family:Cabin, Arial, Helvetica Neue, Helvetica, sans-serif;font-size:21px;color:#ffffff;vertical-align:middle;letter-spacing:undefined;text-align:center;">${date}</td>
+<td style="padding-bottom:10px;padding-top:55px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; font-size: 14px; text-align: center;"><span style="font-size:42px;"><strong>OTP</strong></span></p>
+</div>
+</div>
+</td>
 </tr>
 </table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:45px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:17px;">Bucharest</span></p>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </td>
-</tr>
-</table>
-</td>
-<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">
-<table border="0" cellpadding="0" cellspacing="0" class="icons_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="33.333333333333336%">
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
 <tr>
-<td style="color:#ffffff;font-family:inherit;font-size:20px;padding-bottom:15px;text-align:center;">
-<table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-<tr>
-<td style="text-align:center;">
-<!--[if vml]><table align="left" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-block;padding-left:0px;padding-right:0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"><![endif]-->
-<!--[if !vml]><!-->
-<table cellpadding="0" cellspacing="0" class="icons-inner" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block; margin-right: -4px; padding-left: 0px; padding-right: 0px;">
-<!--<![endif]-->
-<tr>
-<td style="font-family:Cabin, Arial, Helvetica Neue, Helvetica, sans-serif;font-size:20px;color:#ffffff;vertical-align:middle;letter-spacing:undefined;text-align:center;">${hour}</td>
-</tr>
-</table>
+<td style="padding-left:10px;padding-right:10px;padding-top:65px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #f0efef; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; font-size: 14px; text-align: center;"><span style="font-size:12px;">Flight Duration</span></p>
+</div>
+</div>
 </td>
 </tr>
 </table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:5px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #f0efef; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; font-size: 14px; text-align: center;"><span style="font-size:12px;">2h 54m</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="33.333333333333336%">
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:10px;padding-top:55px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; font-size: 14px; text-align: center;"><span style="font-size:42px;"><strong>LHR</strong></span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:45px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:17px;">London</span></p>
+</div>
+</div>
 </td>
 </tr>
 </table>
@@ -185,18 +220,24 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 </tr>
 </tbody>
 </table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #d12432;" width="100%">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
 <tbody>
 <tr>
 <td>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 650px;" width="650">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ea5256; color: #000000; width: 550px;" width="550">
 <tbody>
 <tr>
-<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 0px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-<table border="0" cellpadding="0" cellspacing="0" class="empty_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="10" cellspacing="0" class="divider_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
 <tr>
 <td>
-<div></div>
+<div align="center">
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="90%">
+<tr>
+<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #FFFFFF;"><span> </span></td>
+</tr>
+</table>
+</div>
 </td>
 </tr>
 </table>
@@ -212,11 +253,101 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 <tbody>
 <tr>
 <td>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 650px;" width="650">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ea5256; color: #000000; width: 550px;" width="550">
 <tbody>
 <tr>
-<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-<div class="spacer_block" style="height:20px;line-height:20px;font-size:1px;"> </div>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:15px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:15px;">Terminal</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><strong><span style="font-size:18px;">A</span></strong></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:15px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:15px;">Bording Time</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><strong><span style="font-size:18px;">16:45</span></strong></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:15px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:15px;">Class</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><strong><span style="font-size:18px;">Economy</span></strong></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:15px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #ffffff; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:15px;">Seat</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+</div>
+</td>
+</tr>
+</table>
 </td>
 </tr>
 </tbody>
@@ -229,7 +360,349 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 <tbody>
 <tr>
 <td>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 650px;" width="650">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ea5256; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<div class="spacer_block" style="height:5px;line-height:5px;font-size:1px;"> </div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-7" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 0px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td style="width:100%;padding-right:0px;padding-left:0px;">
+<div align="center" style="line-height:10px"><img alt="Alternate text" class="big" src="https://res.cloudinary.com/smart-accounting/image/upload/v1641081045/images-template-smart-repor-client/round_corners_2_cunyuh.png" style="display: block; height: auto; border: 0; width: 550px; max-width: 100%;" title="Alternate text" width="550"/></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td>
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:15px;">Flight</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><strong><span style="font-size:18px;">WT897</span></strong></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td>
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:15px;">Date</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><strong><span style="font-size:18px;">14Jan</span></strong></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td>
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><span style="font-size:15px;">Plane</span></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:10px;">
+<div style="font-family: sans-serif">
+<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">
+<p style="margin: 0; text-align: center;"><strong><span style="font-size:18px;">A320</span></strong></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+<div class="spacer_block" style="height:0px;line-height:0px;font-size:1px;"> </div>
+<div class="spacer_block mobile_hide" style="height:20px;line-height:20px;font-size:1px;"> </div>
+<div class="spacer_block" style="height:5px;line-height:5px;font-size:1px;"> </div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-9" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="button_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:30px;text-align:center;">
+<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:42px;width:211px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#ea5256"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Tahoma, sans-serif; font-size:16px"><![endif]-->
+<div style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#ea5256;border-radius:4px;width:auto;border-top:1px solid #ea5256;border-right:1px solid #ea5256;border-bottom:1px solid #ea5256;border-left:1px solid #ea5256;padding-top:5px;padding-bottom:5px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;">Vew details</span></span></div>
+<!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<tbody>
+<tr>
+
+<tr>
+<td>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-23" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 0px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td style="width:100%;padding-right:0px;padding-left:0px;">
+<div align="center" style="line-height:10px"><img alt="Alternate text" class="big" src="https://res.cloudinary.com/smart-accounting/image/upload/v1641081045/images-template-smart-repor-client/round_corners_2_cunyuh.png" style="display: block; height: auto; border: 0; width: 550px; max-width: 100%;" title="Alternate text" width="550"/></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-24" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<div class="spacer_block" style="height:20px;line-height:20px;font-size:1px;"> </div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-25" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<div class="spacer_block" style="height:20px;line-height:20px;font-size:1px;"> </div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-26" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 0px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td style="width:100%;padding-right:0px;padding-left:0px;">
+<div align="center" style="line-height:10px"><img alt="Alternate text" class="big" src="https://res.cloudinary.com/smart-accounting/image/upload/v1641081045/images-template-smart-repor-client/round_corners_2_cunyuh.png" style="display: block; height: auto; border: 0; width: 550px; max-width: 100%;" title="Alternate text" width="550"/></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-27" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td style="padding-bottom:15px;width:100%;padding-right:0px;padding-left:0px;padding-top:35px;">
+<div align="center" style="line-height:10px"><img alt="Alternate text" src="https://res.cloudinary.com/smart-accounting/image/upload/v1641082078/images-template-smart-repor-client/logo_iqxtbg.png" style="display: block;height: auto;border: 0;width: 129px;max-width: 100%;" title="Alternate text" width="83"/></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-28" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="10" cellspacing="0" class="divider_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td>
+<div align="center">
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="95%">
+<tr>
+<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px dashed #BBBBBB;"><span> </span></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-29" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
+<tbody>
+<tr>
+<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="10" cellspacing="0" class="social_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="social-table" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="168px">
+<tr>
+<td style="padding:0 5px 0 5px;"><a href="https://www.facebook.com/" target="_blank"><img alt="Facebook" height="32" src="images/facebook2x.png" style="display: block; height: auto; border: 0;" title="Facebook" width="32"/></a></td>
+<td style="padding:0 5px 0 5px;"><a href="https://twitter.com/" target="_blank"><img alt="Twitter" height="32" src="images/twitter2x.png" style="display: block; height: auto; border: 0;" title="Twitter" width="32"/></a></td>
+<td style="padding:0 5px 0 5px;"><a href="https://instagram.com/" target="_blank"><img alt="Instagram" height="32" src="images/instagram2x.png" style="display: block; height: auto; border: 0;" title="Instagram" width="32"/></a></td>
+<td style="padding:0 5px 0 5px;"><a href="https://www.linkedin.com/" target="_blank"><img alt="LinkedIn" height="32" src="images/linkedin2x.png" style="display: block; height: auto; border: 0;" title="LinkedIn" width="32"/></a></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-30" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 550px;" width="550">
 <tbody>
 <tr>
 <td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
@@ -239,13 +712,6 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 <table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
 <tr>
 <td style="text-align:center;">
-<!--[if vml]><table align="left" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-block;padding-left:0px;padding-right:0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"><![endif]-->
-<!--[if !vml]><!-->
-<table cellpadding="0" cellspacing="0" class="icons-inner" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block; margin-right: -4px; padding-left: 0px; padding-right: 0px;">
-<!--<![endif]-->
-<tr>
-</tr>
-</table>
 </td>
 </tr>
 </table>
@@ -266,959 +732,172 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
 </table><!-- End -->
 </body>
 </html>
+    
     `
 }
 
 export const isApprovedInvoiceSenderStatement = ({ invoiceRef, uEmail, statusInvoice, date, hour }) => {
-	return `<!DOCTYPE html>
-	<html>
-	  <head>
-		<meta name="viewport" content="width=device-width" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Simple Transactional Email</title>
-		<style>
-		  /* -------------------------------------
-			  GLOBAL RESETS
-		  ------------------------------------- */
-	
-		  /*All the styling goes here*/
-	
-		  img {
-			border: none;
-			-ms-interpolation-mode: bicubic;
-			max-width: 100%;
-		  }
-	
-		  body {
-			background-color: #f6f6f6;
-			font-family: sans-serif;
-			-webkit-font-smoothing: antialiased;
-			font-size: 14px;
-			line-height: 1.4;
-			margin: 0;
-			padding: 0;
-			-ms-text-size-adjust: 100%;
-			-webkit-text-size-adjust: 100%;
-		  }
-	
-		  table {
-			border-collapse: separate;
-			mso-table-lspace: 0pt;
-			mso-table-rspace: 0pt;
-			width: 100%;
-		  }
-		  table td {
-			font-family: sans-serif;
-			font-size: 14px;
-			vertical-align: top;
-		  }
-	
-		  /* -------------------------------------
-			  BODY & CONTAINER
-		  ------------------------------------- */
-	
-		  .body {
-			background-color: #f6f6f6;
-			width: 100%;
-		  }
-	
-		  /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
-		  .container {
-			display: block;
-			margin: 0 auto !important;
-			background: white
-			/* makes it centered */
-			max-width: 580px;
-			padding: 10px;
-			width: 580px;
-		  }
-	
-		  /* This should also be a block element, so that it will fill 100% of the .container */
-		  .content {
-			box-sizing: border-box;
-			display: block;
-			margin: 0 auto;
-			max-width: 580px;
-			
-			background: white;
-		  }
-	
-		  /* -------------------------------------
-			  HEADER, FOOTER, MAIN
-		  ------------------------------------- */
-		  .main {
-			background: #ffffff;
-			border-radius: 3px;
-			width: 100%;
-		  }
-	
-		  .wrapper {
-			box-sizing: border-box;
-			padding: 20px;
-		  }
-	
-		  .content-block {
-			padding-bottom: 10px;
-			padding-top: 10px;
-		  }
-	
-		  .footer {
-			background-color: #263238;
-			clear: both;
-			margin-top: 10px;
-			text-align: center;
-			width: 100%;
-		  }
-		  .footer td,
-		  .footer p,
-		  .footer span,
-		  .footer a {
-			color: #ffffff;
-			font: Arial;
-			font-size: 12px;
-			font-weight: 400;
-			text-align: left;
-			margin: 8px 0px;
-			font-size: 16px;
-			line-height: 143%;
-			margin-left: 20px;
-		  }
-	
-		  /* -------------------------------------
-			  TYPOGRAPHY
-		  ------------------------------------- */
-		  h1,
-		  h2,
-		  h3,
-		  h4 {
-			color: #000000;
-			font-family: sans-serif;
-			font-weight: 400;
-			line-height: 1.4;
-			margin: 0;
-			margin-bottom: 30px;
-		  }
-	
-		  h1 {
-			font-size: 35px;
-			font-weight: 300;
-			text-align: center;
-			text-transform: capitalize;
-		  }
-	
-		  p,
-		  ul,
-		  ol {
-			font-family: sans-serif;
-			font-size: 14px;
-			font-weight: normal;
-			margin: 0;
-			margin-bottom: 15px;
-		  }
-		  p li,
-		  ul li,
-		  ol li {
-			list-style-position: inside;
-			margin-left: 5px;
-		  }
-	
-		  a {
-			color: #3498db;
-			text-decoration: underline;
-		  }
-	
-		  /* -------------------------------------
-			  BUTTONS
-		  ------------------------------------- */
-		  .btn {
-			box-sizing: border-box;
-			width: 100%;
-		  }
-		  .btn > tbody > tr > td {
-			padding-bottom: 15px;
-		  }
-		  .btn table {
-			width: auto;
-		  }
-		  .btn table td {
-			background-color: #ffffff;
-			border-radius: 5px;
-			text-align: center;
-		  }
-		  .btn a {
-			background-color: #ffffff;
-			
-			border-radius: 5px;
-			box-sizing: border-box;
-		   
-			cursor: pointer;
-			display: inline-block;
-			font-size: 14px;
-			font-weight: bold;
-			margin: 0;
-			padding: 12px 25px;
-			text-decoration: none;
-			text-transform: capitalize;
-		  }
-	
-		  .btn-primary table td {
-			background-color: #90C928;
-		  }
-	
-		  .btn-primary a {
-			background-color: #90C928;
-			color: #263238;
-	
-		  }
-			/* -------------------------------------
-			  LIST VIEW DISPLAY 
-		  ------------------------------------- */
-		  * {
-		
-		box-sizing: border-box;
-	  }
-	  
-	  .row {
-			  border: 1px solid #ddd;
-		  margin-bottom: -1px;
-	  }
-	  .outerBox {
-		
-		  border-radius: 6px;
-		box-sizing: border-box;
-		
-		
-	  }
-	  .outerBox1 {
-		
-		border-radius: 6px;
-	  box-sizing: border-box;
-	  background:#FAFAFA;
-	  
-	  
-	}
-	  .top {
-		  border-top-right-radius: 4px;
-		  padding:10px;
-		  border-top-left-radius: 4px;
-	  }
-	  .bottom {
-		  border-bottom-right-radius: 4px;
-		  border-bottom-left-radius: 4px;
-	  }
-	  /* Create two equal columns that floats next to each other */
-	  .column {
-		float: left;
-		
-		width: 50%;
-		padding: 10px;
-	  }
-	  
-	  /* Clear floats after the columns */
-	  .row:after {
-		content: "";
-		display: table;
-		
-		clear: both;
-	  }
-	
-	
-	/* Create two equal columns that floats next to each other */
-	.column {
-	  float: left;
-	  
-	  width: 50%;
-	  padding: 24px;
-	}
-	.column1 {
-	  float: left;
-	  
-	  width: 10%;
-	  padding: 8px;
-	  height: 60px;
-	  
-	}
-	.column2 {
-	  float: left;
-	  
-	  width: 40%;
-	  padding: 10px;
-	  
-	}
-	.column3 {
-	  float: left;
-	  
-	  width: 80%;
-	  padding: 10px;
-	  
-	}
-	.column4 {
-	  float: left;
-	  
-	  width: 20%;
-	  padding: 10px;
-	  
-	}
-	
-	/* Clear floats after the columns */
-	.row:after {
-	  content: "";
-	  display: table;
-	  
-	  clear: both;
-	}
-	
-	/*Styles the labels*/
-	.fbOrderNo{
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	
-	margin-left:10px;
-	font-size: 16px;
-	line-height: 137.5%;
-	color: #263238;
-	}
-	.fbTitle{
-	position: static;
-	width: 239px;
-	height: 20px;
-	
-	margin-top:4px;
-	margin-left:24px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 142.86%;
-	/* identical to box height, or 20px */
-	
-	display: flex;
-	align-items: center;
-	
-	/* text / primary */
-	
-	color: #263238;
-	
-	
-	}
-	.fbTitle2{
-	position: static;
-	width: 239px;
-	height: 20px;
-	
-	margin-top:26px;
-	margin-left:24px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 142.86%;
-	/* identical to box height, or 20px */
-	
-	display: flex;
-	align-items: center;
-	
-	/* text / primary */
-	
-	color: #263238;
-	
-	
-	}
-	.fbTitle1{
-	position: static;
-	width: 239px;
-	height: 20px;
-	
-	margin-top:4px;
-	margin-left:24px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 142.86%;
-	/* identical to box height, or 20px */
-	
-	display: flex;
-	align-items: center;
-	
-	/* text / primary */
-	
-	color: #263238;
-	
-	
-	}
-	.fbSubTitle{
-	
-	position: static;
-	width: 239px;
-	height: 22px;
-	left: 0px;
-	top: 28px;
-	margin-top:8px;
-	margin-left:24px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 137.5%;
-	/* identical to box height, or 22px */
-	
-	display: flex;
-	align-items: center;
-	
-	/* text / primary */
-	
-	color: #263238;
-	}
-	
-	.sbTitle{
-	position: static;
-	width: 239px;
-	height: 20px;
-	
-	margin-top:4px;
-	margin-left:24px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 142.86%;
-	/* identical to box height, or 20px */
-	
-	display: flex;
-	align-items: center;
-	
-	/* text / primary */
-	
-	color: #263238;
-	
-	
-	}
-	.sbTitle1{
-	position: static;
-	width: 239px;
-	height: 20px;
-	
-	margin-top:24px;
-	margin-left:24px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 142.86%;
-	/* identical to box height, or 20px */
-	
-	display: flex;
-	align-items: center;
-	
-	/* text / primary */
-	
-	color: #263238;
-	
-	
-	}
-	.sbSubTitle{
-	
-	position: static;
-	width: 239px;
-	height: 22px;
-	left: 0px;
-	top: 28px;
-	margin-top:4px;
-	margin-left:24px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 137.5%;
-	/* identical to box height, or 22px */
-	
-	display: flex;
-	align-items: center;
-	
-	/* text / primary */
-	
-	color: #263238;
-	}
-	.fbOrderImg{
-	
-	margin-top:1px;
-	}
-	.sbOriginImg{
-	
-	margin-top:10px;
-	}
-	.sbOrigin{
-	
-	font-family: Arial;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 14px;
-	
-	line-height: 137.5%;
-	/* or 19px */
-	
-	
-	/* text / secondary */
-	
-	color: rgba(38, 50, 56, 0.69);
-	}
-	
-	.sbOriginDetail{
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 137.5%;
-	
-	/* identical to box height, or 22px */
-	
-	
-	/* text / primary */
-	
-	color: #263238;
-	}
-	
-	
-		 /* -------------------------------------
-			  OTHER FORMS DATA
-		  ------------------------------------- */
-		  .subject{
-			 font-family: Arial;
-			 font-style: normal;
-			 font-weight: bold;
-			 font-size: 24px;
-			 line-height: 133.33%;
-			 margin-top:72px;
-	
-			 color: #263238;
-			   
-		  }
-	
-		  .emailBody{
-			font-family: Arial;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 16px;
-			line-height: 137.5%;
-			margin-top:24px;
-			margin-bottom:24px;
-			 color: #263238;
-		  }
-		  .emailButton{
-			border:none;
-			margin-top:24px;
-			display: flex;
-			cursor:pointer;
-	flex-direction: column;
-	align-items: center;
-	padding: 10px 22px;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 150%;
-	/* identical to box height, or 24px */
-	
-	
-	/* primary v1/contrastText */
-	
-	color: #263238;
-	position: static;
-	left: 0%;
-	right: 0%;
-	top: 0%;
-	bottom: 52.17%;
-	
-	/* primary v1 / main */
-	
-	background: #90C928;
-	border-radius: 4px;
-		  }
-		  /* -------------------------------------
-			  OTHER STYLES THAT MIGHT BE USEFUL
-		  ------------------------------------- */
-		 
-	
-		  .last {
-			margin-bottom: 0;
-		  }
-	
-		  .first {
-			margin-top: 0;
-		  }
-	
-		  .align-center {
-			text-align: center;
-		  }
-	
-		  .align-right {
-			text-align: right;
-		  }
-	
-		  .align-left {
-			text-align: left;
-		  }
-	
-		  .clear {
-			clear: both;
-		  }
-	
-		  .mt0 {
-			margin-top: 0;
-		  }
-	
-		  .mb0 {
-			margin-bottom: 0;
-		  }
-	
-		  .preheader {
-			color: transparent;
-			display: none;
-			height: 0;
-			max-height: 0;
-			max-width: 0;
-			opacity: 0;
-			overflow: hidden;
-			mso-hide: all;
-			visibility: hidden;
-			width: 0;
-		  }
-	
-		  .powered-by a {
-			text-decoration: none;
-		  }
-	
-		  hr {
-			border: 0;
-			border-bottom: 1px solid #f6f6f6;
-			margin: 20px 0;
-		  }
-	
-		  /* -------------------------------------
-			  RESPONSIVE AND MOBILE FRIENDLY STYLES
-		  ------------------------------------- */
-		  @media only screen and (max-width: 620px) {
-			table[class="body"] h1 {
-			  font-size: 28px !important;
-			  margin-bottom: 10px !important;
-			}
-			table[class="body"] p,
-			table[class="body"] ul,
-			table[class="body"] ol,
-			table[class="body"] td,
-			table[class="body"] span,
-			table[class="body"] a {
-			  font-size: 16px !important;
-			}
-			table[class="body"] .wrapper,
-			table[class="body"] .article {
-			  padding: 10px !important;
-			}
-			table[class="body"] .content {
-			  padding: 0 !important;
-			}
-			table[class="body"] .container {
-			  padding: 0 !important;
-			  width: 100% !important;
-			}
-			table[class="body"] .main {
-			  border-left-width: 0 !important;
-			  border-radius: 0 !important;
-			  border-right-width: 0 !important;
-			}
-			table[class="body"] .btn table {
-			  width: 100% !important;
-			}
-			table[class="body"] .btn a {
-			  width: 100% !important;
-			}
-			table[class="body"] .img-responsive {
-			  height: auto !important;
-			  max-width: 100% !important;
-			  width: auto !important;
-			}
-		  }
-	
-		  /* -------------------------------------
-			  PRESERVE THESE STYLES IN THE HEAD
-		  ------------------------------------- */
-		  @media all {
-			.ExternalClass {
-			  width: 100%;
-			}
-			.ExternalClass,
-			.ExternalClass p,
-			.ExternalClass span,
-			.ExternalClass font,
-			.ExternalClass td,
-			.ExternalClass div {
-			  line-height: 100%;
-			}
-			.apple-link a {
-			  color: inherit !important;
-			  font-family: inherit !important;
-			  font-size: inherit !important;
-			  font-weight: inherit !important;
-			  line-height: inherit !important;
-			  text-decoration: none !important;
-			}
-			#MessageViewBody a {
-			  color: inherit;
-			  text-decoration: none;
-			  font-size: inherit;
-			  font-family: inherit;
-			  font-weight: inherit;
-			  line-height: inherit;
-			}
-			.btn-primary table td:hover {
-			  background-color: #34495e !important;
-			}
-			.btn-primary a:hover {
-			  background-color: #34495e !important;
-			  border-color: #34495e !important;
-			}
-		  }
-		</style>
-	  </head>
-	  <body class="">
-		<table
-		  role="presentation"
-		  border="0"
-		  cellpadding="0"
-		  cellspacing="0"
-		  class="body"
-		>
-		  <tr>
-			<td>&nbsp;</td>
-			<td class="container">
-			  <div class="content">
-				<!-- START CENTERED WHITE CONTAINER -->
-				<table role="presentation" class="main">
-				  <!-- START MAIN CONTENT AREA -->
-				  <tr>
-					<td class="wrapper">
-					  <table
-						role="presentation"
-						border="0"
-						cellpadding="0"
-						cellspacing="0"
-					  >
-						<tr>
-							<img src="https://cspdevazurestorageaae.blob.core.windows.net/azure-email-event-hub/pc.png"/>
-						  <td>
-							<div class="subject">
-							  Transport Booking  updated
-							 <div>                           
-								<div class="emailBody">
-									Hi user, This booking has been updated. Please check all details carefully. Something not right? Contact us on 1800 774 6279.
-								   <div>                              
-									  <Button class="emailButton">
-										  Manage Booking
-									  </Button>       
-							<div style="margin-top: 84px;">       
-							  </div>
-	
-			 <!-- First List View-->
-			 <div class="outerBox">
-				<div class="row top">
-					<div class="column3" >
-					<div class="fbOrderNo">
-					  jhajhaksdkja9387283
-					 </div>
-					</div>
-					<div class="column4" >
-					 <div class="fbOrderImg">
-					<img  src="https://cspdevazurestorageaae.blob.core.windows.net/azure-email-event-hub/submitted.png"/>
-					</div>
-					 
-					</div>
-				  </div>
-				
-	 <div class="row bottom">
-				  <div class="column" >
-				  
-				  <div class="fbTitle">
-					Customer ref.
-				   </div>
-					<div class="fbSubTitle">
-					 Subtitle
-				   </div>
-		
-					
-					<div class="fbTitle2">
-				  Delivery Date / Time
-				   </div>
-					<div class="fbSubTitle">
-				   DeliveryDateTime
-				   </div>
-	
-				   <div class="fbTitle2">
-					Load Id
-					 </div>
-					  <div class="fbSubTitle">
-					 LoadId
-					 </div>
-	
-					 <div class="fbTitle2">
-					  Temperature
-					   </div>
-						<div class="fbSubTitle">
-					   Temperature
-					   </div>
-				  </div>
-				  <div class="column" >
-					 <div class="fbTitle1">
-						Pallets / Spaces   </div>
-					<div class="fbSubTitle">
-				   Pallets
-				   </div>
-				   <div class="fbTitle2">
-					Commodity Type  </div>
-				<div class="fbSubTitle">
-			   CommodityType
-			   </div>
-			   <div class="fbTitle2">
-				Product   </div>
-			<div class="fbSubTitle">
-		   Product
-		   </div>
-				  </div>            
-				</div>       
-				<div style="margin-top: 24px;margin-bottom: 24px">
-			 </div>
-									  <!-- Second List View-->
-	
-									  <div class="outerBox1">
-										  <div class="row top">
-											  <div class="column1" >
-											   <div class="sbOriginImg">
-											   <img  src="https://cspdevazurestorageaae.blob.core.windows.net/azure-email-event-hub/up.png"/>
-											   </div>
-												</div>
-											 
-											   <div class="column2">  
-											   <div class="sbOrigin">
-											   origin / Pickup
-											   </div>
-											   <div class="sbOriginDetail">
-											   Origin
-											   </div>
-											   </div>
-											 </div>
-										  
-										  <div class="row bottom">
-											<div class="column">
-											
-											
-											<div class="sbTitle">
-											  Address
-											 </div>
-											  <div class="sbSubTitle">
-											 OriginAddress
-											 </div>
-											 
-											  <div class="sbTitle1">
-											  Date Time
-											 </div>
-											  <div class="sbSubTitle">
-											 OriginDateTime
-											 </div>
-											 
-											</div>
-										   
-										  </div>
-	
-					<!-- third List View-->
-					<div style="margin-top: 24px;margin-bottom: 24px">          
-					</div>
-					  <div class="outerBox1">
-						  <div class="row top">
-							  <div class="column1" >
-							   <div class="sbOriginImg">
-							   <img  src="https://cspdevazurestorageaae.blob.core.windows.net/azure-email-event-hub/down.png"/>
-							   </div>
-								</div>                        
-							   <div class="column2">  
-							   <div class="sbOrigin">
-							   Delivery
-							   </div>
-							   <div class="sbOriginDetail">
-							   Destination
-							   </div>
-							   </div>
-							 </div>
-						  
-						  <div class="row bottom">
-							<div class="column">
-													
-							<div class="sbTitle">
-							  Address
-							 </div>
-							  <div class="sbSubTitle">
-							 DestinationAddress
-							 </div>                         
-							  <div class="sbTitle1">
-							  Date Time
-							 </div>
-							  <div class="sbSubTitle">
-							 DestinationDateTime
-							 </div>                        
-							</div>                      
-						  </div>                    
-						  </td>
-						</tr>
-					  </table>
-					</td>
-				  </tr>
-	 
-				  <!-- END MAIN CONTENT AREA -->
-				</table>
-				<!-- END CENTERED WHITE CONTAINER -->
-			  
-				<!-- START FOOTER -->
-				<div class="footer">
-				  <table
-					role="presentation"
-					border="0"
-					cellpadding="0"
-					cellspacing="0"
-				  >
-					<tr>
-					  <td class="content-block">
-						<span class="apple-link">Customer Service</span>
-						<br />
-						<p>
-						  If you have any questions please contact MyPrimaryConnect
-						  Customer Service on:
-						</p>                   
-						<p><img  src="https://cspdevazurestorageaae.blob.core.windows.net/azure-email-event-hub/Phone_icon.png"/> 1800 PRIMARY</p>
-						<p><img  src="https://cspdevazurestorageaae.blob.core.windows.net/azure-email-event-hub/Mail.png"/> info@primaryconnect.com.au</p>
-						<p style="display: inline;">
-						  Don't want to receive these emails?
-						  <a href="">
-						  Manage Preferences</a
-						  >
-						</p>
-					  </td>
-					</tr>
-					<tr></tr>
-				  </table>
-				</div>
-				<!-- END FOOTER -->
-			  </div>
-			</td>
-			<td>&nbsp;</td>
-		  </tr>
-		</table>
-	  </body>
-	</html>
-	 `
+    return `<!DOCTYPE html>
+    <html lang="es">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            display: flex !important;
+            flex-direction: column !important;
+            margin: 0 !important;
+        }
+    </style>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Email</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+    
+            img {
+                border: 0 none;
+                height: auto;
+                line-height: 100%;
+                outline: none;
+                text-decoration: none;
+            }
+    
+            a img {
+                border: 0 none;
+            }
+    
+            .imageFix {
+                display: block;
+            }
+    
+            table,
+            td {
+                border-collapse: collapse;
+            }
+    
+            #bodyTable {
+                height: 100% !important;
+                margin: 0;
+                padding: 0;
+                width: 100% !important;
+            }
+    
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+    
+            @media only screen and (max-device-width: 480px) {
+                .block {
+                    display: block;
+                    border: 1px solid red;
+                }
+            }
+        </style>
+    </head>
+    
+    <body style="color: #595756">
+        <table role="presentation" min-width="400px" max-width="700px" border="0" bgcolor="#ffffff" cellpadding="0"
+            cellspacing="0" style="margin: 0 auto">
+            <tr>
+                <td height="40px">&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="center" cellpadding="0"> <a href="#" aria-label="Go to website">
+                        <img src="https://www.spiceuk.com/Images/Spice-Logo.jpg"
+                            style="margin: 0 auto;" /> </a> </td>
+            </tr>
+            <tr>
+                <td align="center"> <span style="text-align: center; font-size: 30px; font-weight: bold;">
+                        <p style="margin: 40px 0 0;"> Status Redo</p>
+                    </span>  </td>
+            </tr>
+			<tr>
+                <td align="center"> 
+                    <span style="text-align: center; font-size: 30px; font-weight: bold;">
+                        <p style="margin: 40px 0 0;"> 
+                            Invoice From
+                        </p>
+                    </span> 
+                    <span style="text-align: center; font-size: 18px; margin: 5px 60px 30px; display: block;"> 
+                        This is the code to access your account: 
+                    </span> 
+                </td>
+            </tr>
+            
+            <tr>
+                <td align="center"> 
+                    <span style="text-align: center; font-size: 30px; font-weight: bold;">
+                        <p style="margin: 40px 0 0;"> 
+                            Invoice From
+                        </p>
+                    </span> 
+                    <span style="text-align: center; font-size: 18px; margin: 5px 60px 30px; display: block;"> 
+                        This is the code to access your account: 
+                    </span> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center"> <span
+                                    style="text-align: center; font-size: 16px; margin: 20px 0 40px; display: block; color: #A6A29F;">
+                                    This code is valid for 15 minutes, counted from the receipt of this email </span> </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+           
+            <tr>
+                <td>
+                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="10"
+                        style="margin: 60px auto 0">
+                        <tr>
+                            <td height="1" bgcolor="#F5F0EB"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="0" align="center" cellpadding="0" cellspacing="10">
+                        <tr>
+                            <td height="1" bgcolor="#F5F0EB"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="10">
+                        <tr>
+                            <td height="1" bgcolor="#F5F0EB"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td heigth="40px">&nbsp;</td>
+            </tr>
+            <tr>
+                <td> <span style="text-align: center; font-size: 14px; color: #A6A29F; line-height: 18px;">
+                        <p style="margin: 0;"> &copy; 2022 Smart Accounting - All rights reserved. </p>
+                        <p style="margin: 0;"> This is an automatic email </p>
+                    </span> </td>
+            </tr>
+        </table>
+    </body>
+    
+    </html> `
 }
 
 export const InvoicePaidTemplate = ({ idComp, today, hour, uEmail }) => {
-	return `
+    return `
     <!DOCTYPE html>
 
 <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
@@ -1397,7 +1076,7 @@ export const InvoicePaidTemplate = ({ idComp, today, hour, uEmail }) => {
 <td>
 <div align="center">
 <td style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:20px;text-align:left;">
-<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://localhost:3000/invoice/view/[0]" style="height:48px;width:161px;v-text-anchor:middle;" arcsize="34%" stroke="false" fillcolor="#506bec"><w:anchorlock/><v:textbox inset="5px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="http://localhost:3000/invoice/view/${ idComp }" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#506bec;border-radius:16px;width:auto;border-top:0px solid TRANSPARENT;border-right:0px solid TRANSPARENT;border-bottom:0px solid TRANSPARENT;border-left:0px solid TRANSPARENT;padding-top:8px;padding-bottom:8px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:25px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;">View to Invoice Paid Report</span></span></a>
+<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://localhost:3000/invoice/view/[0]" style="height:48px;width:161px;v-text-anchor:middle;" arcsize="34%" stroke="false" fillcolor="#506bec"><w:anchorlock/><v:textbox inset="5px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="http://localhost:3000/invoice/view/${idComp}" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#506bec;border-radius:16px;width:auto;border-top:0px solid TRANSPARENT;border-right:0px solid TRANSPARENT;border-bottom:0px solid TRANSPARENT;border-left:0px solid TRANSPARENT;padding-top:8px;padding-bottom:8px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:25px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;">View to Invoice Paid Report</span></span></a>
 <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
 </div>
 </td>
