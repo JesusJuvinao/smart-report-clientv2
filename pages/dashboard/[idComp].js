@@ -9,7 +9,8 @@ import { decodeToken } from '../../utils'
 export default function Company() {
   const router = useRouter()
   const idComp = router.query.idComp
-  return (<DashboardComp idComp={idComp} />)
+  // return (<DashboardComp idComp={idComp} />)
+  return (<h1 style={{ fontFamily: 'PFont-Regular', color: '#000', fontSize: '2em'  }} >We are in maintenance</h1>)
 }
 export const getServerSideProps = withSession(async function ({ req }) {
   if (!req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/login' } }
