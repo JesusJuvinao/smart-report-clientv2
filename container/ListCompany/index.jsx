@@ -348,19 +348,18 @@ ListCompany.propTypes = {
 export const Animation = ({ useAnimation, setUseAnimation, dataUser, companyName }) => {
     return (
         <ContainerAnimationSw>
-            <button onClick={() => setUseAnimation(!useAnimation)}>clic</button>
             <CtnTitle>
                 <Text style={{ marginLeft: '-80px' }} size='2.125rem' margin='0 0 16px'>Switching Company</Text>
 
             </CtnTitle>
             <ContentComToUser>
                 <Circle useAnimation={useAnimation}>
-                    <Text size='30px'>{dataUser.uEmail?.slice(0, 2).toUpperCase() || null}</Text>
+                    <Text size='30px'>{dataUser?.uEmail?.slice(0, 2).toUpperCase() || null}</Text>
                 </Circle>
                 <Circle2 useAnimation={useAnimation}>
                     <Text size='30px' color={BGColor}>{companyName?.slice(0, 2).toUpperCase() || null}</Text>
                     <CircleUser>
-                        <Text size='18px' color={BColor} >{dataUser.uEmail?.slice(0, 2).toUpperCase() || null}</Text>
+                        <Text size='18px' color={BColor} >{dataUser?.uEmail?.slice(0, 2).toUpperCase() || null}</Text>
                     </CircleUser>
                 </Circle2>
             </ContentComToUser>
