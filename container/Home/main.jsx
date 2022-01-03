@@ -220,7 +220,6 @@ export const PricingCard = () => {
         if (show) window.addEventListener('keyup', e => e.code === 'Escape' && show.setState(false))
         return () => window.removeEventListener('keyup', () => { })
     }, [show])
-    console.log(data)
     return (
         <Section>
             <Text lineHeight={'2.75rem'} font='PFont-Regular' bold='600' justify='center' color={SECColor} size='2.125rem' margin='30px auto'>There’s a Smart-report for every business</Text>

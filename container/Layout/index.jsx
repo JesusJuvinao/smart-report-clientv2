@@ -90,14 +90,25 @@ export const LayoutC = ({ keyTheme, handleTheme, children }) => {
                     color: 'error'
                 })
             }).finally(() => {
-                location.push('/')
-                window.localStorage.clear();
-                setSessionActive(null)
-                client.cache.reset()
+            location.push('/')
+            window.localStorage.clear();
+            setSessionActive(null)
+            setIsSession(null)
+            client.cache.reset()
+            location.push('/')
             })
-        setTimeout(() => {
-            setLoadingLogout(false)
-        }, 300);
+            setTimeout(() => {
+                location.push('/')
+                setSessionActive(null)
+                setIsSession(null)
+                location.push('/')
+                setLoadingLogout(false)
+
+            }, 300);
+            location.push('/')
+            setSessionActive(null)
+            setIsSession(null)
+            location.push('/')
     }, [])
 
     const [timer, setTimer] = useState(0)

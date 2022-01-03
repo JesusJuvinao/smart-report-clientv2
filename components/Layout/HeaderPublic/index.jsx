@@ -11,6 +11,7 @@ import { Container, NavLink, ContainerLink, Button, ContentLink, ContainerBurger
 export const HeaderPublic = ({ closeSession }) => {
     const { setCollapsed, collapsed, isSession } = useContext(Context)
     const router = useRouter()
+    console.log(isSession)
     return (
         <Container>
             <AlertError />
@@ -49,7 +50,7 @@ export const HeaderPublic = ({ closeSession }) => {
                         </a>
                     </NavLink>
                 </ContentLink>
-                {isSession?.data === null ?
+                {isSession === null || undefined ?
                     <div style={{ width: 'min-content', display: 'flex' }}>
                         <NavLink href='/login'>
                             <a>
