@@ -260,7 +260,7 @@ export const RegisterUserC = () => {
                 </ContentTerms>
                 <ButtonHook bgColor={SCColor}/*  disabled={!values?.ConfirmPassword} */ padding='10px' margin='15px 0px' width='100%' type='submit' >{loading ? <LoadEllipsis /> : 'Register'}</ButtonHook>
                  <GoogleLogin
-                            clientId='58758655786-t2kpplbk54sus4god1ovdeepd0jrrenk.apps.googleusercontent.com'
+                            clientId='214924348774-vhedvibiudvgpm8o5b1dkrdffsombv7a.apps.googleusercontent.com'
                             onSuccess={responseGoogle}
                             onFailure={responseGoogle}
                             cookiePolicy={'single_host_origin'}
