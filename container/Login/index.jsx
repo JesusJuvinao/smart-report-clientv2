@@ -221,7 +221,7 @@ export const LoginC = ({ setAlertBox }) => {
                 <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Sign In' : <LoadEllipsis />}</ButtonHook>
                 <Text style={{ textAlign: 'center', justifyContent: 'center' }} size='12px'>Or</Text>
                 <GoogleLogin
-                            clientId='58758655786-t2kpplbk54sus4god1ovdeepd0jrrenk.apps.googleusercontent.com'
+                            clientId='214924348774-vhedvibiudvgpm8o5b1dkrdffsombv7a.apps.googleusercontent.com'
                             onSuccess={responseGoogle}
                             onFailure={responseGoogle}
                             cookiePolicy={'single_host_origin'}
