@@ -27,9 +27,7 @@ const Styles = {
         verticalAlign: 'middle',
         fontFamily: '\'Roboto\',sans-serif',
         justifyContent: 'flex-end',
-        display: 'flex',
-        textAlign: 'right',
-        justifyContent: 'end'
+        display: 'flex'
     },
     InitText: {
         fontSize: '14px',
@@ -87,6 +85,23 @@ const Styles = {
         display: 'flex',
         justifyContent: 'flex-start',
         textAlign: 'start',
+    },
+    Headbox: {
+        fontSize: '10px',
+        color: ' #000',
+        lineHeight: '20px',
+        border: '1px dotted #c7c7c7',
+        fontWeight: '400px',
+        margin: '0px',
+        width: '100%',
+        textOverflow: 'ellipsis',
+        minWidth: '100%',
+        maxWidth: '100%',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        textAlign: 'start',
+        height: 'min-content',
+
     },
     wrapperInfo: {
         display: 'flex',
@@ -207,6 +222,16 @@ const Styles = {
         overflow: 'hidden',
         width: '12%'
     },
+    CardInfo: {
+        borderLeft: '1px dotted #c7c7c7',
+        padding: '5px',
+        maxWidth: '12%',
+        wordBreak: 'break-word',
+        minWidth: '12%',
+        overflow: 'hidden',
+        width: '12%',
+        height: 'min-content'
+    },
     logo: {
         overflow: 'hidden',
         wordBreak: 'break-word',
@@ -278,6 +303,42 @@ const Styles = {
         marginTop: '200px',
         width: '200px'
     },
+    linkInvoiceStatement: {
+        width: '300px',
+        height: '150px',
+        objectFit: 'contain',
+        display: 'flex',
+        justifyContent: 'space-between',
+        margin: '0px',
+        flexWrap: 'wrap',
+        width: '300px',
+        minWidth: '300px',
+        alignContent: 'center',
+        maxWidth: '300px',
+        minHeight: '36px',
+        fontWeight: '300',
+        backgroundColor: '#ce081f',
+        overflow: 'hidden',
+        border: 'none',
+        padding: '10px',
+        wordBreak: 'break-word',
+        display: 'inline-flex',
+        flexFlow: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minWidth: 'auto',
+        maxWidth: 'auto',
+        margin: '20px 0',
+        lineHeight: '20px',
+        cursor: 'pointer',
+        borderRadius: '18px',
+        fontSize: '15px',
+        color: '#fff',
+        height: '40px',
+        width: 'auto',
+        textAlign: 'center',
+        width: '200px'
+    },
     subtext: {
         width: '100%',
         minWidth: '100%',
@@ -316,6 +377,14 @@ const Styles = {
         justifyContent: 'flex-start',
         textAlign: 'start',
     },
+    footer: {
+        width: '100%',
+        minWidth: '100%',
+        maxWidth: '100%',
+        display: 'inline-grid',
+        background: '#fbc701',
+        justifyContent: 'center'
+    },
     ctnFooter: {
         width: '50%',
         minWidth: '50%',
@@ -324,15 +393,6 @@ const Styles = {
         display: 'inline-grid',
         justifyContent: 'flex-end',
         textAlign: 'start',
-    },
-    ctnFooter2: {
-        width: '50%',
-        minWidth: '50%',
-        maxWidth: '50%',
-        height: '100px',
-        display: 'inline-grid',
-        justifyContent: 'flex-end',
-        textAlign: 'end',
     },
     btn: {
 
@@ -765,7 +825,7 @@ const data = [
         "totalVATOnComms": 0
     }
 ]
-export const SpiceStatement = () => {
+export const SpiceStatement = ({ data }) => {
     console.log(data)
     const notify = () => toast("Wow so easy!", {
         position: "bottom-center",
@@ -789,9 +849,9 @@ export const SpiceStatement = () => {
                 draggable
                 pauseOnHover
             />
-            <button onClick={notify}>Notify!</button>
             <body style={Styles.body}>
                 <div style={Styles.container} >
+
                     <div style={Styles.header} >
                         <div style={Styles.logo}>
                             <img style={Styles.logo} src="https://res.cloudinary.com/smart-accounting/image/upload/v1641080921/images-template-smart-repor-client/Spice-Logo_l9dt7f.jpg" alt="SpiceLogo" />
@@ -801,14 +861,67 @@ export const SpiceStatement = () => {
                                 <h5 style={Styles.LateralInfo}>INVOICE DATE:  </h5>
                             </div>
                             <div style={Styles.block}>
-                                <h5 style={Styles.LateralInfo}>{dateFormat(data[0].Date)} </h5>
+                                <h5 style={Styles.LateralInfo}>{data.emailedDate} </h5>
                             </div>
+
                         </div>
                     </div>
                     <h1 style={Styles.title}> COMMISSION STATEMENTS</h1>
+                    <div style={Styles.Headbox}>
+                        <div style={Styles.CardInfo}>
+                            <h2 style={Styles.TextCard}>agentTradingName</h2>
+                        </div>
+                        <div style={Styles.CardInfo}>
+                            <h2 style={Styles.TextCard}>VATRegNo</h2>
+                        </div>
+                        <div style={Styles.CardInfo}>
+                            <h2 style={Styles.TextCard}>agentCity </h2>
+                        </div>
+                        <div style={Styles.CardInfo}>
+                            <h2 style={Styles.TextCard}>agentCompanyNumber</h2>
+                        </div>
+                        <div style={Styles.CardInfo}>
+                            <h2 style={Styles.TextCard}>agentContact</h2>
+                        </div>
+                        <div style={Styles.CardInfo}>
+                            <h2 style={Styles.TextCard}>agentEmail</h2>
+                        </div>
+                        <div style={Styles.CardInfo}>
+                            <h2 style={Styles.TextCard}>Agent VAT Registered</h2>
+                        </div>
+                    </div>
+                    <div style={Styles.Headbox}>
+                        {data?.statementFromDetails?.map(x => (
+                            <>
+                                <div style={Styles.CardInfo}>
+                                    <h2 style={Styles.TextCard}>{x.agentTradingName}</h2>
+                                </div>
+                                <div style={Styles.CardInfo}>
+                                    <h2 style={Styles.TextCard}>{x.VATRegNo}</h2>
+                                </div>
+                                <div style={Styles.CardInfo}>
+                                    <h2 style={Styles.TextCard}>{x.agentCity}</h2>
+                                </div>
+                                <div style={Styles.CardInfo}>
+                                    <h2 style={Styles.TextCard}>{x.agentCompanyNumber}</h2>
+                                </div>
+                                <div style={Styles.CardInfo}>
+                                    <h2 style={Styles.TextCard}>{x.agentContact}</h2>
+                                </div>
+                                <div style={Styles.CardInfo}>
+                                    <h2 style={Styles.TextCard}>{x.agentEmail}</h2>
+                                </div>
+                                <div style={Styles.CardInfo}>
+                                    <h2 style={Styles.TextCard}>{x.agentVATRegistered === true ? 'Yes' : 'No'}</h2>
+                                </div>
+                            </>
+                        ))}
+                    </div>
+                    
                     <div style={Styles.Wrap}>
                         <div style={Styles.CardWrapper}>
                             <div style={Styles.header} >
+
                                 <div style={Styles.ctnContent}>
                                     <h5 style={{ fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300, width: '100%', margin: 0, padding: 0 }}>Statement From Details  </h5>
                                     <h5 style={{ fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300, width: '100%', margin: 0, padding: 0 }}>VATRegNo  </h5>
@@ -826,7 +939,7 @@ export const SpiceStatement = () => {
                                     <h5 style={{ fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300, width: '100%', margin: 0, padding: 0 }}>legalName  </h5>
                                 </div>
                                 <div style={Styles.ctnContent}>
-                                    {data[0]?.statementFromDetails?.map(x => (
+                                    {data?.statementFromDetails?.map(x => (
                                         <div style={{ display: 'grid', flexDirection: 'column', textAlign: 'start', flexDirection: 'column' }}>
                                             <h5 style={{ fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300, margin: 0 }}>{x.agentTradingName}</h5>
                                             <h5 style={{ fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300, margin: 0 }}>{x.VATRegNo}</h5>
@@ -847,6 +960,7 @@ export const SpiceStatement = () => {
                                 </div>
                             </div>
                         </div>
+
                         <div style={Styles.CardWrapper}>
                             <div style={Styles.header} >
                                 <div style={Styles.ctnContent}>
@@ -866,7 +980,7 @@ export const SpiceStatement = () => {
                                     <h5 style={{ fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300, margin: 0 }}>legalName  </h5>
                                 </div>
                                 <div style={Styles.ctnContent}>
-                                    {data[0]?.statementToDetails?.map(x => (
+                                    {data?.statementToDetails?.map(x => (
                                         <>
                                             <h5 style={{ margin: 0, fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300 }}>{x.agentTradingName}</h5>
                                             {x.VATRegNo && <h5 style={{ margin: 0, fontSize: '15px', worBreak: 'break-word', overflow: 'hidden', lineHeight: 1.4, verticalAlign: 'middle', display: 'inline-block', fontWeight: 300 }}>{x.VATRegNo}</h5>}
@@ -889,7 +1003,7 @@ export const SpiceStatement = () => {
                         </div>
                     </div>
                     {/* the map */}
-                    {data && data[0]?.invoicesIncOnStatement?.map(item => {
+                    {data && data?.invoicesIncOnStatement?.map(item => {
                         return (
                             <div key={item._id}>sla
                                 <h2 style={Styles.headerline} > Agent Trading Name: {item.agentDetails.agentTradingName}  </h2>
@@ -956,7 +1070,7 @@ export const SpiceStatement = () => {
                                             <br></br>
                                             <br></br>
                                             <button style={Styles.linkInvoice}>
-                                                <a href={`http://localhost:3000/invoice/${item._id}`}  style={Styles.Link} target="_blank" rel="noreferrer" ><span style={Styles.Link} >View Invoice</span> </a>
+                                                <a href={`http://localhost:3000/invoice/${item._id}`} style={Styles.Link} target="_blank" rel="noreferrer" ><span style={Styles.Link} >View Invoice</span> </a>
                                             </button>
                                         </div>
                                         <div className="esta es beklwherlwk" style={Styles.wrapperFooter}>
@@ -966,7 +1080,7 @@ export const SpiceStatement = () => {
                                                 <h5 style={Styles.InitText}>Total Sales Received: </h5>
                                                 <h5 style={Styles.InitText}>Vat On Comms </h5>
                                             </div>
-                                            <div style={Styles.ctnFooter2}>
+                                            <div style={Styles.ctnFooter}>
                                                 <h5 style={Styles.text}>£ {parseFloat(item?.invoiceTotal).toFixed(2)}  </h5>
                                                 <h5 style={Styles.text}>£ {item?.totalCommDue}</h5>
                                                 <h5 style={Styles.text}>£ {item?.totalSalesReceived}</h5>
@@ -978,6 +1092,11 @@ export const SpiceStatement = () => {
                             </div>
                         )
                     })}
+                    <footer style={Styles.footer}>
+                        <button style={Styles.linkInvoiceStatement}>
+                            <a href={`http://localhost:3000/invoice/commission-statement/view/${data._id}`} style={Styles.Link} target="_blank" rel="noreferrer" ><span style={Styles.Link} >View Statements</span> </a>
+                        </button>
+                    </footer>
                 </div>
             </body>
         </div>

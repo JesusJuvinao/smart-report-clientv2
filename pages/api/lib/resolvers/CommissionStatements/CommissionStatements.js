@@ -138,6 +138,10 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
             to: statementToEmail,
             subject: `New Commission Statement `,
             html: renderHtml
+            // html: TemplateCommissionStatement({
+            //     id: IdStatements,
+            //     username: ''
+            // })
         }).then(res => console.log('the res')).catch(err => console.log(err, 'the err')) 
         return { success: true, message: `commission statement has been sent ${statementToEmail} successfully.` }
 
