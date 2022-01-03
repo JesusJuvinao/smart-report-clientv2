@@ -26,13 +26,9 @@ const styles = StyleSheet.create({
         // flexWrap: 'wrap'
     },
     sectionHeader: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         lineHeight: 1,
-        borderStyle: 'solid',
-        borderWidth: 1,
-        height: 150,
-        borderColor: "#000",
-        width: '100%'
+        paddingVertical: 20,
     },
     sectionRow: {
         flexDirection: 'row',
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         overflow: 'hidden',
         borderColor: '#afafaf',
-        paddingHorizontal: 6,
+        paddingHorizontal: 11,
         paddingVertical: 4,
         fontSize: 7
     },
@@ -129,9 +125,97 @@ const styles = StyleSheet.create({
 
 const InvoicePdfGenerateStatement = ({ pdfDocumentData }) => {
     const { dataInvoice } = pdfDocumentData
+    console.log(dataInvoice, 'data pdf download')
     return (
         <Document>
             <Page size="A4" style={styles.page}>
+                <View style={styles.row}>
+                    <Text style={styles.subtitle}>{moment().format('LL')} Generated document</Text>
+                </View>
+                <View style={{ width: 250, height: 100, marginBottom: 8 }}>
+                    <Image style={[styles.image, { width: '100%', height: '100%' }]} src="/images/Spice-Logo.jpg" />
+                </View>
+                <View style={styles.sectionHeader}>
+                    <Text style={[styles.headerText, { fontSize: 12, fontWeight: 100, color: '#000' }]}>Invoice type: {(dataInvoice?.invoiceType)}</Text>
+                    <Text style={[styles.headerText, { fontSize: 12, fontWeight: 100, color: '#000' }]}>Statement Date: {(dataInvoice?.statementDate)} </Text>
+                    <Text style={[styles.headerText, { fontSize: 12, fontWeight: 100, color: '#000' }]}>Statement From: {dataInvoice?.statementFrom }</Text>
+                    <Text style={[styles.headerText, { fontSize: 12, fontWeight: 100, color: '#000' }]}>Statement To: {dataInvoice?.statementTo}</Text>
+                    <Text style={[styles.headerText, { fontSize: 12, fontWeight: 100, color: '#000' }]}>Events Month: {dataInvoice?.eventsMonth}</Text>
+                </View>
+                <View style={styles.tableSection}>
+                    <View style={styles.tableRow}>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>N° ITEM</Text>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Event</Text>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Type</Text>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Currency</Text>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Date</Text>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>On Statement</Text>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>On VAT Registered</Text>
+                        <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Total</Text>
+                    </View>
+                    {dataInvoice && dataInvoice?.invoicesIncOnStatement?.map((x, i) => (
+                        <View key={x._id} style={styles.tableRowItems}>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{i + 1}</Text>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{x.eventName}</Text>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{x.eventType}</Text>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{x.currency}</Text>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{x.invoiceDate}</Text>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{x.isOnStatement ? 'YES' : 'NO'}</Text>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{x.isVATRegistered ? 'YES' : 'NO'}</Text>
+                            <Text style={[styles.tableCell, { width: '12%', textAlign: 'center' }]}>{x.invoiceTotal}</Text>
+                        </View>
+                    ))}
+                </View>
+                <View style={[styles.sectionInfo]}>
+                    <View>
+                        <View style={{ width: 300, marginBottom: 8 }}>
+                            <Text style={[styles.headerText, { fontSize: 15, fontWeight: 100, color: '#000' }]}></Text>
+                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}></Text>
+                        </View>
+                    </View>
+                    <View>
+                        <View style={{ borderBottomColor: '#ccc', borderBottomStyle: 'solid', borderBottomWidth: 1, width: 300, marginBottom: 8 }}>
+                            <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000' }]}>Total Amount To Pay</Text>
+                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}> {currencyFormatter.format(dataInvoice?.totalAmountToPay, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
+                        </View>
+                        <View style={{ borderBottomColor: '#ccc', borderBottomStyle: 'solid', borderBottomWidth: 1, width: 300, marginBottom: 8 }}>
+                            <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000' }]}>Total Commission PayableToYou</Text>
+                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}> {currencyFormatter.format(dataInvoice?.totalCommissionPayableToYou, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
+                        </View>
+                        <View style={{ borderBottomColor: '#ccc', borderBottomStyle: 'solid', borderBottomWidth: 1, width: 300, marginBottom: 8 }}>
+                            <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000' }]}>Total Discounts</Text>
+                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}> {currencyFormatter.format(dataInvoice?.totalDiscounts, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style={styles.footer}>
+                    <View style={styles.footerRow}>
+                        <Text style={{ paddingBottom: 10 }}>{currencyFormatter.format(dataInvoice?.totalAmountToPay, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
+                    </View>
+                </View>
+            </Page>
+        </Document>
+    )
+}
+
+export const generatePdfDocumentInvoiceStatement = async documentData => {
+    // console.log(documentData, 'ESTE ES EL DOCUMENTO A  PAGAR ')
+    const blob = await pdf((
+        <InvoicePdfGenerateStatement
+            title={`doc ${documentData?.dataInvoice?.agentDetails?.legalName || ''}`}
+            pdfDocumentData={documentData}
+        />
+    )).toBlob()
+    saveAs(blob, documentData?.dataInvoice?.agentDetails?.legalName || 'Doc')
+}
+
+generatePdfDocumentInvoiceStatement.propTypes = {
+    pdfDocumentData: PropTypes.object
+}
+
+/**
+ *             <Page size="A4" style={styles.page}>
                 <View style={styles.row}>
                     <Text style={styles.subtitle}>{moment().format('LL')} Generated document</Text>
                 </View>
@@ -197,89 +281,4 @@ const InvoicePdfGenerateStatement = ({ pdfDocumentData }) => {
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>{dataInvoice?.eventName}</Text>
                 </View>
-                <View style={styles.tableSection}>
-                    <View style={styles.tableRow}>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>N° ITEM</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Invoice Ref</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Invoice Date</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Event Name</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Event Type</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Event Month</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Invoice From</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Invoice To</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Invoice Total</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Invoice On Statement</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Invoice On VAT Registered</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Total Comm Due</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Total Sales Received</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Total lDiscounts</Text>
-                        <Text style={[styles.tableCell, { width: '6%', textAlign: 'center', color: '#fff', borderBottom: 'none' }]}>Total Vat OnComms</Text>
-                    </View>
-                    {dataInvoice && dataInvoice?.invoicesIncOnStatement?.map((x, i) => (
-                        <View key={x._id} style={styles.tableRowItems}>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{i + 1}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.eventRef}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.invoiceDate}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.eventName}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.eventType}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.eventsMonth}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.invoiceDate}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.invoiceFrom}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.invoiceTo}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.invoiceTotal}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.isOnStatement ? 'YES' : 'NO'}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.isVATRegistered ? 'YES' : 'NO'}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.totalCommDue}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.totalDiscounts}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.totalSalesReceived}</Text>
-                            <Text style={[styles.tableCell, { width: '6%', textAlign: 'center' }]}>{x.vatOnComms}</Text>
-                        </View>
-                    ))}
-                </View>
-                <View style={[styles.sectionInfo]}>
-                    <View>
-                        <View style={{ width: 300, marginBottom: 8 }}>
-                            <Text style={[styles.headerText, { fontSize: 15, fontWeight: 100, color: '#000' }]}></Text>
-                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}></Text>
-                        </View>
-                    </View>
-                    <View>
-                        <View style={{ borderBottomColor: '#ccc', borderBottomStyle: 'solid', borderBottomWidth: 1, width: 300, marginBottom: 8 }}>
-                            <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000' }]}>Total Amount To Pay</Text>
-                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}> {currencyFormatter.format(dataInvoice?.totalAmountToPay, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
-                        </View>
-                        <View style={{ borderBottomColor: '#ccc', borderBottomStyle: 'solid', borderBottomWidth: 1, width: 300, marginBottom: 8 }}>
-                            <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000' }]}>Total Commission PayableToYou</Text>
-                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}> {currencyFormatter.format(dataInvoice?.totalCommissionPayableToYou, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
-                        </View>
-                        <View style={{ borderBottomColor: '#ccc', borderBottomStyle: 'solid', borderBottomWidth: 1, width: 300, marginBottom: 8 }}>
-                            <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000' }]}>Total Discounts</Text>
-                            <Text style={[styles.headerText, { fontSize: 9, fontWeight: 100, color: '#000' }]}> {currencyFormatter.format(dataInvoice?.totalDiscounts, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.footer}>
-                    <View style={styles.footerRow}>
-                        <Text style={{ paddingBottom: 10 }}>{currencyFormatter.format(dataInvoice?.totalAmountToPay, { code: dataInvoice?.currency ? dataInvoice?.currency : 'USD' })} </Text>
-                    </View>
-                </View>
-            </Page>
-        </Document>
-    )
-}
-
-export const generatePdfDocumentInvoiceStatement = async documentData => {
-    console.log(documentData, 'ESTE ES EL DOCUMENTO A  PAGAR ')
-    const blob = await pdf((
-        <InvoicePdfGenerateStatement
-            title={`doc ${documentData?.dataInvoice?.agentDetails?.legalName || ''}`}
-            pdfDocumentData={documentData}
-        />
-    )).toBlob()
-    saveAs(blob, documentData?.dataInvoice?.agentDetails?.legalName || 'Doc')
-}
-
-generatePdfDocumentInvoiceStatement.propTypes = {
-    pdfDocumentData: PropTypes.object
-}
+ */

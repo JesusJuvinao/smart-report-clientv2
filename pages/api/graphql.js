@@ -26,28 +26,34 @@ const apolloServer = new ApolloServer({
     },
 
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground(), httpHeadersPlugin],
-    context: withSession(async ({ req, next }) => {
-        //  Initialize as empty arrays - resolvers will add items if required
-        const setCookies = []
-        const setHeaders = []
-        //  Initialize PubSub
-        const pubsub = new PubSub()
-        const { token } = req.session.get('user') || {}
-        const idComp = req.headers.authorization?.split(' ')[1]
-        const excluded = ['/login', '/forgotpassword', '/register', '/teams/invite/[id]', '/teams/manage/[id]']
-        if (excluded.indexOf(req.session) > -1) return next()
-        if (token) {
-            const User = await jwt.verify(token, process.env.AUTHO_USER_KEY)
-            return { req, setCookies: setCookies || [], setHeaders: setHeaders || [], User: User || {}, pubsub, idComp }
+    context: withSession(async ({ req, next, connection }) => {
+        if (connection) {
+            // check connection for metadata
+            return connection.context;
+        } else {
+            //  Initialize as empty arrays - resolvers will add items if required
+            const setCookies = []
+            const setHeaders = []
+            //  Initialize PubSub
+            const pubsub = new PubSub()
+            const { token } = req.session.get('user') || {}
+            const idComp = req.headers.authorization?.split(' ')[1]
+            const excluded = ['/login', '/forgotpassword', '/register', '/teams/invite/[id]', '/teams/manage/[id]']
+            if (excluded.indexOf(req.session) > -1) return next()
+            if (token) {
+                const User = await jwt.verify(token, process.env.AUTHO_USER_KEY)
+                return { req, setCookies: setCookies || [], setHeaders: setHeaders || [], User: User || {}, pubsub, idComp }
+            }
+            return { req, setCookies: [], setHeaders: [], User: null || {}, pubsub, idComp: null || {},  }
+
         }
-        return { req, setCookies: [], setHeaders: [], User: null || {}, pubsub, idComp: null || {} }
     }),
     subscriptions: {
         path: '/api/graphqlSubscriptions',
         keepAlive: 9000,
         // eslint-disable-next-line no-unused-vars
-        // onConnect: (connectionParams, webSocket, context) => console.log('connected'),
-        // onDisconnect: (webSocket, context) => console.log('disconnected')
+        onConnect: (connectionParams, webSocket, context) => console.log('connected'),
+        onDisconnect: (webSocket, context) => console.log('disconnected')
     },
     playground: {
         subscriptionEndpoint: '/api/graphqlSubscriptions',

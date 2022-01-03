@@ -18,9 +18,10 @@ import { Avatar, CardPrimary, Container, Content, ContentInfo, CtnIcon, Text, Ca
 import CountdownApp from '../../components/hooks/useSetInterval'
 import { useRouter } from 'next/router'
 import { useCompanyHook } from '../../container/dashboard'
-import axios from 'axios'
+import axios from 'axios';
 
 export const ProfileC = ({ login, token }) => {
+  const BASEURL = process.env.BASE_URL
   // State
   const router = useRouter()
   const [status, component, handleStart] = CountdownApp()
@@ -95,8 +96,8 @@ export const ProfileC = ({ login, token }) => {
 
   const handleConnectStripe = async() => {
 
-    let idUser = data.id
-    const res = await axios.post(`http://localhost:3000/api/stripe?idUser=${idUser}`)
+    let idUser = data?.id
+    const res = await axios.post(`${BASEURL}api/stripe?idUser=${idUser}`)
   }
 
   // const handleConnectStripe = async () => {

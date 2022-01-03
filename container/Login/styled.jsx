@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { PColor, SECColor, PVColor } from '../../public/colors'
+import styled, { css } from 'styled-components'
+import { PColor, SECColor, PVColor, PSColor, BGColor } from '../../public/colors'
 
 export const Form = styled.form`
     display: flex;
@@ -41,7 +41,7 @@ export const Anchor = styled.span`
         border-bottom: 2px solid #61d2b4;
     }
     padding: 0px;
-    color: ${PVColor};
+    color: ${PSColor};
     cursor: pointer;
     font-weight: 300;
     display: flex;
@@ -118,18 +118,70 @@ export const Text = styled.span`
     font-family: PFont-Light;
     word-break: break-word;
 `
+// export const FooterComponent = styled.footer`
+//     position: fixed;
+//     bottom: 0;
+//     height: 150px;
+//     display: flex;
+//     left: 0;
+//     align-items: center;
+//     margin: auto;
+//     right: 0;
+//     width: 100%;
+//     box-shadow: 0px 1px 3px rgb(0 0 0 / 24%);
+//     z-index: 80;
+//     justify-content: center;
+//     background-color: ${SECColor};
+// `
+
 export const FooterComponent = styled.footer`
     position: fixed;
     bottom: 0;
-    height: 150px;
     display: flex;
     left: 0;
     align-items: center;
     margin: auto;
     right: 0;
-    width: 100%;
+    width: 100vw;
     box-shadow: 0px 1px 3px rgb(0 0 0 / 24%);
-    z-index: 80;
     justify-content: center;
     background-color: ${SECColor};
+`
+
+export const ButtonSubmit = styled.button`
+    background-color: ${ ({ color, theme }) => color === '1'
+        ? ' #4065b4'
+        : color === '2'
+            ? `${ BGColor }`
+            : theme.SFAColor };
+    outline: none;
+    border: none;
+    box-shadow: 0px 1px 4px rgb(0 0 0 / 5%), 0px 4px 16px rgb(0 0 0 / 6%);
+    font-family:  PFont-Regular;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: ${ ({ content }) => content ? content : 'space-between' };
+    font-size: ${ ({ size }) => (size ? size : '1rem') };
+    color: ${ ({ colorFont }) => (colorFont ? colorFont : `${ BGColor }`) };
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0px;
+    ${ props => props.hoverColor &&
+        css`
+            &:hover {
+                color: ${ BGColor };
+                background-color:${ PColor };
+            }
+        ` };
+    ${ props => props.colorPrimary &&
+        css`
+            {
+                color: ${ BGColor };
+                background-color:${ PColor };
+            }
+        ` };
 `

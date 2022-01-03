@@ -7,13 +7,14 @@ import InputHooks from '../../components/InputHooks/InputHooks'
 import Link from 'next/link'
 import { Context } from '../../context'
 import fetchJson from '../../pages/api/lib/hooks/fetchJson'
-import { IconInfo } from '../../public/icons'
+import { IconInfo, IconArrowRight, IconGoogleFullColor } from '../../public/icons'
+import { GoogleLogin } from 'react-google-login';
 import { IconLogo } from '../../components/common/logo'
 import { VALIDATE_EXISTING } from './queries'
-import { Anchor, Container, ContentInfo, ContentTerms, Form, ImgTaken, Info, InputDate, Line, Logo, Text, Tooltip, FooterComponent, DivInputs } from './styled'
-import { BGColor, SCColor } from '../../public/colors'
+import { BGColor, SCColor, PLColor } from '../../public/colors'
 import { LoadEllipsis } from '../../components/Loading'
 import { CREATE_CURRENT_SESSION } from '../Login/queries'
+import { Anchor, Container, ContentInfo, ContentTerms, Form, ImgTaken, Info, InputDate, Line, Logo, Text, Tooltip, FooterComponent, DivInputs, ButtonSubmit } from './styled'
 
 export const RegisterUserC = () => {
     // State
@@ -133,6 +134,50 @@ export const RegisterUserC = () => {
     const handleBlur = e => {
         e.target.value && verifyRegistration({ variables: { uEmail: e.target.value } })
     }
+    const responseGoogle = async response => {
+        window.localStorage.setItem('sessionValue', JSON.stringify(response.profileObj))
+        const { name, googleId, email, imageUrl } = response?.profileObj
+        const body = {
+            uEmail: email,
+            uPassword: googleId,
+        }
+        await fetchJson(`${URL_BASE}auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        }).then(res => {
+            if (res.success) {
+                loginUser({ variables: { uEmail: email, uPassword: googleId,  idBrowser: '' } })
+                    .then(res => {
+                        setSessionActive({ data: res.data.loginUser.user })
+                        if (res.data.loginUser.isVerifyEmail === true ) {
+                            router.push('/switch-options')
+                        } else {
+                            router.push('/switch-options')
+                        }
+                    })
+            }
+            if (res.success === 0) {
+                setAlertBox({
+                    message: 'Usuario o contraseña incorrectas',
+                    duration: 300000,
+                    color: 'error'
+                })
+            }
+        }).catch(e => {
+                setAlertBox({
+                    message: `${e}`,
+                    duration: 300000,
+                    color: 'error'
+                })
+            })
+        if (!response?.accessToken) {
+            // setMessage(true)
+            // setTimeout(() =>{
+            //     setMessage(false)
+            // }, 5000)
+        }
+    }
     const loading = loadingValidate  || loadingLogin
     return (
         <Container>
@@ -169,7 +214,7 @@ export const RegisterUserC = () => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         name='uEmail'
-                        width='50%'
+                        width='100%'
                     />
                     <InputHooks
                         title='username'
@@ -178,7 +223,7 @@ export const RegisterUserC = () => {
                         onChange={handleChange}
                         name='userName'
                         required
-                        width='50%'
+                        width='100%'
 
                     />
                     <InputHooks
@@ -189,9 +234,9 @@ export const RegisterUserC = () => {
                         value={values?.uPassword}
                         onChange={handleChange}
                         name='uPassword'
-                        width='50%'
+                        width='100%'
                     />
-                    <InputHooks name="ConfirmPassword"
+                    {/* <InputHooks name="ConfirmPassword"
                         value={values?.ConfirmPassword}
                         error={errors?.ConfirmPassword}
                         onChange={handleChange}
@@ -201,8 +246,8 @@ export const RegisterUserC = () => {
                         pass
                         range={{ min: 0, max: 180 }}
                         passConfirm={{ validate: true, passValue: values?.uPassword }}
-                        width='50%'
-                    />
+                        width='100%'
+                    /> */}
                 </DivInputs>
                 <Line>
                 </Line>
@@ -213,7 +258,16 @@ export const RegisterUserC = () => {
                             <Anchor>Global Privacy Statement. </Anchor>
                         </Link> </span>
                 </ContentTerms>
-                <ButtonHook bgColor={SCColor} disabled={!values?.ConfirmPassword} padding='10px' margin='15px 0px' width='100%' type='submit' >{loading ? <LoadEllipsis /> : 'Register'}</ButtonHook>
+                <ButtonHook bgColor={SCColor}/*  disabled={!values?.ConfirmPassword} */ padding='10px' margin='15px 0px' width='100%' type='submit' >{loading ? <LoadEllipsis /> : 'Register'}</ButtonHook>
+                 <GoogleLogin
+                            clientId='58758655786-t2kpplbk54sus4god1ovdeepd0jrrenk.apps.googleusercontent.com'
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                            render={renderProps => (
+                                <ButtonSubmit size='14px' colorFont='#717171' height='40px' color='2' onClick={renderProps.onClick} disabled={renderProps.disabled}><IconGoogleFullColor size='30px' />Continuar con Google <IconArrowRight color={`${ PLColor }`} size='0' /></ButtonSubmit>
+                            )}
+                    />
                 <Text size='12px'> you already have a Smart account ?</Text>
                 <Link href='/login'><Anchor>Log in</Anchor>
                 </Link>

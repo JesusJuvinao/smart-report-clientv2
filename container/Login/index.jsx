@@ -9,14 +9,16 @@ import { validationSubmitHooks } from '../../utils'
 import InputHooks from '../../components/InputHooks/InputHooks'
 import { ButtonHook } from '../../components/ButtonHook'
 import { IconLogo } from '../../components/common/logo'
-import { BGColor, SCColor } from '../../public/colors'
+import { BGColor, PLColor, SCColor } from '../../public/colors'
 import Link from 'next/link'
 import { LoadEllipsis } from '../../components/Loading'
+import { GoogleLogin } from 'react-google-login'
 import { Context } from '../../context'
 import { Loading } from '../../components/Loading'
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import FingerprintJS from "@fingerprintjs/fingerprintjs"
 import ActiveLink from '../../components/common/Link'
-import { Container, Figure, Form, Logo, Text, FooterComponent, Anchor } from './styled'
+import { Container, Figure, Form, Logo, Text, FooterComponent, Anchor, ButtonSubmit } from './styled'
+import { IconArrowRight, IconGoogleFullColor } from '../../public/icons'
 
 export const LoginC = ({ setAlertBox }) => {
     const { error, authData, menu, handleMenu, isSession, company, setSessionActive } = useContext(Context)
@@ -108,8 +110,7 @@ export const LoginC = ({ setAlertBox }) => {
                         color: 'error'
                     })
                 }
-            })
-                .catch(e => {
+            }).catch(e => {
                     setAlertBox({
                         message: `${e}`,
                         duration: 300000,
@@ -121,16 +122,67 @@ export const LoginC = ({ setAlertBox }) => {
     useEffect(() => {
         setBrowser(true)
     }, [])
+    const responseGoogle = async response => {
+        window.localStorage.setItem('sessionValue', JSON.stringify(response.profileObj))
+        const { name, googleId, email, imageUrl } = response?.profileObj
+        const body = {
+            uEmail: email,
+            uPassword: googleId,
+        }
+        await fetchJson(`${URL_BASE}auth`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        }).then(res => {
+            if (res.success) {
+                loginUser({ variables: { uEmail: email, uPassword: googleId } })
+                    .then(res => {
+                        setSessionActive({ data: res.data.loginUser.user })
+                        if (res.data.loginUser.isVerifyEmail === true ) {
+                            router.push('/switch-options')
+                        } else {
+                            router.push('/switch-options')
+                        }
+                    })
+            }
+            if (res.success === 0) {
+                setAlertBox({
+                    message: 'Usuario o contraseña incorrectas',
+                    duration: 300000,
+                    color: 'error'
+                })
+            }
+        }).catch(e => {
+                setAlertBox({
+                    message: `${e}`,
+                    duration: 300000,
+                    color: 'error'
+                })
+            })
+        if (!response?.accessToken) {
+            // setMessage(true)
+            // setTimeout(() =>{
+            //     setMessage(false)
+            // }, 5000)
+        }
+    }
     if (loading) return <Loading />
     return (
         <Container>
+            <FooterComponent>
+                <Link href='/'>
+                    <a>
+                        <IconLogo size='80px'/>
+                    </a>
+                </Link>
+            </FooterComponent>
             <Form onSubmit={handleSubmit}>
-                <Text id='title' style={{ textAlign: 'center' }}>{confirmPhone ? 'Let\'s verify your number' : 'Login Form'}</Text>
+                <Text id='title' style={{ textAlign: 'center' }}>{confirmPhone ? 'Let\'s verify your number' : 'Sign in to your account'}</Text>
                 <Text id='Subtitle' size='12px' style={{ textAlign: 'center' }}>{confirmPhone && 'Making sure your email is up to date helps us keep your account safe.'}</Text>
                 {!confirmPhone ?
                     <div>
                         <InputHooks
-                            title='Email'
+                            title='Email Address'
                             autoComplete
                             required
                             email
@@ -166,17 +218,20 @@ export const LoginC = ({ setAlertBox }) => {
 
           /> */}}
                 {/* {!confirmPhone ? <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Login' : <LoadEllipsis />}</ButtonHook> : <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Skip for now' : <LoadEllipsis />}</ButtonHook> } */}
-                <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Login' : <LoadEllipsis />}</ButtonHook>
+                <ButtonHook bgColor={SCColor} padding='10px' width={'100%'} type='submit' >{!loading ? 'Sign In' : <LoadEllipsis />}</ButtonHook>
+                <Text style={{ textAlign: 'center', justifyContent: 'center' }} size='12px'>Or</Text>
+                <GoogleLogin
+                            clientId='58758655786-t2kpplbk54sus4god1ovdeepd0jrrenk.apps.googleusercontent.com'
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                            render={renderProps => (
+                                <ButtonSubmit size='14px' colorFont='#717171' height='40px' color='2' onClick={renderProps.onClick} disabled={renderProps.disabled}><IconGoogleFullColor size='30px' />Continuar con Google <IconArrowRight color={`${ PLColor }`} size='0' /></ButtonSubmit>
+                            )}
+                        />
                 <Text size='13px'><ActiveLink activeClassName="active" href="/forgotpassword"><Anchor>Forgot Password?</Anchor></ActiveLink></Text>
-                <Text size='13px'><ActiveLink activeClassName="active" href="/register"><Anchor>Not a member?</Anchor></ActiveLink></Text>
+                <Text size='13px'><ActiveLink activeClassName="active" href="/register"><Anchor>Don't have an account? Sign Up</Anchor></ActiveLink></Text>
             </Form>
-            <FooterComponent>
-                <Link href='/'>
-                    <a>
-                        <IconLogo size='100px' />
-                    </a>
-                </Link>
-            </FooterComponent>
         </Container>
     )
 }

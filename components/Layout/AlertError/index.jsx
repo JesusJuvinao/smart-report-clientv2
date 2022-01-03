@@ -9,7 +9,6 @@ import { Context } from '../../../context'
 export const AlertError = () => {
   const { alert, authData } = useContext(Context)
   const location = useRouter()
-
   return (
     <>
       {!['/login', '/', '/register', '/forgotpassword', '/teams/invite/[id]', '/terms_and_conditions', '/email/confirm/[code]', '/autho', '/contact', '/teams/invite/[id]'].find(x => x === location.pathname) && (
@@ -25,17 +24,21 @@ export const AlertError = () => {
 
 const Text = styled.h5`
   color: ${BColor};
-  font-family: PFont-Regular;
+  font-family: PFont-Light;
+  font-size: 25px;
+  
 `
 const AwesomeModal = styled.div`
     padding: 10px;
-    width: 250px;
-    height: 60px;
+    width: 300px;
+    border-bottom: 1px solid #f1f1f1;
+    box-shadow: 1px 2px 4px 0 rgb(0 0 0 / 3%);
+    height: 100px;
     z-index: 99999;
     display: flex;
     flex-direction: column;
     opacity: 0;
-    top: 50%;
+    left: 70px;
     background: ${BGColor};
     position: absolute;
     transition: 500ms ease;
@@ -66,6 +69,7 @@ const ContainerModal = styled.div`
     align-items: center;
     position: fixed;
     transition: opacity 150ms ease-in-out;
+    
     ${({ showModal }) => showModal
     ? css`  
         top: 0;

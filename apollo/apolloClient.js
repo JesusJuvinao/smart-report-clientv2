@@ -11,21 +11,19 @@ export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 const BROWSER_API_KEY = "k6mBs3JggSu0q48OS7yz";
 
 let apolloClient
-const browser = async () => {
-    const data = await FingerprintJS.load()
-        .then((fp) => fp.get())
-        .then((result) => {
-            // dataBrowser = result
-        });
-    return data
+const getDeviceId = async () => {
+    const fp = await FingerprintJS.load()
+    const result = await fp.get()
+    return result.visitorId
 }
 // browser()
-const authLink = setContext((_, { headers }) => {
+const authLink = setContext(async (_, { headers }) => {
     const idLasComp = localStorage.getItem('idLasComp')
     return {
         headers: {
             ...headers,
             authorization: idLasComp ? idLasComp : '',
+            deviceid: await getDeviceId() || '',
         }
     }
 })
