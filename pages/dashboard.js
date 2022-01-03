@@ -10,8 +10,8 @@ import { decodeToken } from '../utils'
 export default function Company() {
   const { setAlertBox, setCompanyLink, isCompany } = useContext(Context)
   const [dataUser] = useUser()
-  // return (<CompanyC setAlertBox={setAlertBox} setCompanyLink={setCompanyLink} isCompany={isCompany} dataUser={dataUser} />)
-  return (<h1 style={{ fontFamily: 'PFont-Regular', color: '#000', fontSize: '2em'  }} >We are in maintenance</h1>)
+  return (<CompanyC setAlertBox={setAlertBox} setCompanyLink={setCompanyLink} isCompany={isCompany} dataUser={dataUser} />)
+  // return (<h1 style={{ fontFamily: 'PFont-Regular', color: '#000', fontSize: '2em'  }} >We are in maintenance</h1>)
 }
 
 export const getServerSideProps = withSession(async function ({ req }) {

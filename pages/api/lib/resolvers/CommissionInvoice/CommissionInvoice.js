@@ -5,9 +5,10 @@ import UserSchema from '../../../models/users/userLogin'
 import CompanySchema from '../../../models/Companies/CompanySchema'
 import { setFiles } from '../Upload/upload'
 import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
-import { strToDate, transporter } from '../../../utils'
+import { sendEmail, strToDate, transporter } from '../../../utils'
 import moment from 'moment'
-
+import ReactDOMServer from 'react-dom/server'
+import { SpiceStatement } from '../../../../../container/SpiceStatement/spiceStatement'
 export const createCommissionInvoiceMutation = async (_, { input, inputCommissionLineItems }, ctx) => {
     // const idComp = ctx.idComp
     const { setData } = inputCommissionLineItems || {}
@@ -212,20 +213,30 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
         const today = moment().format('DD/MM/YYYY HH:mm');
         const hour = moment().format('HH:mm');
         const mailer = transporter()
+
+        const renderHtml = ReactDOMServer.renderToString(<SpiceStatement />);
+        console.log(renderHtml)
         if (InvoiceData) {
-            mailer.sendMail({
+            sendEmail({
                 from: uEmail,
                 to: ToEmail,
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
-                html: TemplateInvoicePaid({
-                    invoiceRef: InvoiceData && InvoiceData.eventName,
-                    uEmail,
-                    date: today,
-                    hour,
-                    statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
-                })
-            })
+                html: renderHtml
+            }).then(res => console.log(res, 'the res')).catch(err => console.log(err, 'the err')) 
+            // mailer.sendMail({
+            //     from: uEmail,
+            //     to: ToEmail,
+            //     text: 'Hello world?',
+            //     subject: 'Notification De Invoice Change.',
+            //     html: TemplateInvoicePaid({
+            //         invoiceRef: InvoiceData && InvoiceData.eventName,
+            //         uEmail,
+            //         date: today,
+            //         hour,
+            //         statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+            //     })
+            // })
         }
         return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {
