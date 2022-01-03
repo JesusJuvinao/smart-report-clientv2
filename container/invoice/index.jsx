@@ -132,7 +132,6 @@ export const Invoice = ({ idInvoice }) => {
     data && data?.getOneCommissionInvoice?.lineItemsArray?.map(items => (
         newArrays.push(items.newArray)
     ))// -------
-    console.log(data)
     const handleApprovedInvoiceState = async () => {
         const agentEmail = data && data?.getOneCommissionInvoice?.agentDetails?.agentEmail
         if (data.isApprovedByInvoiceSender === false) {
@@ -251,7 +250,7 @@ export const Invoice = ({ idInvoice }) => {
                         <ContentToggle>
                             <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { ...data } })}
                                 type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >
-                                Descargar
+                                Download
                             </RippleButton>
                             <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => handlePayState()}
                                 type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >

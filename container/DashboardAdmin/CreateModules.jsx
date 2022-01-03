@@ -41,7 +41,6 @@ export const CreateModules = ({ setShowModule, showModule }) => {
             })
         }
     })
-    console.log(data)
     const initialLine = {
         smName: '',
         smPath: '',

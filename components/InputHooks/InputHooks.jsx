@@ -189,7 +189,7 @@ const InputHooks = ({
     }
     // Valida si el campo tiene un formato de email correcto
     if (email) {
-      if (isEmail(e.target.value)) { return errorFunc(e, true, 'Formato de correo inválido') } else errorFunc(e, false, '')
+      if (isEmail(e.target.value)) { return errorFunc(e, true, 'Email Address must be valid') } else errorFunc(e, false, '')
     }
     // Valida si el campo tiene un formato de contraseña correcto
     if (pass) {

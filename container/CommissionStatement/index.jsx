@@ -65,7 +65,7 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
     },
     fetchPolicy: 'cache-and-network'
   })
-  console.log(data, 'aqui esta todaladata')
+  // console.log(data, 'aqui esta todaladata')
 
   const [isPaidOutCommissionStatements] = useMutation(CANCELLED_COMMISSION_STATEMENT, {
     update(cache) { cache.modify({ fields: { getAllCommissionStatementsFrom(dataOld = []) { return cache.writeQuery({ query: ALL_COMMISSION_STATEMENT, data: dataOld }) } } }) }
@@ -118,7 +118,7 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
     setOpenModalO(!openModalO)
   }
   const handleRedoStateStatementFrom = async data => {
-    console.log(data, ' jesus que peso')
+    // console.log(data, ' jesus que peso')
     const { statementFromEmail, _id } = data || {}
     isRedoStateInvoiceStatement({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
   }
@@ -135,7 +135,7 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
   })
   const handleApprovedStatementState = async (data) => {
     const { statementFromEmail, _id } = data || {}
-    console.log(statementFromEmail, _id)
+    // console.log(statementFromEmail, _id)
     await isApprovedByInvoiceSenderStatement({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
   }
   // if (loading) return <Loading />
@@ -223,11 +223,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
               <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleApprovedStatementState(x)}>
                 {x.isApprovedByInvoiceSender ? 'Mark as not Approved' : 'Mark approved'}
               </TableButton>
-              {/* <Link href={'/invoice/commission-statement/create'}>
-                <TableButton backgroundColor={TBGVColor} color={TFBColor}>
-                  Add
-                </TableButton>
-              </Link> */}
             </ContentTableItem>
           </Content>
         </Section>)}
@@ -278,7 +273,6 @@ export const InvoiceStementsTo = ({ modal, setModal }) => {
   // if (loading) return <Loading />
   return (
     <div>
-      Hola mundo
       <Table
         titles={[
           { name: '#', key: '', key: 'emailedDate', justify: 'flex-start', width: '2%' },
@@ -344,7 +338,7 @@ export const InvoiceStementsTo = ({ modal, setModal }) => {
           </Content>
           <Content>
             <ContentTableItem padding='0px' direction='row'>
-              <TableButton backgroundColor={TBGAColor} color={SCColor}>
+              <TableButton backgroundColor={TBGAColor} color={SCColor} onClick={() => generatePdfDocumentInvoiceStatement({ dataInvoice: { ...x } })}>
                 Download
               </TableButton>
               <TableButton backgroundColor={TBGBColor} color={PVColor} onClick={() => handlePreview(x)}>

@@ -142,3 +142,17 @@ export const onPulses = keyframes`
     transform: scale3d(1, 1, 1);
 }
 `
+export const OnShowSwich = keyframes`
+0% {
+    transform: translate3d(0px, 0px, 0px);
+    opacity: 0.001;
+}
+
+40% {
+    transform: scale3d(1.2, 1.2, 1.2) translate3d(-10px, 5px, 0px);
+    opacity: 1;
+}
+100% {
+    transform: scale3d(1, 1, 1) translate3d(0px, 0px, 0px);
+}
+`

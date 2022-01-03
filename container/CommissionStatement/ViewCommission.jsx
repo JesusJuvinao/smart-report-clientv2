@@ -14,6 +14,7 @@ import { IconUser } from '../../public/icons'
 import { ALL_COMMISSION_STATEMENT, SEND_COMMISSION_STATEMENT } from './queries'
 import { useCompanyHook } from '../dashboard'
 import ActiveLink from '../../components/common/Link'
+import { generatePdfDocumentInvoiceStatement } from './PdfInvoiceStatement'
 const newDataFormatted = (data) => {
     var rightNow = new Date(data);
     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "-");
@@ -23,7 +24,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
     console.log(data, 'AQUI ES LA DATA')
     // STATES}
     const [dataCompany] = useCompanyHook()
-    console.log(dataCompany)
+    // console.log(dataCompany)
     const [lineItemsModal, setLineItemsModal] = useState(false)
     const { setAlertBox, setCompanyLink, isCompany } = useContext(Context)
     const [modal, setModalConfirm] = useState(false)
@@ -45,7 +46,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
     }
     const handleConfirmIsOnStatements = () => {
         const dataBool = data?.invoicesIncOnStatement.map(x => { return { onStatement: x.isOnStatement } })
-        console.log(dataBool)
+        // console.log(dataBool)
         for (let i = 0; i < dataBool.length; i++) {
             if (dataBool[i].onStatement !== true) {
                 setAlertBox({ message: 'The commission statement invoice is not ready to be sent' })
@@ -68,7 +69,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
 
     const [search, setSearch] = useState({ agentCode: '' })
     const filterLineItems = useMemo(() =>
-    dataItems?.lineItemsArray && dataItems?.lineItemsArray?.filter((data) => {
+        dataItems?.lineItemsArray && dataItems?.lineItemsArray?.filter((data) => {
             if (search.agentCode) {
                 return data?.agentCode?.toLowerCase().includes(search?.agentCode?.toLowerCase())
             } else {
@@ -89,7 +90,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                     <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={TBGVColor} color={BGColor}>
                         {/* Send to {data[0]?.statementToDetails?.agentEmail} */}
                     </RippleButton>
-                    <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={PVColor} color={BGColor}>
+                    <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={PVColor} color={BGColor} onClick={() => generatePdfDocumentInvoiceStatement({ dataInvoice: { ...data } })}>
                         Download
                     </RippleButton>
                 </Options>
@@ -135,7 +136,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >VAT Registered:</Text>
-                                <Text size='19px' >{data?.statementFromDetails[0]?.agentVATRegistered ?  'YES' : 'NO' }</Text>
+                                <Text size='19px' >{data?.statementFromDetails[0]?.agentVATRegistered ? 'YES' : 'NO'}</Text>
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >LegalName:</Text>
@@ -182,7 +183,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >VAT Registered:</Text>
-                                <Text size='19px' >{data?.statementToDetails[0]?.agentVATRegistered ?  'YES' : 'NO' }</Text>
+                                <Text size='19px' >{data?.statementToDetails[0]?.agentVATRegistered ? 'YES' : 'NO'}</Text>
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >LegalName:</Text>

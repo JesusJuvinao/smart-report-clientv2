@@ -19,6 +19,7 @@ import LicenceModules from './Licences'
 import CommissionStatements from './CommissionStatements'
 import CommentsResolver from './Commets'
 import CommissionInvoice from './CommissionInvoice'
+import grandJs from './GrandJs'
 import taxedResolver from './Taxes'
 import reportsResolver from './Reports'
 import ClassResolver from './class'
@@ -27,6 +28,7 @@ import registerEmailsTemplateResolver from './TemplatesEmails'
 import GraphQLUpload from 'graphql-upload'
 const { PubSub } = require('graphql-subscriptions')
 const pubsub = new PubSub()
+const NEW_USER = "NEW_USER"
 export default {
     ...UserResolvers.TYPES,
     ...SupplierResolvers.TYPES,
@@ -72,13 +74,17 @@ export default {
     Subscription: {
         testEmit: {
             subscribe: () => pubsub.asyncIterator('testEmit')
-        }
+        },
+        newUser: {
+            subscribe: (_, __, { pubsub }) => pubsub.asyncIterator(NEW_USER),
+        },
     },
     Mutation: {
         ...registerEmailsTemplateResolver.MUTATIONS,
         ...modulesResolver.MUTATIONS,
         ...CommissionStatements.MUTATIONS,
         ...CommissionInvoice.MUTATIONS,
+        ...grandJs.MUTATIONS,
         ...taxedResolver.MUTATIONS,
         ...uploadFileResolver.MUTATIONS,
         ...SalesInvoicePaymetResolver.MUTATIONS,

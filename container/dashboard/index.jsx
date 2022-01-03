@@ -132,7 +132,7 @@ export const CompanyC = () => {
                             </WrapperRow>
                         </CardPrimary>
                     </Card>
-                   {<Card wrap='no-wrap' width='97%' direction="row">
+                    {<Card wrap='no-wrap' width='97%' direction="row">
                         <Link activeClassName="active" href={`/companies/${encodeURIComponent(dataComp?._id)}}`}>
                             <a>
                                 <RippleButton borderSolid={`.5px solid ${PColor}`} bgColor='transparent' color={BColor} widthButton='150px' size='9px' padding='5px'> <IconPromo color={PColor} size='30px' />Commission invoice</RippleButton>
@@ -141,7 +141,7 @@ export const CompanyC = () => {
                     </Card>}
                     <Card overflow='auto' wrap='no-wrap' width='97%' direction="row">
                         {allCompany && allCompany?.getAllCompanyById?.map((x, i) => (
-                            <div key={x._id} style={{ zIndex: '200', width: 'min-content' }}> <CircleCompany pulse={x._id === dataComp?._id} onClick={() => handleCompany({ ...x })} >{x.companyName.slice(0, 2).toUpperCase()}</CircleCompany> </div>
+                            <div key={x._id} style={{ zIndex: '200', width: 'min-content',  marginLeft: 'calc(10% - 45px)' }}> <CircleCompany pulse={x._id === dataComp?._id} onClick={() => handleCompany({ ...x })} >{x.companyName.slice(0, 2).toUpperCase()}</CircleCompany> </div>
                         ))}
                     </Card>
                 </Content>
@@ -184,9 +184,7 @@ export const CompanyC = () => {
                     <Card width='97%'>
                     </Card>
                 </Content>
-
             </Container>
-
         </Wrapper>
     </>
     )
@@ -196,14 +194,12 @@ export const useCompanyHook = initialState => {
     const [dataUser] = useUser()
     const { isCompany, setAlertBox, useCompany, company } = useContext(Context)
     const [lastCompanyMutation] = useMutation(CHANGE_COMPANY_STATE)
-
     useEffect(async () => {
         useCompany(id)
         if (id) {
             await lastCompanyMutation({ variables: { lastCompany: company.idLasComp !== undefined ? company.idLasComp : dataUser?.lastCompany } }).catch(err => setAlertBox({ message: `${err}`, duration: 300000 }))
         }
     }, [id, dataUser])
-
     const [getOneCompanyById, { data, loading }] = useLazyQuery(GET_ONE_COMPANY_BY_ID, {
         variables: { idC: company.idLasComp ? company.idLasComp : dataUser?.lastCompany },
         fetchPolicy: 'cache-and-network',

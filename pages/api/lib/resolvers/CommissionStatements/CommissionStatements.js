@@ -6,7 +6,7 @@ import { TemplateLeaveComp } from '../../templates/TemplateConfirm'
 import { transporter } from '../../../utils'
 import { TemplateCommissionStatement } from '../../templates/CommissionStatement'
 import moment from 'moment'
-import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
+import { isApprovedInvoiceSenderStatement, TemplateInvoicePaid } from '../../templates/InvoicePaid'
 
 export const getOneCommissionStatement = async (_, { idComp, CompName, IdStatement }, ctx) => {
     try {
@@ -50,7 +50,7 @@ export const getAllCommissionStatementsTo = async (_, { search, idComp, CompName
     }
 }
 export const isPaidOutCommissionStatements = async (_, { idComp, uEmail, IdStatements, company, statementToEmail }, ctx) => {
-    console.log(idComp, uEmail, IdStatements, company, statementToEmail)
+    // console.log(idComp, uEmail, IdStatements, company, statementToEmail)
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: IdStatements })
     try {
         if (!InvoiceData) { return { success: false, message: 'The Invoice no exist' } }
@@ -92,7 +92,7 @@ export const isPaidOutCommissionStatements = async (_, { idComp, uEmail, IdState
 }
 // hasInvoiceBeenOpenedByRecipient
 export const ViewCommissionStatements = async (_, { idComp, uEmail, IdStatements, company, statementToEmail }, ctx) => {
-    console.log(idComp, uEmail, IdStatements, company, statementToEmail)
+    // console.log(idComp, uEmail, IdStatements, company, statementToEmail)
     // const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: IdStatements })
     try {
         await CommissionInvoiceStatement.findOneAndUpdate({ 'invoicesIncOnStatement._id': IdStatements },
@@ -147,7 +147,7 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
 // NEW FUNCIONS
 export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmail }) => {
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: idInvoice })
-    console.log(InvoiceData)
+   // console.log(InvoiceData)
     try {
         if (!InvoiceData) {
             return { success: false, message: 'The Invoice no exist' }
@@ -188,7 +188,7 @@ export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmai
 }
 export const isApprovedByInvoiceSenderStatement = async (_, { idInvoice, ToEmail, uEmail }) => {
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: idInvoice })
-    console.log(InvoiceData)
+    // console.log(InvoiceData)
     try {
         if (!InvoiceData) {
             return { success: false, message: 'The Invoice no exist' }
@@ -210,7 +210,7 @@ export const isApprovedByInvoiceSenderStatement = async (_, { idInvoice, ToEmail
                 to: ToEmail,
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
-                html: TemplateInvoicePaid({
+                html: isApprovedInvoiceSenderStatement({
                     invoiceRef: InvoiceData && InvoiceData.eventName,
                     uEmail,
                     date: today,

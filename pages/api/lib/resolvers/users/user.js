@@ -6,7 +6,7 @@ import Roles from '../../../models/admin/admin'
 
 import RecoverAccountTemplate from '../../templates/Recover'
 import BillSchema from '../../../models/Bills/BillSchema'
-import { generateCode, generateToken, transporter } from '../../../utils'
+import { generateCode, generateToken, sendEmail, transporter } from '../../../utils'
 import { nanoid } from 'nanoid'
 import CompanySchema from '../../../models/Companies/CompanySchema'
 import { client } from '../../../presignedUrl'
@@ -303,10 +303,13 @@ export const confirmEmail = async (_, { idUser }, ctx) => {
 }
 
 export const CreateRecoverAccount = async (_, input) => {
+
     try {
 
         const { uEmail } = input.input
         const existEmail = await UserSchema.findOne({ uEmail })
+        // console.log(existEmail)
+
         if (!existEmail) return { success: false, message: 'User does not exist' }
         // Create the recovery token or code
         const uToken = await generateCode()
@@ -322,16 +325,16 @@ export const CreateRecoverAccount = async (_, input) => {
         )
         const mailer = transporter()
         if (existEmail) {
-            mailer.sendMail({
-                from: 'Account recovery <no-reply@smartaccountingonline.com/>',
+            sendEmail({
+                from: 'juvi69elpapu@gmail.com',
                 to: uEmail,
-                text: 'Hello world?', // plain text body
+                text: 'Code recuperation.',
                 subject: 'Code recuperation.',
                 html: RecoverAccountTemplate({
                     code: uToken,
                     username: existEmail.firstName
                 })
-            })
+            }).then(res => console.log(res, 'the res')).catch(err => console.log(err, 'the err')) 
             if (existEmail) {
                 return { success: true, message: 'We have sent a recovery email to your email' }
             }
