@@ -224,19 +224,6 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
                 subject: 'Notification De Invoice Change.',
                 html: renderHtml
             }).then(res => console.log(res, 'the res')).catch(err => console.log(err, 'the err')) 
-            // mailer.sendMail({
-            //     from: uEmail,
-            //     to: ToEmail,
-            //     text: 'Hello world?',
-            //     subject: 'Notification De Invoice Change.',
-            //     html: TemplateInvoicePaid({
-            //         invoiceRef: InvoiceData && InvoiceData.eventName,
-            //         uEmail,
-            //         date: today,
-            //         hour,
-            //         statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
-            //     })
-            // })
         }
         return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {

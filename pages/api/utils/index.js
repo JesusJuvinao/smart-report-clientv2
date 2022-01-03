@@ -46,7 +46,6 @@ const AuthClient = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL
 AuthClient.setCredentials({ refresh_token: REFRESH_TOKEN })
 
 export const sendEmail = async ({ html, from, to, subject, text }) => {
-    console.log(from, to)
     let htmlTemplates = await html
     let FromEmail = await from
     let toEmail = await to

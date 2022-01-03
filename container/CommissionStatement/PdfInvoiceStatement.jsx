@@ -200,85 +200,16 @@ const InvoicePdfGenerateStatement = ({ pdfDocumentData }) => {
 }
 
 export const generatePdfDocumentInvoiceStatement = async documentData => {
+    console.log(documentData)
     // console.log(documentData, 'ESTE ES EL DOCUMENTO A  PAGAR ')
     const blob = await pdf((
         <InvoicePdfGenerateStatement
-            title={`doc ${documentData?.dataInvoice?.agentDetails?.legalName || ''}`}
+            title={`doc ${documentData?.dataInvoice?.statementFromDetails[0]?.agentTradingName} `}
             pdfDocumentData={documentData}
         />
     )).toBlob()
-    saveAs(blob, documentData?.dataInvoice?.agentDetails?.legalName || 'Doc')
+    saveAs(blob, `${documentData?.dataInvoice?.statementFromDetails[0]?.agentTradingName} Statement` || 'Doc')
 }
-
 generatePdfDocumentInvoiceStatement.propTypes = {
     pdfDocumentData: PropTypes.object
 }
-
-/**
- *             <Page size="A4" style={styles.page}>
-                <View style={styles.row}>
-                    <Text style={styles.subtitle}>{moment().format('LL')} Generated document</Text>
-                </View>
-                <View style={styles.sectionHeader}>
-                    <View style={styles.innerSectionHeader} >
-                        <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}>
-                            Statement From
-                        </Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}>{dataInvoice.statementTo}</Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                    </View>
-                    <View style={styles.innerSectionHeader} >
-                        <View style={styles.sectionRow} >
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                Date:
-                            </Text>
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                {dataInvoice.statementDate}
-                            </Text>
-                        </View >
-                        <View style={styles.sectionRow} >
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                Events Month
-                            </Text>
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                {dataInvoice.eventsMonth}
-                            </Text>
-                        </View >
-                        <View style={styles.sectionRow} >
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                Vat No:
-                            </Text>
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                To
-                            </Text>
-                        </View >
-                        <View style={styles.sectionRow} >
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                Vat Type
-                            </Text>
-                            <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', width: '50%' }]}>
-                                {dataInvoice.invoiceType}
-                            </Text>
-                        </View >
-                    </View>
-                    <View style={styles.innerSectionHeader} >
-                        <Text style={[styles.HeaderSubTitle, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}>
-                            Statement From
-                        </Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}>{dataInvoice.statementFrom}</Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                        <Text style={[styles.headerText, { fontSize: 10, fontWeight: 100, color: '#000', margin: 5 }]}></Text>
-                    </View>
-                    <View style={[styles.innerSectionHeader, { padding: '2%', justify: 'center' }]} >
-                        <Image style={[styles.image, { width: '100%' }]} src="/images/Spice-Logo.jpg" />
-                    </View>
-                </View>
-                <View style={styles.header}>
-                    <Text style={styles.textHeader}>{dataInvoice?.eventName}</Text>
-                </View>
- */
