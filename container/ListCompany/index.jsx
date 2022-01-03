@@ -284,7 +284,7 @@ export const ListCompany = ({ useCompany, handleClick, active, dataComp, search 
                                 <Text animation size='15px'>{x.registeredOfficeAddress}</Text>
                                 <Text size='15px'>Employees:   {x?.lineItemsTeam && x.lineItemsTeam?.map((e, i) => <span key={e._id} >{i + 1}</span>)}</Text>
                                 <Text>{x.natureOfBusiness}</Text>
-                                <Button onClick={() => handleCompany({ ...x })} >View CompanyZXCKJZNXCKJZXN</Button>
+                                <Button onClick={() => handleCompany({ ...x })} >View Company</Button>
                             </WrapInfo>
                             <ButtonCard onClick={() => handleDelete(x._id, x.companyName)}>
                                 <IconDelete size={20} color={PColor} />
