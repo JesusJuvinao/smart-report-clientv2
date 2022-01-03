@@ -26,7 +26,7 @@ const apolloServer = new ApolloServer({
     },
 
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground(), httpHeadersPlugin],
-    context: withSession(async ({ req, next }) => {
+    context: withSession(async ({ req, next, connection }) => {
         if (connection) {
             // check connection for metadata
             return connection.context;
