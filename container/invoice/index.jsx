@@ -132,7 +132,6 @@ export const Invoice = ({ idInvoice }) => {
     data && data?.getOneCommissionInvoice?.lineItemsArray?.map(items => (
         newArrays.push(items.newArray)
     ))// -------
-    console.log(data)
     const handleApprovedInvoiceState = async () => {
         const agentEmail = data && data?.getOneCommissionInvoice?.agentDetails?.agentEmail
         if (data.isApprovedByInvoiceSender === false) {

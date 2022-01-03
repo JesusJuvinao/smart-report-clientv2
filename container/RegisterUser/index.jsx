@@ -265,7 +265,7 @@ export const RegisterUserC = () => {
                             onFailure={responseGoogle}
                             cookiePolicy={'single_host_origin'}
                             render={renderProps => (
-                                <ButtonSubmit size='14px' colorFont='#717171' height='40px' color='2' onClick={renderProps.onClick} disabled={renderProps.disabled}><IconGoogleFullColor size='30px' />Continuar con Google <IconArrowRight color={`${ PLColor }`} size='0' /></ButtonSubmit>
+                                <ButtonSubmit size='14px' colorFont='#717171' height='40px' color='2' onClick={renderProps.onClick} disabled={renderProps.disabled}><IconGoogleFullColor size='30px' />Continue with Google <IconArrowRight color={`${ PLColor }`} size='0' /></ButtonSubmit>
                             )}
                     />
                 <Text size='12px'> you already have a Smart account ?</Text>
