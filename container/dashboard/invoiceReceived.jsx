@@ -21,6 +21,7 @@ export const InvoiceReceived = ({ data, setShowMore, showInvoice, setShow, showD
     const [modalLineItems, setModalLineItems] = useState(false)
     const [dataInvoiceLine, setDataInvoice] = useState({})
     const handleOpenLineItems = data => {
+        console.log(data)
         setModalLineItems(true)
         setDataInvoice(data)
     }

@@ -23,7 +23,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
     const [dataInvoiceLine, setDataInvoice] = useState({})
 
     const handleOpenLineItems = data => {
-        console.log(data)
+        console.log(data, 'TICKE')
         setModalLineItems(true)
         setDataInvoice(data)
     }

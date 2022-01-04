@@ -42,10 +42,14 @@ export const createCommissionInvoiceMutation = async (_, { input, inputCommissio
         throw new ApolloError(error)
     }
 }
+// 
 export const getOneCommissionInvoice = async (_, { idInvoice }, ctx) => {
-    const idUser = ctx.User.id
+
+    // const idUser = ctx.User.id
     try {
         const data = await CommissionSchema.findOne({ _id: idInvoice })
+        console.log(idInvoice)
+        console.log(data)
         return data
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)

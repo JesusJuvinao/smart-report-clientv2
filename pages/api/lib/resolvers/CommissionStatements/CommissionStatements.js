@@ -154,6 +154,7 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
 
 // NEW FUNCIONS
 export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: idInvoice })
    // console.log(InvoiceData)
     try {
@@ -167,9 +168,11 @@ export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmai
                     isRedo: InvoiceData.isRedo !== true,
                     isPaid: false,
                     isApprovedByInvoiceSender: false
-                } } )
-        const today = moment().format('DD/MM/YYYY HH:mm');
-        const hour = moment().format('HH:mm');
+                }
+            }
+        )
+        // const today = moment().format('DD/MM/YYYY HH:mm');
+        // const hour = moment().format('HH:mm');
         const mailer = transporter()
         if (InvoiceData) {
             mailer.sendMail({
@@ -180,8 +183,8 @@ export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmai
                 html: TemplateInvoicePaid({
                     invoiceRef: InvoiceData && InvoiceData.eventName,
                     uEmail,
-                    date: today,
-                    hour,
+                    date: 'today',
+                    hour: '',
                     statusInvoice: InvoiceData.isRedo !== true ? 'Redo' : 'No Redo',
                 })
             })
