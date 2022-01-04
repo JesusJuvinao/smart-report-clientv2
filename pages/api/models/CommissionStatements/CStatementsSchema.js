@@ -216,6 +216,10 @@ const CommissionInvoiceStatement = new mongoose.Schema({
         type: String,
         required: false
     },
+    hasInvoiceBeenOpenedByRecipient: {
+        type: Boolean,
+        required: false
+    },
 }, {
     timestamps: true
 })

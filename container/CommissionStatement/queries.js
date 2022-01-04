@@ -71,7 +71,7 @@ query getAllCommissionStatementsFrom($idUser: ID, $idComp: ID, $company: String,
     statementTo
     statementDate
     invoiceType
-    invoiceType
+    invoiceRef
     eventsMonth
     emailedDate
     totalAmountToPay
@@ -212,9 +212,7 @@ query getOneCommissionStatement($idUser: ID, $idComp: ID, $company: String, $IdS
     }
     statementToEmail
     statementTo
-    statementTo
     statementDate
-    invoiceType
     invoiceType
     eventsMonth
     emailedDate
@@ -479,4 +477,13 @@ mutation isApprovedByInvoiceSenderStatement($idInvoice: ID, $ToEmail: String! $u
     message
   }
 }		
+`
+
+export const OPENED_BY_RECIPIENT = gql`
+mutation OpenedByRecipient( $idInvoice: ID ) {
+  OpenedByRecipient(idInvoice: $idInvoice ) {
+    success
+    message
+  }
+}
 `

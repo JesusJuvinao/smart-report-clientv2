@@ -92,9 +92,7 @@ export const CommissionInvoice = () => {
             idComp: company.idLasComp && company.idLasComp
         }
     })
-    // const { getEstimateCountInvoice } = data || {}
-    // console.log(dataCount)
-    // console.log(getEstimateCountInvoice)
+    
     const [getAllCommissionInvoiceReceived, { data: DataReceived, loading: loadingR }] = useLazyQuery(GET_ALL_INVOICES_RECEIVED, {
         fetchPolicy: 'network-only',
         variables:
@@ -260,9 +258,8 @@ export const CommissionInvoice = () => {
         Addtopay: []
     }
 
-    
+
     function reducer(state, action) {
-        console.log(state, action)
         switch (action.type) {
             case 'arrowUp':
                 return {
@@ -287,7 +284,6 @@ export const CommissionInvoice = () => {
     }
 
     const invoicePayReducer = (state, action) => {
-        console.log(state, action)
         switch (action.type) {
             case 'ADD_TO_PAY':
                 return {
@@ -311,7 +307,6 @@ export const CommissionInvoice = () => {
         }
     }
     const invoicePayReceivedReducer = (state, action) => {
-        console.log(state, action)
         switch (action.type) {
             case 'ADD_TO_PAY':
                 return {

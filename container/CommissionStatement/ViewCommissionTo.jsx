@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { Context } from '../../context'
 import { AwesomeModal } from '../../components/AwesomeModal'
@@ -10,20 +10,18 @@ import { Container, Card, Text, Content, ContentTableItem, TableButton, Options,
 import Link from 'next/link'
 import { RippleButton } from '../../components/Ripple'
 import { IconUser } from '../../public/icons'
-import { ALL_COMMISSION_STATEMENT, SEND_COMMISSION_STATEMENT } from './queries'
+import { ALL_COMMISSION_STATEMENT, OPENED_BY_RECIPIENT, SEND_COMMISSION_STATEMENT } from './queries'
 import { useCompanyHook } from '../dashboard'
-const newDataFormatted = (data) => {
-    var rightNow = new Date(data);
-    var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "-");
-    return res
-}
+import { generatePdfDocumentInvoice } from '../invoice/PdfInvoice'
+import ActiveLink from '../../components/common/Link'
+
 export const ViewCommissionStatementsTo = ({ data, loading }) => {
-    // console.log(data?.statementToEmail)
-    // STATES}
+
+    // STATES
     const [dataCompany] = useCompanyHook()
-    console.log(dataCompany)
     const { setAlertBox, setCompanyLink, isCompany } = useContext(Context)
     const [modal, setModalConfirm] = useState(false)
+
     // QUERIES
     const [sendOneCommissionStatements, { loading: loadingSend }] = useMutation(SEND_COMMISSION_STATEMENT, {
         onCompleted: (data) => {
@@ -34,10 +32,19 @@ export const ViewCommissionStatementsTo = ({ data, loading }) => {
             cache.modify({ fields: { getAllCommissionStatementsFrom(dataOld = []) { return cache.writeQuery({ query: ALL_COMMISSION_STATEMENT, data: dataOld }) } } })
         }
     })
+
+    const [ OpenedByRecipient ] = useMutation(OPENED_BY_RECIPIENT, {
+        onError: () => setAlertBox({ message: 'Error System', duration: 8000 })
+    });
+
+    useEffect(() => {
+        OpenedByRecipient({ variables: { idInvoice: data?._id } });
+    }, [data?._id])
+
     // HANDLESS
     const handleConfirmIsOnStatements = () => {
         const dataBool = data?.invoicesIncOnStatement.map(x => { return { onStatement: x.isOnStatement } })
-        console.log(dataBool)
+
         for (let i = 0; i < dataBool.length; i++) {
             if (dataBool[i].onStatement !== true) {
                 setAlertBox({ message: 'The commission statement invoice is not ready to be sent' })
@@ -54,8 +61,7 @@ export const ViewCommissionStatementsTo = ({ data, loading }) => {
             }
         }
     }
-    // hasInvoiceBeenSent cuando todo esta ok
-    // hasInvoiceBeenOpenedByRecipient cuando el usuario ya lo ha abierto esta ok
+
     return (
         <>
             {data !== {} && <ContainerStatements>
@@ -69,7 +75,7 @@ export const ViewCommissionStatementsTo = ({ data, loading }) => {
                     <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={TBGVColor} color={BGColor}>
                         {/* Send to {data[0]?.statementToDetails?.agentEmail} */}
                     </RippleButton>
-                    <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={PVColor} color={BGColor}>
+                    <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={PVColor} color={BGColor} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { getOneCommissionInvoice: data } })}>
                         Download
                     </RippleButton>
                 </Options>
@@ -162,7 +168,7 @@ export const ViewCommissionStatementsTo = ({ data, loading }) => {
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >VAT Registered:</Text>
-                                <Text size='19px' >{data?.statementToDetails[0]?.agentVATRegistered  ?  'YES' : 'NO' }</Text>
+                                <Text size='19px' >{data?.statementToDetails[0]?.agentVATRegistered ? 'YES' : 'NO'}</Text>
                             </Row>
                             <Row margin='5px 0'>
                                 <Text size='19px' >LegalName:</Text>
@@ -229,12 +235,14 @@ export const ViewCommissionStatementsTo = ({ data, loading }) => {
                             </Content>
                             <Content>
                                 <ContentTableItem padding='0px' direction='row'>
-                                    <TableButton backgroundColor={TBGAColor} color={SCColor}>
+                                    <TableButton backgroundColor={TBGAColor} color={SCColor} onClick={() => generatePdfDocumentInvoice({ dataInvoice: { getOneCommissionInvoice: data?.invoicesIncOnStatement[i] } })}>
                                         Download
                                     </TableButton>
-                                    <TableButton backgroundColor={TBGBColor} color={PVColor} onClick={() => handlePreview(x)}>
-                                        View
-                                    </TableButton>
+                                    <ActiveLink activeClassName="active" href={`/invoice/${data?.invoicesIncOnStatement[i]._id}`}>
+                                        <TableButton backgroundColor={TBGBColor} color={PVColor} >
+                                            View
+                                        </TableButton>
+                                    </ActiveLink>
                                     <Link href={'/invoice/commission-statement/create'}>
                                         <TableButton backgroundColor={TBGVColor} color={TFBColor}>
                                             Add
@@ -263,7 +271,7 @@ export const ViewCommissionStatementsTo = ({ data, loading }) => {
                             <Text padding='10px 0' size='20px' >{data?.totalGrossSalesReceivedByYou}</Text>
                         </Row>
                     </Options>
-                    {/* 
+                    {/*
                     <Options>
                         <RippleButton widthButton='300px' padding={'15px 5px'} bgColor={PVColor} color={BGColor} onClick={() => setModalConfirm(!modal)}>
                             Send to {data?.statementToEmail}

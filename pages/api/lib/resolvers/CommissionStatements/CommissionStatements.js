@@ -270,8 +270,28 @@ export const isPaidStatementInvoice = async (_, { idInvoice, ToEmail, uEmail }, 
     } catch (error) {
         throw new ApolloError('Your request could not be processed.', 500)
     }
-
 }
+
+export const OpenedByRecipient = async(_, {idInvoice}, ctx ) =>{
+     try {
+        const commissionStatement = await CommissionInvoiceStatement.findOne({ _id: idInvoice });
+        
+        if( !!commissionStatement ){
+
+            const resp = await CommissionInvoiceStatement.findOneAndUpdate({ _id: idInvoice },
+                { $set: { hasInvoiceBeenOpenedByRecipient: true } }
+            )
+            
+            if( !resp ){
+                return { success: true, message: 'View' }
+            }
+        }
+
+    } catch (error) {
+        throw new ApolloError('Your request could not be processed.', 500)
+    }
+}
+
 export default {
     TYPES: {
     },
@@ -285,6 +305,7 @@ export default {
         isApprovedByInvoiceSenderStatement,
         isRedoStateInvoiceStatement,
         ViewCommissionStatements,
-        isPaidOutCommissionStatements
+        isPaidOutCommissionStatements,
+        OpenedByRecipient
     }
 }

@@ -9,6 +9,7 @@ type CommissionStatements {
     statementTo: String,
     statementDate: String,
     invoiceType: String,
+    invoiceRef: String,
     eventsMonth: String,
     emailedDate: String,
     totalAmountToPay: Float,
@@ -151,4 +152,5 @@ type Mutation {
   isPaidStatementInvoice(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
   isRedoStateInvoiceStatement(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
   isApprovedByInvoiceSenderStatement(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+  OpenedByRecipient( idInvoice: ID ): Response
 }
