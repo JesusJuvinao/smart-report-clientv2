@@ -176,6 +176,7 @@ input InputAgentDetails {
 }
 type NewArray {
         id: String,
+        _id: ID,
         bookingRef: String,
         bookedOn: DateTime,
         client: String,

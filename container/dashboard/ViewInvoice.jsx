@@ -9,13 +9,14 @@ import { Section } from '../../components/Table/styled'
 import { PLVColor, PVColor, SCColor, SEGColor, TBGAColor, BGColor, TBGBColor, TBGDColor, TBGVColor, TFBColor, EColor } from '../../public/colors'
 import { Text, ContentTableItem, TableButton, ContainerStatements, } from './styled'
 import Link from 'next/link'
+import ActiveLink from '../../components/common/Link'
 export const ViewInvoiceItems = ({ data }) => {
     // return null
     return (
         <>
             {data !== {} && <div>
                 <Text margin='20px 0' size='30px' >{data?.eventName}</Text>
-                <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']}>
+                <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']}>
                     <Content padding={'0'} >
                         <Text> AgentCode</Text>
                     </Content>
@@ -85,10 +86,13 @@ export const ViewInvoiceItems = ({ data }) => {
                     <Content padding={'0'} >
                         <Text> Total Paid</Text>
                     </Content>
+                    <Content padding={'0'} >
+                        <Text> Action</Text>
+                    </Content>
                 </SectionRow>
                 {data?.lineItemsArray && data?.lineItemsArray?.map(x => x.newArray?.map((z, i) => (
-                    <div key={z._id}>
-                        <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']} key={i}>
+                    <div key={z.id}>{console.log(z)}
+                        <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']} key={i}>
                             <Content padding={'0'} >
                                 <Text> {z.agentCode}</Text>
                             </Content>
@@ -157,6 +161,13 @@ export const ViewInvoiceItems = ({ data }) => {
                             </Content>
                             <Content padding={'0'} >
                                 <Text> {z.totalpaid}</Text>
+                            </Content>
+                            <Content padding={'0'} >
+                                <ActiveLink href={`/view-tickets/${z._id}`} >
+                                    <a>
+                                        <Text> View</Text>
+                                    </a>
+                                </ActiveLink>
                             </Content>
                         </SectionRow>
                     </div>

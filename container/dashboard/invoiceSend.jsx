@@ -23,8 +23,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
     const [dataInvoiceLine, setDataInvoice] = useState({})
     
     const handleOpenLineItems = data => {
-        debugger;
-                
+        console.log(data)
         setModalLineItems(true)
         setDataInvoice(data)
     }

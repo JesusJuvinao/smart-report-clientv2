@@ -222,6 +222,7 @@ query getAllCommissionInvoiceSent($idUser: ID, $search: String, $min: Int, $max:
             newArray {
               id
               bookingRef
+              _id
               bookedOn
               client
               ticketoption
