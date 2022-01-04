@@ -50,7 +50,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
         for (let i = 0; i < dataBool.length; i++) {
             if (dataBool[i].onStatement !== true) {
                 setAlertBox({ message: 'The commission statement invoice is not ready to be sent' })
-            } else {
+            } else {    
                 return sendOneCommissionStatements({
                     variables: {
                         idComp: 'colcasda',
@@ -84,7 +84,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                 <Options>
                     <Link href={'/invoice/commission-statement/create'}>
                         <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={PVColor} color={BGColor}>
-                            Add
+                            Create
                         </RippleButton>
                     </Link>
                     <RippleButton widthButton='150px' padding={'15px 5px'} bgColor={TBGVColor} color={BGColor}>
@@ -307,7 +307,7 @@ export const ViewCommissionStatements = ({ data, loading }) => {
                     width='50%'
                     padding='2%'
                     footer={false} >
-                    <Text size='25px'>You want to send this commission announcement to  {data?.statementToEmail} </Text>
+                    <Text size='25px'>You want to send this commission announcement to HERE   {data?.statementToEmail} </Text>
                     <Options style={{ borderBottom: 'none', justifyContent: 'space-between' }}>
                         <RippleButton widthButton='45%' padding={'15px 5px'} bgColor={'#ea1d2c'} color={BGColor} onClick={() => handleConfirmIsOnStatements()}>
                             Yes

@@ -3,10 +3,12 @@ import CommissionInvoiceStatement from '../../../models/CommissionStatements/CSt
 import UserSchema from '../../../models/users/userLogin'
 import CompanySchema from '../../../models/Companies/CompanySchema'
 import { TemplateLeaveComp } from '../../templates/TemplateConfirm'
-import { transporter } from '../../../utils'
+import { sendEmail, transporter } from '../../../utils'
 import { TemplateCommissionStatement } from '../../templates/CommissionStatement'
+import ReactDOMServer from 'react-dom/server'
 import moment from 'moment'
 import { isApprovedInvoiceSenderStatement, TemplateInvoicePaid } from '../../templates/InvoicePaid'
+import { SpiceStatement } from '../../../../../container/SpiceStatement/spiceStatement'
 
 export const getOneCommissionStatement = async (_, { idComp, CompName, IdStatement }, ctx) => {
     try {
@@ -122,19 +124,25 @@ export const ViewCommissionStatements = async (_, { idComp, uEmail, IdStatements
     }
 }
 export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, statementToEmail, IdStatements }, ctx) => {
+    console.log(idComp, company, uEmail, statementToEmail, IdStatements)
     try {
         const idUser = ctx.User.id
         const dataUser = await UserSchema.findById({ _id: idUser })
+        const dataStatement = await CommissionInvoiceStatement.findById({ _id: IdStatements })
+        console.log(dataStatement)
         const mailer = transporter()
-        mailer.sendMail({
+        // HERE JESUS
+        const renderHtml = ReactDOMServer.renderToString(<SpiceStatement data={dataStatement} />);
+        sendEmail({
             from: uEmail,
             to: statementToEmail,
             subject: `New Commission Statement `,
-            html: TemplateCommissionStatement({
-                username: dataUser?.userName,
-                id: IdStatements
-            })
-        })
+            html: renderHtml
+            // html: TemplateCommissionStatement({
+            //     id: IdStatements,
+            //     username: ''
+            // })
+        }).then(res => console.log('the res')).catch(err => console.log(err, 'the err')) 
         return { success: true, message: `commission statement has been sent ${statementToEmail} successfully.` }
 
     } catch (error) {
