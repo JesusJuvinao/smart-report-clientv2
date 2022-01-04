@@ -1006,8 +1006,6 @@ export const NewDateFormat = (date) => {
         // const dateString = new Date(dateString)
         const dateString = date => new Date(date).toString() !== 'Invalid Date';
         const newDate = dateString instanceof Date && !isNaN(dateString);
-        console.log(newDate, 'asi es bro soy men')
-        console.log(dateString, '222222222')
         // return new Date(date).toISOString().slice(0, 10).replace(/-/g,"");
         return date
 

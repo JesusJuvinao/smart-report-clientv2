@@ -23,7 +23,6 @@ try {
 
 export default async (req, res) => {
         const {idUser} = req.query
-        console.log(idUser)
         const userProfile = await findUserInDatabase(idUser)
         const stripeAccountMetaData = await connectUserToStripe(userProfile)
         await saveStripeAccountToUserProfile(stripeAccountMetaData,idUser)
@@ -33,12 +32,10 @@ export default async (req, res) => {
       const connectUserToStripe =async (userProfile) => {
         // console.log(userProfile)
         const userEmail = userProfile[0].uEmail
-        console.log(userEmail )
         const country = 'GB'
         const stripeAccountTypeSetup = 'express'
         console.log(userEmail , country,stripeAccountTypeSetup,'IM HERE INSIDE THE CONNECT USER TO STRIPE FUNCTION')
         const account = await stripe.accounts.create({type: stripeAccountTypeSetup,email:userEmail,country});
-        console.log(account,'im the account object that came back from stripe')
         return account; //return me back to where you called me from!  returning the account object we got from stripe back to 
     }
 

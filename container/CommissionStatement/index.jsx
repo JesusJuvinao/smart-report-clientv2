@@ -99,8 +99,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
     })
   })
 
-  console.log(data)
-
   const [isPaidStatementInvoice] = useMutation(IS_PAY_STATEMENT_INVOICE, {
     onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
     update: (cache, { data: { getOneCommissionInvoice } }) => updateCache({
@@ -120,7 +118,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
     setOpenModalO(!openModalO)
   }
   const handleRedoStateStatementFrom = async data => {
-    // console.log(data, ' jesus que peso')
     const { statementFromEmail, _id } = data || {}
     isRedoStateInvoiceStatement({ variables: { idInvoice: _id, ToEmail: 'odavalencia002@gmail.com', uEmail: 'odavalencia002@gmail.com' } }).catch(err => setAlertBox({ message: `${err}`, duration: 8000 }))
   }

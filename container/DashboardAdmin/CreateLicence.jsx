@@ -80,7 +80,6 @@ export const CreateLicence = ({ setShow, show }) => {
                     }
                 })
             } else if (show === 2) {
-                console.log('')
             } else if (show === 3) {
                 return null
             }

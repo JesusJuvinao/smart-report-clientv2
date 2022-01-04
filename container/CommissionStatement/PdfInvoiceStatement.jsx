@@ -200,8 +200,6 @@ const InvoicePdfGenerateStatement = ({ pdfDocumentData }) => {
 }
 
 export const generatePdfDocumentInvoiceStatement = async documentData => {
-    console.log(documentData)
-    // console.log(documentData, 'ESTE ES EL DOCUMENTO A  PAGAR ')
     const blob = await pdf((
         <InvoicePdfGenerateStatement
             title={`doc ${documentData?.dataInvoice?.statementFromDetails[0]?.agentTradingName} `}

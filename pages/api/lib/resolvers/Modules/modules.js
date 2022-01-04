@@ -40,7 +40,6 @@ export const registerModule = async (_, { input, inputLineItemsMod }, ctx) => {
             }
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

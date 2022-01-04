@@ -9,7 +9,6 @@ import { Newsletter } from './views/Newsletter'
 // const NewsLetter = View.importJsx("./views/Newsletter.jsx");
 
 export const sendEmailTest = async (_, { email }, ctx) => {
-    console.log(email, 'asjdgasjhdv')
     const mailer = transporter();
     return ({ message: email })
     try {
@@ -24,7 +23,6 @@ export const sendEmailTest = async (_, { email }, ctx) => {
         })
 
     } catch (e) {
-        console.log(e)
         const error = new Error('Your request could not be processed')
         return error
     }

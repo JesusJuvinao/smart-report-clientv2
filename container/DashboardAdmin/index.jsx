@@ -46,7 +46,6 @@ export const DashboardAmin = () => {
       })
     }
   })
-  console.log(data)
   const [registerGetLicences, { data: dataLicence }] = useMutation(CREATE_ONE_LICENCE)
   const [createRoleMutation, { data: dataRole }] = useMutation(CREATE_ONE_ROLE, {
     onError: (error) => {
@@ -127,7 +126,6 @@ export const DashboardAmin = () => {
           }
         })
       } else if (show === 2) {
-        console.log('')
       } else if (show === 3) {
         return null
       }

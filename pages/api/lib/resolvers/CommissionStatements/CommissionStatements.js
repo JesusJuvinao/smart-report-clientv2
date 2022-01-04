@@ -17,7 +17,6 @@ export const getOneCommissionStatement = async (_, { idComp, CompName, IdStateme
         return data
 
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -32,7 +31,6 @@ export const getAllCommissionStatementsFrom = async (_, { search, idComp, CompNa
             return data
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -47,12 +45,10 @@ export const getAllCommissionStatementsTo = async (_, { search, idComp, CompName
             return data
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
 export const isPaidOutCommissionStatements = async (_, { idComp, uEmail, IdStatements, company, statementToEmail }, ctx) => {
-    // console.log(idComp, uEmail, IdStatements, company, statementToEmail)
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: IdStatements })
     try {
         if (!InvoiceData) { return { success: false, message: 'The Invoice no exist' } }
@@ -88,13 +84,10 @@ export const isPaidOutCommissionStatements = async (_, { idComp, uEmail, IdState
         }
         return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Inactive' : 'Active'} status` }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
-// hasInvoiceBeenOpenedByRecipient
 export const ViewCommissionStatements = async (_, { idComp, uEmail, IdStatements, company, statementToEmail }, ctx) => {
-    // console.log(idComp, uEmail, IdStatements, company, statementToEmail)
     // const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: IdStatements })
     try {
         await CommissionInvoiceStatement.findOneAndUpdate({ 'invoicesIncOnStatement._id': IdStatements },
@@ -119,17 +112,14 @@ export const ViewCommissionStatements = async (_, { idComp, uEmail, IdStatements
         })
         return { success: true, message: `the invoice changed to ` }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
 export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, statementToEmail, IdStatements }, ctx) => {
-    console.log(idComp, company, uEmail, statementToEmail, IdStatements)
     try {
         const idUser = ctx.User.id
         const dataUser = await UserSchema.findById({ _id: idUser })
         const dataStatement = await CommissionInvoiceStatement.findById({ _id: IdStatements })
-        console.log(dataStatement)
         const mailer = transporter()
         // HERE JESUS
         const renderHtml = ReactDOMServer.renderToString(<SpiceStatement data={dataStatement} />);
@@ -146,7 +136,6 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
         return { success: true, message: `commission statement has been sent ${statementToEmail} successfully.` }
 
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -154,9 +143,7 @@ export const sendOneCommissionStatements = async (_, { idComp, company, uEmail, 
 
 // NEW FUNCIONS
 export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmail }) => {
-    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionInvoiceStatement.findOne({ _id: idInvoice })
-   // console.log(InvoiceData)
     try {
         if (!InvoiceData) {
             return { success: false, message: 'The Invoice no exist' }
