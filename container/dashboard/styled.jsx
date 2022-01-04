@@ -16,6 +16,24 @@ const pulse = keyframes`
 `
 export const WrapperButtonAction = styled.div`
 `
+export const ItemTeam = styled.div`
+    tab-size: 4;
+    display: flex;
+    justify-content: space-between; 
+    border-bottom: 1px solid #ccc;
+    border-collapse: collapse;
+    font-size: .875rem;
+    line-height: 1.5715;
+    box-sizing: border-box;
+`
+export const ItemInf = styled.div`
+  padding: .75rem;
+  ${props => props.end && css`
+  justify-content: flex-end;
+    display: flex;
+
+  `}
+`
 export const Toolbar = styled.div`
     position: relative;
     padding-left: 16px;
@@ -45,7 +63,7 @@ export const Wrapper = styled.div`
     margin: auto;
     height: 100%;
     display: grid;
-    justify-content: ${({ justifyContent }) => justifyContent  || 'normal'};
+    justify-content: ${({ justifyContent }) => justifyContent || 'normal'};
     border-right: 1px solid #cccccc7a;
     &:last-child {
         border-right: none;
@@ -752,6 +770,7 @@ export const Card = styled.div`
   ${props => props.animation && css`
     &:hover {
       transform: scale(1.2); 
+      z-index: 9999;
     }  
   ` }
 `

@@ -5,7 +5,7 @@ import { GET_ONE_COMPANY_BY_ID } from './queries'
 import { Context } from '../../context'
 import { useUser } from '../Profile'
 import { CHANGE_COMPANY_STATE } from '../Profile/queries'
-import { BColor, PColor, TBGBColor } from '../../public/colors'
+import { BColor, BGColor, PColor, PLColor, TBGBColor } from '../../public/colors'
 import { Loading } from '../../components/Loading'
 import { HorizontalBarChart } from '../../components/Chart'
 import { RippleButton } from '../../components/Ripple'
@@ -22,7 +22,7 @@ import { ALL_COMPANIES_BY_USER } from '../Company/queries'
 import router, { useRouter } from 'next/router'
 import { useSetState } from '../../components/hooks/useState'
 // import { LineChart } from '@/components/Chart/multiAxis'
-import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CardOverFloW, CircleCompany, ButtonTheme, SwitchButton, ContentToggle, OlList, FeedItem } from './styled'
+import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CardOverFloW, CircleCompany, ButtonTheme, SwitchButton, ContentToggle, OlList, FeedItem, ItemTeam, ItemInf } from './styled'
 
 export const CompanyC = () => {
     // STATE
@@ -176,31 +176,14 @@ export const CompanyC = () => {
                 </Content>
                 <Content width="20%">
                     <Content direction="row">
-                        <Card onClick={() => location.push('/usermgt')} style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='100%'>
+                            <Text size='14px' >Earning Reports</Text>
+                            <Text size='30px' >$51,255</Text>
+                            <Text size='12px' color={PLColor} >Total Revenue</Text>
+                        </Card>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='100%'>
                             <Text font='PFont-Medium' size='17px' >{dataComp ? dataComp?.lineItemsTeam?.length : 0}</Text>
                             <Text size='14px' >Employees</Text>
-                        </Card>
-                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
-                            <Text font='PFont-Medium' size='17px' >0</Text>
-                            <Text size='14px' >Vendors</Text>
-                        </Card>
-                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
-                            <Text font='PFont-Medium' size='17px' >{dataFiles?.getAllAttachment?.length}</Text>
-                            <Text size='14px' >Files</Text>
-                        </Card>
-                    </Content>
-                    <Content direction="row">
-                        <Card onClick={() => location.push('/usermgt')} style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
-                            <Text font='PFont-Medium' size='17px' >{dataComp ? dataComp?.lineItemsTeam?.length : 0}</Text>
-                            <Text size='14px' >Employees</Text>
-                        </Card>
-                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
-                            <Text font='PFont-Medium' size='17px' >0</Text>
-                            <Text size='14px' >Vendors</Text>
-                        </Card>
-                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
-                            <Text font='PFont-Medium' size='17px' >{dataFiles?.getAllAttachment?.length}</Text>
-                            <Text size='14px' >Files</Text>
                         </Card>
                     </Content>
                     <Card width='97%'>
@@ -218,30 +201,32 @@ export const CompanyC = () => {
                 <Content width="100%">
                     <Content direction="row">
                         <Card width='30%'>
-                            <Text>Latest Messages </Text>
+                            <Text>My team </Text>
+                            {[1, 2, 3, 4, 5, 6, 7].map(x => (
+                                <ItemTeam key={x._id}>
+                                    <ItemInf>
+                                        Stuart
+                                    </ItemInf>
+                                    <ItemInf end>
+                                        <RippleButton margin='0' widthButton='70px' size='10px' padding='5px'>View</RippleButton>
+                                    </ItemInf>
+                                </ItemTeam>
+                            ))}
+                            <RippleButton margin='20px 0' widthButton='70px' size='10px' padding='5px'>Load More</RippleButton>
                         </Card>
                         <Card width='30%'>
+                            <Text>Recent Activity Feed </Text>
                             <CardOverFloW>
                                 <OlList>
-                                    <FeedItem>
-                                        <span className='date'>date, Sep 25</span>
-                                        <span className='activity-text'>Pay One Bills</span>
-                                    </FeedItem>
-                                    <FeedItem>
-                                        <span className='date'>date, Sep 25</span>
-                                        <span className='activity-text'>Pay One Bills</span>
-                                    </FeedItem>
-                                    <FeedItem>
-                                        <span className='date'>date, Sep 25</span>
-                                        <span className='activity-text'>Pay One Bills</span>
-                                    </FeedItem>
-                                    <FeedItem>
-                                        <span className='date'>date, Sep 25</span>
-                                        <span className='activity-text'>Pay One Bills</span>
-                                    </FeedItem>
+                                    {[1, 2, 3, 4, 5, 6, 7].map(x => (
+                                        <FeedItem key={x._id}>
+                                            <span className='date'>date, Sep 25</span>
+                                            <span className='activity-text'>Pay One Bills</span>
+                                        </FeedItem>
+                                    ))}
                                 </OlList>
                             </CardOverFloW>
-                            <Text>Recent Activity Feed </Text>
+                            <RippleButton margin='20px 0' widthButton='70px' size='10px' padding='5px'>Load More</RippleButton>
                         </Card>
                         <Card width='30%'>
                             <Text>Latest Messages </Text>
