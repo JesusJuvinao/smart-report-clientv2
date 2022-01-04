@@ -1,14 +1,24 @@
 import styled, { css } from 'styled-components'
 import { PColor, SECColor, PVColor, PSColor, BGColor } from '../../public/colors'
 
+export const CardWidgets = styled.div`
+    flex: 0 0 24%;
+    max-width: 24%;
+    background-color: ${BGColor};
+    border-radius: 5px;
+    margin: 5px;
+    height: auto;
+`
 export const Container = styled.div`
     min-width:500px;
-    height: 100vh;
     position: relative;
     z-index: 999;
-    overflow: hidden;
+    overflow: auto;
+    background-color: #f0f0f5;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
     @media only screen and (max-width: 960px) {
-       margin-top: -46px;
        
     }
 `
