@@ -181,11 +181,13 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
                 html: TemplateInvoicePaid({
-                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    invoiceRef: InvoiceData.invoiceRef,
                     uEmail,
                     date: today,
                     hour,
                     statusInvoice: InvoiceData.isPaid !== true ? 'paid' : 'No paid',
+                    invoiceTo: InvoiceData.invoiceTo,
+                    invoiceFrom: InvoiceData.invoiceFrom
                 })
             })
         }
@@ -196,7 +198,6 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
-    console.log( idInvoice, ToEmail, uEmail, 'HKASHDLAKSHDL')
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -215,15 +216,29 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
         const mailer = transporter()
 
         const renderHtml = ReactDOMServer.renderToString(<SpiceStatement />);
-        console.log(renderHtml)
         if (InvoiceData) {
-            sendEmail({
+            // sendEmail({
+            //     from: uEmail,
+            //     to: ToEmail,
+            //     text: 'Hello world?',
+            //     subject: 'Notification De Invoice Change.',
+            //     html: renderHtml
+            // }).then(res => console.log(res, 'the res')).catch(err => console.log(err, 'the err')) 
+            mailer.sendMail({
                 from: uEmail,
                 to: ToEmail,
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
-                html: renderHtml
-            }).then(res => console.log(res, 'the res')).catch(err => console.log(err, 'the err')) 
+                html: TemplateInvoicePaid({
+                    invoiceRef: InvoiceData.invoiceRef,
+                    uEmail,
+                    date: today,
+                    hour,
+                    statusInvoice: InvoiceData.isRedo !== true ? 'Not approved' : 'approved',
+                    invoiceTo: InvoiceData.invoiceTo,
+                    invoiceFrom: InvoiceData.invoiceFrom
+                })
+            })
         }
         return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {
@@ -254,11 +269,13 @@ export const hasBeenReceived = async (_, { idInvoice, ToEmail, uEmail }) => {
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
                 html: TemplateInvoicePaid({
-                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    invoiceRef: InvoiceData.invoiceRef,
                     uEmail,
                     date: today,
                     hour,
                     statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                    invoiceTo: InvoiceData.invoiceTo,
+                    invoiceFrom: InvoiceData.invoiceFrom
                 })
             })
         }
@@ -291,11 +308,13 @@ export const hasBeenSent = async (_, { idInvoice, ToEmail, uEmail }) => {
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
                 html: TemplateInvoicePaid({
-                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    invoiceRef: InvoiceData.invoiceRef,
                     uEmail,
                     date: today,
                     hour,
                     statusInvoice: InvoiceData.isRedo !== true ? 'paid' : 'No paid',
+                    invoiceTo: InvoiceData.invoiceTo,
+                    invoiceFrom: InvoiceData.invoiceFrom
                 })
             })
         }
@@ -330,11 +349,13 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
                 text: 'Hello world?',
                 subject: 'Notification De Invoice Change.',
                 html: TemplateInvoicePaid({
-                    invoiceRef: InvoiceData && InvoiceData.eventName,
+                    invoiceRef: InvoiceData.invoiceRef,
                     uEmail,
                     date: today,
                     hour,
                     statusInvoice: InvoiceData.isRedo !== true ? 'Redo' : 'No Redo',
+                    invoiceTo: InvoiceData.invoiceTo,
+                    invoiceFrom: InvoiceData.invoiceFrom
                 })
             })
         }
@@ -345,9 +366,7 @@ export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
 
 }
 export const getAllCommissionInvoiceReceived = async (_, { search, idComp, CompName, max }, ctx) => {
-    // const idUser = ctx.User.id
     const idUser = ctx.User.id
-    console.log(max)
     try {
         const Array = await UserSchema.findOne({ _id: idUser })
         const dataComp = await CompanySchema.find({ '_id': { $in: Array.idComp } });

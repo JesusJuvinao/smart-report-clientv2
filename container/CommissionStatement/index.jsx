@@ -99,6 +99,9 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
 
     })
   })
+
+  console.log(data)
+
   const [isPaidStatementInvoice] = useMutation(IS_PAY_STATEMENT_INVOICE, {
     onCompleted: (data) => setAlertBox({ message: `${data?.isPaidStateInvoice?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
     update: (cache, { data: { getOneCommissionInvoice } }) => updateCache({
