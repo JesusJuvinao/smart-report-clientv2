@@ -920,3 +920,48 @@ export const CardOverFloW = styled.div`
   overflow-y: auto;
 
 `
+export const CardDevice = styled.button`
+    align-items: center;
+    display: flex;
+    min-height: 69px;
+    padding: 0.9375rem 1.25rem;
+    position: relative;
+    text-align: left;
+    background: none;
+    border: 0;
+    width: 100%;
+    .device__icon{
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    outline: none;
+    box-sizing: border-box;
+    font-family: Sul Sans,sans-serif;
+    }
+    .device__info{
+      margin-left: 1.3125rem;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    outline: none;
+    box-sizing: border-box;
+    font-family: Sul Sans,sans-serif;
+    }
+    .device__description-wrapper{
+      align-items: baseline;
+      display: flex;
+    }
+    .device__description{
+      color: #3e3e3e;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    }
+    .device__current{
+      color: #50a773;
+      font-size: .75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    }
+    .device__localization {
+      color: #717171;
+      font-size: .875rem;
+    line-height: 1.25rem;
+    }
+`

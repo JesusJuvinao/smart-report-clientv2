@@ -22,7 +22,7 @@ import { ALL_COMPANIES_BY_USER } from '../Company/queries'
 import router, { useRouter } from 'next/router'
 import { useSetState } from '../../components/hooks/useState'
 // import { LineChart } from '@/components/Chart/multiAxis'
-import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CardOverFloW, CircleCompany, ButtonTheme, SwitchButton, ContentToggle, OlList, FeedItem, ItemTeam, ItemInf } from './styled'
+import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CardOverFloW, CircleCompany, ButtonTheme, SwitchButton, ContentToggle, OlList, FeedItem, ItemTeam, ItemInf, CardDevice } from './styled'
 
 export const CompanyC = () => {
     // STATE
@@ -228,8 +228,33 @@ export const CompanyC = () => {
                             </CardOverFloW>
                             <RippleButton margin='20px 0' widthButton='70px' size='10px' padding='5px'>Load More</RippleButton>
                         </Card>
+                        {/* http://admiria-v.node.themesbrand.com/dashboard2 */}
                         <Card width='30%'>
-                            <Text>Latest Messages </Text>
+                            <Text>Your account has been connected on these devices </Text>
+                            <CardDevice>
+                                <span className='device__icon'>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1.75" y="0.75" width="20.5" height="15.5" rx="3.25" stroke="#3E3E3E" stroke-width="1.5"></rect><path d="M5 13L19 13" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 22C8 20.343 9.79133 19 12 19C14.2087 19 16 20.343 16 22H8Z" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 17L12.0017 19" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                </span>
+                                <div class="device__info">
+                                    <div class="device__description-wrapper">
+                                        <span class="device__description"> Windows</span>
+                                        <span class="device__current">Current device </span>
+                                    </div>
+                                    <span class="device__localization" tabindex="0"> Location unknown</span>
+                                </div>
+                            </CardDevice>
+                            <CardDevice>
+                                <span className='device__icon'>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5.75" y="0.75" width="12.5" height="22.5" rx="3.25" stroke="#3E3E3E" stroke-width="1.5"></rect><path d="M10 4H14" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11 21H13" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                </span>
+                                <div class="device__info">
+                                    <div class="device__description-wrapper">
+                                        <span class="device__description"> Windows</span>
+                                        <span class="device__current"> Three months ago</span>
+                                    </div>
+                                    <span class="device__localization" tabindex="0"> Location unknown</span>
+                                </div>
+                            </CardDevice>
                         </Card>
                     </Content>
                 </Content>
