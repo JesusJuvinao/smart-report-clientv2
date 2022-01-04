@@ -10,12 +10,15 @@ import { PLVColor, PVColor, SCColor, SEGColor, TBGAColor, BGColor, TBGBColor, TB
 import { Text, ContentTableItem, TableButton, ContainerStatements, } from './styled'
 import Link from 'next/link'
 import ActiveLink from '../../components/common/Link'
-export const ViewInvoiceItems = ({ data }) => {
+export const ViewInvoiceItems = ({ ArrayTicket }) => {
     // return null
+    const sumTotal = arr => arr && arr?.reduce((sum, { invoiceTotal }) => sum + invoiceTotal, 0)
+
+    console.log(ArrayTicket)
     return (
         <>
-            {data !== {} && <div>
-                <Text margin='20px 0' size='30px' >{data?.eventName}</Text>
+            {ArrayTicket !== {} && <div>
+                <Text margin='20px 0' size='30px' ></Text>
                 <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']}>
                     <Content padding={'0'} >
                         <Text> AgentCode</Text>
@@ -90,7 +93,7 @@ export const ViewInvoiceItems = ({ data }) => {
                         <Text> Action</Text>
                     </Content>
                 </SectionRow>
-                {data?.lineItemsArray && data?.lineItemsArray?.map(x => x.newArray?.map((z, i) => (
+                {ArrayTicket && ArrayTicket?.newArray?.map((z, i) => (
                     <div key={z.id}>
                         <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']} key={i}>
                             <Content padding={'0'} >
@@ -171,9 +174,9 @@ export const ViewInvoiceItems = ({ data }) => {
                             </Content>
                         </SectionRow>
                     </div>
-                )))}
+                ))}
             </div>}
-            <div>  {currencyFormatter.format(data?.invoiceTotal, { code: data.currency || 'GBP' })}</div>
+            {/* <div>  {currencyFormatter.format(data?.invoiceTotal, { code: data.currency || 'GBP' })}</div> */}
         </>
     )
 }

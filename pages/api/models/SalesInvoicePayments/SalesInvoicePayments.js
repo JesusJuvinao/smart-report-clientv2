@@ -81,7 +81,7 @@ const SalesInvoicePayments = new Schema({
             newArray: [{
                 id: String,
                 bookingRef: String,
-                bookedOn: Date,
+                bookedOn: String,
                 client: String,
                 ticketoption: String,
                 ticketquantity: Number,

@@ -398,6 +398,37 @@ createInvoicePaymentMutation(input: $input, inputLineItems: $inputLineItems) {
 	}
 }
 `
+export const GET_ALL_TIKETS_ARRAY = gql`
+    query newArray($idInvoice: ID) {
+      	newArray(idInvoice: $idInvoice) {
+          _id
+          id
+          bookingRef
+          bookedOn
+          client
+          ticketoption
+          ticketquantity
+          ticketprice
+          totaldue
+          totaldueCalc
+          totalpaid
+          balancedue
+          commissionRatePercent
+          commissionpayable
+          agentCode
+          clientOwnerAtPurchaseDate
+          bookingStatus
+          eventName
+          eventOwner
+          eventCommences
+          discountRate
+          discountTotal
+          discountedTotalDue
+          eventRef
+          eventType
+      }
+  }
+`
 export const GET_COMMISSION_PAY = gql`
 query getInvoicePay($idComp: ID, $idUser: ID,$search: String, $min: Int, $max: Int){
   	getInvoicePay(idComp: $idComp,  idUser: $idUser, search: $search, min: $min, max: $max){

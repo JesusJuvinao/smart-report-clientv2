@@ -1,12 +1,15 @@
 'use strict'
 import { ApolloError } from 'apollo-server-errors'
 import CommissionSchema from '../../../models/commisionInvoice/commisionInvoice'
-import UserSchema from '../../../models/users/userLogin'
 import CompanySchema from '../../../models/Companies/CompanySchema'
+import UserSchema from '../../../models/users/userLogin'
 import { setFiles } from '../Upload/upload'
 import { TemplateInvoicePaid } from '../../templates/InvoicePaid'
 import { sendEmail, strToDate, transporter } from '../../../utils'
 import moment from 'moment'
+import { pick, sumBy, flatten, _ as lodashobj, merge } from 'lodash';
+
+// const lodashmainobj=_
 import ReactDOMServer from 'react-dom/server'
 import { SpiceStatement } from '../../../../../container/SpiceStatement/spiceStatement'
 export const createCommissionInvoiceMutation = async (_, { input, inputCommissionLineItems }, ctx) => {
@@ -47,12 +50,95 @@ export const getOneCommissionInvoice = async (_, { idInvoice }, ctx) => {
 
     // const idUser = ctx.User.id
     try {
-        const data = await CommissionSchema.findOne({ _id: idInvoice })
-        console.log(idInvoice)
-        console.log(data)
-        return data
+        const oneInvoiceArray = await CommissionSchema.findOne({ _id: idInvoice })
+        console.log(idInvoice, 'THIS DATA')
+        // console.log(oneInvoiceArray)
+
+        const ticketsSold = []
+
+        oneInvoiceArray.lineItemsArray.map(oneInvoice => {
+            console.log(oneInvoice.newArray, 'TESTING')
+            ticketsSold.push(oneInvoice.newArray)
+
+        })
+
+        console.log(ticketsSold, 'TICKETS SOLD')
+        // const ticketsSold = ticketTypesSold.map(ticketSold => {
+        //     console.log(ticketSold.newArray)
+        // })
+
+        // const ticketTypesSold = oneInvoiceArray.lineItemsArray
+        // console.log(ticketTypesSold,'TICKET TYPES SOLD')
+
+        // console.log(ticketsSold)
+
+
+
+        // const ticketsSold = ticketTypesSold.newArray
+        // console.log(ticketTypesSold,ticketsSold,'TICKET TYPES SOLD AND TICKET PURCHASES')
+        // console.log(oneInvoiceArray.map(oneInvoice => oneInvoice.lineItemsArray.map(ticketType => ticketType.newArray )))
+        // console.log(oneInvoiceArray.lineItemsArray.map(oneInvoice => oneInvoice ))
+        return ticketsSold
     } catch (error) {
-        throw new ApolloError('Your request could not be processed.', 500)
+        console.log(error)
+        throw new ApolloError('Your request could not be processed. FROM INSIDE GETONECOMMISSIONINVOICE', 500)
+    }
+}
+export const newArray = async (_, { idInvoice }, ctx) => {
+
+
+
+
+    try {
+
+
+
+
+        const getTicketsSold = async () => {
+            const ticketsSold = []
+            const oneInvoiceArray = await CommissionSchema.findOne({ _id: idInvoice })
+            console.log(idInvoice, 'THIS DATA')
+            oneInvoiceArray.lineItemsArray.map(oneInvoice => {
+                oneInvoice.newArray.map(ticket => {
+                    let eventCommences = ticket.eventCommences
+                    let bookedOn = ticket.bookedOn
+                    console.log(ticket)
+                    eventCommences = moment(eventCommences, "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm:ss")
+                    bookedOn = moment(bookedOn, "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm:ss")
+                    ticket.eventCommences = eventCommences
+                    ticket.bookedOn = bookedOn
+                })
+                ticketsSold.push(oneInvoice.newArray)
+            })
+            return flatten(ticketsSold)
+        }
+
+        const ticketsSoldArray = await getTicketsSold()
+        console.log(ticketsSoldArray, 'HI IM THE TICKETS SOLD ARRAY')
+
+        const ticketOptionsAndValues = ticketsSoldArray.map(ticket => {
+            return pick(ticket, [
+                'ticketoption',
+                'totaldueCalc'
+            ]);
+        });
+
+        console.log(ticketOptionsAndValues, 'IM THE TICKET OPTIONS AND VALUES ARRAY')
+
+
+        const totalEventSalesByTicketType = await lodashobj(ticketOptionsAndValues).groupBy('ticketoption').map((ticketOption, id) => ({ ticketOption: id, totalSales: sumBy(ticketOption, 'totaldueCalc'), })).value()
+        console.log(totalEventSalesByTicketType, 'TOTAL EVENT SALES BY TICKET TYPE')
+
+        const finalViewTicketsData = [...ticketsSoldArray];
+        console.log(finalViewTicketsData, 'BEFORE THE CHANGE')
+        // finalViewTicketsData.push({ totalEventSalesByTicketType: totalEventSalesByTicketType })
+        console.log(finalViewTicketsData, 'FINAL TICKETS DATA')
+        // return [[finalViewTicketsData], totalEventSalesByTicketType]
+        return finalViewTicketsData
+
+    } catch (error) {
+        console.log(error)
+        throw new ApolloError('Your request could not be processed. FROM INSIDE GETONECOMMISSIONINVOICE', 500)
     }
 }
 export const DeleteOneBill = async (_, { id }, ctx) => {
@@ -202,7 +288,7 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
-    console.log(idInvoice, ToEmail, uEmail )
+    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -403,7 +489,6 @@ export const getEstimateCountInvoice = async (_, { idComp }, ctx) => {
 export const getAllCommissionInvoiceSent = async (_, { search, idComp, CompName, min, max, datePaid, updatedAt, invoiceTo, invoiceFrom }, ctx) => {
     const idUser = ctx.User.id
     // const idUser = '61c38a904516c431d8c22e08'
-    
     const time = new Date(datePaid)
     const invoiceToDate = new Date(invoiceTo)
     const invoiceFromDate = new Date(invoiceFrom)
@@ -448,6 +533,7 @@ export default {
         getEstimateCountInvoice,
         getAllCommissionInvoiceSent,
         getEstimateCountInvoiceSend,
+        newArray,
         getOneCommissionInvoice
     },
     MUTATIONS: {

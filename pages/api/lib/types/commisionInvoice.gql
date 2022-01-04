@@ -178,7 +178,7 @@ type NewArray {
         id: String,
         _id: ID,
         bookingRef: String,
-        bookedOn: DateTime,
+        bookedOn: String,
         client: String,
         ticketoption: String,
         ticketquantity: Float,
@@ -199,12 +199,17 @@ type NewArray {
         discountTotal: String,
         discountedTotalDue: String,
         eventRef: String,
-        eventType: String
+        eventType: String,
 }
+type totalEventSalesByTicketType {
+    ticketOption: String
+    totalSales: Float
+}
+
 input InputNewArray {
         id: String,
         bookingRef: String,
-        bookedOn: DateTime,
+        bookedOn: String,
         client: String,
         ticketoption: String,
         ticketquantity: Float,
@@ -227,10 +232,13 @@ input InputNewArray {
         eventRef: String,
         eventType: String
 }
+
 type Query {
   getAllCommissionInvoiceReceived(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int): [CommissionInvoice]
   getAllCommissionInvoiceSent(idComp: ID, CompName: String, idUser: ID, search: String, min: Int, max: Int, datePaid: String, updatedAt: String, invoiceFrom: String, invoiceTo: String): [CommissionInvoice]
   getOneCommissionInvoice(idInvoice: ID, idUser: ID): CommissionInvoice
+  newArray(idInvoice: ID): [NewArray]
+  totalEventSalesByTicketType: [totalEventSalesByTicketType]
 }
 
 type Mutation {

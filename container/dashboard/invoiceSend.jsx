@@ -17,15 +17,26 @@ import { ViewInvoiceItems } from './ViewInvoice'
 import { ContentTableItem } from '../CommissionStatement/styled'
 import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItems, OptionsFunction, WrapperButtonAction, Current, ArrowsLabel, InputFilterNumber, BoxArrow, InputHide, ButtonPagination, PageA4Format, DownLoadButton, Options, BlueButton, Toast, PaymentStatus, Clip, AnchorLink, TableButton } from './styled'
 import { generatePdfDocumentInvoice } from '../invoice/PdfInvoice'
+import { GET_ONE_INVOICE } from '../invoice/queries'
+import { useLazyQuery, useQuery } from '@apollo/client'
+import { GET_ALL_TIKETS_ARRAY } from './queries'
 
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     const [modalLineItems, setModalLineItems] = useState(false)
-    const [dataInvoiceLine, setDataInvoice] = useState({})
+    const [dataInvoiceLine, setDataInvoice] = useState('')
+    // const [getOneCommissionInvoice, { data, loading }] = useQuery(GET_ONE_INVOICE, { variables: { idInvoice: idInvoice }, fetchPolicy: 'cache-and-network' })
 
+    const [getOneCommissionInvoice, { data: ArrayTicket }] = useLazyQuery(GET_ALL_TIKETS_ARRAY, {
+        variables: { idInvoice: dataInvoiceLine },
+        fetchPolicy: 'cache-and-network'
+    })
+
+    console.log(ArrayTicket)
     const handleOpenLineItems = data => {
-        console.log(data, 'TICKE')
+        const { _id } = data || {} 
         setModalLineItems(true)
-        setDataInvoice(data)
+        getOneCommissionInvoice()
+        setDataInvoice(_id)
     }
     return (
         <div>
@@ -150,7 +161,7 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                 footer={false}
             >
                 <ViewInvoiceItems
-                    data={dataInvoiceLine}
+                    ArrayTicket={ArrayTicket}
                 />
             </AwesomeModal>
             <>
