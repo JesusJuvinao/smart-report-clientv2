@@ -3,13 +3,13 @@ import withSession from '../../apollo/session'
 import { useRouter } from 'next/router'
 import UserSchema from '../../pages/api/models/users/userLogin'
 import Roles from '../../pages/api/models/admin/admin'
-import { DashboardComp } from '../../container/dashboard/dashboardComp'
+import { CommissionInvoice } from '../../container/dashboard/dashboardComp'
 import { decodeToken } from '../../utils'
 
 export default function Company() {
   const router = useRouter()
   const idComp = router.query.idComp
-  return (<DashboardComp idComp={idComp} />)
+  return (<CommissionInvoice idComp={idComp} />)
   // return (<h1 style={{ fontFamily: 'PFont-Regular', color: '#000', fontSize: '2em'  }} >We are in maintenance</h1>)
 }
 export const getServerSideProps = withSession(async function ({ req }) {

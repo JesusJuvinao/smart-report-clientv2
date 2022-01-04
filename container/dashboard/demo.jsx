@@ -30,7 +30,7 @@ import { LazyLoading, Loading, SpinnerColorJust } from '../../components/Loading
 import { EColor, PColor, SVColor, SFVColor, BColor, BGColor, PVColor, APColor, BGAColor, PLColor } from '../../public/colors'
 import { Checkbox } from '../../components/Checkbox'
 import { useCheckboxState } from '../../components/hooks/useCheckbox'
-export const DashboardComp = ({ idComp }) => {
+export const CommissionInvoice = ({ idComp }) => {
     const router = useRouter()
     const name = router.query.name
     const { company } = useContext(Context)
@@ -992,7 +992,7 @@ export const ModalFilter = ({ show, setShow, selectedDate, handleDateChange, Inv
     )
 }
 
-DashboardComp.propTypes = {
+CommissionInvoice.propTypes = {
 
 }
 

@@ -37,21 +37,72 @@ export const Options = styled.div`
   `}
 `
 export const Wrapper = styled.div`
-    padding: 20px 0px;
     margin: auto;
     ${props => props.center && css`
       display: grid;
       place-content: center;
     `}
-    padding: 20px 0px;
     margin: auto;
     height: 100%;
     display: grid;
-    justify-content: ${({ justifyContent }) => justifyContent  || 'flex-start'};
+    justify-content: ${({ justifyContent }) => justifyContent  || 'normal'};
     border-right: 1px solid #cccccc7a;
     &:last-child {
         border-right: none;
     }
+`
+export const OlList = styled.ol`
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    outline: none !important;
+    margin-top: 0;
+    margin-bottom: 0!important;
+    padding: 15px 15px 0 15px;
+    list-style: none;
+`
+export const FeedItem = styled.li`
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    font-family: "Source Sans Pro", sans-serif;
+    word-wrap: break-word;
+    list-style: none;
+    box-sizing: border-box;
+    outline: none !important;
+    position: relative;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    border-left: 2px solid #e4e8eb;
+    .date {
+      display: block;
+      position: relative;
+      top: -5px;
+      color: #8c96a3;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+    .activity-text{
+      position: relative;
+      top: -3px;
+    }
+    &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 6px;
+    background: #ffffff;
+    border: 1px solid #67a8e4;
+}
 `
 export const AnchorLink = styled.a`
     font-family: PFont-Light;
@@ -635,11 +686,10 @@ export const List = styled.div`
     }
 `
 export const Container = styled.div`
-  overflow: hidden;
+  overflow: auto;
   position: relative;
   background-color: ${BGColor};
   flex-wrap: wrap;
-  margin-top: 30px;
   display: flex;
   @media (max-width: 769px) {
     flex-direction: ${({ direction }) => direction || 'column'};
@@ -780,7 +830,7 @@ export const Text = styled.span`
     ${({ padding }) => padding && css`padding: ${padding};`}
     margin: ${({ margin }) => margin || '0'};
     color: ${({ color }) => color || BColor};
-    justify-content: ${({ justify }) => justify || 'flex-start'};
+    /* justify-content: ${({ justify }) => justify || 'flex-start'}; */
     display: flex;
     font-family: ${({ font }) => font || 'PFont-Regular'};
     word-break: break-word;
@@ -846,4 +896,8 @@ export const TableButton = styled.button`
     :hover{
         cursor:pointer;
     }
-    `
+`
+export const CardOverFloW = styled.div`
+  overflow-y: auto;
+
+`

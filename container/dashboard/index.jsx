@@ -19,10 +19,10 @@ import { SUPPLIER_FOR_COMPANY } from '../Supplier/queries'
 import { IconPromo } from '../../public/icons'
 import { GET_ALL_ATTACHMENTS } from '../Attachments/queries'
 import { ALL_COMPANIES_BY_USER } from '../Company/queries'
-import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CircleCompany, ButtonTheme, SwitchButton, ContentToggle } from './styled'
 import router, { useRouter } from 'next/router'
 import { useSetState } from '../../components/hooks/useState'
 // import { LineChart } from '@/components/Chart/multiAxis'
+import { Avatar, Card, CardPrimary, Container, Content, Text, Wrapper, WrapperRow, CardOverFloW, CircleCompany, ButtonTheme, SwitchButton, ContentToggle, OlList, FeedItem } from './styled'
 
 export const CompanyC = () => {
     // STATE
@@ -125,13 +125,6 @@ export const CompanyC = () => {
                             </WrapperRow>
                         </CardPrimary>
                     </Card>
-                    {/* {<Card wrap='no-wrap' width='97%' direction="row">
-                        <Link activeClassName="active" href={`/companies/${encodeURIComponent(dataComp?._id)}}`}>
-                            <a>
-                                <RippleButton borderSolid={`.5px solid ${PColor}`} bgColor='transparent' color={BColor} widthButton='150px' size='9px' padding='5px'> <IconPromo color={PColor} size='30px' />Commission invoice</RippleButton>
-                            </a>
-                        </Link>
-                    </Card>} */}
                     <Card overflow='auto' wrap='no-wrap' width='97%' direction="row">
                         {allCompany && allCompany?.getAllCompanyById?.map((x, i) => (
                             <div key={x._id} style={{ zIndex: '200', width: 'min-content',/*  marginLeft: 'calc(10% - 45px)' */ }}> <CircleCompany pulse={x._id === dataComp?._id} onClick={() => handleCompany({ ...x })} >{x.companyName.slice(0, 2).toUpperCase()}</CircleCompany> </div>
@@ -142,7 +135,7 @@ export const CompanyC = () => {
                             <div>
                                 <Text style={{ margin: '0' }} size='13px' >PRIVACY</Text>
                                 <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
-                                    <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
+                                    <SwitchButton active={Switch.state ? '42px' : '3.5px'} />
                                 </ButtonTheme>
                             </div>
                         </ContentToggle>
@@ -216,23 +209,44 @@ export const CompanyC = () => {
                 </Content>
                 <Content width="20%" direction="row">
                     <Card width='97%'>
-                        Lorem
+                        Lorem 1
                     </Card>
                     <Card width='97%'>
-                        Lorem
+                        Lorem 2
                     </Card>
                 </Content>
-                <Content width="80%">
+                <Content width="100%">
                     <Content direction="row">
                         <Card width='30%'>
-                            Lorem
+                            <Text>Latest Messages </Text>
                         </Card>
                         <Card width='30%'>
-                            Lorem
+                            <CardOverFloW>
+                                <OlList>
+                                    <FeedItem>
+                                        <span className='date'>date, Sep 25</span>
+                                        <span className='activity-text'>Pay One Bills</span>
+                                    </FeedItem>
+                                    <FeedItem>
+                                        <span className='date'>date, Sep 25</span>
+                                        <span className='activity-text'>Pay One Bills</span>
+                                    </FeedItem>
+                                    <FeedItem>
+                                        <span className='date'>date, Sep 25</span>
+                                        <span className='activity-text'>Pay One Bills</span>
+                                    </FeedItem>
+                                    <FeedItem>
+                                        <span className='date'>date, Sep 25</span>
+                                        <span className='activity-text'>Pay One Bills</span>
+                                    </FeedItem>
+                                </OlList>
+                            </CardOverFloW>
+                            <Text>Recent Activity Feed </Text>
+                        </Card>
+                        <Card width='30%'>
+                            <Text>Latest Messages </Text>
                         </Card>
                     </Content>
-                    <Card width='97%'>
-                    </Card>
                 </Content>
             </Container>
         </Wrapper>

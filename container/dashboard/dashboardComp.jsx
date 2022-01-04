@@ -34,7 +34,7 @@ import { ModalAlerBox } from './ModalAlert'
 import { useCompanyHook } from '.'
 import { ModalAddInvoicePaymentStateReceived } from './ModalPaymentReceived'
 
-export const DashboardComp = () => {
+export const CommissionInvoice = () => {
     const { setAlertBox, company } = useContext(Context)
     const router = useRouter()
     const [dataComp] = useCompanyHook()
@@ -572,7 +572,7 @@ export const ModalFilter = ({ active, handleDateChange, InvoiceYear, setActive }
     )
 }
 
-DashboardComp.propTypes = {
+CommissionInvoice.propTypes = {
 
 }
 
