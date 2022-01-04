@@ -198,6 +198,7 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log(idInvoice, ToEmail, uEmail )
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -211,11 +212,11 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
                 }
             }
         )
+        console.log(InvoiceData)
         const today = moment().format('DD/MM/YYYY HH:mm');
         const hour = moment().format('HH:mm');
         const mailer = transporter()
 
-        const renderHtml = ReactDOMServer.renderToString(<SpiceStatement />);
         if (InvoiceData) {
             // sendEmail({
             //     from: uEmail,
@@ -242,6 +243,7 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
         }
         return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {
+        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }
@@ -324,6 +326,7 @@ export const hasBeenSent = async (_, { idInvoice, ToEmail, uEmail }) => {
     }
 }
 export const isRedoStateInvoice = async (_, { idInvoice, ToEmail, uEmail }) => {
+    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {

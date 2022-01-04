@@ -167,9 +167,7 @@ export const isRedoStateInvoiceStatement = async (_, { idInvoice, ToEmail, uEmai
                     isRedo: InvoiceData.isRedo !== true,
                     isPaid: false,
                     isApprovedByInvoiceSender: false
-                }
-            }
-        )
+                } } )
         const today = moment().format('DD/MM/YYYY HH:mm');
         const hour = moment().format('HH:mm');
         const mailer = transporter()

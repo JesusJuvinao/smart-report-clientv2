@@ -91,7 +91,7 @@ export const ViewInvoiceItems = ({ data }) => {
                     </Content>
                 </SectionRow>
                 {data?.lineItemsArray && data?.lineItemsArray?.map(x => x.newArray?.map((z, i) => (
-                    <div key={z.id}>{console.log(z)}
+                    <div key={z.id}>
                         <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']} key={i}>
                             <Content padding={'0'} >
                                 <Text> {z.agentCode}</Text>

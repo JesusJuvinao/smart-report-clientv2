@@ -21,7 +21,7 @@ import { generatePdfDocumentInvoice } from '../invoice/PdfInvoice'
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     const [modalLineItems, setModalLineItems] = useState(false)
     const [dataInvoiceLine, setDataInvoice] = useState({})
-    
+
     const handleOpenLineItems = data => {
         console.log(data)
         setModalLineItems(true)
@@ -153,8 +153,10 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                     data={dataInvoiceLine}
                 />
             </AwesomeModal>
-            <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length + 200} onChange={setShowMore} />
-            {<BlueButton style={{ width: '100%' }} onClick={() => setShowMore(s => s + 200)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>}
+            <>
+                {data?.getAllCommissionInvoiceSent?.length > 0 && <Pagination value={showMore} range={data?.getAllCommissionInvoiceSent?.length + 200} onChange={setShowMore} />}
+                <BlueButton style={{ width: '100%' }} onClick={() => setShowMore(s => s + 200)}>{loading ? <SpinnerColorJust /> : 'Load more'}</BlueButton>
+            </>
         </div>
     )
 }
