@@ -1,0 +1,72 @@
+type Eventsalesdata {
+    _id: ID,
+    eventType: String,
+    eventRef: String,
+    eventName:  String,
+    eventCommencesDate: String,
+    eventCommencesTime: String,
+    eventFinishesDate: String,
+    eventFinishesTime: String,
+    eventStatus: String,
+    eventOwner:  String,
+    eventAddress1:  String,
+    eventAddress2:  String,
+    eventAddress3:  String,
+    eventTown: String,
+    eventCounty: String,
+    eventCountry: String,
+    eventPostCode:  String,
+    eventMaxQuantity: String,
+    eventCurrentAvailQuantity: String,
+    eventCurrentSold: String,
+    eventLastUpdatedDate: String,
+    eventLastUpdatedTime: String,
+    eventCancelledPolicy:  String,
+    NumTixSold: Float,
+    totalSalesForEvent: Float,
+    # Array 
+    enrichedTicketsDataArray: [EnrichedTicketsDataArray],
+    # esencial
+    currency: String,
+    isRedo: Boolean,
+    isPaid: Boolean,
+    isApprovedByInvoiceSender: Boolean,
+    isViewByInvoiceSender: Boolean,
+    isShareInvoiceBySender: Boolean,
+}
+
+type EnrichedTicketsDataArray {
+    _id: ID
+    id: ID,
+    bookingRef: String,
+    bookedOn: String,
+    client: String,
+    ticketoption: String,
+    ticketquantity: Float,
+    ticketprice: Float,
+    totaldue: Float,
+    totaldueCalc: Float,
+    totalpaid: Float,
+    balancedue: Float,
+    commissionRatePercent: Float,
+    commissionpayable: Float,
+    agentCode: String,
+    clientOwnerAtPurchaseDate: String,
+    bookingStatus: String,
+    eventName: String,
+    eventOwner: String,
+    eventCommences: String,
+    discountRate: Float,
+    discountTotal: Float,
+    discountedTotalDue: Float,
+    eventRef: String,
+    eventType: String  
+}
+
+type Query {
+  getOneEventsalesdata(idComp: ID, company: String, idUser: ID, IdSales: ID ): Eventsalesdata
+  geAllEventsalesdata(idComp: ID, company: String, idUser: ID, search: String, min: Int, max: Int): [Eventsalesdata]
+}
+type Mutation {
+  CreateEventsalesdata(idInvoice: ID, ToEmail: String!, uEmail: String!): Response
+}

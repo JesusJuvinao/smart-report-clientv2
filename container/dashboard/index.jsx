@@ -93,17 +93,10 @@ export const CompanyC = () => {
     const Switch = useSetState(0)
     return (<>
         <Wrapper>
-            <ContentToggle>
-                <div>
-                    <Text style={{ margin: '0' }} size='13px' >PRIVACY</Text>
-                    <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
-                        <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
-                    </ButtonTheme>
-                </div>
-            </ContentToggle>
+
             <Container>
                 {(loading || loadingBills) && <Loading />}
-                <Content width="30%" direction="row">
+                <Content width="20%" direction="row">
                     <Card padding='0' width='97%'>
                         <CardPrimary radius='8px 8px 0px 0px' bgColor={TBGBColor} padding='30px 10px'>
                             <Text size='22px' >Welcome Back !</Text>
@@ -132,20 +125,77 @@ export const CompanyC = () => {
                             </WrapperRow>
                         </CardPrimary>
                     </Card>
-                    {<Card wrap='no-wrap' width='97%' direction="row">
+                    {/* {<Card wrap='no-wrap' width='97%' direction="row">
                         <Link activeClassName="active" href={`/companies/${encodeURIComponent(dataComp?._id)}}`}>
                             <a>
                                 <RippleButton borderSolid={`.5px solid ${PColor}`} bgColor='transparent' color={BColor} widthButton='150px' size='9px' padding='5px'> <IconPromo color={PColor} size='30px' />Commission invoice</RippleButton>
                             </a>
                         </Link>
-                    </Card>}
+                    </Card>} */}
                     <Card overflow='auto' wrap='no-wrap' width='97%' direction="row">
                         {allCompany && allCompany?.getAllCompanyById?.map((x, i) => (
-                            <div key={x._id} style={{ zIndex: '200', width: 'min-content',  marginLeft: 'calc(10% - 45px)' }}> <CircleCompany pulse={x._id === dataComp?._id} onClick={() => handleCompany({ ...x })} >{x.companyName.slice(0, 2).toUpperCase()}</CircleCompany> </div>
+                            <div key={x._id} style={{ zIndex: '200', width: 'min-content',/*  marginLeft: 'calc(10% - 45px)' */ }}> <CircleCompany pulse={x._id === dataComp?._id} onClick={() => handleCompany({ ...x })} >{x.companyName.slice(0, 2).toUpperCase()}</CircleCompany> </div>
                         ))}
                     </Card>
+                    <Card overflow='auto' wrap='no-wrap' width='97%' direction="row">
+                        <ContentToggle>
+                            <div>
+                                <Text style={{ margin: '0' }} size='13px' >PRIVACY</Text>
+                                <ButtonTheme onClick={() => Switch.setState(!Switch.state)}>
+                                    <SwitchButton active={Switch.state ? '36px' : '3.5px'} />
+                                </ButtonTheme>
+                            </div>
+                        </ContentToggle>
+                    </Card>
                 </Content>
-                <Content width="70%">
+                <Content width="40%">
+                    <Content direction="row">
+                        <Card onClick={() => location.push('/usermgt')} style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >{dataComp ? dataComp?.lineItemsTeam?.length : 0}</Text>
+                            <Text size='14px' >Employees</Text>
+                        </Card>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >0</Text>
+                            <Text size='14px' >Vendors</Text>
+                        </Card>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >{dataFiles?.getAllAttachment?.length}</Text>
+                            <Text size='14px' >Files</Text>
+                        </Card>
+                    </Content>
+                    <Content direction="row">
+                        <Card onClick={() => location.push('/usermgt')} style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >{dataComp ? dataComp?.lineItemsTeam?.length : 0}</Text>
+                            <Text size='14px' >Employees</Text>
+                        </Card>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >0</Text>
+                            <Text size='14px' >Vendors</Text>
+                        </Card>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >{dataFiles?.getAllAttachment?.length}</Text>
+                            <Text size='14px' >Files</Text>
+                        </Card>
+                    </Content>
+                    <Card width='97%'>
+                        <HorizontalBarChart />
+                    </Card>
+                </Content>
+                <Content width="20%">
+                    <Content direction="row">
+                        <Card onClick={() => location.push('/usermgt')} style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >{dataComp ? dataComp?.lineItemsTeam?.length : 0}</Text>
+                            <Text size='14px' >Employees</Text>
+                        </Card>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >0</Text>
+                            <Text size='14px' >Vendors</Text>
+                        </Card>
+                        <Card style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
+                            <Text font='PFont-Medium' size='17px' >{dataFiles?.getAllAttachment?.length}</Text>
+                            <Text size='14px' >Files</Text>
+                        </Card>
+                    </Content>
                     <Content direction="row">
                         <Card onClick={() => location.push('/usermgt')} style={{ cursor: 'pointer' }} animation height='100px' width='30%'>
                             <Text font='PFont-Medium' size='17px' >{dataComp ? dataComp?.lineItemsTeam?.length : 0}</Text>

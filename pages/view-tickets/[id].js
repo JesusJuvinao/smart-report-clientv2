@@ -1,19 +1,17 @@
+import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import withSession from '../../apollo/session'
-import { DashboardAmin } from '../../container/DashboardAdmin'
+import { ViewOneTickes } from '../../container/ViewTickes/ViewOneTicket'
 
-export default function Dashboard () {
-  return (<DashboardAmin />)
-
-    // return (
-    //     <DashboardAmin />
-    // )
+export default function ViewTickesView() {
+    const router = useRouter()
+    const idSalesTicket = router.query.id
+    return (<ViewOneTickes idSalesTicket={idSalesTicket} />)
 }
-
 export const getServerSideProps = withSession(async function ({ req }) {
     const user = req?.session?.get('user')
     if (!user) {
-    // res.next()
+        // res.next()
         return { props: {} }
     }
     if (!req.cookies[process.env.SESSION_NAME]) return { redirect: { destination: '/login' } }
@@ -23,5 +21,3 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
 }
 )
-Dashboard.propTypes = {
-}

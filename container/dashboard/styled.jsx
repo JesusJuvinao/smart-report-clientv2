@@ -47,8 +47,7 @@ export const Wrapper = styled.div`
     margin: auto;
     height: 100%;
     display: grid;
-    place-content: center;
-    justify-content: ${({ justifyContent }) => justifyContent  || 'center'};
+    justify-content: ${({ justifyContent }) => justifyContent  || 'flex-start'};
     border-right: 1px solid #cccccc7a;
     &:last-child {
         border-right: none;
@@ -529,9 +528,6 @@ export const CardInvoice = styled.div`
     justify-content: space-between;
     flex-direction: column;
     transition: all 0.2s ease;
-    width: 95%;
-    max-width: 950%;
-    
     ${({ height }) => height && css`height: ${height};`}
     `
 
@@ -645,7 +641,6 @@ export const Container = styled.div`
   flex-wrap: wrap;
   margin-top: 30px;
   display: flex;
-  width: 95%;
   @media (max-width: 769px) {
     flex-direction: ${({ direction }) => direction || 'column'};
   }
@@ -832,7 +827,7 @@ export const SwitchButton = styled.button`
 export const ContentToggle = styled.div`
     align-items: center;
     display: flex;
-    width: min-;
+    height: min-content;
     justify-content: center;
 `
 export const TableButton = styled.button`

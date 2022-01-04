@@ -1,15 +1,10 @@
 import React from 'react'
 import withSession from '../../apollo/session'
-import { DashboardAmin } from '../../container/DashboardAdmin'
+import { ViewTickes } from '../../container/ViewTickes'
 
-export default function Dashboard () {
-  return (<DashboardAmin />)
-
-    // return (
-    //     <DashboardAmin />
-    // )
+export default function ViewTickesView () {
+    return (<ViewTickes />)
 }
-
 export const getServerSideProps = withSession(async function ({ req }) {
     const user = req?.session?.get('user')
     if (!user) {
@@ -23,5 +18,3 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
 }
 )
-Dashboard.propTypes = {
-}

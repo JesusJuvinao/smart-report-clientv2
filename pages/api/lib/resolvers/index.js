@@ -24,6 +24,7 @@ import taxedResolver from './Taxes'
 import reportsResolver from './Reports'
 import ClassResolver from './class'
 import modulesResolver from './Modules'
+import Eventsalesdata from './Eventsalesdata'
 import registerEmailsTemplateResolver from './TemplatesEmails'
 import GraphQLUpload from 'graphql-upload'
 const { PubSub } = require('graphql-subscriptions')
@@ -42,10 +43,12 @@ export default {
     ...uploadFileResolver.TYPES,
     ...LicenceModules.TYPES,
     ...ClassResolver.TYPES,
+    ...Eventsalesdata.TYPES,
     DateTime: dateTimeScalar,
     Upload: GraphQLUpload,
     Query: {
         ...reportsResolver.QUERIES,
+        ...Eventsalesdata.QUERIES,
         ...CommissionInvoice.QUERIES,
         ...SalesInvoicePaymetResolver.QUERIES,
         ...taxedResolver.QUERIES,
@@ -80,6 +83,7 @@ export default {
         },
     },
     Mutation: {
+        ...Eventsalesdata.MUTATIONS,
         ...registerEmailsTemplateResolver.MUTATIONS,
         ...modulesResolver.MUTATIONS,
         ...CommissionStatements.MUTATIONS,
