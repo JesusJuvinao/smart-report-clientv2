@@ -54,7 +54,8 @@ export const LoginC = ({ setAlertBox }) => {
     const router = useRouter()
     const [browser, setBrowser] = useState(false)
     //   Handles
-    const [confirmPhone, setConfirmPhone] = useState(false)
+    const [confirmPhone, setConfirmPhone] = useState(false);
+    
     const handleSubmit = async e => {
         e.preventDefault()
         // Declarando variables
