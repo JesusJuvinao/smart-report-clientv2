@@ -518,7 +518,7 @@ export const CommissionInvoice = () => {
                 handleDateChange={handleDateChange}
             /> */}
             <AwesomeModal zIndex='99' padding='20px' height='40vh' show={alertModal2} onHide={() => { setAlertModal2(false), dispatchInvoice({ type: 'REMOVE_ALL' }) }} onCancel={() => false} size='small' btnCancel={true} btnConfirm={false} header={false} footer={false} borderRadius='8px' >
-                <Text size='30px'>Solo quieres Paga una factura?</Text>
+                <Text size='30px'>You just want to pay an invoice??</Text>
                 <Options direction='row' style={{ position: 'absolute', bottom: '20px', left: '0', right: '0', margin: 'auto', width: '93%', flexDirection: 'row', display: 'flex' }}>
                     <RippleButton widthButton='100% !important' bgColor={PVColor} onClick={() => payOnlyInvoide()} >Yes</RippleButton>
                     <RippleButton widthButton='100% !important' bgColor={PVColor} onClick={() => HaddMoreInvoide()} >No</RippleButton>

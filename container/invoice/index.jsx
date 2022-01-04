@@ -67,7 +67,7 @@ export const Invoice = ({ idInvoice }) => {
 
         })
     })
-    const [isApprovedByInvoiceSenderMutation, { loading: loadingApprove,  data: datapOPIPO }] = useMutation(IS_APPROVED_INVOICE_SENDER, {
+    const [isApprovedByInvoiceSenderMutation, { loading: loadingApprove, data: datapOPIPO }] = useMutation(IS_APPROVED_INVOICE_SENDER, {
         onCompleted: (data) => setAlertBox({ message: `hi`, duration: 8000, color: data.success ? 'success' : 'error' }),
         update: (cache, { data: { getOneCommissionInvoice } }) => updateCache({
             cache,
@@ -144,9 +144,7 @@ export const Invoice = ({ idInvoice }) => {
     if (loading) return <Loading />
     return (
         <Content>
-            <RippleButton margin='0px 10px 0px 0px' border='60px' color={BColor} widthButton='150px' bgColor={'#e2e8f0'} family='PFont-Regular' onClick={() => handleChangeReceived()}>
-                View Invoice
-            </RippleButton>
+            <RippleButton margin='0px 10px 0px 0px' border='60px' color={BColor} widthButton='150px' bgColor={'#e2e8f0'} family='PFont-Regular' onClick={() => handleChangeReceived()}>View Invoice</RippleButton>
             <AwesomeModal show={data && openModal} useScroll={true} height='100vh' zIndex='0' title={`Invoice ${data ? data?.getOneCommissionInvoice?.eventName : null}`} onHide={() => setOpenModal(!openModal)} backdrop='static' onCancel={() => true} size='large' btnCancel={false} btnConfirm={false} header={true} footer={false} borderRadius='0' >
                 <WrapperPdf>
                     <DocumentFormatA4>
@@ -252,17 +250,17 @@ export const Invoice = ({ idInvoice }) => {
                                 type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >
                                 Download
                             </RippleButton>
-                            <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => handlePayState()}
+                            {data?.getOneCommissionInvoice.isApprovedByInvoiceSender === true && <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => handlePayState()}
                                 type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >
                                 {data?.getOneCommissionInvoice.isPaid ? 'Paid' : 'No pay'}
-                            </RippleButton>
+                            </RippleButton>}
                             <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => handleRedoState()}
                                 type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >
                                 {data?.getOneCommissionInvoice.isRedo ? 'isRedo' : 'No Redo'}
                             </RippleButton>
                             <RippleButton widthButton={'100%'} bgColor={'#0069ff'} onClick={() => handleApprovedInvoiceState()}
                                 type='button' width='40%' padding='6px 10px' margin='10px 0 10px auto' >
-                                {data?.getOneCommissionInvoice.isApprovedByInvoiceSender ? 'Mark approved' : 'Mark as not Approved'}
+                                {!data?.getOneCommissionInvoice.isApprovedByInvoiceSender ? 'Mark approved' : 'Mark as not Approved'}
                             </RippleButton>
                         </ContentToggle>
                     </WrapperControls>

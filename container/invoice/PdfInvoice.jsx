@@ -185,7 +185,6 @@ const InvoicePdfGenerate = ({ pdfDocumentData }) => {
 }
 
 export const generatePdfDocumentInvoice = async documentData => {
-    console.log(documentData, 'hola mundo')
     const blob = await pdf((
         <InvoicePdfGenerate
             title={`doc ${documentData?.dataInvoice?.getOneCommissionInvoice?.agentDetails?.legalName || ''}`}

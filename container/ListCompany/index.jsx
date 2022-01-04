@@ -130,15 +130,12 @@ export const TeamListCompany = ({ isCompany, useCompany, handleClick, active, da
     const [nameComp, setNameComp] = useState(false)
     const handleCompany = async index => {
         const { _id } = index
-        console.log(index)
-        // const id = _id
-        // setNameComp(index)
-        // await lastCompanyMutation({ variables: { lastCompany: _id } }).catch(err => setAlertBox({ message: `${ err }`, duration: 300000 }))
-
+        const id = _id
+        setNameComp(index)
+        await lastCompanyMutation({ variables: { lastCompany: _id } }).catch(err => setAlertBox({ message: `${ err }`, duration: 300000 }))
         setUseAnimation(true)
-        // router.push('/dashboard')
-        // useCompany(id)
-
+        router.push('/dashboard')
+        useCompany(id)
     }
     const dataUser = useUser()
     const HandleLeaveCompany = async ({ id }) => {
@@ -235,7 +232,7 @@ export const ListCompany = ({ useCompany, handleClick, active, dataComp, search 
         useCompany(id)
         setTimeout(() => {
             router.push('/dashboard')
-        }, 3000);
+        }, 2000);
     }
     useEffect(() => lastCompanyMutation(), [])
     // if (loading || loadingCompany) return <Loading />

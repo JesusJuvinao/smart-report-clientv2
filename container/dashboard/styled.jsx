@@ -57,12 +57,13 @@ export const Options = styled.div`
 export const Wrapper = styled.div`
     margin: auto;
     ${props => props.center && css`
-      display: grid;
-      place-content: center;
+    display: grid;
+    place-content: center;
     `}
     margin: auto;
     height: 100%;
     display: grid;
+    place-content: center;
     justify-content: ${({ justifyContent }) => justifyContent || 'normal'};
     border-right: 1px solid #cccccc7a;
     &:last-child {

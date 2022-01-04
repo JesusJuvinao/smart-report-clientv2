@@ -229,6 +229,7 @@ export const CompanyC = () => {
                             <RippleButton margin='20px 0' widthButton='70px' size='10px' padding='5px'>Load More</RippleButton>
                         </Card>
                         {/* http://admiria-v.node.themesbrand.com/dashboard2 */}
+                        {/* https://mannatthemes.com/dastone/default/widgets.html */}
                         <Card width='30%'>
                             <Text>Your account has been connected on these devices </Text>
                             <CardDevice>
