@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const GET_ONE_EVENT_TICKET = gql`
-query getOneEventsalesdata($idUser: ID, $idComp: ID, $company: String, $IdSales: ID){
-  getOneEventsalesdata(idUser: $idUser, IdSales: $IdSales, idComp: $idComp, company: $company) {
+query getOneEventsalesdata($idUser: ID, $idComp: ID, $company: String, $eventName: String){
+  getOneEventsalesdata(idUser: $idUser, eventName: $eventName, idComp: $idComp, company: $company) {
 		_id
     eventType
     eventRef

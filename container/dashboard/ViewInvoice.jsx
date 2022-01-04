@@ -2,106 +2,102 @@ import React, { useContext, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { Context } from '../../context'
 import { AwesomeModal } from '../../components/AwesomeModal'
-import { Loading } from '../../components/Loading'
+import { LazyLoading, SpinnerColor, SpinnerColorJust } from '../../components/Loading'
 import currencyFormatter from 'currency-formatter'
 import styled, { css } from 'styled-components'
 import { Section } from '../../components/Table/styled'
 import { PLVColor, PVColor, SCColor, SEGColor, TBGAColor, BGColor, TBGBColor, TBGDColor, TBGVColor, TFBColor, EColor } from '../../public/colors'
-import { Text, ContentTableItem, TableButton, ContainerStatements, } from './styled'
+import { Text, ContentTableItem, TableButton, ContainerStatements, CardDevice, Header, } from './styled'
 import Link from 'next/link'
 import ActiveLink from '../../components/common/Link'
-export const ViewInvoiceItems = ({ ArrayTicket }) => {
-    // return null
-    const sumTotal = arr => arr && arr?.reduce((sum, { invoiceTotal }) => sum + invoiceTotal, 0)
-
+export const ViewInvoiceItems = ({ ArrayTicket, totalEventSalesByTicketTypeParsed, infoInvoice, loading }) => {
     console.log(ArrayTicket)
+    const arrayTicketTitle = [
+        {
+            title: 'Booked On',
+
+        },
+        {
+            title: 'Booking Ref',
+        },
+        {
+            title: 'Booked Status',
+
+        },
+        {
+            title: 'Client',
+        },
+        {
+            title: 'clientOwnerAtPurchaseDate',
+
+        },
+        {
+            title: 'Commission Rate Percent',
+
+        },
+        {
+            title: ' Commission payable',
+
+        },
+        {
+            title: ' Commission payable',
+
+        },
+        {
+            title: 'Discount Total',
+        },
+        {
+            title: 'Event Name',
+        },
+        {
+            title: 'Event Ref',
+        },
+        {
+            title: 'Event Type',
+        },
+        {
+            title: 'Ticket Option',
+        },
+        {
+            title: 'Ticket price',
+        },
+        {
+            title: 'Ticket Quantity',
+        },
+        {
+            title: 'Total Due',
+        },
+        {
+            title: 'Event Name',
+        },
+        {
+            title: 'Total Paid',
+        },
+        {
+            title: 'Action',
+        }
+    ]
+    const { eventName, eventRef, eventType, invoiceFrom, invoiceRef, eventCommences } = infoInvoice || {}
     return (
         <>
             {ArrayTicket !== {} && <div>
-                <Text margin='20px 0' size='30px' ></Text>
-                <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']}>
-                    <Content padding={'0'} >
-                        <Text> AgentCode</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Balance Due</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Booked On</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Booking Ref</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Booking Status</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text>Client</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> clientOwnerAtPurchaseDate</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Commission Rate Percent</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Commission payable</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Discount Rate</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text>Discount Total</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Discounted Total Due</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Event Commences</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Event Name</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text>event Owner</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Event Ref</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Event Type</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Ticket Option</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Ticket price</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Ticket Quantity</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Total Due</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Total Due Calc</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Total Paid</Text>
-                    </Content>
-                    <Content padding={'0'} >
-                        <Text> Action</Text>
-                    </Content>
+               {/* {loading && <SpinnerColorJust />} */}
+                <Header>
+                    <Text color={BGColor} margin='20px 0' size='30px' >{eventName}</Text>
+                    <Text color={BGColor} margin='5px 0' size='20px' >Ref:  {eventRef}</Text>
+                    <Text color={BGColor} margin='5px 0' size='20px' >invoiceFrom:  {invoiceFrom}</Text>
+                    <Text color={BGColor} margin='5px 0' size='20px' >eventType:  {eventType}</Text>
+                </Header>
+                <SectionRow bgRow={2} columnWidth={['5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%']}>
+                    {arrayTicketTitle?.map(ticketTitle => (
+                        <Content key={ticketTitle._id} padding={'0'} >
+                            <Text>{ticketTitle.title}</Text>
+                        </Content>
+                    ))}
                 </SectionRow>
                 {ArrayTicket && ArrayTicket?.newArray?.map((z, i) => (
                     <div key={z.id}>
-                        <SectionRow bgRow={2} columnWidth={['4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%', '4%']} key={i}>
-                            <Content padding={'0'} >
-                                <Text> {z.agentCode}</Text>
-                            </Content>
-                            <Content padding={'0'} >
-                                <Text> {z.balancedue}</Text>
-                            </Content>
+                        <SectionRow bgRow={2} columnWidth={['5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%', '5%']} key={i}>
                             <Content padding={'0'} >
                                 <Text> {z.bookedOn}</Text>
                             </Content>
@@ -124,23 +120,15 @@ export const ViewInvoiceItems = ({ ArrayTicket }) => {
                                 <Text> {z.commissionpayable}</Text>
                             </Content>
                             <Content padding={'0'} >
-                                <Text> {z.discountRate}</Text>
-                            </Content>
-                            <Content padding={'0'} >
                                 <Text> {z.discountTotal}</Text>
                             </Content>
                             <Content padding={'0'} >
                                 <Text> {z.discountedTotalDue}</Text>
                             </Content>
                             <Content padding={'0'} >
-                                <Text> {z.eventCommences}</Text>
-                            </Content>
-                            <Content padding={'0'} >
                                 <Text> {z.eventName}</Text>
                             </Content>
-                            <Content padding={'0'} >
-                                <Text> {z.eventOwner}</Text>
-                            </Content>
+
                             <Content padding={'0'} >
                                 <Text> {z.eventRef}</Text>
                             </Content>
@@ -166,7 +154,7 @@ export const ViewInvoiceItems = ({ ArrayTicket }) => {
                                 <Text> {z.totalpaid}</Text>
                             </Content>
                             <Content padding={'0'} >
-                                <ActiveLink href={`/view-tickets/${z._id}`} >
+                                <ActiveLink href={`/view-tickets/${z.eventName}`} >
                                     <a>
                                         <Text> View</Text>
                                     </a>
@@ -175,8 +163,20 @@ export const ViewInvoiceItems = ({ ArrayTicket }) => {
                         </SectionRow>
                     </div>
                 ))}
+                {totalEventSalesByTicketTypeParsed ? totalEventSalesByTicketTypeParsed?.map(ticketOption => (
+                    <CardDevice key={ticketOption._id}>
+                        <span className='device__icon'>
+                            TICKET
+                        </span>
+                        <div class="device__info">
+                            <div class="device__description-wrapper">
+                                <span class="device__description"> {ticketOption.ticketOption}</span>
+                                <span class="device__description">{ticketOption.totalSales} </span>
+                            </div>
+                        </div>
+                    </CardDevice>
+                )) : <div>  </div>}
             </div>}
-            {/* <div>  {currencyFormatter.format(data?.invoiceTotal, { code: data.currency || 'GBP' })}</div> */}
         </>
     )
 }

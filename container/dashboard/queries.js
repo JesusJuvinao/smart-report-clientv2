@@ -426,8 +426,12 @@ export const GET_ALL_TIKETS_ARRAY = gql`
           discountedTotalDue
           eventRef
           eventType
+        	totalEventSalesByTicketType
       }
+
   }
+
+      
 `
 export const GET_COMMISSION_PAY = gql`
 query getInvoicePay($idComp: ID, $idUser: ID,$search: String, $min: Int, $max: Int){

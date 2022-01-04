@@ -64,7 +64,7 @@ type EnrichedTicketsDataArray {
 }
 
 type Query {
-  getOneEventsalesdata(idComp: ID, company: String, idUser: ID, IdSales: ID ): Eventsalesdata
+  getOneEventsalesdata(idComp: ID, company: String, idUser: ID, eventName: String ): Eventsalesdata
   geAllEventsalesdata(idComp: ID, company: String, idUser: ID, search: String, min: Int, max: Int): [Eventsalesdata]
 }
 type Mutation {

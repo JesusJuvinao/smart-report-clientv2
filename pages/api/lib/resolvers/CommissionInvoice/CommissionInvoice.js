@@ -97,12 +97,10 @@ export const newArray = async (_, { idInvoice }, ctx) => {
         const getTicketsSold = async () => {
             const ticketsSold = []
             const oneInvoiceArray = await CommissionSchema.findOne({ _id: idInvoice })
-            console.log(idInvoice, 'THIS DATA')
             oneInvoiceArray.lineItemsArray.map(oneInvoice => {
                 oneInvoice.newArray.map(ticket => {
                     let eventCommences = ticket.eventCommences
                     let bookedOn = ticket.bookedOn
-                    console.log(ticket)
                     eventCommences = moment(eventCommences, "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm:ss")
                     bookedOn = moment(bookedOn, "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm:ss")
                     ticket.eventCommences = eventCommences
@@ -114,30 +112,18 @@ export const newArray = async (_, { idInvoice }, ctx) => {
         }
 
         const ticketsSoldArray = await getTicketsSold()
-        console.log(ticketsSoldArray, 'HI IM THE TICKETS SOLD ARRAY')
-
         const ticketOptionsAndValues = ticketsSoldArray.map(ticket => {
             return pick(ticket, [
                 'ticketoption',
                 'totaldueCalc'
             ]);
         });
-
-        console.log(ticketOptionsAndValues, 'IM THE TICKET OPTIONS AND VALUES ARRAY')
-
-
         const totalEventSalesByTicketType = await lodashobj(ticketOptionsAndValues).groupBy('ticketoption').map((ticketOption, id) => ({ ticketOption: id, totalSales: sumBy(ticketOption, 'totaldueCalc'), })).value()
-        console.log(totalEventSalesByTicketType, 'TOTAL EVENT SALES BY TICKET TYPE')
-
         const finalViewTicketsData = [...ticketsSoldArray];
-        console.log(finalViewTicketsData, 'BEFORE THE CHANGE')
-        // finalViewTicketsData.push({ totalEventSalesByTicketType: totalEventSalesByTicketType })
-        console.log(finalViewTicketsData, 'FINAL TICKETS DATA')
+        finalViewTicketsData.push({ totalEventSalesByTicketType: JSON.stringify(totalEventSalesByTicketType) })
         // return [[finalViewTicketsData], totalEventSalesByTicketType]
         return finalViewTicketsData
-
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed. FROM INSIDE GETONECOMMISSIONINVOICE', 500)
     }
 }
@@ -288,7 +274,6 @@ export const isPaidStateInvoice = async (_, { idInvoice, ToEmail, uEmail }, ctx)
 
 }
 export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail, uEmail }) => {
-    console.log(idInvoice, ToEmail, uEmail)
     const InvoiceData = await CommissionSchema.findOne({ _id: idInvoice })
     try {
         if (!InvoiceData) {
@@ -302,7 +287,6 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
                 }
             }
         )
-        console.log(InvoiceData)
         const today = moment().format('DD/MM/YYYY HH:mm');
         const hour = moment().format('HH:mm');
         const mailer = transporter()
@@ -333,7 +317,6 @@ export const isApprovedByInvoiceSenderMutation = async (_, { idInvoice, ToEmail,
         }
         return { success: true, message: `the invoice changed to ${InvoiceData.isPaid === true ? 'Not approved' : 'approved'}` }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('Your request could not be processed.', 500)
     }
 }

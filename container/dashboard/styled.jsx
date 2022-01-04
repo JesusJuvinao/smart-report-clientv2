@@ -843,6 +843,11 @@ export const DownLoadButton = styled.button`
     transition-duration: .3s;
     margin-left: 10px;
 `
+export const Header = styled.div`
+  background-color: #cb1d6c;
+  padding: 20px;
+  display: block;
+`
 export const Text = styled.span`
     font-size: ${({ size }) => size || '12px'};
     text-align:  ${({ align }) => align || 'start'};

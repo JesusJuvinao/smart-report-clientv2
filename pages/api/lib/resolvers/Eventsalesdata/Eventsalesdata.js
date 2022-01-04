@@ -1,10 +1,10 @@
 import { ApolloError } from 'apollo-server-errors'
 import EventSalesData from '../../../models/Eventsalesdata/Eventsalesdata'
 
-export const getOneEventsalesdata = async (_, { idUser, idComp, IdSales, company }, ctx) => {
+export const getOneEventsalesdata = async (_, { idUser, idComp, eventName, company }, ctx) => {
     try {
-        console.log(idUser, idComp, IdSales, company)
-        const data = await EventSalesData.findOne({ _id: IdSales })
+        console.log(idUser, idComp, eventName, company)
+        const data = await EventSalesData.findOne({ eventName: eventName })
         return data
     } catch (error) {
         console.log(error)
