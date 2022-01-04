@@ -78,7 +78,6 @@ export const Invoice = ({ idInvoice }) => {
 
         })
     })
-    console.log(datapOPIPO)
     const handlePayState = async () => {
         const { agentDetails } = data || {}
         const { agentEmail } = agentDetails || {}

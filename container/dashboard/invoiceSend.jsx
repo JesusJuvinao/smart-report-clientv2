@@ -19,7 +19,8 @@ import { Container, WrapperFilter, Button, Card, Text, Circle, Wrapper, LineItem
 import { generatePdfDocumentInvoice } from '../invoice/PdfInvoice'
 
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
-    const [modalLineItems, setModalLineItems] = useState(false)
+    const [modalLineItems, setModalLineItems] = 
+    (false)
     const [dataInvoiceLine, setDataInvoice] = useState({})
 
     const handleOpenLineItems = data => {
