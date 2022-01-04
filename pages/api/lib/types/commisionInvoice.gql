@@ -200,6 +200,7 @@ type NewArray {
         discountedTotalDue: String,
         eventRef: String,
         eventType: String,
+        totalEventSalesByTicketType: String,
 }
 type totalEventSalesByTicketType {
     ticketOption: String

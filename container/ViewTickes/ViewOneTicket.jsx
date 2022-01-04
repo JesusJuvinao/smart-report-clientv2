@@ -5,8 +5,8 @@ import { useQuery } from '@apollo/client'
 import { GET_ONE_EVENT_TICKET } from './queries'
 import { Loading } from '../../components/Loading'
 
-export const ViewOneTickes = ({ idSalesTicket }) => {
-    const { data, loading } = useQuery(GET_ONE_EVENT_TICKET, { variables: { IdSales: idSalesTicket }, fetchPolicy: 'cache-and-network' })
+export const ViewOneTickes = ({ eventName }) => {
+    const { data, loading } = useQuery(GET_ONE_EVENT_TICKET, { variables: { eventName: eventName }, fetchPolicy: 'cache-and-network' })
     if (loading) return <Loading />
     return (
         <Container>

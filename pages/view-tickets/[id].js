@@ -6,7 +6,7 @@ import { ViewOneTickes } from '../../container/ViewTickes/ViewOneTicket'
 export default function ViewTickesView() {
     const router = useRouter()
     const idSalesTicket = router.query.id
-    return (<ViewOneTickes idSalesTicket={idSalesTicket} />)
+    return (<ViewOneTickes eventName={idSalesTicket} />)
 }
 export const getServerSideProps = withSession(async function ({ req }) {
     const user = req?.session?.get('user')

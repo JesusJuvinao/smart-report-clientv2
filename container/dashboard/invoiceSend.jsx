@@ -24,20 +24,22 @@ import { GET_ALL_TIKETS_ARRAY } from './queries'
 export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, showDataToday, dispatch, handleChangeCheck, handleClickAddInvoice, dataInvoice, currencyFormatter, setOpen, disabledItems, openModal, state, checkedItems, openModalO, showMore, loading, invoicePayReducer, openModalPay, selectAll, clearAll, toggleAll, loadingApprove, createInvoicePaymentMutation, isPaidStateInvoice, show, isApprovedByInvoiceSenderMutation, handleClickchangePayAndApprove, handleApprovedInvoiceState, isRedoStateInvoice, handlePayState, handleRedoState }) => {
     const [modalLineItems, setModalLineItems] = useState(false)
     const [dataInvoiceLine, setDataInvoice] = useState('')
-    // const [getOneCommissionInvoice, { data, loading }] = useQuery(GET_ONE_INVOICE, { variables: { idInvoice: idInvoice }, fetchPolicy: 'cache-and-network' })
-
-    const [getOneCommissionInvoice, { data: ArrayTicket }] = useLazyQuery(GET_ALL_TIKETS_ARRAY, {
+    const [infoInvoice, setInfoInvoice] = useState({})
+    const [getOneCommissionInvoice, { data: ArrayTicket, loading: LoadigTicket }] = useLazyQuery(GET_ALL_TIKETS_ARRAY, {
         variables: { idInvoice: dataInvoiceLine },
         fetchPolicy: 'cache-and-network'
     })
-
-    console.log(ArrayTicket)
     const handleOpenLineItems = data => {
-        const { _id } = data || {} 
+        const { _id } = data || {}
         setModalLineItems(true)
         getOneCommissionInvoice()
+        setInfoInvoice(data)
         setDataInvoice(_id)
     }
+    const dataArrayTicket  = ArrayTicket?.newArray
+    var lastItemFromArray = ArrayTicket && dataArrayTicket[dataArrayTicket?.length - 1]
+    const { totalEventSalesByTicketType } = lastItemFromArray || {}
+    const totalEventSalesByTicketTypeParsed = totalEventSalesByTicketType && JSON.parse(totalEventSalesByTicketType)
     return (
         <div>
             <Toast open={checkedItems?.size > 1}>
@@ -155,13 +157,16 @@ export const SentBillComponent = ({ data, setShowMore, showInvoice, setShow, sho
                 btnConfirm={false}
                 header={true}
                 size="large"
-                title='Invoice Stements To'
-                height='60vh'
-                width='100%'
+                title='Invoice'
+                height='auto'
+                width='90%'
                 footer={false}
             >
                 <ViewInvoiceItems
                     ArrayTicket={ArrayTicket}
+                    loading={LoadigTicket}
+                    infoInvoice={infoInvoice}
+                    totalEventSalesByTicketTypeParsed={totalEventSalesByTicketTypeParsed}
                 />
             </AwesomeModal>
             <>

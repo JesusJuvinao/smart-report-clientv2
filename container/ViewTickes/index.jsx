@@ -1,22 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Table } from '../../components/Table'
-import { Container, Content, Text, ContentTableItem, TableButton } from './styled'
+import { Container, Content, Text, ContentTableItem, TableButton, CardWidgets } from './styled'
 import { Section } from '../../components/Table/styled'
 import Link from 'next/link'
 import { PVColor, SCColor, TBGBColor, TBGVColor, TFBColor, TBGAColor } from '../../public/colors'
 import { generatePdfTicket } from './PdfInvoiceStatement'
+import { GET_ALL_EVENT_TICKET } from './queries'
+import { useQuery } from '@apollo/client'
+import { Context } from '../../context'
 
 export const ViewTickes = ({ setAlertBox }) => {
     const handlePreview = (data) => {
     }
-
     const handleRedoStateStatementFrom = (data) => {
     }
-
+    const { company, useCompany, collapsed, setCollapsed } = useContext(Context)
+    const { data } = useQuery(GET_ALL_EVENT_TICKET, { variables: { idComp: company.idLasComp && company.idLasComp }, fetchPolicy: 'cache-and-network' })
     return (
         <Container>
-            <Table
+            {/* <Table
                 titles={[
                     { name: '#', key: '', key: 'emailedDate', justify: 'flex-start', width: '2%' },
                     { name: 'Emailed Date', key: 'emailedDate', justify: 'flex-start', width: '6%' },
@@ -107,11 +110,19 @@ export const ViewTickes = ({ setAlertBox }) => {
                         </ContentTableItem>
                     </Content>
                 </Section>)}
-            />
+            /> */}
+            {data ? data?.geAllEventsalesdata?.map(ticket => (
+                <CardWidgets key={ticket._id}>
+                    <Text size='20px' margin={'0.5rem !important'}>{ticket.eventName}</Text>
+                    <Text size='15px' margin={'0.5rem !important'}>{ticket.eventCommencesTime}</Text>
+                    <Text size='15px' margin={'0.5rem !important'}>{ticket.eventCurrentAvailQuantity}</Text>
+                    <Text size='15px' margin={'0.5rem !important'}>EventOwner: {ticket.eventOwner}</Text>
+                    <Text size='15px' margin={'0.5rem !important'}>EventPostCode: {ticket.eventPostCode}</Text>
+                    <Text size='15px' margin={'0.5rem !important'}>EventRef: {ticket.eventRef}</Text>
+                </CardWidgets>
+            )) : <h2></h2>}
         </Container>
     )
 }
 
-ViewTickes.propTypes = {
-    setAlertBox: PropTypes.func
-}
+
