@@ -51,18 +51,18 @@ export const getOneCommissionInvoice = async (_, { idInvoice }, ctx) => {
     // const idUser = ctx.User.id
     try {
         const oneInvoiceArray = await CommissionSchema.findOne({ _id: idInvoice })
-        console.log(idInvoice, 'THIS DATA')
+        // console.log(idInvoice, 'THIS DATA')
         // console.log(oneInvoiceArray)
 
         const ticketsSold = []
 
         oneInvoiceArray.lineItemsArray.map(oneInvoice => {
-            console.log(oneInvoice.newArray, 'TESTING')
+            // console.log(oneInvoice.newArray, 'TESTING')
             ticketsSold.push(oneInvoice.newArray)
 
         })
 
-        console.log(ticketsSold, 'TICKETS SOLD')
+        // console.log(ticketsSold, 'TICKETS SOLD')
         // const ticketsSold = ticketTypesSold.map(ticketSold => {
         //     console.log(ticketSold.newArray)
         // })
@@ -78,7 +78,8 @@ export const getOneCommissionInvoice = async (_, { idInvoice }, ctx) => {
         // console.log(ticketTypesSold,ticketsSold,'TICKET TYPES SOLD AND TICKET PURCHASES')
         // console.log(oneInvoiceArray.map(oneInvoice => oneInvoice.lineItemsArray.map(ticketType => ticketType.newArray )))
         // console.log(oneInvoiceArray.lineItemsArray.map(oneInvoice => oneInvoice ))
-        return ticketsSold
+        console.log(oneInvoiceArray)
+        return oneInvoiceArray
     } catch (error) {
         console.log(error)
         throw new ApolloError('Your request could not be processed. FROM INSIDE GETONECOMMISSIONINVOICE', 500)
