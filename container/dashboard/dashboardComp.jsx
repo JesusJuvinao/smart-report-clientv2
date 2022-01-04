@@ -362,7 +362,6 @@ export const CommissionInvoice = () => {
         setAlertModal2(false)
         setOpenModalMain(true)
     }
-
     return (
         <ContentListInvoice>
             {loadingPay || loadingRedo || loadingApprove && <Loading />}

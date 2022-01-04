@@ -9,7 +9,7 @@ import currencyFormatter from 'currency-formatter'
 import Link from 'next/link'
 import { ViewCommissionStatements } from './ViewCommission'
 import { RippleButton } from '../../components/Ripple'
-import { PVColor, SCColor, SEGColor, TBGAColor, TBGBColor, TBGDColor, TBGVColor, TFBColor } from '../../public/colors'
+import { EColor, PVColor, SCColor, SEGColor, TBGAColor, TBGBColor, TBGDColor, TBGVColor, TFBColor, TFSColor } from '../../public/colors'
 import { Container, Card, Text, Content, ContentTableItem, TableButton, Options } from './styled'
 import { AwesomeModal } from '../../components/AwesomeModal'
 import Tabs from '../../components/Tabs'
@@ -87,7 +87,6 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
     setModal(!modal)
     setDataStatement(data)
   }
-
   const [isRedoStateInvoiceStatement, { loading: loadingRedo }] = useMutation(IS_REDO_COMMISSION_STATEMENTS_INVOICE, {
     onCompleted: (data) => setAlertBox({ message: `${data?.isRedoStateInvoiceStatement?.message}`, duration: 8000, color: data.success ? 'success' : 'error' }),
     update: (cache, { data: { getAllCommissionStatementsFrom } }) => updateCache({
@@ -165,7 +164,7 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
         bgRow={2}
         pointer
         data={data?.getAllCommissionStatementsFrom}
-        renderBody={(dataB, titles) => dataB?.map((x, i) => <Section bgRow={2} columnWidth={titles} key={i}>
+        renderBody={(dataB, titles) => dataB?.map((x, i) => <Section odd bgRow={2} columnWidth={titles} key={i}>
           <Content>
             <Text> {i + 1}</Text>
           </Content>
@@ -217,8 +216,8 @@ export const InvoiceStementsForm = ({ modal, setModal }) => {
           </Content>
           <Content justify='flex-start' >
             <ContentTableItem padding='0px' direction='row'>
-              <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => handleRedoStateStatementFrom(x)}>
-                Redo
+              <TableButton backgroundColor={!x.isRedo ? TBGBColor : EColor} color={x.isRedo ? TFSColor : EColor} onClick={() => handleRedoStateStatementFrom(x)}>
+              {x.isRedo ? 'Redo' :  'Mark not Redo'}
               </TableButton>
               {x.isApprovedByInvoiceSender === true && <TableButton backgroundColor={TBGBColor} color={TFBColor} onClick={() => HandleIsCanceledStatement(x)}>
                 {x.isPaid ? 'Paid' :  'Mark not Paid'}

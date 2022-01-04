@@ -9,7 +9,6 @@ const useFullscreenMode = () => {
 
     useEffect(() => {
         const changeHandler = () => setFullscreen(mode => !mode)
-
         document.addEventListener('fullscreenchange', changeHandler, false)
         document.addEventListener('mozfullscreenchange', changeHandler, false)
         document.addEventListener('MSFullScreenChange', changeHandler, false)
@@ -18,7 +17,6 @@ const useFullscreenMode = () => {
             changeHandler,
             false
         )
-
         return () => {
             document.removeEventListener('fullscreenchange', changeHandler)
             document.removeEventListener('mozfullscreenchange', changeHandler)

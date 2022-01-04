@@ -190,45 +190,6 @@ export const TemplateInvoicePaid = ({ invoiceRef, uEmail, statusInvoice, date, h
                 <td class="container" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;font-size: 14px;vertical-align: top; padding-top: 24px;display: block;max-width: 650px;width: 650px;margin: 0 auto !important;">
                         <!-- BeforeFlight section starts -->
                         <table role="presentation" class="main-bottom-content" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: separate;width: 100%;background: #ffffff;box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);border-radius: 3px;">
-    
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: separate;width: 100%;background-color: #f6f6f6;" width="100%">
-                            <tr>
-                                <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;font-size: 14px;vertical-align: top; ">&nbsp;</td>
-                                <td class="container" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;font-size: 14px;vertical-align: top; display: block;max-width: 650px;width: 650px;margin: 0 auto !important;">
-                                    <!-- Need help section starts -->
-                                    <table role="presentation" class="main-bottom-content" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: separate;width: 100%;background: #ffffff;box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);border-radius: 3px;">
-                                        <tr>
-                                            <td class="wrapper-heading" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;font-size: 14px;vertical-align: top; padding-top: 24px;padding-left: 22px;padding-bottom: 19px;padding-right: 46px;">
-                                                <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: separate;width: 100%;">
-                                                    <tr>
-                                                        <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;">
-                                                            <p class="heading-before-fligth" style="display: inline;font-size: 16px;font-weight: bold;font-stretch: normal;font-style: normal;line-height: 1.33;letter-spacing: normal;color: #313541;margin: 0 !important;">
-                                                                Need help?
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <table role="presentation">
-                                                            <tr>
-                                                                <td>
-                                                                    <img src="https://wftc1.e-travel.com/go/templateAssets/phone-icon.png?SITE=ADYOANEW" height="15"/>
-                                                                </td>
-                                                                <td>
-                                                                    <p class="heading-before-fligth" style="display: inline;font-size: 16px;font-stretch: normal;font-style: normal;line-height: 1.33;letter-spacing: normal;color: #313541;margin: 0 !important;">
-                                                                        You can call us at (+57) 00000-00-00.
-                                                                    </p>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-    
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
                         <!-- NeedHelp section ends -->
                         <!-- Footer section starts -->
                         <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: separate;width: 100%;">
