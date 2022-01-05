@@ -1,0 +1,41 @@
+import React, { useRef } from 'react'
+import { Container, Text, Banner } from './styled'
+import { RippleButton } from '../../components/Ripple'
+import PropTypes from 'prop-types'
+import { Hero, HeroCard, Item, Modules, PQR, PricingCard, TabList } from './main'
+import { BGColor, SECColor } from '../../public/colors'
+import { Offers } from '../../components/Offers'
+
+export const Landing1 = () => {
+  return (
+    <Container>
+      Gracias por todas su ayuda
+    </Container>
+
+  )
+}
+
+const OnBanner = ({ height, children, color, bgColor, TextBtn, title, Button, size, width, direction, padding, offers }) => {
+  return (
+    <Banner height={height} direction={direction} padding={padding}>
+      {offers && <Offers />}
+      {title && <Text lineHeight={'1.25'} font='PFont-Bold' bold='bold' justify='center' color={color} size={size} margin='30px auto' align='center'>{title}</Text>}
+      {Button && <RippleButton padding='0 15px' size='15px' family='PFont-Regular' bgColor={bgColor} minHeight='3em' widthButton={width} border='624.9375rem' height='calc(100% + .625rem)' >{TextBtn}</RippleButton>}
+    </Banner>
+  )
+}
+
+OnBanner.propTypes = {
+  title: PropTypes.string,
+  height: PropTypes.string,
+  children: PropTypes.array,
+  Button: PropTypes.bool,
+  color: PropTypes.string,
+  size: PropTypes.string,
+  TextBtn: PropTypes.string,
+  width: PropTypes.string,
+  bgColor: PropTypes.string
+}
+Banner.propTypes = {
+
+}
